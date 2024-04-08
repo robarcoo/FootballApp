@@ -51,7 +51,7 @@ fun SignInScreen() {
                 CommonTextField(placeholder = stringResource(R.string.enterEmailorPhone))
                 CommonTextField(
                     placeholder = stringResource(R.string.enterPass),
-                    image = R.drawable.ic_eye_slash_24,
+                    imageTrail = R.drawable.ic_eye_slash_24,
                     isPassword = true
                 )
             }

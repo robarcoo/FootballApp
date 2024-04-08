@@ -59,7 +59,7 @@ fun SignUpStepTwoScreen() {
                 placeholder = "",
                 keyBoard = KeyboardType.Text,
                 color = GrayAccounts,
-                image = R.drawable.ic_eye_slash_24,
+                imageTrail = R.drawable.ic_eye_slash_24,
                 isPassword = true
             )
 
@@ -72,7 +72,7 @@ fun SignUpStepTwoScreen() {
                 placeholder = "",
                 keyBoard = KeyboardType.Text,
                 color = GrayAccounts,
-                image = R.drawable.ic_eye_slash_24,
+                imageTrail = R.drawable.ic_eye_slash_24,
                 isPassword = true
             )
         }

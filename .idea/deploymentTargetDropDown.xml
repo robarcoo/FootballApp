@@ -2,45 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="SignInPage">
+      <entry key="CheckBoxGroup">
         <State />
       </entry>
-      <entry key="SignUpCodePage">
+      <entry key="CommonCheckBox">
         <State />
       </entry>
-      <entry key="SignUpStepOnePage">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-07T09:57:39.182158300Z" />
-        </State>
+      <entry key="EnterInfoScreen">
+        <State />
       </entry>
-      <entry key="SignUpStepTwoPage">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-07T09:51:42.423642700Z" />
-        </State>
-      </entry>
-      <entry key="SquareTextField">
+      <entry key="SignInScreen">
         <State />
       </entry>
       <entry key="app">
@@ -58,6 +29,9 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-05T07:44:50.268651100Z" />
         </State>
+      </entry>
+      <entry key="menu">
+        <State />
       </entry>
     </value>
   </component>

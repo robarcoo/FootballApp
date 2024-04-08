@@ -1,12 +1,11 @@
 package com.example.footballplayassistant.presentation.customviews
 
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -24,27 +23,39 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.ui.theme.GrayText
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.ui.theme.GrayText
 
 
 @Composable
-fun CommonTextField(placeholder: String, image: Int = 0, keyBoard: KeyboardType = KeyboardType.Email, isPassword: Boolean = false, color: Color = Color.White){
-    val textValue = remember{mutableStateOf("")}
+fun CommonTextField(
+    placeholder: String,
+    imageTrail: Int = 0,
+    imageStart: Int = 0,
+    singleLine: Boolean = true,
+    keyBoard: KeyboardType = KeyboardType.Email,
+    isPassword: Boolean = false,
+    color: Color = Color.White,
+    cornerRadius: Dp = 60.dp,
+    maxLength: Int = 40,
+    value: String = "",
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
+) {
+    val textValue = remember { mutableStateOf("") }
 
-    var icon by remember { mutableIntStateOf(image) }
+    var icon by remember { mutableIntStateOf(imageTrail) }
     var isPass by remember { mutableStateOf(isPassword) }
     val trailingIconView = @Composable {
         IconButton(
             onClick = {
-                 if(icon == R.drawable.ic_eye_slash_24) {
-                     icon = R.drawable.ic_eye_24
-                     isPass=false
-                }
-                else {
-                     icon =R.drawable.ic_eye_slash_24
-                     isPass = true
+                if (icon == R.drawable.ic_eye_slash_24) {
+                    icon = R.drawable.ic_eye_24
+                    isPass = false
+                } else if(icon == R.drawable.ic_eye_24) {
+                    icon = R.drawable.ic_eye_slash_24
+                    isPass = true
                 }
             },
         ) {
@@ -56,10 +67,26 @@ fun CommonTextField(placeholder: String, image: Int = 0, keyBoard: KeyboardType 
     }
 
     TextField(
-        value = textValue.value, onValueChange = {newText -> textValue.value = newText},
-        placeholder = { Text(text = placeholder) },
-        singleLine = true,
-        shape = RoundedCornerShape(60.dp),
+        value = if(value=="") textValue.value else value,
+        onValueChange = {
+                if (it.length <= maxLength) {
+                    textValue.value = it
+                }
+        },
+        placeholder = {
+            if (imageStart != 0)
+                Row {
+                    Icon(
+                        painter = painterResource(id = imageStart),
+                        contentDescription = "", modifier = Modifier.padding(end = 4.dp)
+                    )
+                    Text(text = placeholder)
+                }
+            else
+                Text(text = placeholder)
+        },
+        singleLine = singleLine,
+        shape = RoundedCornerShape(cornerRadius),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
@@ -70,8 +97,10 @@ fun CommonTextField(placeholder: String, image: Int = 0, keyBoard: KeyboardType 
             unfocusedTextColor = Color.Black
         ),
 
-        modifier = Modifier.fillMaxWidth().padding(10.dp),
-        trailingIcon = { if(image!=0) trailingIconView()},
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        trailingIcon = { if (imageTrail != 0) trailingIconView() },
         visualTransformation = if (isPass) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard)
     )
