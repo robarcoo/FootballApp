@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.pages
+package com.example.footballplayassistant.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonButton
 import com.example.footballplayassistant.ui.theme.BlackBackground
-import com.example.footballplayassistant.ui.theme.Green
 
 @Composable
 @Preview
