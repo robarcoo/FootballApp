@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">FootballPlayAssistant</string>
+    <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
+    <string name="rules">&#032;Правилами и условиями&#032;</string>
+    <string name="politic">&#032;Положением конфиденциальности</string>
+    <string name="signwith">Войти с помощью номера телефона или\n почты</string>
+    <string name="questionNoAcc">Нет аккаунта?</string>
+    <string name="questionAcc">Есть аккаунт?</string>
+    <string name="signin">Войти</string>
+    <string name="signup">Зарегистрироваться</string>
+    <string name="enterEmailorPhone">Введите почту или телефон</string>
+    <string name="enterEmail">Введите почту</string>
+    <string name="enterPhone">Введите телефон</string>
+    <string name="enterPass">Введите пароль</string>
+    <string name="choosenPhone">На указанный номер телефона придет код подтверждения</string>
+    <string name="choosenEmail">На указанный адрес электронной почты придет код подтверждения</string>
+    <string name="sendCode">Отправить код</string>
+    <string name="phoneCode">Код отправлен на номер</string>
+    <string name="emailCode">Код отправлен на почту</string>
+    <string name="repeatCode">Отправить код повторно через</string>
+    <string name="writeInfo">Заполните информацию</string>
+    <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
+    <string name="createPass">Придумайте пароль</string>
+    <string name="repeatPass">Подтвердите пароль</string>
+    <string name="next">Далее</string>
+    <string name="nick">Ник</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="email">Почта</string>
+</resources>
