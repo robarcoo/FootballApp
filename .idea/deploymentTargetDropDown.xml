@@ -2,13 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CheckBoxGroup">
-        <State />
-      </entry>
-      <entry key="CommonCheckBox">
+      <entry key="BottomBar">
         <State />
       </entry>
       <entry key="EnterInfoScreen">
+        <State />
+      </entry>
+      <entry key="MainScreen">
         <State />
       </entry>
       <entry key="SignInScreen">

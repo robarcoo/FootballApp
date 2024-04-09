@@ -35,6 +35,17 @@
     <string name="tellYourself">Расскажите о себе</string>
     <string name="position">Ваша предпочитаемая позиция</string>
 
+    <string name="money">Ваш баланс</string>
+    <string name="mygames">Мои игры</string>
+    <string name="news">Новости</string>
+    <string name="all">Все</string>
+    <string name="showmore">Показать ещё</string>
+    <string name="home">Главная</string>
+    <string name="search">Поиск</string>
+    <string name="calendar">Календарь</string>
+    <string name="profile">Профиль</string>
+    <string name="youhost">Вы являетесь хостом игры:</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>
