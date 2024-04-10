@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.screens
+package com.example.footballplayassistant.presentation.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -35,14 +37,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.HeaderAuthentication
-import com.example.footballplayassistant.presentation.customviews.HeaderSignUpCode
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpCode
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 @Preview
 fun SignUpCodePage() {
-    val (item1, item2,item3,item4) = remember { FocusRequester.createRefs() }
+    val (item1, item2, item3, item4) =
+        remember { FocusRequester.createRefs() }
     val focusManager = LocalFocusManager.current
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -50,19 +53,21 @@ fun SignUpCodePage() {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = stringResource(R.string.phoneCode/*or emailCode*/),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            SquareTextField(item1, item2, focusManager)
-            SquareTextField(item2, item3, focusManager)
-            SquareTextField(item3, item4, focusManager)
-            SquareTextField(item4, item1, focusManager)
+            SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
+            SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
+            SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
+            SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = stringResource(R.string.repeatCode),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -71,7 +76,11 @@ fun SignUpCodePage() {
 }
 
 @Composable
-fun SquareTextField(itemStart: FocusRequester, itemNext: FocusRequester, focusManager: FocusManager) {
+fun SquareTextField(
+    itemStart: FocusRequester,
+    itemNext: FocusRequester,
+    focusManager: FocusManager
+) {
     val textValue = remember { mutableStateOf("") }
     val maxChar = 1
 

@@ -10,6 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import com.example.footballplayassistant.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +42,12 @@ fun DropDownMenu(placeholder: String, imStart: Int = 0, imTrail: Int, values: Li
         ) {
             values.forEach { selectionOption ->
                 DropdownMenuItem(
-                    text = { Text(text = selectionOption) },
+                    text = {
+                        Text(
+                            text = selectionOption,
+                            fontFamily = FontFamily(Font(R.font.inter))
+                        )
+                    },
                     onClick = {
                         selectedOptionText = selectionOption
                         expanded = false

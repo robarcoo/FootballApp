@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.screens
+package com.example.footballplayassistant.presentation.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,17 +19,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.CommonButton
+import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.CommonCheckBox
 import com.example.footballplayassistant.presentation.customviews.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
-import com.example.footballplayassistant.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
 
 @Composable
 @Preview
@@ -43,6 +45,7 @@ fun EnterInfoScreen() {
         ) {
             Text(
                 text = stringResource(id = R.string.enterInfoYourself),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.W600,
                 textAlign = TextAlign.Center,
@@ -88,7 +91,9 @@ fun EnterInfoScreen() {
                 .weight(0.3f)
         ) {
             Text(
-                text = stringResource(id = R.string.position), fontSize = 16.sp,
+                text = stringResource(id = R.string.position),
+                fontFamily = FontFamily(Font(R.font.inter)),
+                fontSize = 16.sp,
                 fontWeight = FontWeight.W500,
             )
             CheckBoxGroup()
@@ -102,13 +107,18 @@ fun EnterInfoScreen() {
         ) {
             CommonButton(
                 text = "Сохранить",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.W500,
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(start = 16.dp, end = 8.dp)
                     .align(Alignment.CenterVertically)
             )
             CommonButton(
-                text = "Пропустить", containerColor = Color.White,
+                text = "Пропустить",
+                containerColor = Color.White,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.W500,
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(end = 16.dp)

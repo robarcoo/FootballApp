@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.rows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +38,7 @@ fun BottomRowDateTimeMoney(
             )
             Text(
                 text = date,
+                fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W500,
                 fontSize = 12.sp,
                 modifier = Modifier
@@ -50,6 +53,7 @@ fun BottomRowDateTimeMoney(
             )
             Text(
                 text = time,
+                fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W500,
                 fontSize = 12.sp,
                 modifier = Modifier
@@ -60,6 +64,7 @@ fun BottomRowDateTimeMoney(
 
         Text(
             text = "$price ₽",
+            fontFamily = FontFamily(Font(R.font.inter)),
             fontWeight = FontWeight.W600,
             fontSize = 12.sp,
             modifier = Modifier

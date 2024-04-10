@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.screens
+package com.example.footballplayassistant.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,20 +11,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.BlockRules
-import com.example.footballplayassistant.presentation.customviews.BottomQuestion
-import com.example.footballplayassistant.presentation.customviews.CommonButton
+import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
+import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
+import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.CommonTextField
-import com.example.footballplayassistant.presentation.customviews.ForgotPassword
-import com.example.footballplayassistant.presentation.customviews.HeaderAuthentication
-import com.example.footballplayassistant.presentation.customviews.HeaderSignIn
-import com.example.footballplayassistant.presentation.customviews.SignInWithAccounts
+import com.example.footballplayassistant.presentation.customviews.buttons.ForgotPassword
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
+import com.example.footballplayassistant.presentation.customviews.buttons.SignInWithAccounts
 
 @Composable
 @Preview
@@ -42,6 +44,7 @@ fun SignInScreen() {
                 Column(modifier = Modifier.align(Alignment.CenterHorizontally)) {
                     Text(
                         text = stringResource(R.string.signwith),
+                        fontFamily = FontFamily(Font(R.font.inter)),
                         fontWeight = FontWeight.W400,
                         fontSize = 16.sp,
                         maxLines = 2,

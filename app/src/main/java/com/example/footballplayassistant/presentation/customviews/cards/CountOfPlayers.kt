@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -8,8 +8,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.footballplayassistant.ui.theme.GrayC9
-import com.example.footballplayassistant.ui.theme.Green
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.theme.GrayC9
+import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Modifier) {
@@ -25,8 +28,7 @@ fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Mo
             modifier = Modifier
                 .fillMaxWidth(), horizontalArrangement = Arrangement.Center
         ) {
-            Text(text = "$currentPlayers/$maxPlayers")
+            Text(text = "$currentPlayers/$maxPlayers", fontFamily = FontFamily(Font(R.font.inter)))
         }
-
     }
 }

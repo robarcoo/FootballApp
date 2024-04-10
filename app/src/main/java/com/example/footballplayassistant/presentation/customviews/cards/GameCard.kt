@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,22 +15,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
+import com.example.footballplayassistant.presentation.customviews.rows.FotoAndName
+import com.example.footballplayassistant.presentation.ui.theme.GrayText
 
 @Composable
-fun GameCard(place: String, host: String, modifier:Modifier = Modifier) {
-
-    Card(modifier = modifier
-        .fillMaxWidth()
-        .padding(vertical = 8.dp)) {
+fun GameCard(place: String, host: String, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-            if(host==""){
+            if (host == "") {
                 Text(
                     text = stringResource(id = R.string.youhost),
+                    fontFamily = FontFamily(Font(R.font.inter)),
                     fontWeight = FontWeight.W600,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(vertical = 8.dp)
@@ -38,6 +44,7 @@ fun GameCard(place: String, host: String, modifier:Modifier = Modifier) {
                 Row(modifier = Modifier.padding(vertical = 8.dp)) {
                     Text(
                         text = place,
+                        fontFamily = FontFamily(Font(R.font.inter)),
                         fontWeight = FontWeight.W400,
                         fontSize = 14.sp,
                         modifier = Modifier
@@ -51,10 +58,11 @@ fun GameCard(place: String, host: String, modifier:Modifier = Modifier) {
                     )
                 }
                 Divider(modifier = Modifier.padding(vertical = 8.dp))
-            }else{
+            } else {
                 Row {
                     Text(
                         text = place,
+                        fontFamily = FontFamily(Font(R.font.inter)),
                         fontWeight = FontWeight.W500,
                         fontSize = 16.sp,
                         maxLines = 2,
@@ -63,16 +71,19 @@ fun GameCard(place: String, host: String, modifier:Modifier = Modifier) {
                             .weight(0.75f)
                             .padding(vertical = 12.dp)
                     )
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.25f)
-                        .padding(top = 12.dp), horizontalArrangement = Arrangement.End) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.25f)
+                            .padding(top = 12.dp), horizontalArrangement = Arrangement.End
+                    ) {
                         Image(
                             imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_24),
                             contentDescription = ""
                         )
                         Text(
                             text = "100км",
+                            fontFamily = FontFamily(Font(R.font.inter)),
                             fontWeight = FontWeight.W500,
                             fontSize = 14.sp,
                             color = GrayText

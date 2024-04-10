@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.buttons
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
@@ -24,6 +26,7 @@ fun ShowMore(modifier: Modifier = Modifier) {
             onClick = { /*TODO*/ }) {
             Text(
                 text = stringResource(id = R.string.showmore),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 color = Color.Black,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.W600

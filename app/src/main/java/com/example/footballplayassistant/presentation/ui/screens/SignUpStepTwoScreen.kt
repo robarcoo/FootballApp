@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.screens
+package com.example.footballplayassistant.presentation.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,18 +12,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.BlockRules
-import com.example.footballplayassistant.presentation.customviews.BottomQuestion
-import com.example.footballplayassistant.presentation.customviews.CommonButton
+import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
+import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
+import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.CommonTextField
-import com.example.footballplayassistant.presentation.customviews.HeaderAuthentication
-import com.example.footballplayassistant.presentation.customviews.HeaderSignUpStep
-import com.example.footballplayassistant.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
+import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
 
 @Composable
 @Preview
@@ -39,6 +41,7 @@ fun SignUpStepTwoScreen() {
             Text(
                 text = stringResource(R.string.createRepeatPass),
                 textAlign = TextAlign.Center,
+                fontFamily = FontFamily(Font(R.font.inter)),
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.CenterVertically)
@@ -52,6 +55,7 @@ fun SignUpStepTwoScreen() {
         ) {
             Text(
                 text = addStar(id = R.string.createPass),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
@@ -65,6 +69,7 @@ fun SignUpStepTwoScreen() {
 
             Text(
                 text = addStar(id = R.string.repeatPass),
+                fontFamily = FontFamily(Font(R.font.inter)),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 

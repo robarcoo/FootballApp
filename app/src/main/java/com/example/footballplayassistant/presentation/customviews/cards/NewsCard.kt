@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -16,15 +16,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
+import com.example.footballplayassistant.presentation.customviews.rows.FotoAndName
+import com.example.footballplayassistant.presentation.ui.theme.GrayText
 
 @Composable
 fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
-
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -43,6 +46,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
             Row(modifier = Modifier.padding(vertical = 12.dp)) {
                 Text(
                     text = place,
+                    fontFamily = FontFamily(Font(R.font.inter)),
                     fontWeight = FontWeight.W500,
                     fontSize = 16.sp,
                     maxLines = 2,
@@ -61,6 +65,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                     )
                     Text(
                         text = "100км",
+                        fontFamily = FontFamily(Font(R.font.inter)),
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
                         color = GrayText

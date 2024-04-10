@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FootballPlayAssistant</string>
+    <string name="takePart">Принимайте участие в матчах, созданных другими игроками или создайте свои собственные события</string>
     <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
     <string name="rules">&#032;Правилами и условиями&#032;</string>
     <string name="politic">&#032;Положением конфиденциальности</string>

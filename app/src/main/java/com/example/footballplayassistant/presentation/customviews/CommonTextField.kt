@@ -20,13 +20,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.GrayText
 
 
 @Composable
@@ -53,7 +55,7 @@ fun CommonTextField(
                 if (icon == R.drawable.ic_eye_slash_24) {
                     icon = R.drawable.ic_eye_24
                     isPass = false
-                } else if(icon == R.drawable.ic_eye_24) {
+                } else if (icon == R.drawable.ic_eye_24) {
                     icon = R.drawable.ic_eye_slash_24
                     isPass = true
                 }
@@ -67,11 +69,11 @@ fun CommonTextField(
     }
 
     TextField(
-        value = if(value=="") textValue.value else value,
+        value = if (value == "") textValue.value else value,
         onValueChange = {
-                if (it.length <= maxLength) {
-                    textValue.value = it
-                }
+            if (it.length <= maxLength) {
+                textValue.value = it
+            }
         },
         placeholder = {
             if (imageStart != 0)
@@ -80,10 +82,10 @@ fun CommonTextField(
                         painter = painterResource(id = imageStart),
                         contentDescription = "", modifier = Modifier.padding(end = 4.dp)
                     )
-                    Text(text = placeholder)
+                    Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
                 }
             else
-                Text(text = placeholder)
+                Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
         },
         singleLine = singleLine,
         shape = RoundedCornerShape(cornerRadius),
@@ -101,7 +103,9 @@ fun CommonTextField(
             .fillMaxWidth()
             .padding(10.dp),
         trailingIcon = { if (imageTrail != 0) trailingIconView() },
-        visualTransformation = if (isPass) PasswordVisualTransformation() else VisualTransformation.None,
+        visualTransformation =
+        if (isPass) PasswordVisualTransformation()
+        else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard)
     )
 }

@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.screens
+package com.example.footballplayassistant.presentation.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -29,15 +29,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.AllButton
-import com.example.footballplayassistant.presentation.customviews.GameCard
-import com.example.footballplayassistant.presentation.customviews.HeaderUser
-import com.example.footballplayassistant.presentation.customviews.MoneyCard
-import com.example.footballplayassistant.presentation.customviews.NewsCard
-import com.example.footballplayassistant.presentation.customviews.ShowMore
+import com.example.footballplayassistant.presentation.customviews.buttons.AllButton
+import com.example.footballplayassistant.presentation.customviews.cards.GameCard
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
+import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
+import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
+import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -96,14 +98,7 @@ fun MainScreen() {
                 }
             }
         }
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .fillMaxHeight()
-//                .weight(0.1f)
-//        ) {
         BottomBar()
-//        }
     }
 }
 
@@ -120,8 +115,11 @@ private fun BottomBar() {
         contentAlignment = Alignment.Center
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            Button(modifier = Modifier.align(Alignment.CenterVertically),
-                colors = if (number.value == 1) ButtonDefaults.buttonColors(containerColor = Color.White) else ButtonDefaults.buttonColors(
+            Button(
+                modifier = Modifier.align(Alignment.CenterVertically),
+                colors =
+                if (number.value == 1) ButtonDefaults.buttonColors(containerColor = Color.White)
+                else ButtonDefaults.buttonColors(
                     containerColor = Color.Black
                 ),
                 onClick = { number.value = 1 }) {
@@ -133,6 +131,7 @@ private fun BottomBar() {
                         )
                         Text(
                             text = stringResource(id = R.string.home),
+                            fontFamily = FontFamily(Font(R.font.inter)),
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = Color.Black
                         )
@@ -157,6 +156,7 @@ private fun BottomBar() {
                         )
                         Text(
                             text = stringResource(id = R.string.search),
+                            fontFamily = FontFamily(Font(R.font.inter)),
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = Color.Black
                         )
@@ -168,7 +168,9 @@ private fun BottomBar() {
                 }
             }
             Button(modifier = Modifier.align(Alignment.CenterVertically),
-                colors = if (number.value == 3) ButtonDefaults.buttonColors(containerColor = Color.White) else ButtonDefaults.buttonColors(
+                colors =
+                if (number.value == 3) ButtonDefaults.buttonColors(containerColor = Color.White)
+                else ButtonDefaults.buttonColors(
                     containerColor = Color.Black
                 ),
                 onClick = { number.value = 3 }) {
@@ -180,6 +182,7 @@ private fun BottomBar() {
                         )
                         Text(
                             text = stringResource(id = R.string.calendar),
+                            fontFamily = FontFamily(Font(R.font.inter)),
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = Color.Black
                         )
@@ -191,7 +194,9 @@ private fun BottomBar() {
                 }
             }
             Button(modifier = Modifier.align(Alignment.CenterVertically),
-                colors = if (number.value == 4) ButtonDefaults.buttonColors(containerColor = Color.White) else ButtonDefaults.buttonColors(
+                colors =
+                if (number.value == 4) ButtonDefaults.buttonColors(containerColor = Color.White)
+                else ButtonDefaults.buttonColors(
                     containerColor = Color.Black
                 ),
                 onClick = { number.value = 4 }) {
@@ -203,6 +208,7 @@ private fun BottomBar() {
                         )
                         Text(
                             text = stringResource(id = R.string.profile),
+                            fontFamily = FontFamily(Font(R.font.inter)),
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = Color.Black
                         )
@@ -215,5 +221,4 @@ private fun BottomBar() {
             }
         }
     }
-
 }
