@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.checkboxes
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -17,7 +17,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
-fun CommonCheckBox(
+fun CommonCheckBoxPositions(
     text: String,
     isSelectedOption: Boolean,
     onSelectOption: (String) -> Unit

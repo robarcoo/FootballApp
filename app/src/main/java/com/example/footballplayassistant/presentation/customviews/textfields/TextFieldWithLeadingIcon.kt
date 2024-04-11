@@ -1,7 +1,6 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.textfields
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,50 +15,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.GrayText
 
-
 @Composable
-fun CommonTextField(
+fun TextFieldWithLeadingIcon(
     placeholder: String,
     imageTrail: Int = 0,
     imageStart: Int = 0,
-    singleLine: Boolean = true,
     keyBoard: KeyboardType = KeyboardType.Email,
-    isPassword: Boolean = false,
-    color: Color = Color.White,
-    cornerRadius: Dp = 60.dp,
-    maxLength: Int = 40,
     value: String = "",
+    color: Color = Color.White,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val textValue = remember { mutableStateOf("") }
 
-    var icon by remember { mutableIntStateOf(imageTrail) }
-    var isPass by remember { mutableStateOf(isPassword) }
+    val icon by remember { mutableIntStateOf(imageTrail) }
     val trailingIconView = @Composable {
         IconButton(
-            onClick = {
-                if (icon == R.drawable.ic_eye_slash_24) {
-                    icon = R.drawable.ic_eye_24
-                    isPass = false
-                } else if (icon == R.drawable.ic_eye_24) {
-                    icon = R.drawable.ic_eye_slash_24
-                    isPass = true
-                }
-            },
+            onClick = {},
         ) {
             Icon(
                 painter = painterResource(id = icon),
@@ -71,24 +52,13 @@ fun CommonTextField(
     TextField(
         value = if (value == "") textValue.value else value,
         onValueChange = {
-            if (it.length <= maxLength) {
-                textValue.value = it
-            }
+            textValue.value = it
         },
         placeholder = {
-            if (imageStart != 0)
-                Row {
-                    Icon(
-                        painter = painterResource(id = imageStart),
-                        contentDescription = "", modifier = Modifier.padding(end = 4.dp)
-                    )
-                    Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
-                }
-            else
-                Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
+            Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
         },
-        singleLine = singleLine,
-        shape = RoundedCornerShape(cornerRadius),
+        singleLine = true,
+        shape = RoundedCornerShape(60.dp),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
@@ -96,17 +66,20 @@ fun CommonTextField(
             focusedTextColor = Color.Black,
             unfocusedPlaceholderColor = GrayText,
             focusedPlaceholderColor = GrayText,
-            unfocusedTextColor = Color.Black
+            unfocusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent
         ),
 
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(vertical = 10.dp),
         trailingIcon = { if (imageTrail != 0) trailingIconView() },
-        visualTransformation =
-        if (isPass) PasswordVisualTransformation()
-        else VisualTransformation.None,
-        keyboardOptions = KeyboardOptions(keyboardType = keyBoard)
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = imageStart),
+                contentDescription = ""
+            )
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = keyBoard),
     )
 }
-

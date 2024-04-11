@@ -2,16 +2,16 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="EnterInfoScreen (1)">
+      <entry key="CheckBoxInventory">
         <State />
       </entry>
-      <entry key="SignInScreen">
+      <entry key="CreateEventScreen">
         <State />
       </entry>
-      <entry key="SignUpStepTwoScreen">
+      <entry key="RadioButtonGroup">
         <State />
       </entry>
-      <entry key="StartScreen">
+      <entry key="SignUpStepOneScreen">
         <State />
       </entry>
       <entry key="app">
@@ -30,7 +30,7 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-05T07:44:50.268651100Z" />
         </State>
       </entry>
-      <entry key="menu">
+      <entry key="bat">
         <State />
       </entry>
     </value>

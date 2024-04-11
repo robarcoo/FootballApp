@@ -35,6 +35,7 @@ private val LightColorScheme = lightColorScheme(
     tertiaryContainer = GrayC9,
     onTertiaryContainer = Black04,
     background = Color.White,
+    onBackground = Yellow00
 
 //    secondary = PurpleGrey40,
 //    tertiary = Pink40

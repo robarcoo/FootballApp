@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.customviews.CommonCheckBox
-import com.example.footballplayassistant.presentation.customviews.CommonTextField
+import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxPositions
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
 
@@ -140,7 +140,7 @@ private fun CheckBoxGroup() {
 
     Column(Modifier.selectableGroup()) {
         positions.forEach { text ->
-            CommonCheckBox(
+            CommonCheckBoxPositions(
                 text = text,
                 isSelectedOption = (selectedOption == text),
                 onSelectOption = onOptionSelected

@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -30,11 +29,12 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.customviews.CommonTextField
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
 import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
 import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
 @Preview
@@ -136,7 +136,7 @@ fun addStar(id: Int): AnnotatedString {
         pushStringAnnotation(tag = "star", annotation = "star")
         withStyle(
             SpanStyle(
-                color = Color.Yellow,
+                color = Yellow00,
                 fontFamily = FontFamily(Font(R.font.inter)),
             )
         ) {

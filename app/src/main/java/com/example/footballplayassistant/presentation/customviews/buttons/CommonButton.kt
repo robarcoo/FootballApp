@@ -14,14 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayButtonContainer
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun CommonButton(
     text: String,
     containerColor: Color = Green,//MaterialTheme.colorScheme.secondary,
-    contentColor: Color = GrayButtonContainer,//MaterialTheme.colorScheme.primary,
+    contentColor: Color = Color.Black,//MaterialTheme.colorScheme.primary,
     fontSize: TextUnit = 18.sp,
     fontWeight: FontWeight = FontWeight.W600,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier

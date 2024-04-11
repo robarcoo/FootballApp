@@ -47,6 +47,34 @@
     <string name="profile">Профиль</string>
     <string name="youhost">Вы являетесь хостом игры:</string>
 
+    <string name="addGame">Создать игру</string>
+    <string name="closeGame">Закрытая игра</string>
+    <string name="iWill">Я буду играть</string>
+    <string name="field">Футбольное поле</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="details">Детали события</string>
+    <string name="start">Начало</string>
+    <string name="end">Конец</string>
+    <string name="title">Название</string>
+    <string name="otherInfo">Дополнительная информация</string>
+    <string name="countPlayers">Количество игроков</string>
+    <string name="minCountPlayers">Мин. количество игроков</string>
+    <string name="sexPlayers">Пол участников</string>
+    <string name="men">Мужчины</string>
+    <string name="women">Женщины</string>
+    <string name="mw">М/Ж</string>
+    <string name="inventory">Инвентарь</string>
+    <string name="manish">Манишки</string>
+    <string name="ball">Мяч</string>
+    <string name="noInventory">Нет инвентаря</string>
+    <string name="costEntry">Стоимость входа</string>
+    <string name="cost">Стоимость</string>
+    <string name="commission">Комиссия</string>
+    <string name="agree">Вы подтверждаете, что зарезервировали поле на данную дату и время</string>
+    <string name="addEvent">Создать событие</string>
+    <string name="cantCancel">До начала события меньше 24 часов, поэтому вы не можете отменить участие в матче</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>
