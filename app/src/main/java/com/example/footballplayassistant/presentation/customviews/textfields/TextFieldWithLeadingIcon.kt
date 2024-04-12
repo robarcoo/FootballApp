@@ -33,6 +33,7 @@ fun TextFieldWithLeadingIcon(
     keyBoard: KeyboardType = KeyboardType.Email,
     value: String = "",
     color: Color = Color.White,
+    onTrailClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val textValue = remember { mutableStateOf("") }
@@ -40,7 +41,7 @@ fun TextFieldWithLeadingIcon(
     val icon by remember { mutableIntStateOf(imageTrail) }
     val trailingIconView = @Composable {
         IconButton(
-            onClick = { },
+            onClick = { onTrailClick() },
         ) {
             Icon(
                 painter = painterResource(id = icon),

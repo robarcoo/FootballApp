@@ -1,5 +1,8 @@
 package com.example.footballplayassistant.presentation.ui.screens
 
+import android.content.Context
+import android.icu.util.Calendar
+import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +15,13 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -27,11 +32,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
-import com.example.footballplayassistant.presentation.customviews.DropDownMenu
+import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
 import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import java.util.Date
 
 @Composable
 @Preview
@@ -58,22 +65,27 @@ fun EnterInfoScreen() {
                 .fillMaxSize()
                 .weight(0.4f)
         ) {
-            DropDownMenu(
+            val context = LocalContext.current
+            val date = remember { mutableStateOf("") }
+
+            TextFieldWithLeadingIcon(
                 placeholder = stringResource(id = R.string.birthday),
-                imStart = R.drawable.ic_calendar_22,
-                imTrail = R.drawable.ic_arrow_menu_18_10,
-                values = listOf("one", "two")
+                imageStart = R.drawable.ic_calendar_22,
+                imageTrail = R.drawable.ic_arrow_menu_18_10,
+                value = date.value,
+                onTrailClick = { openCalendar(context, date)
+                }
             )
             DropDownMenu(
                 placeholder = stringResource(id = R.string.sex),
                 imStart = R.drawable.ic_sex_23,
                 imTrail = R.drawable.ic_arrow_menu_18_10,
-                values = listOf("М", "Ж")
+                values = listOf("Мужчина", "Женщина")
             )
             DropDownMenu(
                 placeholder = stringResource(id = R.string.levelPlay),
                 imTrail = R.drawable.ic_arrow_menu_18_10,
-                values = listOf("Низкий", "Средний", "Высокий")
+                values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
             )
             CommonTextField(
                 placeholder = stringResource(id = R.string.tellYourself),
@@ -149,6 +161,32 @@ private fun CheckBoxGroup() {
     }
 }
 
+private fun openCalendar(context: Context, date: MutableState<String>){
+    val m_context = context
+
+    val year: Int
+    val month: Int
+    val day: Int
+
+    val calendar = Calendar.getInstance()
+
+    year = calendar.get(Calendar.YEAR)
+    month = calendar.get(Calendar.MONTH)
+    day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    calendar.time = Date()
+
+    val Date = date
+
+    val mDatePickerDialog = android.app.DatePickerDialog(
+        m_context,
+        { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
+            Date.value = "$mDayOfMonth.${mMonth + 1}.$mYear"
+        }, year, month, day
+    )
+
+    mDatePickerDialog.show()
+}
 
 
 
