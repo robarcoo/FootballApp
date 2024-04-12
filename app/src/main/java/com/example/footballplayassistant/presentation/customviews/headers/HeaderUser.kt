@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun HeaderUser(name: String, modifier: Modifier = Modifier) {
@@ -47,7 +47,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W500,
                 fontSize = 12.sp,
-                color = GrayText
+                color = Gray75
             )
             Text(
                 text = name,
@@ -62,7 +62,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .weight(0.3f)
                 .height(42.dp)
-                .border(width = 1.dp, color = GrayText, RoundedCornerShape(40.dp))
+                .border(width = 1.dp, color = Gray75, RoundedCornerShape(40.dp))
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
@@ -76,7 +76,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                     .fillMaxHeight()
                     .padding(vertical = 8.dp)
                     .width(1.dp),
-                color = GrayText
+                color = Gray75
             )
 
             IconButton(onClick = { /*TODO*/ }) {

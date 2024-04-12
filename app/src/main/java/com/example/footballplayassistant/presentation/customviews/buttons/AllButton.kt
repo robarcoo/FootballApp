@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun AllButton(text: String, modifier: Modifier = Modifier) {
@@ -32,7 +32,7 @@ fun AllButton(text: String, modifier: Modifier = Modifier) {
         Button(modifier = Modifier.align(Alignment.CenterVertically),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Transparent,
-                contentColor = GrayText
+                contentColor = Gray75
             ),
             onClick = { /*TODO*/ }) {
             Text(

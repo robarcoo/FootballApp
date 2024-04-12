@@ -2,17 +2,59 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="CheckBoxInventory">
-        <State />
+      <entry key="CheckBoxFriend">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Anastossi\.android\avd\Small_Phone_API_24.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-12T09:52:56.625328700Z" />
+        </State>
       </entry>
       <entry key="CreateEventScreen">
         <State />
       </entry>
-      <entry key="RadioButtonGroup">
+      <entry key="DialogWithImage">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-12T08:52:20.057636Z" />
+        </State>
+      </entry>
+      <entry key="EnterInfoScreen">
         <State />
       </entry>
-      <entry key="SignUpStepOneScreen">
-        <State />
+      <entry key="InviteFriendsScreen">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-12T10:49:28.169348600Z" />
+        </State>
       </entry>
       <entry key="app">
         <State>
@@ -29,9 +71,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-05T07:44:50.268651100Z" />
         </State>
-      </entry>
-      <entry key="bat">
-        <State />
       </entry>
     </value>
   </component>

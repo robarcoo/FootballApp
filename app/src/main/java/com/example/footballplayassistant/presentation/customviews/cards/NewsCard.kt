@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
-import com.example.footballplayassistant.presentation.customviews.rows.FotoAndName
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
@@ -36,7 +36,12 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Row {
-                FotoAndName(text = "хост", name = name, modifier = Modifier.weight(0.85f))
+                FotoAndNameForCard(
+                    text = "хост",
+                    name = name,
+                    foto = R.drawable.user_foto,
+                    modifier = Modifier.weight(0.85f)
+                )
                 CountOfPlayers(
                     currentPlayers = 10, maxPlayers = 10, modifier = Modifier
                         .weight(0.15f)
@@ -68,7 +73,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                         fontFamily = FontFamily(Font(R.font.inter)),
                         fontWeight = FontWeight.W500,
                         fontSize = 14.sp,
-                        color = GrayText
+                        color = Gray75
                     )
                 }
             }

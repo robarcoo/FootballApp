@@ -33,7 +33,7 @@ import com.example.footballplayassistant.presentation.customviews.textfields.Com
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
 import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
@@ -52,7 +52,7 @@ fun SignUpStepOneScreen() {
         ) {
             Text(
                 text = stringResource(R.string.writeInfo), textAlign = TextAlign.Center,
-                color = GrayText, fontWeight = FontWeight.W400, fontSize = 16.sp,
+                color = Gray75, fontWeight = FontWeight.W400, fontSize = 16.sp,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.CenterVertically)

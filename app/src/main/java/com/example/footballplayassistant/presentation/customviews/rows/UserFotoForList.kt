@@ -15,12 +15,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.GrayC9
 
 @Composable
-fun FotoAndName(text: String, name: String, modifier: Modifier = Modifier) {
+fun UserFotoForList(text: String, name: String, foto: Int,  modifier: Modifier = Modifier){
     Row(modifier = modifier.fillMaxWidth()) {
-        Image(painter = painterResource(id = R.drawable.user_foto), contentDescription = "")
+        Image(painter = painterResource(id = foto), contentDescription = "")
 
         Column(
             modifier = Modifier
@@ -29,17 +29,17 @@ fun FotoAndName(text: String, name: String, modifier: Modifier = Modifier) {
                 .padding(start = 10.dp)
         ) {
             Text(
+                text = name,
+                fontFamily = FontFamily(Font(R.font.inter)),
+                fontWeight = FontWeight.W500,
+                fontSize = 16.sp
+            )
+            Text(
                 text = text,
                 fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W500,
                 fontSize = 12.sp,
-                color = GrayText
-            )
-            Text(
-                text = name,
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight.W600,
-                fontSize = 16.sp
+                color = GrayC9
             )
         }
     }

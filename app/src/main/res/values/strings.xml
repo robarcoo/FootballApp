@@ -75,6 +75,10 @@
     <string name="addEvent">Создать событие</string>
     <string name="cantCancel">До начала события меньше 24 часов, поэтому вы не можете отменить участие в матче</string>
 
+    <string name="inviteFriend">Пригласить друзей</string>
+    <string name="invite">Пригласить</string>
+    <string name="cancel">Отмена</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>

@@ -35,7 +35,7 @@ import com.example.footballplayassistant.presentation.customviews.checkboxes.Che
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
 import com.example.footballplayassistant.presentation.ui.theme.GrayButtonContainer
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
@@ -168,7 +168,7 @@ fun CreateEventScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
-                        color = GrayText,
+                        color = Gray75,
                         modifier = Modifier
                             .weight(0.55f),
                     )
@@ -215,7 +215,7 @@ fun CreateEventScreen() {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         containerColor = GrayButtonContainer,
-                        contentColor = GrayText,
+                        contentColor = Gray75,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
             }

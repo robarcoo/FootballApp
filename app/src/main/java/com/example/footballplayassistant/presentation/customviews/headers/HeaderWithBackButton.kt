@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun HeaderWithBackButton(
@@ -30,14 +30,13 @@ fun HeaderWithBackButton(
     imageButton: Int = 0,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
-    val butt = false
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(modifier = Modifier.border(width = 1.dp, color = GrayText, shape = CircleShape),
+        IconButton(modifier = Modifier.border(width = 1.dp, color = Gray75, shape = CircleShape),
             onClick = { /*TODO*/ }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
@@ -53,10 +52,10 @@ fun HeaderWithBackButton(
             modifier = Modifier.align(Alignment.CenterVertically)
         )
 
-        if (butt)
+        if (imageButton != 0)
             IconButton(modifier = Modifier.border(
                 width = 1.dp,
-                color = GrayText,
+                color = Gray75,
                 shape = CircleShape
             ),
                 onClick = { /*TODO*/ }) {

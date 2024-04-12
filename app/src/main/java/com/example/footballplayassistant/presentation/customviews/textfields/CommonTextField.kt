@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 
 @Composable
@@ -95,8 +95,8 @@ fun CommonTextField(
             focusedContainerColor = color,
             unfocusedIndicatorColor = Color.Transparent,
             focusedTextColor = Color.Black,
-            unfocusedPlaceholderColor = GrayText,
-            focusedPlaceholderColor = GrayText,
+            unfocusedPlaceholderColor = Gray75,
+            focusedPlaceholderColor = Gray75,
             unfocusedTextColor = Color.Black,
             focusedIndicatorColor = Color.Transparent
         ),

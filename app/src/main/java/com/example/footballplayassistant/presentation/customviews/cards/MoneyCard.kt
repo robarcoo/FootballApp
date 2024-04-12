@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayText
+import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
@@ -33,7 +33,7 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxSize()
-            .border(width = 1.dp, color = GrayText, shape = RoundedCornerShape(12.dp))
+            .border(width = 1.dp, color = Gray75, shape = RoundedCornerShape(12.dp))
     ) {
         Row(
             modifier = Modifier
@@ -47,7 +47,7 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                     modifier = Modifier.padding(bottom = 8.dp),
                     fontWeight = FontWeight.W500,
                     fontSize = 12.sp,
-                    color = GrayText
+                    color = Gray75
                 )
                 Row {
                     Image(
