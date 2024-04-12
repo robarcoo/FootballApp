@@ -101,7 +101,11 @@ fun CreateEventScreen() {
                 }
             }
             item {
-                BoldText(addStar = false, id = R.string.details, modifier = Modifier.padding(top = 24.dp))
+                BoldText(
+                    addStar = false,
+                    id = R.string.details,
+                    modifier = Modifier.padding(top = 24.dp)
+                )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
                     color = GrayAccounts,
@@ -112,7 +116,9 @@ fun CreateEventScreen() {
                     color = GrayAccounts,
                     singleLine = false,
                     cornerRadius = 20.dp,
-                    modifier = Modifier.fillMaxHeight().padding(horizontal = 16.dp)
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(horizontal = 16.dp)
                 )
             }
             item {
@@ -126,7 +132,19 @@ fun CreateEventScreen() {
                     DropDownMenu(
                         placeholder = "",
                         imStart = R.drawable.ic_people_24,
-                        values = listOf("2", "22"),
+                        values = listOf(
+                            "2",
+                            "4",
+                            "6",
+                            "8",
+                            "10",
+                            "12",
+                            "14",
+                            "16",
+                            "18",
+                            "20",
+                            "22"
+                        ),
                         color = GrayAccounts,
                         modifier = Modifier.padding(end = 16.dp)
                     )
@@ -143,7 +161,19 @@ fun CreateEventScreen() {
                     DropDownMenu(
                         placeholder = "",
                         imStart = R.drawable.ic_people_24,
-                        values = listOf("2", "22"),
+                        values = listOf(
+                            "2",
+                            "4",
+                            "6",
+                            "8",
+                            "10",
+                            "12",
+                            "14",
+                            "16",
+                            "18",
+                            "20",
+                            "22"
+                        ),
                         color = GrayAccounts,
                         modifier = Modifier.padding(end = 16.dp)
                     )
@@ -181,7 +211,9 @@ fun CreateEventScreen() {
                     )
                 }
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                 ) {
                     CommonTextField(
                         placeholder = stringResource(id = R.string.cost),
@@ -220,7 +252,9 @@ fun CreateEventScreen() {
                     )
             }
             item {
-                Row(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp)) {
+                Row(modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp)) {
                     Text(
                         text = stringResource(id = R.string.cantCancel),
                         textAlign = TextAlign.Center

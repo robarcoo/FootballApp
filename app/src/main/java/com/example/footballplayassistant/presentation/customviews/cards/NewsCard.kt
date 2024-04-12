@@ -53,7 +53,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                     text = place,
                     fontFamily = FontFamily(Font(R.font.inter)),
                     fontWeight = FontWeight.W500,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     maxLines = 2,
                     modifier = Modifier
                         .fillMaxWidth()

@@ -63,7 +63,7 @@ fun BottomRowDateTimeMoney(
         }
 
         Text(
-            text = "$price ₽",
+            text = price,
             fontFamily = FontFamily(Font(R.font.inter)),
             fontWeight = FontWeight.W600,
             fontSize = 12.sp,

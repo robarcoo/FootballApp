@@ -45,8 +45,8 @@ fun GameCard(place: String, host: String, modifier: Modifier = Modifier) {
                     Text(
                         text = place,
                         fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight.W400,
-                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W500,
+                        fontSize = 16.sp,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(0.85f)
