@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.customviews
 
+import android.widget.Toast
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -37,12 +39,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.GrayC9
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
-fun CommonSwitch(text: String, icon: Boolean = false) {
+fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,7 +64,10 @@ fun CommonSwitch(text: String, icon: Boolean = false) {
             if (icon)
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
-                    contentDescription = ""
+                    contentDescription = "",
+                    modifier = Modifier.clickable {
+                        Toast.makeText(context, textIcon, Toast.LENGTH_SHORT).show()
+                    }
                 )
         }
 
@@ -116,7 +122,7 @@ fun CustomSwitchButton(
             .width(56.dp)
             .height(22.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(GrayAccounts)
+            .background(GrayF1)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null

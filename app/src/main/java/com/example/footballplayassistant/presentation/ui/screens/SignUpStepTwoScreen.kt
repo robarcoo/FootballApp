@@ -25,7 +25,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -62,7 +62,7 @@ fun SignUpStepTwoScreen() {
             CommonTextField(
                 placeholder = "",
                 keyBoard = KeyboardType.Text,
-                color = GrayAccounts,
+                color = GrayF1,
                 imageTrail = R.drawable.ic_eye_slash_24,
                 isPassword = true
             )
@@ -76,7 +76,7 @@ fun SignUpStepTwoScreen() {
             CommonTextField(
                 placeholder = "",
                 keyBoard = KeyboardType.Text,
-                color = GrayAccounts,
+                color = GrayF1,
                 imageTrail = R.drawable.ic_eye_slash_24,
                 isPassword = true
             )

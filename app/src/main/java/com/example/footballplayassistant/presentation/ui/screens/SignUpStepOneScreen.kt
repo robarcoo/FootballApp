@@ -32,7 +32,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
@@ -71,7 +71,7 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayAccounts)
+            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
 
             Text(
                 text = addStar(id = R.string.name),
@@ -79,7 +79,7 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayAccounts)
+            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
 
             Text(
                 text = addStar(id = R.string.surname),
@@ -87,7 +87,7 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayAccounts)
+            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
 
             Text(
                 text = addStar(id = R.string.email),
@@ -95,7 +95,7 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Email, color = GrayAccounts)
+            CommonTextField(placeholder = "", keyBoard = KeyboardType.Email, color = GrayF1)
         }
 
         CommonButton(

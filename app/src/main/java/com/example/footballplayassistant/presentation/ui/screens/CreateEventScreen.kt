@@ -33,8 +33,8 @@ import com.example.footballplayassistant.presentation.customviews.RadioButtonGro
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
-import com.example.footballplayassistant.presentation.ui.theme.GrayButtonContainer
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
+import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
@@ -51,15 +51,17 @@ fun CreateEventScreen() {
             modifier = Modifier.padding(vertical = 8.dp)
         )
         LazyColumn {
-            item { CommonSwitch(text = stringResource(id = R.string.closeGame), icon = true) }
-            item { CommonSwitch(text = stringResource(id = R.string.iWill), icon = true) }
+            item { CommonSwitch(text = stringResource(id = R.string.closeGame), icon = true,
+                textIcon = stringResource(id = R.string.closeGameToast)) }
+            item { CommonSwitch(text = stringResource(id = R.string.iWill), icon = true,
+                textIcon = stringResource(id = R.string.iWillToast)) }
             item {
                 BoldText(id = R.string.field, modifier = Modifier.padding(top = 24.dp))
 
                 DropDownMenu(
                     placeholder = "field",
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayAccounts,
+                    color = GrayF1,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -70,7 +72,7 @@ fun CreateEventScreen() {
                     placeholder = stringResource(id = R.string.date),
                     imStart = R.drawable.ic_calendar_22,
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayAccounts,
+                    color = GrayF1,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -88,7 +90,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 4.dp),
-                        color = GrayAccounts
+                        color = GrayF1
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.end),
@@ -96,7 +98,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 4.dp),
-                        color = GrayAccounts
+                        color = GrayF1
                     )
                 }
             }
@@ -108,12 +110,12 @@ fun CreateEventScreen() {
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
-                    color = GrayAccounts,
+                    color = GrayF1,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.otherInfo),
-                    color = GrayAccounts,
+                    color = GrayF1,
                     singleLine = false,
                     cornerRadius = 20.dp,
                     modifier = Modifier
@@ -145,7 +147,7 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayAccounts,
+                        color = GrayF1,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
@@ -174,7 +176,7 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayAccounts,
+                        color = GrayF1,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
@@ -221,12 +223,12 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 16.dp),
-                        color = GrayAccounts
+                        color = GrayF1
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.commission),
                         imageTrail = R.drawable.ic_ruble_15,
-                        color = GrayAccounts,
+                        color = GrayF1,
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 16.dp),
@@ -246,7 +248,7 @@ fun CreateEventScreen() {
                 else
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
-                        containerColor = GrayButtonContainer,
+                        containerColor = GrayBB,
                         contentColor = Gray75,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )

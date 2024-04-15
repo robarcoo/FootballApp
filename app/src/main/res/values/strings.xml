@@ -49,7 +49,9 @@
 
     <string name="addGame">Создать игру</string>
     <string name="closeGame">Закрытая игра</string>
+    <string name="closeGameToast">Игра не будет видна другим пользователям. Вы сможете пригласить друзей по ссылке или приглашению в приложении . В настройках игры.  Игру можно сделать открытой в разделе "управлять игрой".</string>
     <string name="iWill">Я буду играть</string>
+    <string name="iWillToast">Будете Вы играть с другими игроками или следить за матчем со стороны?</string>
     <string name="field">Футбольное поле</string>
     <string name="date">Дата</string>
     <string name="time">Время</string>
@@ -73,7 +75,8 @@
     <string name="commission">Комиссия</string>
     <string name="agree">Вы подтверждаете, что зарезервировали поле на данную дату и время</string>
     <string name="addEvent">Создать событие</string>
-    <string name="cantCancel">До начала события меньше 24 часов, поэтому вы не можете отменить участие в матче</string>
+    <string name="cantCancel">Вы не сможете вносить изменения в игру, если до её начала осталось меньше 12 часов.</string>
+
 
     <string name="inviteFriend">Пригласить друзей</string>
     <string name="invite">Пригласить</string>
@@ -90,6 +93,12 @@
     <string name="total">Итого:</string>
     <string name="pay">Оплатить</string>
     <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча. </string>
+
+    <string name="match">Матч</string>
+    <string name="type">Тип</string>
+    <string name="players">Участники:</string>
+    <string name="comments">Комментарии</string>
+    <string name="participate">Участвовать</string>
 
     <string-array name="positions_array">
         <item>Вратарь</item>

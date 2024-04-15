@@ -37,13 +37,13 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import java.util.Date
 
 @Composable
 @Preview
 fun EnterInfoScreen() {
-    Column(modifier = Modifier.background(GrayAccounts)) {
+    Column(modifier = Modifier.background(GrayF1)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

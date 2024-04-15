@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -74,7 +74,7 @@ fun SquareButton(text: String, image: Int) {
     Button(modifier = Modifier.width(70.dp),
         contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
         shape = RoundedCornerShape(20.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = GrayAccounts),
+        colors = ButtonDefaults.buttonColors(containerColor = GrayF1),
         onClick = { /*TODO*/ }) {
         Column(modifier = Modifier) {
             Image(

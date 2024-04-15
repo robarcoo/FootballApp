@@ -33,7 +33,7 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.ui.theme.Black04
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayAccounts
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -58,7 +58,7 @@ fun PaymentScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(GrayAccounts)
+                .background(GrayF1)
                 .padding(it)
         ) {
             HeaderWithBackButton(
@@ -145,7 +145,7 @@ private fun EventCard(place: String, date: String, time: String, price: String) 
             .padding(horizontal = 16.dp)
             .padding(bottom = 20.dp)
             .border(width = 1.dp, color = Black04, shape = RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = GrayAccounts)
+        colors = CardDefaults.cardColors(containerColor = GrayF1)
     ) {
         Text(
             text = place,
