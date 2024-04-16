@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FootballPlayAssistant</string>
+    <string name="takePart">Принимайте участие в матчах, созданных другими игроками или создайте свои собственные события</string>
     <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
     <string name="rules">&#032;Правилами и условиями&#032;</string>
     <string name="politic">&#032;Положением конфиденциальности</string>
@@ -45,6 +46,68 @@
     <string name="calendar">Календарь</string>
     <string name="profile">Профиль</string>
     <string name="youhost">Вы являетесь хостом игры:</string>
+
+    <string name="addGame">Создать игру</string>
+    <string name="closeGame">Закрытая игра</string>
+    <string name="closeGameToast">Игра не будет видна другим пользователям. Вы сможете пригласить друзей по ссылке или приглашению в приложении . В настройках игры.  Игру можно сделать открытой в разделе "управлять игрой".</string>
+    <string name="iWill">Я буду играть</string>
+    <string name="iWillToast">Будете Вы играть с другими игроками или следить за матчем со стороны?</string>
+    <string name="field">Футбольное поле</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="details">Детали события</string>
+    <string name="start">Начало</string>
+    <string name="end">Конец</string>
+    <string name="title">Название</string>
+    <string name="otherInfo">Дополнительная информация</string>
+    <string name="countPlayers">Количество игроков</string>
+    <string name="minCountPlayers">Мин. количество игроков</string>
+    <string name="sexPlayers">Пол участников</string>
+    <string name="men">Мужчины</string>
+    <string name="women">Женщины</string>
+    <string name="mw">М/Ж</string>
+    <string name="inventory">Инвентарь</string>
+    <string name="manish">Манишки</string>
+    <string name="ball">Мяч</string>
+    <string name="noInventory">Нет инвентаря</string>
+    <string name="costEntry">Стоимость входа</string>
+    <string name="cost">Стоимость</string>
+    <string name="commission">Комиссия</string>
+    <string name="agree">Вы подтверждаете, что зарезервировали поле на данную дату и время</string>
+    <string name="addEvent">Создать событие</string>
+    <string name="cantCancel">Вы не сможете вносить изменения в игру, если до её начала осталось меньше 12 часов.</string>
+
+
+    <string name="inviteFriend">Пригласить друзей</string>
+    <string name="invite">Пригласить</string>
+    <string name="cancel">Отмена</string>
+
+    <string name="friends">Друзья</string>
+    <string name="places">Площадки</string>
+
+    <string name="payment">Оплата</string>
+    <string name="balance">Баланс кошелька:</string>
+    <string name="replenish">Пополнить</string>
+    <string name="detailsOperation">Детали операции</string>
+    <string name="partInMatch">Участие в матче</string>
+    <string name="total">Итого:</string>
+    <string name="pay">Оплатить</string>
+    <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча. </string>
+
+    <string name="match">Матч</string>
+    <string name="type">Тип</string>
+    <string name="players">Участники:</string>
+    <string name="comments">Комментарии</string>
+    <string name="participate">Участвовать</string>
+
+    <string name="matchInfo">Информация о матче</string>
+    <string name="matchPlace">Место проведения матча</string>
+
+    <string name="teamsCanChanged">Во время игры команды могут измениться</string>
+    <string name="join">Присоединиться</string>
+    <string name="noEmpty">Свободных мест нет</string>
+    <string name="lightTeam">Светлая команда</string>
+    <string name="darkTeam">Темная команда</string>
 
     <string-array name="positions_array">
         <item>Вратарь</item>
