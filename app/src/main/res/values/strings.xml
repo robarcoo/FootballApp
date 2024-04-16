@@ -100,6 +100,15 @@
     <string name="comments">Комментарии</string>
     <string name="participate">Участвовать</string>
 
+    <string name="matchInfo">Информация о матче</string>
+    <string name="matchPlace">Место проведения матча</string>
+
+    <string name="teamsCanChanged">Во время игры команды могут измениться</string>
+    <string name="join">Присоединиться</string>
+    <string name="noEmpty">Свободных мест нет</string>
+    <string name="lightTeam">Светлая команда</string>
+    <string name="darkTeam">Темная команда</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>
