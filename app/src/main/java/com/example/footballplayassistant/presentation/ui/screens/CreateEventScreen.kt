@@ -42,7 +42,7 @@ import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 @Preview
 fun CreateEventScreen() {
     val flag = remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
 
     Column {
@@ -51,10 +51,18 @@ fun CreateEventScreen() {
             modifier = Modifier.padding(vertical = 8.dp)
         )
         LazyColumn {
-            item { CommonSwitch(text = stringResource(id = R.string.closeGame), icon = true,
-                textIcon = stringResource(id = R.string.closeGameToast)) }
-            item { CommonSwitch(text = stringResource(id = R.string.iWill), icon = true,
-                textIcon = stringResource(id = R.string.iWillToast)) }
+            item {
+                CommonSwitch(
+                    text = stringResource(id = R.string.closeGame), icon = true,
+                    textIcon = stringResource(id = R.string.closeGameToast)
+                )
+            }
+            item {
+                CommonSwitch(
+                    text = stringResource(id = R.string.iWill), icon = true,
+                    textIcon = stringResource(id = R.string.iWillToast)
+                )
+            }
             item {
                 BoldText(id = R.string.field, modifier = Modifier.padding(top = 24.dp))
 
@@ -248,15 +256,27 @@ fun CreateEventScreen() {
                 else
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
+                        onClick = {
+//                            showDialog
+//                            DialogScreen(
+//                                header = "Игра создана",
+//                                description = "пояснение",
+//                                greenButton = "на страницу игры",
+//                                whiteButton = "пригласить друзей",
+//                                bottomButton = "скопировать приглашение"
+//                            )
+                        },
                         containerColor = GrayBB,
                         contentColor = Gray75,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
             }
             item {
-                Row(modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp)) {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 16.dp)
+                ) {
                     Text(
                         text = stringResource(id = R.string.cantCancel),
                         textAlign = TextAlign.Center

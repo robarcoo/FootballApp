@@ -37,12 +37,15 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import java.util.Date
 
 @Composable
 @Preview
 fun EnterInfoScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier.background(GrayF1)) {
         Row(
             modifier = Modifier
@@ -73,7 +76,8 @@ fun EnterInfoScreen() {
                 imageStart = R.drawable.ic_calendar_22,
                 imageTrail = R.drawable.ic_arrow_menu_18_10,
                 value = date.value,
-                onTrailClick = { openCalendar(context, date)
+                onTrailClick = {
+                    openCalendar(context, date)
                 }
             )
             DropDownMenu(
@@ -121,6 +125,7 @@ fun EnterInfoScreen() {
                 text = "Сохранить",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.W500,
+                onClick = { navController.navigate(Route.MainScreen.path) },
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(start = 16.dp, end = 8.dp)
@@ -128,6 +133,7 @@ fun EnterInfoScreen() {
             )
             CommonButton(
                 text = "Пропустить",
+                onClick = { navController.navigate(Route.MainScreen.path) },
                 containerColor = Color.White,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.W500,
@@ -161,7 +167,7 @@ private fun CheckBoxGroup() {
     }
 }
 
-private fun openCalendar(context: Context, date: MutableState<String>){
+private fun openCalendar(context: Context, date: MutableState<String>) {
     val m_context = context
 
     val year: Int

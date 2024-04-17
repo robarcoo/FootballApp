@@ -25,11 +25,14 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
 fun SignUpStepTwoScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpStep(numStep = 2) }
         Row(
@@ -84,6 +87,9 @@ fun SignUpStepTwoScreen() {
 
         CommonButton(
             text = stringResource(R.string.signup),
+            onClick = {
+                navController.navigate(Route.EnterInfoScreen.path)
+            },
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxHeight()
@@ -105,7 +111,9 @@ fun SignUpStepTwoScreen() {
             BottomQuestion(
                 question = stringResource(R.string.questionAcc), buttonText = stringResource(
                     R.string.signin
-                ), modifier = Modifier.align(Alignment.Bottom)
+                ),
+                onClick = { navController.navigate(Route.SignInScreen.path) },
+                modifier = Modifier.align(Alignment.Bottom)
             )
         }
     }

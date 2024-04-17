@@ -23,6 +23,7 @@ fun CommonButton(
     contentColor: Color = Color.Black,//MaterialTheme.colorScheme.primary,
     fontSize: TextUnit = 18.sp,
     fontWeight: FontWeight = FontWeight.W600,
+    onClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Button(modifier = modifier.fillMaxWidth(),
@@ -30,7 +31,7 @@ fun CommonButton(
             contentColor = contentColor,
             containerColor = containerColor
         ),
-        onClick = { /*TODO*/ }) {
+        onClick = { onClick.invoke() }) {
         Text(
             text = text,
             fontWeight = fontWeight,

@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.customviews.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,12 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
-fun BottomQuestion(question: String, buttonText: String, modifier: Modifier = Modifier) {
+fun BottomQuestion(
+    question: String,
+    buttonText: String,
+    onClick: () -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
+) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(
             text = question,
@@ -32,8 +38,8 @@ fun BottomQuestion(question: String, buttonText: String, modifier: Modifier = Mo
         Button(modifier = Modifier.wrapContentSize(),
             contentPadding = PaddingValues(5.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            onClick = { /*TODO*/ }) {
-            Text(text = buttonText, color = Green, fontFamily = FontFamily(Font(R.font.inter)),)
+            onClick = { onClick.invoke() }) {
+            Text(text = buttonText, color = Green, fontFamily = FontFamily(Font(R.font.inter)))
         }
     }
 }

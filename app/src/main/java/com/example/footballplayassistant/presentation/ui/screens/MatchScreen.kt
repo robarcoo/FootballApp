@@ -29,11 +29,14 @@ import com.example.footballplayassistant.presentation.customviews.cards.GreenBor
 import com.example.footballplayassistant.presentation.customviews.cards.PlayersCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.FieldNameRow
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
 fun MatchScreen() {
+    val navController = LocalNavController.current!!
     Scaffold(
         bottomBar = {
             Box(
@@ -128,6 +131,7 @@ fun MatchScreen() {
                         )
 
                         CommonOtherInfoCard(
+                            onClick = {navController.navigate(Route.MatchInfoScreen.path)},
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()

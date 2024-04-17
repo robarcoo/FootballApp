@@ -34,12 +34,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Black21
 
 
 @Composable
 @Preview
 fun StartScreen() {
+    val navController = LocalNavController.current!!
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -108,17 +111,25 @@ fun StartScreen() {
                         fontFamily = FontFamily(Font(R.font.inter))
                     )
 
-                    CommonButton(text = "Войти")
+                    CommonButton(
+                        text = "Войти",
+                        onClick = {
+                            navController.navigate(Route.SignInScreen.path)
+                        })
 
                     Button(modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 10.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        onClick = { /*TODO*/ }) {
-                        Text(text = "Зарегистрироваться",
+                        onClick = {
+                            navController.navigate(Route.SignUpEnterPhoneScreen.path)
+                        }) {
+                        Text(
+                            text = "Зарегистрироваться",
                             fontFamily = FontFamily(Font(R.font.inter)),
                             fontWeight = FontWeight.W600,
-                            fontSize = 14.sp,)
+                            fontSize = 14.sp,
+                        )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
                             contentDescription = ""

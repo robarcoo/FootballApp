@@ -40,11 +40,14 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
 import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
 import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Preview
 fun MainScreen() {
+    val navController = LocalNavController.current!!
     val pagerState = rememberPagerState(pageCount = {
         3
     })
@@ -54,7 +57,14 @@ fun MainScreen() {
                 .fillMaxHeight()
                 .weight(0.9f)
         ) {
-            item { HeaderUser(name = "Alex", modifier = Modifier) }
+            item {
+                HeaderUser(
+                    name = "Alex",
+                    onClickPlus = { navController.navigate(Route.CreateEventScreen.path) },
+                    onClickBell = {},
+                    modifier = Modifier
+                )
+            }
 
             item { MoneyCard(money = 1500, modifier = Modifier) }
 
@@ -70,7 +80,13 @@ fun MainScreen() {
 
 
             item { ShowMore() }
-            item { AllButton(text = stringResource(id = R.string.news), modifier = Modifier) }
+            item {
+                AllButton(
+                    text = stringResource(id = R.string.news),
+                    onClick = { navController.navigate(Route.NewsScreen.path) },
+                    modifier = Modifier
+                )
+            }
 
             item {
                 HorizontalPager(state = pagerState) { page ->

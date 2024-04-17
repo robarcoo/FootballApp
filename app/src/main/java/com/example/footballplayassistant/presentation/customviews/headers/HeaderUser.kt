@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.customviews.headers
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,9 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
-fun HeaderUser(name: String, modifier: Modifier = Modifier) {
+fun HeaderUser(name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Unit = {}, @SuppressLint(
+    "ModifierParameter"
+) modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -64,7 +67,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 .height(42.dp)
                 .border(width = 1.dp, color = Gray75, RoundedCornerShape(40.dp))
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onClickPlus.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
                     contentDescription = ""
@@ -79,7 +82,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 color = Gray75
             )
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onClickBell.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_bell_24),
                     contentDescription = ""

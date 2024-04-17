@@ -32,6 +32,8 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
@@ -40,6 +42,7 @@ import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 @Preview
 fun SignUpStepOneScreen() {
     val context = LocalContext.current
+    val navController = LocalNavController.current!!
 
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpStep(numStep = 1) }
@@ -100,6 +103,9 @@ fun SignUpStepOneScreen() {
 
         CommonButton(
             text = context.getString(R.string.next),
+            onClick = {
+                navController.navigate(Route.SignUpStepTwoScreen.path)
+            },
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxHeight()
@@ -122,6 +128,7 @@ fun SignUpStepOneScreen() {
                 question = context.getString(R.string.questionAcc), buttonText = context.getString(
                     R.string.signin
                 ),
+                onClick = { navController.navigate(Route.SignInScreen.path) },
                 modifier = Modifier.align(Alignment.Bottom)
             )
         }

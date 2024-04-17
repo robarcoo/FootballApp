@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.customviews.cards
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,11 +24,19 @@ import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
-fun GameCard(place: String, host: String, modifier: Modifier = Modifier) {
+fun GameCard(
+    place: String,
+    host: String,
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
+) {
+    val navController = LocalNavController.current!!
     Card(
+        onClick = { navController.navigate(Route.MatchScreen.path) },
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)

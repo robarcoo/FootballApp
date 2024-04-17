@@ -27,10 +27,13 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Forgot
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
 import com.example.footballplayassistant.presentation.customviews.buttons.SignInWithAccounts
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 @Preview
 fun SignInScreen() {
+    val navController = LocalNavController.current!!
     Column {
         HeaderAuthentication { HeaderSignIn() }
 
@@ -69,6 +72,7 @@ fun SignInScreen() {
 
         CommonButton(
             text = stringResource(R.string.signin),
+            onClick = { navController.navigate(Route.MainScreen.path) },
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
@@ -102,6 +106,7 @@ fun SignInScreen() {
             BottomQuestion(
                 question = stringResource(R.string.questionNoAcc),
                 buttonText = stringResource(R.string.signup),
+                onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) },
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.Bottom)
