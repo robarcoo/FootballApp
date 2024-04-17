@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -74,7 +73,8 @@ fun HeaderSignIn() {
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            Button(colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
@@ -86,7 +86,7 @@ fun HeaderSignIn() {
             Text(
                 text = "Вход",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
@@ -106,7 +106,8 @@ fun HeaderSignUp() {
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            Button(colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
@@ -118,7 +119,7 @@ fun HeaderSignUp() {
             Text(
                 text = "Регистрация",
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
@@ -132,7 +133,7 @@ fun HeaderSignUpCode() {
             text = "Введите код из письма",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-            color = Color.White
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
@@ -150,7 +151,7 @@ fun HeaderSignUpStep(numStep: Int) {
                 text = "Регистрация",
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
@@ -158,7 +159,7 @@ fun HeaderSignUpStep(numStep: Int) {
                 text = "Шаг $numStep из 2",
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

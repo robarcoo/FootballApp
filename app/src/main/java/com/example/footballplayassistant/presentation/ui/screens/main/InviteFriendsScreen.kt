@@ -19,7 +19,6 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxFriend
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 @Preview
@@ -34,7 +33,7 @@ fun InviteFriendsScreen() {
                 Text(
                     text = stringResource(id = R.string.cancel),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Gray75
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }

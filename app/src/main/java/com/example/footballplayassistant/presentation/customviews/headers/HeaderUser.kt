@@ -23,7 +23,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun HeaderUser(name: String, modifier: Modifier = Modifier) {
@@ -43,7 +42,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
             Text(
                 text = "Привет,",
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = Gray75
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
                 text = name,
@@ -56,7 +55,11 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .weight(0.3f)
                 .height(42.dp)
-                .border(width = 1.dp, color = Gray75, RoundedCornerShape(40.dp))
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    RoundedCornerShape(40.dp)
+                )
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
@@ -70,7 +73,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                     .fillMaxHeight()
                     .padding(vertical = 8.dp)
                     .width(1.dp),
-                color = Gray75
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
 
             IconButton(onClick = { /*TODO*/ }) {

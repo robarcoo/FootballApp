@@ -17,7 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -36,8 +35,8 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
                     state.value = it
                 },
                 colors = CheckboxDefaults.colors(
-                    checkedColor = Green,
-                    uncheckedColor = Green
+                    checkedColor = MaterialTheme.colorScheme.secondary,
+                    uncheckedColor = MaterialTheme.colorScheme.secondary
                 )
             )
             Text(
@@ -58,8 +57,8 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
                     state2.value = it
                 },
                 colors = CheckboxDefaults.colors(
-                    checkedColor = Green,
-                    uncheckedColor = Green
+                    checkedColor = MaterialTheme.colorScheme.secondary,
+                    uncheckedColor = MaterialTheme.colorScheme.secondary
                 )
             )
             Text(
@@ -81,8 +80,8 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
                     state3.value = it
                 },
                 colors = CheckboxDefaults.colors(
-                    checkedColor = Green,
-                    uncheckedColor = Green
+                    checkedColor = MaterialTheme.colorScheme.secondary,
+                    uncheckedColor = MaterialTheme.colorScheme.secondary
                 )
             )
             Text(

@@ -28,7 +28,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 
 @Composable
@@ -39,7 +38,7 @@ fun CommonTextField(
     singleLine: Boolean = true,
     keyBoard: KeyboardType = KeyboardType.Email,
     isPassword: Boolean = false,
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     cornerRadius: Dp = 60.dp,
     maxLength: Int = 40,
     value: String = "",
@@ -99,12 +98,12 @@ fun CommonTextField(
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTextColor = Color.Black,
-            unfocusedPlaceholderColor = Gray75,
-            focusedPlaceholderColor = Gray75,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedTextColor = MaterialTheme.colorScheme.primary,
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
         ),
 
         modifier = modifier

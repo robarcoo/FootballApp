@@ -14,6 +14,10 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.inter)),
         fontSize = 36.sp,
     ),
+    headlineMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.inter)),
+        fontSize = 32.sp,
+    ),
     displayLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.inter)),
         fontSize = 28.sp,

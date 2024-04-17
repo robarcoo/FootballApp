@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier = Modifier) {
@@ -28,7 +27,7 @@ fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier
             Text(
                 text = text,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = Gray75
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
                 text = name,

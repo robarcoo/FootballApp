@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -45,7 +44,7 @@ private fun CountPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifie
             .fillMaxWidth()
             .alpha(0.6f),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Black)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
         Row(
             modifier = Modifier
@@ -54,7 +53,7 @@ private fun CountPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifie
             Text(
                 text = "$currentPlayers/$maxPlayers",
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
             )
         }

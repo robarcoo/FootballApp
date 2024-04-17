@@ -13,20 +13,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun GreenBorderCard(modifier: Modifier = Modifier, text: String, value: String) {
     Card(
         modifier = modifier
-            .border(width = 1.dp, color = Green, shape = RoundedCornerShape(12.dp))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(12.dp)
+            )
             .width(105.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(
             modifier = Modifier
@@ -37,13 +37,13 @@ fun GreenBorderCard(modifier: Modifier = Modifier, text: String, value: String) 
             Text(
                 text = text,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = Gray75,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = value,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
-                color = Black04,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }

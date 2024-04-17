@@ -32,10 +32,6 @@ import com.example.footballplayassistant.presentation.customviews.checkboxes.Com
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayBB
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
 @Preview
@@ -60,7 +56,7 @@ fun CreateEventScreen() {
                 DropDownMenu(
                     placeholder = "field",
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -71,7 +67,7 @@ fun CreateEventScreen() {
                     placeholder = stringResource(id = R.string.date),
                     imStart = R.drawable.ic_calendar_22,
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -89,7 +85,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 4.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.end),
@@ -97,7 +93,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 4.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                 }
             }
@@ -109,12 +105,12 @@ fun CreateEventScreen() {
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.otherInfo),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     singleLine = false,
                     cornerRadius = 20.dp,
                     modifier = Modifier
@@ -146,7 +142,7 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
@@ -175,7 +171,7 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
@@ -200,7 +196,7 @@ fun CreateEventScreen() {
                     Text(
                         text = stringResource(id = R.string.cost),
                         style = MaterialTheme.typography.displaySmall,
-                        color = Gray75,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .weight(0.55f),
                     )
@@ -208,7 +204,7 @@ fun CreateEventScreen() {
                     Text(
                         text = stringResource(id = R.string.commission),
                         style = MaterialTheme.typography.displaySmall,
-                        color = Yellow00,
+                        color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .weight(0.45f),
                     )
@@ -224,12 +220,12 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 16.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.commission),
                         imageTrail = R.drawable.ic_ruble_15,
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 16.dp),
@@ -251,8 +247,8 @@ fun CreateEventScreen() {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         style = MaterialTheme.typography.bodyLarge,
-                        containerColor = GrayBB,
-                        contentColor = Gray75,
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
             }

@@ -140,7 +140,8 @@ private fun RoundButton(enable: Boolean) {
         enabled = enable,
         modifier = Modifier.border(
             width = 1.dp,
-            color = if (enable) Gray75 else GrayBB,
+            color = if (enable) MaterialTheme.colorScheme.onSecondaryContainer
+            else MaterialTheme.colorScheme.tertiary,
             shape = CircleShape
         )
     ) {

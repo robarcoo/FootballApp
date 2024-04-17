@@ -21,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -121,7 +120,7 @@ fun EnterInfoScreen() {
             )
             CommonButton(
                 text = "Пропустить",
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .weight(0.4f)

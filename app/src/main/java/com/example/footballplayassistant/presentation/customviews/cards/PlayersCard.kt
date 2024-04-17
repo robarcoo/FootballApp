@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -27,7 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
@@ -36,7 +34,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.padding(top = 32.dp),
         shape = RectangleShape,
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(
             modifier = Modifier
@@ -92,7 +90,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                                 text = "name",
                                 style = MaterialTheme.typography.displaySmall
                                     .copy(fontWeight = FontWeight.W500),
-                                color = Gray75,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 modifier = Modifier.padding(end = 2.dp)
                             )
                             Icon(
@@ -122,7 +120,9 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         )
                         IconButton(
                             onClick = { /*TODO*/ },
-                            colors = IconButtonDefaults.iconButtonColors(containerColor = Green)
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.secondary
+                            )
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource

@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,9 +26,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -37,7 +33,7 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
     Column(modifier = modifier.wrapContentSize()) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Divider(
-                color = Color.Gray, thickness = 1.dp, modifier = Modifier
+                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.3f)
                     .align(Alignment.CenterVertically)
@@ -46,13 +42,13 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
             Text(
                 text = "Или", textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
-                color = Gray75,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.2f)
             )
             Divider(
-                color = Color.Gray, thickness = 1.dp, modifier = Modifier
+                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.3f)
                     .align(Alignment.CenterVertically)
@@ -78,7 +74,8 @@ fun SquareButton(text: String, image: Int) {
     Button(modifier = Modifier.width(70.dp),
         contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
         shape = RoundedCornerShape(20.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = GrayF1),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer),
         onClick = { /*TODO*/ }) {
         Column(modifier = Modifier) {
             Image(
@@ -91,7 +88,7 @@ fun SquareButton(text: String, image: Int) {
             Text(
                 text = text,
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.W400),
-                color = Black04,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }

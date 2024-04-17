@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -38,7 +37,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(
                 SpanStyle(
-                    color = Green,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
                     fontFamily = FontFamily(Font(R.font.inter)),
                     fontSize = 12.sp
@@ -53,7 +52,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(
                 SpanStyle(
-                    color = Green,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
                     fontFamily = FontFamily(Font(R.font.inter)),
                     fontSize = 12.sp

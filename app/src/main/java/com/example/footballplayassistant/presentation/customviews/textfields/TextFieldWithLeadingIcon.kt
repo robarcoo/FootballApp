@@ -22,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun TextFieldWithLeadingIcon(
@@ -31,7 +30,7 @@ fun TextFieldWithLeadingIcon(
     imageStart: Int = 0,
     keyBoard: KeyboardType = KeyboardType.Email,
     value: String = "",
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     onTrailClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -65,12 +64,12 @@ fun TextFieldWithLeadingIcon(
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTextColor = Color.Black,
-            unfocusedPlaceholderColor = Gray75,
-            focusedPlaceholderColor = Gray75,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedTextColor = MaterialTheme.colorScheme.primary,
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
         ),
 
         modifier = modifier

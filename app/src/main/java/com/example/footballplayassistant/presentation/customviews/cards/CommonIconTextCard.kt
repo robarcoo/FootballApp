@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -26,8 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
@@ -91,8 +88,12 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
 fun CommonOtherInfoCard(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .border(width = 1.dp, color = Gray75, shape = RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                shape = RoundedCornerShape(12.dp)
+            ),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Row(
             modifier = Modifier
@@ -113,8 +114,8 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier) {
 
             IconButton(
                 onClick = {}, colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = Black04,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 modifier = Modifier.weight(0.25f)
             ) {

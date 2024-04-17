@@ -19,21 +19,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
@@ -90,7 +84,10 @@ fun PaymentScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
-                            .background(color = Color.White, shape = RoundedCornerShape(12.dp)),
+                            .background(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                shape = RoundedCornerShape(12.dp)
+                            ),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
@@ -139,8 +136,12 @@ private fun EventCard(place: String, date: String, time: String, price: String) 
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .padding(bottom = 20.dp)
-            .border(width = 1.dp, color = Black04, shape = RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                shape = RoundedCornerShape(12.dp)
+            ),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Text(
             text = place,
@@ -163,7 +164,7 @@ private fun BalanceCard(price: String) {
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .padding(bottom = 20.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Row(
             modifier = Modifier
@@ -172,7 +173,7 @@ private fun BalanceCard(price: String) {
         ) {
             Text(
                 text = stringResource(id = R.string.balance),
-                color = Gray75,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.displayMedium,
             )
         }
@@ -184,15 +185,11 @@ private fun BalanceCard(price: String) {
             Row {
                 Text(
                     text = price,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.W600,
-                    fontFamily = FontFamily(Font(R.font.inter))
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
                 )
                 Text(
                     text = "₽",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.W400,
-                    fontFamily = FontFamily(Font(R.font.inter)),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W400),
                     modifier = Modifier
                         .align(Alignment.Bottom)
                         .padding(start = 8.dp)

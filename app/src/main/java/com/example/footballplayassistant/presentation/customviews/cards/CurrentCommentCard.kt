@@ -13,14 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.UserFotoForList
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun CurrentCommentCard(
@@ -32,7 +30,7 @@ fun CurrentCommentCard(
 ) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
@@ -54,13 +52,13 @@ fun CurrentCommentCard(
                         text = "$likes",
                         style = MaterialTheme.typography.bodyMedium
                             .copy(fontWeight = FontWeight.W400),
-                        color = Gray75,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_like_20),
                         contentDescription = "",
-                        tint = Gray75
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }

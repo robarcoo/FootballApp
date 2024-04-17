@@ -10,13 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun CommonButton(
     text: String,
-    containerColor: Color = Green,//MaterialTheme.colorScheme.secondary,
-    contentColor: Color = Color.Black,//MaterialTheme.colorScheme.primary,
+    containerColor: Color = MaterialTheme.colorScheme.secondary,
+    contentColor: Color = MaterialTheme.colorScheme.primary,
     style: TextStyle = MaterialTheme.typography.bodyLarge,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {

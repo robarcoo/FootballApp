@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 
 @Composable
@@ -26,8 +25,8 @@ fun CommonCheckBoxAgree(){
             checked = state.value,
             onCheckedChange = { state.value = it },
             colors = CheckboxDefaults.colors(
-                checkedColor = Green,
-                uncheckedColor = Green
+                checkedColor = MaterialTheme.colorScheme.secondary,
+                uncheckedColor = MaterialTheme.colorScheme.secondary
             )
         )
         Text(

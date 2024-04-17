@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -35,7 +34,10 @@ fun RadioButtonGroup() {
         Row {
             RadioButton(
                 selected = if (state.value == 1) true else false, onClick = { state.value = 1 },
-                colors = RadioButtonDefaults.colors(selectedColor = Green, unselectedColor = Green)
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.secondary,
+                    unselectedColor = MaterialTheme.colorScheme.secondary
+                )
             )
             Text(
                 text = stringResource(id = R.string.men),
@@ -46,7 +48,10 @@ fun RadioButtonGroup() {
         Row {
             RadioButton(
                 selected = if (state.value == 2) true else false, onClick = { state.value = 2 },
-                colors = RadioButtonDefaults.colors(selectedColor = Green, unselectedColor = Green)
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.secondary,
+                    unselectedColor = MaterialTheme.colorScheme.secondary
+                )
             )
             Text(
                 text = stringResource(id = R.string.women),
@@ -57,7 +62,10 @@ fun RadioButtonGroup() {
         Row {
             RadioButton(
                 selected = if (state.value == 3) true else false, onClick = { state.value = 3 },
-                colors = RadioButtonDefaults.colors(selectedColor = Green, unselectedColor = Green)
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.secondary,
+                    unselectedColor = MaterialTheme.colorScheme.secondary
+                )
             )
             Text(
                 text = stringResource(id = R.string.mw),

@@ -32,9 +32,6 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
 @Preview
@@ -52,7 +49,7 @@ fun SignUpStepOneScreen() {
         ) {
             Text(
                 text = stringResource(R.string.writeInfo), textAlign = TextAlign.Center,
-                color = Gray75,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -72,7 +69,11 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
+            CommonTextField(
+                placeholder = "",
+                keyBoard = KeyboardType.Text,
+                color = MaterialTheme.colorScheme.primaryContainer
+            )
 
             Text(
                 text = addStar(id = R.string.name),
@@ -80,7 +81,11 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
+            CommonTextField(
+                placeholder = "",
+                keyBoard = KeyboardType.Text,
+                color = MaterialTheme.colorScheme.primaryContainer
+            )
 
             Text(
                 text = addStar(id = R.string.surname),
@@ -88,7 +93,11 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Text, color = GrayF1)
+            CommonTextField(
+                placeholder = "",
+                keyBoard = KeyboardType.Text,
+                color = MaterialTheme.colorScheme.primaryContainer
+            )
 
             Text(
                 text = addStar(id = R.string.email),
@@ -96,7 +105,11 @@ fun SignUpStepOneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            CommonTextField(placeholder = "", keyBoard = KeyboardType.Email, color = GrayF1)
+            CommonTextField(
+                placeholder = "",
+                keyBoard = KeyboardType.Email,
+                color = MaterialTheme.colorScheme.primaryContainer
+            )
         }
 
         CommonButton(
@@ -138,7 +151,7 @@ fun addStar(id: Int): AnnotatedString {
         pushStringAnnotation(tag = "star", annotation = "star")
         withStyle(
             SpanStyle(
-                color = Yellow00,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontFamily = FontFamily(Font(R.font.inter)),
             )
         ) {

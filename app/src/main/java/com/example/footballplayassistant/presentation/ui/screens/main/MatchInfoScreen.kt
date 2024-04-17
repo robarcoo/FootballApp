@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -26,7 +25,7 @@ fun MatchInfoScreen(/*type: String, name: String, description: String*/) {
                 Text(
                     text = "game type",
                     style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
-                    color = Green,
+                    color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
             }

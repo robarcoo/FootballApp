@@ -25,7 +25,7 @@ fun DropDownMenu(
     imStart: Int = 0,
     imTrail: Int = R.drawable.ic_arrow_menu_18_10,
     values: List<String>,
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }

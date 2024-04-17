@@ -14,13 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun HeaderWithBackButton(
@@ -34,7 +32,11 @@ fun HeaderWithBackButton(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(modifier = Modifier.border(width = 1.dp, color = Gray75, shape = CircleShape),
+        IconButton(modifier = Modifier.border(
+            width = 1.dp,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            shape = CircleShape
+        ),
             onClick = { /*TODO*/ }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
@@ -51,7 +53,7 @@ fun HeaderWithBackButton(
         if (imageButton != 0)
             IconButton(modifier = Modifier.border(
                 width = 1.dp,
-                color = Gray75,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 shape = CircleShape
             ),
                 onClick = { /*TODO*/ }) {
@@ -63,7 +65,7 @@ fun HeaderWithBackButton(
         else
             IconButton(modifier = Modifier.border(
                 width = 1.dp,
-                color = Color.Transparent,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = CircleShape
             ),
                 onClick = { /*TODO*/ }) {

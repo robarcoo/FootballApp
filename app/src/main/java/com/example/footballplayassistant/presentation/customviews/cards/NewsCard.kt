@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
@@ -30,7 +28,11 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(12.dp)
+            )
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Row {
@@ -68,7 +70,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                         text = "100км",
                         style = MaterialTheme.typography.bodyMedium
                             .copy(fontWeight = FontWeight.W500),
-                        color = Gray75
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }

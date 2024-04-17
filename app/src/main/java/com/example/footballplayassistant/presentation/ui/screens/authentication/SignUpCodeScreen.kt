@@ -25,7 +25,6 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -96,17 +95,21 @@ fun SquareTextField(
         ),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = Color.White,
-            focusedContainerColor = Color.White,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTextColor = Color.Black
+            unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedTextColor = MaterialTheme.colorScheme.primary
         ),
         singleLine = true,
         modifier = Modifier
             .widthIn(min = 64.dp, max = 80.dp)
             .padding(5.dp)
-            .background(Color.Transparent)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.outlineVariant)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(12.dp)
+            )
             .focusRequester(itemStart)
             .focusProperties {
                 next = itemNext

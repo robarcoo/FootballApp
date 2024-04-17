@@ -31,8 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -50,7 +48,8 @@ fun CommentsCard(modifier: Modifier = Modifier) {
             0.dp,
             0.dp
         ),
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column {
             Row(
@@ -85,7 +84,7 @@ fun CommentsCard(modifier: Modifier = Modifier) {
                         text = stringResource(id = R.string.all),
                         style = MaterialTheme.typography.bodyMedium
                             .copy(fontWeight = FontWeight.W600),
-                        color = Gray75
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }

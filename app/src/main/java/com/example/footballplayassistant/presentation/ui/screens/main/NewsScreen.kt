@@ -28,8 +28,6 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -52,8 +50,8 @@ fun NewsScreen() {
                 button(
                     modifier = Modifier.align(Alignment.CenterStart),
                     filter = filter,
-                    borderColor = Green,
-                    containerColor = Green,
+                    borderColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                     text = R.string.friends,
                     zIndex = 1f,
                     value = "friends"
@@ -62,8 +60,8 @@ fun NewsScreen() {
                 button(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     filter = filter,
-                    borderColor = Black04,
-                    containerColor = Color.White,
+                    borderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                     text = R.string.places,
                     zIndex = 0f,
                     value = "places"
@@ -72,8 +70,8 @@ fun NewsScreen() {
                 button(
                     modifier = Modifier.align(Alignment.CenterStart),
                     filter = filter,
-                    borderColor = Black04,
-                    containerColor = Color.White,
+                    borderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                     text = R.string.friends,
                     zIndex = 0f,
                     value = "friends"
@@ -82,8 +80,8 @@ fun NewsScreen() {
                 button(
                     modifier = Modifier.align(Alignment.CenterEnd),
                     filter = filter,
-                    borderColor = Green,
-                    containerColor = Green,
+                    borderColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                     text = R.string.places,
                     zIndex = 1f,
                     value = "places"
@@ -126,7 +124,7 @@ private fun button(
         Text(
             text = stringResource(id = text),
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
-            color = Black04
+            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
 }

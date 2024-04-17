@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun GameCard(place: String, host: String, modifier: Modifier = Modifier) {
@@ -79,7 +78,7 @@ fun GameCard(place: String, host: String, modifier: Modifier = Modifier) {
                             text = "100км",
                             style = MaterialTheme.typography.bodyMedium
                                 .copy(fontWeight = FontWeight.W500),
-                            color = Gray75
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
                 }

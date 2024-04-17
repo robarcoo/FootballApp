@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.presentation.ui.theme.GrayC9
 
 @Composable
 fun PlayerInTeam(userTag: String, position: String, foto: Int){
@@ -22,6 +21,6 @@ fun PlayerInTeam(userTag: String, position: String, foto: Int){
             modifier = Modifier.padding(top = 8.dp, bottom = 4.dp))
         Text(text = position,
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-            color = GrayC9)
+            color = MaterialTheme.colorScheme.tertiaryContainer)
     }
 }

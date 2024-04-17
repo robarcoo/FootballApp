@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun CommonCheckBoxPositions(
@@ -23,7 +22,10 @@ fun CommonCheckBoxPositions(
         Checkbox(
             checked = isSelectedOption,
             onCheckedChange = { onSelectOption(text) },
-            colors = CheckboxDefaults.colors(checkedColor = Green, uncheckedColor = Green)
+            colors = CheckboxDefaults.colors(
+                checkedColor = MaterialTheme.colorScheme.secondary,
+                uncheckedColor = MaterialTheme.colorScheme.secondary
+            )
         )
         Text(
             text = text,

@@ -10,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -20,7 +19,8 @@ import com.example.footballplayassistant.R
 @Composable
 fun ShowMore(modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+        Button(colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.outlineVariant),
             onClick = { /*TODO*/ }) {
             Text(
                 text = stringResource(id = R.string.showmore),

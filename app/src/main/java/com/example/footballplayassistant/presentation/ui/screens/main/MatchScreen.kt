@@ -30,7 +30,6 @@ import com.example.footballplayassistant.presentation.customviews.cards.GreenBor
 import com.example.footballplayassistant.presentation.customviews.cards.PlayersCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.FieldNameRow
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -40,7 +39,7 @@ fun MatchScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = GrayF1)
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 CommonButton(
                     text = stringResource(id = R.string.participate),

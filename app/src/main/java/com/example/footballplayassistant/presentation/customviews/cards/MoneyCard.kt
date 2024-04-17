@@ -23,15 +23,17 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .fillMaxSize()
-            .border(width = 1.dp, color = Gray75, shape = RoundedCornerShape(12.dp))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                shape = RoundedCornerShape(12.dp)
+            )
     ) {
         Row(
             modifier = Modifier
@@ -43,7 +45,7 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                     text = stringResource(id = R.string.money),
                     style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                     modifier = Modifier.padding(bottom = 8.dp),
-                    color = Gray75
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
                 Row {
                     Image(
@@ -59,7 +61,8 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                 }
             }
             IconButton(modifier = Modifier.align(Alignment.Bottom),
-                colors = IconButtonDefaults.iconButtonColors(containerColor = Green),
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary),
                 onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_24),

@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.ui.theme.Black21
 
 
 @Composable
@@ -40,7 +38,6 @@ fun StartScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-        /*.background(MaterialTheme.colorScheme.primary)*/
     ) {
         Image(
             painter = painterResource(id = R.drawable.player),
@@ -61,8 +58,7 @@ fun StartScreen() {
                         bottomEnd = 0.dp
                     )
                 ),
-            colors = CardDefaults.cardColors(containerColor = Black21),
-            //shape = RoundedCornerShape(12.dp)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
         ) {
             Box(
                 modifier = Modifier.clip(
@@ -72,7 +68,7 @@ fun StartScreen() {
                         topEnd = 12.dp,
                         bottomEnd = 0.dp
                     )
-                )/*.background(MaterialTheme.colorScheme.primary)*/
+                )
             ) {
                 Column(
                     modifier = Modifier
@@ -99,7 +95,7 @@ fun StartScreen() {
                     Text(
                         text = stringResource(id = R.string.takePart),
                         textAlign = TextAlign.Center,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W400),
                     )
@@ -112,7 +108,8 @@ fun StartScreen() {
                     Button(modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 10.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.outlineVariant),
                         onClick = { /*TODO*/ }) {
                         Text(
                             text = "Зарегистрироваться",

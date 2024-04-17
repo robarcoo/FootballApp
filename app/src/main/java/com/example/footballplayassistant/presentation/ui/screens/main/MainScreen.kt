@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -86,7 +85,8 @@ fun MainScreen() {
                 ) {
                     repeat(pagerState.pageCount) { iteration ->
                         val color =
-                            if (pagerState.currentPage == iteration) Color.Black else Color.LightGray
+                            if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.background
                         Box(
                             modifier = Modifier
                                 .padding(2.dp)
@@ -111,30 +111,35 @@ private fun BottomBar() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp)
-            .background(color = Color.Black, shape = RoundedCornerShape(50.dp)),
+            .background(
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(50.dp)
+            ),
         contentAlignment = Alignment.Center
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
             Button(
                 modifier = Modifier.align(Alignment.CenterVertically),
                 colors =
-                if (number.value == 1) ButtonDefaults.buttonColors(containerColor = Color.White)
+                if (number.value == 1) ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                )
                 else ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
+                    containerColor = MaterialTheme.colorScheme.primary
                 ),
                 onClick = { number.value = 1 }) {
                 Row {
                     if (number.value == 1) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_home_black_24),
-                            contentDescription = null, tint = Color.Unspecified
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
                         )
                         Text(
                             text = stringResource(id = R.string.home),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.primary
                         )
                     } else
                         Icon(
@@ -145,22 +150,25 @@ private fun BottomBar() {
                 }
             }
             Button(modifier = Modifier.align(Alignment.CenterVertically),
-                colors = if (number.value == 2) ButtonDefaults.buttonColors(containerColor = Color.White) else ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
+                colors = if (number.value == 2) ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                )
+                else ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
                 ),
                 onClick = { number.value = 2 }) {
                 Row {
                     if (number.value == 2) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search_black_25),
-                            contentDescription = null, tint = Color.Unspecified
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
                         )
                         Text(
                             text = stringResource(id = R.string.search),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.primary
                         )
                     } else
                         Icon(
@@ -171,23 +179,25 @@ private fun BottomBar() {
             }
             Button(modifier = Modifier.align(Alignment.CenterVertically),
                 colors =
-                if (number.value == 3) ButtonDefaults.buttonColors(containerColor = Color.White)
+                if (number.value == 3) ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                )
                 else ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
+                    containerColor = MaterialTheme.colorScheme.primary
                 ),
                 onClick = { number.value = 3 }) {
                 Row {
                     if (number.value == 3) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_calendar_22),
-                            contentDescription = null, tint = Color.Unspecified
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
                         )
                         Text(
                             text = stringResource(id = R.string.calendar),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.primary
                         )
                     } else
                         Icon(
@@ -198,23 +208,24 @@ private fun BottomBar() {
             }
             Button(modifier = Modifier.align(Alignment.CenterVertically),
                 colors =
-                if (number.value == 4) ButtonDefaults.buttonColors(containerColor = Color.White)
+                if (number.value == 4) ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary)
                 else ButtonDefaults.buttonColors(
-                    containerColor = Color.Black
+                    containerColor = MaterialTheme.colorScheme.primary
                 ),
                 onClick = { number.value = 4 }) {
                 Row {
                     if (number.value == 4) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_profile_black_24),
-                            contentDescription = null, tint = Color.Unspecified
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
                         )
                         Text(
                             text = stringResource(id = R.string.profile),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.primary
                         )
                     } else
                         Icon(
