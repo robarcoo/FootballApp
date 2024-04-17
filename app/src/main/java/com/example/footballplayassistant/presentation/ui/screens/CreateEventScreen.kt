@@ -44,6 +44,18 @@ fun CreateEventScreen() {
     val flag = remember {
         mutableStateOf(true)
     }
+    val showDialog = remember {
+        mutableStateOf(false)
+    }
+
+    if (showDialog.value)
+        DialogScreen(
+            header = "Игра создана",
+            description = "пояснение",
+            greenButton = "на страницу игры",
+            whiteButton = "пригласить друзей",
+            bottomButton = "скопировать приглашение"
+        ){}
 
     Column {
         HeaderWithBackButton(
@@ -251,21 +263,12 @@ fun CreateEventScreen() {
                 if (flag.value)
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
+                        onClick = { showDialog.value = true },
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
                 else
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
-                        onClick = {
-//                            showDialog
-//                            DialogScreen(
-//                                header = "Игра создана",
-//                                description = "пояснение",
-//                                greenButton = "на страницу игры",
-//                                whiteButton = "пригласить друзей",
-//                                bottomButton = "скопировать приглашение"
-//                            )
-                        },
                         containerColor = GrayBB,
                         contentColor = Gray75,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
