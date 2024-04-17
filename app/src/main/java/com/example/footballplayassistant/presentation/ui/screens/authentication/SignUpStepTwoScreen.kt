@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,24 +7,24 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
+import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
@@ -41,7 +41,7 @@ fun SignUpStepTwoScreen() {
             Text(
                 text = stringResource(R.string.createRepeatPass),
                 textAlign = TextAlign.Center,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .align(Alignment.CenterVertically)
@@ -55,7 +55,7 @@ fun SignUpStepTwoScreen() {
         ) {
             Text(
                 text = addStar(id = R.string.createPass),
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
@@ -69,7 +69,7 @@ fun SignUpStepTwoScreen() {
 
             Text(
                 text = addStar(id = R.string.repeatPass),
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
@@ -84,6 +84,7 @@ fun SignUpStepTwoScreen() {
 
         CommonButton(
             text = stringResource(R.string.signup),
+            style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxHeight()

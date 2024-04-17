@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -27,15 +28,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpCode
@@ -53,7 +50,7 @@ fun SignUpCodePage() {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = stringResource(R.string.phoneCode/*or emailCode*/),
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -67,7 +64,7 @@ fun SignUpCodePage() {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = stringResource(R.string.repeatCode),
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -93,9 +90,8 @@ fun SquareTextField(
             textValue.value = newText
         },
         shape = RoundedCornerShape(12.dp),
-        textStyle = TextStyle(
+        textStyle = MaterialTheme.typography.headlineLarge.copy(
             fontWeight = FontWeight.W500,
-            fontSize = 36.sp,
             textAlign = TextAlign.Center
         ),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

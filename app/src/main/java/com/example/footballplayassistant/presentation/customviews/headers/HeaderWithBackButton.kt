@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,11 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
@@ -46,9 +44,7 @@ fun HeaderWithBackButton(
 
         Text(
             text = text,
-            fontFamily = FontFamily(Font(R.font.inter)),
-            fontWeight = FontWeight.W600,
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
             modifier = Modifier.align(Alignment.CenterVertically)
         )
 
@@ -71,7 +67,6 @@ fun HeaderWithBackButton(
                 shape = CircleShape
             ),
                 onClick = { /*TODO*/ }) {
-
             }
     }
 }

@@ -10,7 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.footballplayassistant.presentation.navigation.MainNavigationController
-import com.example.footballplayassistant.presentation.ui.screens.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.theme.FootballPlayAssistantTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,13 +25,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.ui.theme.Black21
@@ -103,22 +100,25 @@ fun StartScreen() {
                         text = stringResource(id = R.string.takePart),
                         textAlign = TextAlign.Center,
                         color = Color.White,
-                        fontWeight = FontWeight.W400,
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.inter))
+                        style = MaterialTheme.typography.labelLarge
+                            .copy(fontWeight = FontWeight.W400),
                     )
 
-                    CommonButton(text = "Войти")
+                    CommonButton(
+                        text = "Войти",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
 
                     Button(modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 10.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         onClick = { /*TODO*/ }) {
-                        Text(text = "Зарегистрироваться",
-                            fontFamily = FontFamily(Font(R.font.inter)),
-                            fontWeight = FontWeight.W600,
-                            fontSize = 14.sp,)
+                        Text(
+                            text = "Зарегистрироваться",
+                            style = MaterialTheme.typography.bodyMedium
+                                .copy(fontWeight = FontWeight.W600)
+                        )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
                             contentDescription = ""

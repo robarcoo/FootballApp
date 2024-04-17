@@ -8,17 +8,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Black04
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Green
@@ -39,17 +36,13 @@ fun GreenBorderCard(modifier: Modifier = Modifier, text: String, value: String) 
         ) {
             Text(
                 text = text,
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 color = Gray75,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = value,
-                fontWeight = FontWeight.W600,
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
                 color = Black04,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )

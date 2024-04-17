@@ -12,6 +12,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,12 +23,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.Green
@@ -46,19 +44,17 @@ fun PlayersCard(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = stringResource(id = R.string.players),
-                fontWeight = FontWeight.W500,
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(bottom = 16.dp),
             )
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(0.15f)) {
                     Image(
-                            painter = painterResource(R.drawable.user_foto),
-                            contentDescription = "",
-                            modifier = Modifier.padding(2.dp)
-                        )
+                        painter = painterResource(R.drawable.user_foto),
+                        contentDescription = "",
+                        modifier = Modifier.padding(2.dp)
+                    )
                     Image(
                         painter = painterResource(R.drawable.user_foto),
                         contentDescription = "",
@@ -88,16 +84,14 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                     ) {
                         Text(
                             text = "name",
-                            fontWeight = FontWeight.W600,
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.inter)),
+                            style = MaterialTheme.typography.bodyMedium
+                                .copy(fontWeight = FontWeight.W600)
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = "name",
-                                fontWeight = FontWeight.W500,
-                                fontSize = 12.sp,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.displaySmall
+                                    .copy(fontWeight = FontWeight.W500),
                                 color = Gray75,
                                 modifier = Modifier.padding(end = 2.dp)
                             )
@@ -123,9 +117,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                     ) {
                         Text(
                             text = "name",
-                            fontWeight = FontWeight.W400,
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.inter)),
+                            style = MaterialTheme.typography.bodyMedium
+                                .copy(fontWeight = FontWeight.W400),
                         )
                         IconButton(
                             onClick = { /*TODO*/ },

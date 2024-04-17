@@ -22,7 +22,7 @@
     <string name="writeInfo">Заполните информацию</string>
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
-    <string name="repeatPass">Подтвердите пароль</string>
+    <string name="repeatPass">Повторите пароль</string>
     <string name="next">Далее</string>
     <string name="nick">Ник</string>
     <string name="name">Имя</string>

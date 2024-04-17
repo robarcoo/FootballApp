@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,12 +27,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
@@ -65,9 +63,8 @@ fun CommentsCard(modifier: Modifier = Modifier) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = stringResource(id = R.string.comments),
-                        fontWeight = FontWeight.W600,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.titleMedium
+                            .copy(fontWeight = FontWeight.W600),
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Icon(
@@ -78,18 +75,16 @@ fun CommentsCard(modifier: Modifier = Modifier) {
                     )
                     Text(
                         text = "10",
-                        fontWeight = FontWeight.W600,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.titleMedium
+                            .copy(fontWeight = FontWeight.W600)
                     )
                 }
 
                 TextButton(onClick = { /*TODO*/ }) {
                     Text(
                         text = stringResource(id = R.string.all),
-                        fontWeight = FontWeight.W500,
-                        fontSize = 14.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.bodyMedium
+                            .copy(fontWeight = FontWeight.W600),
                         color = Gray75
                     )
                 }
@@ -125,8 +120,6 @@ fun CommentsCard(modifier: Modifier = Modifier) {
                     )
                 }
             }
-
         }
-
     }
 }

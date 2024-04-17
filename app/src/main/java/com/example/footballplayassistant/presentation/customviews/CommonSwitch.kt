@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,15 +33,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.GrayC9
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
@@ -56,9 +54,7 @@ fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W600,
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
             )
 
             if (icon)

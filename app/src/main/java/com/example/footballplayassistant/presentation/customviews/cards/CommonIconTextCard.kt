@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,12 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Black04
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
@@ -48,9 +46,7 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
 
             Text(
                 text = text,
-                fontWeight = FontWeight.W600,
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -67,9 +63,7 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
         Column {
             Text(
                 text = stringResource(id = R.string.inventory),
-                fontWeight = FontWeight.W600,
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -110,9 +104,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(id = R.string.otherInfo),
                 maxLines = 2,
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)

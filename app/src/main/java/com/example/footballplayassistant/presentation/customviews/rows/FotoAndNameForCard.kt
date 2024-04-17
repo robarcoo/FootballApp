@@ -5,16 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
@@ -30,16 +27,12 @@ fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier
         ) {
             Text(
                 text = text,
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 color = Gray75
             )
             Text(
                 text = name,
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight.W600,
-                fontSize = 16.sp
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
             )
         }
     }

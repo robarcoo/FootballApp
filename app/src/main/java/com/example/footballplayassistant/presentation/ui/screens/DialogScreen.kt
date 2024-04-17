@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -21,11 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -81,35 +79,36 @@ fun DialogScreen(
                         )
                     Text(
                         text = header,
-                        fontWeight = FontWeight.W600,
-                        fontSize = 28.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.displayLarge
+                            .copy(fontWeight = FontWeight.W600),
                         color = Color.White,
                         modifier = Modifier.padding(vertical = 12.dp)
                     )
                     Text(
                         text = description,
-                        fontWeight = FontWeight.W400,
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.labelLarge
+                            .copy(fontWeight = FontWeight.W400),
                         color = Color.White,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
                     if (greenButton != "")
-                        CommonButton(text = "green")
+                        CommonButton(
+                            text = "green",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     if (whiteButton != "")
                         CommonButton(
                             text = "white",
                             containerColor = Color.White,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(bottom = 12.dp)
                         )
                     if (bottomButton != "")
                         TextButton(onClick = { /*TODO*/ }) {
                             Text(
                                 text = "bottom",
-                                fontWeight = FontWeight.W600,
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.bodyMedium
+                                    .copy(fontWeight = FontWeight.W600),
                                 color = Color.White,
                                 modifier = Modifier.padding(end = 4.dp)
                             )

@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,14 +43,13 @@ fun PaymentScreen() {
         Column {
             CommonButton(
                 text = stringResource(id = R.string.pay),
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Text(
                 text = stringResource(id = R.string.cancelWithoutLoss),
                 textAlign = TextAlign.Center,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.W500,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -79,9 +79,8 @@ fun PaymentScreen() {
                 item {
                     Text(
                         text = stringResource(id = R.string.detailsOperation),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.W500,
-                        fontFamily = FontFamily(Font(R.font.inter)),
+                        style = MaterialTheme.typography.labelLarge
+                            .copy(fontWeight = FontWeight.W500),
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .padding(bottom = 12.dp)
@@ -96,16 +95,14 @@ fun PaymentScreen() {
                     ) {
                         Text(
                             text = stringResource(id = R.string.partInMatch),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.W400,
-                            fontFamily = FontFamily(Font(R.font.inter)),
+                            style = MaterialTheme.typography.labelLarge
+                                .copy(fontWeight = FontWeight.W400),
                             modifier = Modifier.padding(12.dp)
                         )
                         Text(
                             text = "800₽",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.W400,
-                            fontFamily = FontFamily(Font(R.font.inter)),
+                            style = MaterialTheme.typography.labelLarge
+                                .copy(fontWeight = FontWeight.W400),
                             modifier = Modifier
                                 .padding(12.dp)
                                 .align(Alignment.CenterVertically)
@@ -121,15 +118,13 @@ fun PaymentScreen() {
                     ) {
                         Text(
                             text = stringResource(id = R.string.total),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.W500,
-                            fontFamily = FontFamily(Font(R.font.inter))
+                            style = MaterialTheme.typography.labelLarge
+                                .copy(fontWeight = FontWeight.W500),
                         )
                         Text(
                             text = "800₽",
-                            fontSize = 28.sp,
-                            fontWeight = FontWeight.W600,
-                            fontFamily = FontFamily(Font(R.font.inter))
+                            style = MaterialTheme.typography.displayLarge
+                                .copy(fontWeight = FontWeight.W600),
                         )
                     }
                 }
@@ -149,9 +144,7 @@ private fun EventCard(place: String, date: String, time: String, price: String) 
     ) {
         Text(
             text = place,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W500,
-            fontFamily = FontFamily(Font(R.font.inter)),
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.padding(12.dp)
         )
 
@@ -180,9 +173,7 @@ private fun BalanceCard(price: String) {
             Text(
                 text = stringResource(id = R.string.balance),
                 color = Gray75,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W400,
-                fontFamily = FontFamily(Font(R.font.inter))
+                style = MaterialTheme.typography.displayMedium,
             )
         }
         Row(
@@ -210,9 +201,7 @@ private fun BalanceCard(price: String) {
 
             Text(
                 text = stringResource(id = R.string.replenish),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W500,
-                fontFamily = FontFamily(Font(R.font.inter)),
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.align(Alignment.Bottom)
             )
         }

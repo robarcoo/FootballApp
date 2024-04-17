@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import android.content.Context
 import android.icu.util.Calendar
@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -24,13 +25,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -52,9 +50,7 @@ fun EnterInfoScreen() {
         ) {
             Text(
                 text = stringResource(id = R.string.enterInfoYourself),
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
@@ -104,9 +100,7 @@ fun EnterInfoScreen() {
         ) {
             Text(
                 text = stringResource(id = R.string.position),
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
             )
             CheckBoxGroup()
         }
@@ -119,8 +113,7 @@ fun EnterInfoScreen() {
         ) {
             CommonButton(
                 text = "Сохранить",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(start = 16.dp, end = 8.dp)
@@ -129,8 +122,7 @@ fun EnterInfoScreen() {
             CommonButton(
                 text = "Пропустить",
                 containerColor = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(end = 16.dp)

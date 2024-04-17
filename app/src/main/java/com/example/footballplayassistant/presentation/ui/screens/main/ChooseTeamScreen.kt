@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,16 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.PlayerInTeam
 import com.example.footballplayassistant.presentation.customviews.cards.CountOfPlayers
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 
@@ -62,10 +60,7 @@ fun ChooseTeamScreen() {
                 item {
                     Text(
                         text = stringResource(id = R.string.teamsCanChanged),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.W600,
-                        fontFamily = FontFamily(Font(R.font.inter)),
-                        color = Gray75,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(vertical = 14.dp)
                     )
                 }
@@ -78,9 +73,8 @@ fun ChooseTeamScreen() {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.lightTeam),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.labelLarge
+                                    .copy(fontWeight = FontWeight.W600),
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
                             CountOfPlayers(
@@ -95,9 +89,8 @@ fun ChooseTeamScreen() {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.darkTeam),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.labelLarge
+                                    .copy(fontWeight = FontWeight.W600),
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
                             CountOfPlayers(
@@ -134,7 +127,6 @@ fun ChooseTeamScreen() {
                                 )
                         }
                     }
-
                 }
             }
         }
@@ -159,10 +151,9 @@ private fun RoundButton(enable: Boolean) {
         )
     }
     Text(
-        text = if (enable) stringResource(id = R.string.join) else stringResource(id = R.string.noEmpty),
-        fontSize = 16.sp,
-        fontWeight = FontWeight.W500,
-        fontFamily = FontFamily(Font(R.font.inter)),
+        text = if (enable) stringResource(id = R.string.join)
+        else stringResource(id = R.string.noEmpty),
+        style = MaterialTheme.typography.labelMedium,
         modifier = Modifier.padding(top = 8.dp)
     )
 }

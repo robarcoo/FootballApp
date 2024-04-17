@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,18 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxFriend
@@ -29,14 +26,14 @@ import com.example.footballplayassistant.presentation.ui.theme.Gray75
 fun InviteFriendsScreen() {
     Scaffold(bottomBar = {
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-            CommonButton(text = stringResource(id = R.string.invite), modifier = Modifier)
+            CommonButton(text = stringResource(id = R.string.invite),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier)
             TextButton(modifier = Modifier.fillMaxWidth(),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = stringResource(id = R.string.cancel),
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.W600,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = Gray75
                 )
             }

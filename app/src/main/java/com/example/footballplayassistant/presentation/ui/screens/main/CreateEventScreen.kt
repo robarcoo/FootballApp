@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -17,25 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.RadioButtonGroup
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
+import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.GrayBB
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
+import com.example.footballplayassistant.presentation.ui.theme.GrayBB
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 
 @Composable
@@ -200,6 +199,7 @@ fun CreateEventScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
+                        style = MaterialTheme.typography.displaySmall,
                         color = Gray75,
                         modifier = Modifier
                             .weight(0.55f),
@@ -207,6 +207,7 @@ fun CreateEventScreen() {
 
                     Text(
                         text = stringResource(id = R.string.commission),
+                        style = MaterialTheme.typography.displaySmall,
                         color = Yellow00,
                         modifier = Modifier
                             .weight(0.45f),
@@ -243,11 +244,13 @@ fun CreateEventScreen() {
                 if (flag.value)
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
+                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
                 else
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
+                        style = MaterialTheme.typography.bodyLarge,
                         containerColor = GrayBB,
                         contentColor = Gray75,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
@@ -259,6 +262,7 @@ fun CreateEventScreen() {
                     .padding(bottom = 16.dp)) {
                     Text(
                         text = stringResource(id = R.string.cantCancel),
+                        style = MaterialTheme.typography.displaySmall,
                         textAlign = TextAlign.Center
                     )
                     Icon(
@@ -280,17 +284,13 @@ fun BoldText(
     if (addStar)
         Text(
             text = addStar(id = id),
-            fontFamily = FontFamily(Font(R.font.inter)),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
             modifier = modifier.padding(horizontal = 16.dp)
         )
     else
         Text(
             text = stringResource(id = id),
-            fontFamily = FontFamily(Font(R.font.inter)),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
             modifier = modifier.padding(horizontal = 16.dp)
         )
 }

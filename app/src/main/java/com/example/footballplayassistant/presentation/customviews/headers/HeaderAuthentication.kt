@@ -22,13 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 
 @Composable
@@ -79,15 +76,16 @@ fun HeaderSignIn() {
             )
             Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 onClick = { /*TODO*/ }) {
-                Text(text = "Пропустить", fontSize = 16.sp, fontWeight = FontWeight.W500)
+                Text(
+                    text = "Пропустить",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                )
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = "Вход",
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
                 color = Color.White
             )
         }
@@ -112,18 +110,14 @@ fun HeaderSignUp() {
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W500
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
                 )
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text(
                 text = "Регистрация",
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
                 color = Color.White
             )
         }
@@ -137,8 +131,7 @@ fun HeaderSignUpCode() {
         Text(
             text = "Введите код из письма",
             textAlign = TextAlign.Center,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.W500,
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
             color = Color.White
         )
     }
@@ -156,8 +149,7 @@ fun HeaderSignUpStep(numStep: Int) {
             Text(
                 text = "Регистрация",
                 textAlign = TextAlign.Center,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
                 color = Color.White
             )
         }
@@ -165,8 +157,7 @@ fun HeaderSignUpStep(numStep: Int) {
             Text(
                 text = "Шаг $numStep из 2",
                 textAlign = TextAlign.Center,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400,
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
                 color = Color.White
             )
         }
