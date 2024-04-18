@@ -29,19 +29,24 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.PlayerInTeam
 import com.example.footballplayassistant.presentation.customviews.cards.CountOfPlayers
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 
 @Composable
 @Preview
 fun ChooseTeamScreen() {
+    val navControler = LocalNavController.current!!
     Scaffold(bottomBar = {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundButton(enable = true)
+                RoundButton(
+                    enable = true,
+                    onClick = { navControler.navigate(Route.PaymentScreen.path) })
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 RoundButton(enable = false)
@@ -142,9 +147,9 @@ fun ChooseTeamScreen() {
 }
 
 @Composable
-private fun RoundButton(enable: Boolean) {
+private fun RoundButton(enable: Boolean, onClick: () -> Unit = {}) {
     IconButton(
-        onClick = { /*TODO*/ },
+        onClick = { onClick.invoke() },
         enabled = enable,
         modifier = Modifier.border(
             width = 1.dp,

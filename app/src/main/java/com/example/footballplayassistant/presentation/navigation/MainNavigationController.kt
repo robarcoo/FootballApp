@@ -8,12 +8,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.footballplayassistant.presentation.ui.screens.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.EnterInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.InviteFriendsScreen
 import com.example.footballplayassistant.presentation.ui.screens.MainScreen
 import com.example.footballplayassistant.presentation.ui.screens.MatchInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.MatchScreen
 import com.example.footballplayassistant.presentation.ui.screens.NewsScreen
+import com.example.footballplayassistant.presentation.ui.screens.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.SignInScreen
 import com.example.footballplayassistant.presentation.ui.screens.SignUpCodeScreen
 import com.example.footballplayassistant.presentation.ui.screens.SignUpEnterPhoneScreen
@@ -80,6 +83,18 @@ fun MainNavigationController(
 
             composable(route = Route.MatchInfoScreen.path) {
                 MatchInfoScreen()
+            }
+
+            composable(route = Route.ChooseTeamScreen.path) {
+                ChooseTeamScreen()
+            }
+
+            composable(route = Route.PaymentScreen.path) {
+                PaymentScreen()
+            }
+
+            composable(route = Route.InviteFriendsScreen.path) {
+                InviteFriendsScreen()
             }
         }
     }

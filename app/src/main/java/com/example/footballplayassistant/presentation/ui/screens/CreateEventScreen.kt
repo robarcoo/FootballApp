@@ -33,6 +33,8 @@ import com.example.footballplayassistant.presentation.customviews.RadioButtonGro
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
@@ -41,6 +43,8 @@ import com.example.footballplayassistant.presentation.ui.theme.Yellow00
 @Composable
 @Preview
 fun CreateEventScreen() {
+    val navController = LocalNavController.current!!
+
     val flag = remember {
         mutableStateOf(true)
     }
@@ -50,12 +54,17 @@ fun CreateEventScreen() {
 
     if (showDialog.value)
         DialogScreen(
-            header = "Игра создана",
-            description = "пояснение",
-            greenButton = "на страницу игры",
-            whiteButton = "пригласить друзей",
-            bottomButton = "скопировать приглашение"
-        ){}
+            header = stringResource(id = R.string.gameCreated),
+            description = stringResource(id = R.string.youGetNotify),
+            greenButton = stringResource(id = R.string.onGamePage),
+            whiteButton = stringResource(id = R.string.inviteFriends),
+            bottomButton = stringResource(id = R.string.copy),
+            image = R.drawable.ic_check_92,
+            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+            onClickBottom = {/*copy invitation*/ navController.navigate(Route.MatchScreen.path) },
+            onDismissRequest = { showDialog.value = false }
+        )
 
     Column {
         HeaderWithBackButton(

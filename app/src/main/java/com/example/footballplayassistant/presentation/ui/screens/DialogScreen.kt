@@ -40,6 +40,9 @@ fun DialogScreen(
     greenButton: String = "",
     whiteButton: String = "",
     bottomButton: String = "",
+    onClickGreen: () -> Unit = {},
+    onClickWhite: () -> Unit = {},
+    onClickBottom: () -> Unit = {},
     onDismissRequest: () -> Unit,
 ) {
     AlertDialog(
@@ -96,17 +99,18 @@ fun DialogScreen(
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
                     if (greenButton != "")
-                        CommonButton(text = "green")
+                        CommonButton(text = greenButton, onClick = { onClickGreen.invoke() })
                     if (whiteButton != "")
                         CommonButton(
-                            text = "white",
+                            text = whiteButton,
+                            onClick = { onClickWhite.invoke() },
                             containerColor = Color.White,
                             modifier = Modifier.padding(bottom = 12.dp)
                         )
                     if (bottomButton != "")
-                        TextButton(onClick = { /*TODO*/ }) {
+                        TextButton(onClick = { onClickBottom.invoke() }) {
                             Text(
-                                text = "bottom",
+                                text = bottomButton,
                                 fontWeight = FontWeight.W600,
                                 fontSize = 14.sp,
                                 fontFamily = FontFamily(Font(R.font.inter)),

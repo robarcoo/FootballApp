@@ -26,6 +26,12 @@ sealed class Route(val path: String) {
 
     data object MatchInfoScreen : Route(path = "match_info_screen")
 
+    data object ChooseTeamScreen : Route(path = "choose_team_screen")
+
+    data object PaymentScreen : Route(path = "payment_screen")
+
+    data object InviteFriendsScreen : Route(path = "invite_friends_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {
