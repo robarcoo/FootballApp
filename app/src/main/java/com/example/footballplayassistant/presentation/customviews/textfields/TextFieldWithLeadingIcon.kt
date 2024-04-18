@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -18,12 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun TextFieldWithLeadingIcon(
@@ -32,7 +30,7 @@ fun TextFieldWithLeadingIcon(
     imageStart: Int = 0,
     keyBoard: KeyboardType = KeyboardType.Email,
     value: String = "",
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     onTrailClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -56,19 +54,22 @@ fun TextFieldWithLeadingIcon(
             textValue.value = it
         },
         placeholder = {
-            Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
+            Text(
+                text = placeholder,
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400)
+            )
         },
         singleLine = true,
         shape = RoundedCornerShape(60.dp),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTextColor = Color.Black,
-            unfocusedPlaceholderColor = Gray75,
-            focusedPlaceholderColor = Gray75,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedTextColor = MaterialTheme.colorScheme.primary,
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
         ),
 
         modifier = modifier

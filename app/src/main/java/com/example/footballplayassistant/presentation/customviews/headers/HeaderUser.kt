@@ -13,19 +13,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun HeaderUser(name: String, modifier: Modifier = Modifier) {
@@ -44,16 +41,12 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "Привет,",
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp,
-                color = Gray75
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
             Text(
                 text = name,
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontWeight = FontWeight.W600,
-                fontSize = 20.sp
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
             )
         }
 
@@ -62,7 +55,11 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .weight(0.3f)
                 .height(42.dp)
-                .border(width = 1.dp, color = Gray75, RoundedCornerShape(40.dp))
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    RoundedCornerShape(40.dp)
+                )
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
@@ -76,7 +73,7 @@ fun HeaderUser(name: String, modifier: Modifier = Modifier) {
                     .fillMaxHeight()
                     .padding(vertical = 8.dp)
                     .width(1.dp),
-                color = Gray75
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
 
             IconButton(onClick = { /*TODO*/ }) {

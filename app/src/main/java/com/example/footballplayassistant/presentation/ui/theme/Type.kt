@@ -51,9 +51,4 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.inter)),
         fontSize = 10.sp,
     ),
-    labelMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.montserrat)),
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp,
-    ),
 )

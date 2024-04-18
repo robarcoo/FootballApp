@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.presentation.customviews.rows.UserFotoForList
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun CheckBoxFriend(text: String, name: String, foto: Int,  modifier: Modifier = Modifier) {
@@ -31,8 +31,8 @@ fun CheckBoxFriend(text: String, name: String, foto: Int,  modifier: Modifier = 
             checked = state.value,
             onCheckedChange = { state.value = it },
             colors = CheckboxDefaults.colors(
-                checkedColor = Green,
-                uncheckedColor = Green,
+                checkedColor = MaterialTheme.colorScheme.secondary,
+                uncheckedColor = MaterialTheme.colorScheme.secondary,
             ),
             modifier = Modifier.fillMaxWidth(0.2f)
         )
