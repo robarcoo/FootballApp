@@ -8,8 +8,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.footballplayassistant.presentation.ui.screens.SignInScreen
-import com.example.footballplayassistant.presentation.ui.screens.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignInScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
 
 @Composable
 fun MainNavigationController(

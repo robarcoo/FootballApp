@@ -9,22 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
 fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
@@ -32,7 +28,11 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(12.dp))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(12.dp)
+            )
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Row {
@@ -51,9 +51,7 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
             Row(modifier = Modifier.padding(vertical = 12.dp)) {
                 Text(
                     text = place,
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight.W500,
-                    fontSize = 14.sp,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
                     maxLines = 2,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -70,10 +68,9 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                     )
                     Text(
                         text = "100км",
-                        fontFamily = FontFamily(Font(R.font.inter)),
-                        fontWeight = FontWeight.W500,
-                        fontSize = 14.sp,
-                        color = Gray75
+                        style = MaterialTheme.typography.bodyMedium
+                            .copy(fontWeight = FontWeight.W500),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }
