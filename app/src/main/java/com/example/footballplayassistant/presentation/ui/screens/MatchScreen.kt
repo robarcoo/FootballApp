@@ -75,7 +75,9 @@ fun MatchScreen() {
         ) {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.match),
-                imageButton = R.drawable.ic_arrow_share_25
+                imageButton = R.drawable.ic_arrow_share_25,
+                onClickBack = { navController.navigate(Route.MainScreen.path) },
+                onClickOther = {}
             )
 
             LazyColumn {

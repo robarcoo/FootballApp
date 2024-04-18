@@ -28,6 +28,8 @@ import com.example.footballplayassistant.presentation.ui.theme.Gray75
 fun HeaderWithBackButton(
     text: String,
     imageButton: Int = 0,
+    onClickBack: () -> Unit = {},
+    onClickOther: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
@@ -37,7 +39,7 @@ fun HeaderWithBackButton(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(modifier = Modifier.border(width = 1.dp, color = Gray75, shape = CircleShape),
-            onClick = { /*TODO*/ }) {
+            onClick = { onClickBack.invoke() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
                 contentDescription = ""
@@ -58,7 +60,7 @@ fun HeaderWithBackButton(
                 color = Gray75,
                 shape = CircleShape
             ),
-                onClick = { /*TODO*/ }) {
+                onClick = { onClickOther.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
                     contentDescription = ""

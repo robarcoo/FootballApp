@@ -124,6 +124,7 @@
     <string name="darkdontForget">Не забудьте взять спортивный  инвентарь для матча.\nЖелаем хорошей игры!</string>
     <string name="returnMain">Вернуться на главную</string>
     <string name="inviteFriendsAlso">Пригласить еще друзей</string>
+    <string name="done">Готово</string>
 
     <string-array name="positions_array">
         <item>Вратарь</item>

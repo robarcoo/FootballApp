@@ -37,7 +37,7 @@ import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 @Composable
 @Preview
 fun ChooseTeamScreen() {
-    val navControler = LocalNavController.current!!
+    val navController = LocalNavController.current!!
     Scaffold(bottomBar = {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -46,7 +46,7 @@ fun ChooseTeamScreen() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 RoundButton(
                     enable = true,
-                    onClick = { navControler.navigate(Route.PaymentScreen.path) })
+                    onClick = { navController.navigate(Route.PaymentScreen.path) })
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 RoundButton(enable = false)
@@ -58,7 +58,8 @@ fun ChooseTeamScreen() {
                 .padding(it)
                 .padding(top = 12.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderWithBackButton(text = "name")
+            HeaderWithBackButton(text = "name",
+                onClickBack = { navController.navigate(Route.MatchScreen.path) })
 
             LazyColumn(
                 modifier = Modifier.padding(horizontal = 16.dp),

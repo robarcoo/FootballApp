@@ -85,6 +85,7 @@ fun PaymentScreen() {
         ) {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.payment),
+                onClickBack = { navController.navigate(Route.MatchScreen.path) },
                 modifier = Modifier.padding(vertical = 12.dp)
             )
 

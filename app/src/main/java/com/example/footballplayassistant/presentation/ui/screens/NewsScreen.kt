@@ -30,12 +30,16 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Black04
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
 fun NewsScreen() {
+    val navController = LocalNavController.current!!
+
     val filter = remember {
         mutableStateOf("friends")
     }
@@ -43,6 +47,8 @@ fun NewsScreen() {
         HeaderWithBackButton(
             text = stringResource(id = R.string.news),
             imageButton = R.drawable.ic_plus_24,
+            onClickBack = { navController.navigate(Route.MainScreen.path) },
+            onClickOther = { navController.navigate(Route.CreateEventScreen.path) }
         )
 
         Box(
