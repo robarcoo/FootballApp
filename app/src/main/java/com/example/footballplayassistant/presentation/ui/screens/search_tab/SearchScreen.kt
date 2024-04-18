@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -90,13 +91,15 @@ fun SearchCard(title : String, address : String, distance : String) {
             Spacer(modifier = Modifier.height(20.dp))
             Row() {
                 Text(
-                    text = address, color = Gray75, style = MaterialTheme.typography.displaySmall
+                    text = address, color = Gray75, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                        lineHeight = 12.sp)
                 )
                 Spacer(modifier = Modifier
                     .width(26.dp)
                     .weight(1f))
                 Text(
-                    text = distance, color = Gray75, style = MaterialTheme.typography.displaySmall
+                    text = distance, color = Gray75, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                        lineHeight = 12.sp)
                 )
             }
         }

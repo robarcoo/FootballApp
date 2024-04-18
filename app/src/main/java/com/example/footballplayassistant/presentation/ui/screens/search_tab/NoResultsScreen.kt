@@ -16,6 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.ui.theme.Black04
+import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -35,7 +37,7 @@ fun NoResultsScreen() {
                 textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium
             )
         }
-        CommonButton(text = "Добавить поле")
+        CommonButton(text = "Добавить поле", containerColor = Green, contentColor = Black04)
 
     }
 

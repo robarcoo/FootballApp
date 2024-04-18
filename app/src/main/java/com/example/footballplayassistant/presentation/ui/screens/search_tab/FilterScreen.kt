@@ -67,7 +67,7 @@ fun FilterScreen() {
         FilterRangeSlider("Удаленность от вас (км)", 0f, 50f)
         FilterRangeSlider("Количество игроков (чел)", 12f, 48f)
         ToggleButton("Тип площадки", listOf("Открытый", "Закрытый"))
-        ToggleButton("Покрытие", listOf("Искуственная трава", "Гибридный газон", "Натуральная трава", "Другое покрытие"))
+        ToggleButton("Покрытие", listOf("Искусственная трава", "Гибридный газон", "Натуральная трава", "Другое покрытие"))
         Spacer(modifier = Modifier.weight(1f))
         FilterBottomBar()
     }
@@ -101,7 +101,8 @@ fun FilterButton(text : String, containerColor : Color, contentColor: Color, onC
         ),
         colors = ButtonDefaults.buttonColors(containerColor = containerColor,
             contentColor = contentColor)) {
-        Text(text, style = MaterialTheme.typography.labelMedium)
+        Text(text, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W500,
+            fontFamily = FontFamily(Font(R.font.montserrat))))
     }
 
 }
