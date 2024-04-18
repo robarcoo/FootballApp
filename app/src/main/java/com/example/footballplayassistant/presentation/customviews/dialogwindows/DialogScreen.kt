@@ -55,15 +55,13 @@ fun DialogScreen(
                     .fillMaxSize()
                     .background(color = MaterialTheme.colorScheme.primary)
             ) {
-                Column(
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
+                    contentDescription = "",
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                ) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
-                        contentDescription = ""
-                    )
-                }
+                )
+
                 Column(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -117,15 +115,13 @@ fun DialogScreen(
                                 )
                         }
                 }
-                Column(
+
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
+                    contentDescription = "",
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                ) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
-                        contentDescription = ""
-                    )
-                }
+                )
             }
         }
     }

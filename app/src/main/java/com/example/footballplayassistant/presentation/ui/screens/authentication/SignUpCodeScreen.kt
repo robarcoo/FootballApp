@@ -46,28 +46,31 @@ fun SignUpCodePage() {
 
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpCode() }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = stringResource(R.string.phoneCode/*or emailCode*/),
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
+
+        Text(
+            text = stringResource(R.string.phoneCode/*or emailCode*/),
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+        )
+
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
             SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
             SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
             SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
             SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = stringResource(R.string.repeatCode),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-        }
+
+        Text(
+            text = stringResource(R.string.repeatCode),
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+        )
     }
 }
 

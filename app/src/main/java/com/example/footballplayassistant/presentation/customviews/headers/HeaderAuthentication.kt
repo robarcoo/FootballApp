@@ -40,18 +40,18 @@ fun HeaderAuthentication(header: @Composable () -> Unit) {
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.primary)
         ) {
-            Column(modifier = Modifier.align(Alignment.TopStart)) {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full),
-                    contentDescription = ""
-                )
-            }
-            Column(modifier = Modifier.align(Alignment.BottomEnd)) {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full_79_87),
-                    contentDescription = ""
-                )
-            }
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full),
+                contentDescription = "",
+                modifier = Modifier.align(Alignment.TopStart)
+            )
+
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full_79_87),
+                contentDescription = "",
+                modifier = Modifier.align(Alignment.BottomEnd)
+            )
+
             Column(modifier = Modifier.align(Alignment.Center)) {
                 header()
             }
@@ -74,7 +74,8 @@ fun HeaderSignIn() {
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
             Button(colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.outlineVariant),
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            ),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
@@ -82,13 +83,14 @@ fun HeaderSignIn() {
                 )
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Вход",
-                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
+
+        Text(
+            text = "Вход",
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -107,7 +109,8 @@ fun HeaderSignUp() {
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
             Button(colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.outlineVariant),
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            ),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
@@ -115,52 +118,48 @@ fun HeaderSignUp() {
                 )
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Регистрация",
-                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
+        Text(
+            text = "Регистрация",
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
 @Composable
 @Preview
 fun HeaderSignUpCode() {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Text(
-            text = "Введите код из письма",
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-    }
+    Text(
+        text = "Введите код из письма",
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+        color = MaterialTheme.colorScheme.onPrimary,
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 @Composable
 fun HeaderSignUpStep(numStep: Int) {
     Column {
-        Row(
+        Text(
+            text = "Регистрация",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Регистрация",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Шаг $numStep из 2",
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
+                .padding(bottom = 16.dp)
+        )
+
+        Text(
+            text = "Шаг $numStep из 2",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
     }
 }

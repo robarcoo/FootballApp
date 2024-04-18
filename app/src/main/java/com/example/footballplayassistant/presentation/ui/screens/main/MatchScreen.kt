@@ -50,7 +50,7 @@ fun MatchScreen() {
         }) {
         Column(
             modifier = Modifier
-                .padding(vertical = 12.dp)
+                .padding(top = 12.dp)
                 .padding(it)
         ) {
             HeaderWithBackButton(

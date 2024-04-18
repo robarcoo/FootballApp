@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.footballplayassistant.R
 
@@ -25,6 +26,7 @@ fun ForgotPassword(modifier: Modifier = Modifier) {
             onClick = { /*TODO*/ }) {
             Text(
                 text = stringResource(id = R.string.forgotPassword),
+                textAlign = TextAlign.End,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500)
             )
         }

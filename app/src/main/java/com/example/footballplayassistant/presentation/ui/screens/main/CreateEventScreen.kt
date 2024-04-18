@@ -46,10 +46,18 @@ fun CreateEventScreen() {
             modifier = Modifier.padding(vertical = 8.dp)
         )
         LazyColumn {
-            item { CommonSwitch(text = stringResource(id = R.string.closeGame), icon = true,
-                textIcon = stringResource(id = R.string.closeGameToast)) }
-            item { CommonSwitch(text = stringResource(id = R.string.iWill), icon = true,
-                textIcon = stringResource(id = R.string.iWillToast)) }
+            item {
+                CommonSwitch(
+                    text = stringResource(id = R.string.closeGame), icon = true,
+                    textIcon = stringResource(id = R.string.closeGameToast)
+                )
+            }
+            item {
+                CommonSwitch(
+                    text = stringResource(id = R.string.iWill), icon = true,
+                    textIcon = stringResource(id = R.string.iWillToast)
+                )
+            }
             item {
                 BoldText(id = R.string.field, modifier = Modifier.padding(top = 24.dp))
 
@@ -178,9 +186,7 @@ fun CreateEventScreen() {
             }
             item {
                 BoldText(addStar = false, id = R.string.sexPlayers)
-                Row {
-                    RadioButtonGroup()
-                }
+                RadioButtonGroup()
             }
             item {
                 BoldText(id = R.string.inventory, modifier = Modifier.padding(top = 24.dp))
@@ -253,9 +259,11 @@ fun CreateEventScreen() {
                     )
             }
             item {
-                Row(modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 16.dp)) {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 16.dp)
+                ) {
                     Text(
                         text = stringResource(id = R.string.cantCancel),
                         style = MaterialTheme.typography.displaySmall,

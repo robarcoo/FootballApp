@@ -209,7 +209,8 @@ private fun BottomBar() {
             Button(modifier = Modifier.align(Alignment.CenterVertically),
                 colors =
                 if (number.value == 4) ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary)
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                )
                 else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),

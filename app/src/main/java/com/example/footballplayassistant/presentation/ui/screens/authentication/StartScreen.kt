@@ -70,22 +70,20 @@ fun StartScreen() {
                     )
                 )
             ) {
-                Column(
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_144_223),
+                    contentDescription = "",
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(bottom = 260.dp)
-                ) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_144_223),
-                        contentDescription = ""
-                    )
-                }
-                Column(modifier = Modifier.align(Alignment.BottomEnd)) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_140_170),
-                        contentDescription = ""
-                    )
-                }
+                )
+
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_140_170),
+                    contentDescription = "",
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                )
+
                 Column(
                     modifier = Modifier
                         .wrapContentSize()
@@ -109,7 +107,8 @@ fun StartScreen() {
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 10.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.outlineVariant),
+                            containerColor = MaterialTheme.colorScheme.outlineVariant
+                        ),
                         onClick = { /*TODO*/ }) {
                         Text(
                             text = "Зарегистрироваться",

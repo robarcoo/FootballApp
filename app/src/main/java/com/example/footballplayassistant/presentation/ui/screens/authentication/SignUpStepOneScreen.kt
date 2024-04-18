@@ -1,8 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -40,22 +37,15 @@ fun SignUpStepOneScreen() {
 
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpStep(numStep = 1) }
-        Row(
+
+        Text(
+            text = stringResource(R.string.writeInfo), textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             modifier = Modifier
+                .padding(horizontal = 16.dp)
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .weight(0.05f),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(R.string.writeInfo), textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.CenterVertically)
-            )
-        }
+        )
 
         Column(
             modifier = Modifier
@@ -127,19 +117,12 @@ fun SignUpStepOneScreen() {
                 .weight(0.1f)
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .weight(0.1f)
-        ) {
-            BottomQuestion(
-                question = context.getString(R.string.questionAcc), buttonText = context.getString(
-                    R.string.signin
-                ),
-                modifier = Modifier.align(Alignment.Bottom)
-            )
-        }
+        BottomQuestion(
+            question = context.getString(R.string.questionAcc),
+            buttonText = context.getString(
+                R.string.signin
+            ),
+        )
     }
 }
 

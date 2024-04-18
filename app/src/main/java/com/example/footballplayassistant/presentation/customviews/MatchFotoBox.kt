@@ -1,9 +1,7 @@
 package com.example.footballplayassistant.presentation.customviews
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -46,16 +45,14 @@ private fun CountPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifie
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
-        Row(
+        Text(
+            text = "$currentPlayers/$maxPlayers",
+            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .fillMaxWidth(), horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "$currentPlayers/$maxPlayers",
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-            )
-        }
+                .padding(horizontal = 12.dp, vertical = 6.dp)
+                .fillMaxWidth()
+        )
     }
 }

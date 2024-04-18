@@ -38,12 +38,9 @@ fun ChooseTeamScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundButton(enable = true)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundButton(enable = false)
-            }
+            RoundButton(enable = true)
+
+            RoundButton(enable = false)
         }
     }) {
         Column(
@@ -135,26 +132,28 @@ fun ChooseTeamScreen() {
 
 @Composable
 private fun RoundButton(enable: Boolean) {
-    IconButton(
-        onClick = { /*TODO*/ },
-        enabled = enable,
-        modifier = Modifier.border(
-            width = 1.dp,
-            color = if (enable) MaterialTheme.colorScheme.onSecondaryContainer
-            else MaterialTheme.colorScheme.tertiary,
-            shape = CircleShape
-        )
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
-            contentDescription = "",
-            tint = if (enable) Gray75 else GrayBB
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        IconButton(
+            onClick = { /*TODO*/ },
+            enabled = enable,
+            modifier = Modifier.border(
+                width = 1.dp,
+                color = if (enable) MaterialTheme.colorScheme.onSecondaryContainer
+                else MaterialTheme.colorScheme.tertiary,
+                shape = CircleShape
+            )
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
+                contentDescription = "",
+                tint = if (enable) Gray75 else GrayBB
+            )
+        }
+        Text(
+            text = if (enable) stringResource(id = R.string.join)
+            else stringResource(id = R.string.noEmpty),
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(top = 8.dp)
         )
     }
-    Text(
-        text = if (enable) stringResource(id = R.string.join)
-        else stringResource(id = R.string.noEmpty),
-        style = MaterialTheme.typography.labelMedium,
-        modifier = Modifier.padding(top = 8.dp)
-    )
 }
