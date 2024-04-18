@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,11 +30,11 @@ import com.example.footballplayassistant.presentation.customviews.cards.CommonIc
 import com.example.footballplayassistant.presentation.customviews.cards.CommonOtherInfoCard
 import com.example.footballplayassistant.presentation.customviews.cards.GreenBorderCard
 import com.example.footballplayassistant.presentation.customviews.cards.PlayersCard
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.FieldNameRow
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -59,10 +60,11 @@ fun MatchScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = GrayF1)
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 CommonButton(
                     text = stringResource(id = R.string.participate),
+                    style = MaterialTheme.typography.bodyLarge,
                     onClick = { showDialog.value = true },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                 )
@@ -70,7 +72,7 @@ fun MatchScreen() {
         }) {
         Column(
             modifier = Modifier
-                .padding(vertical = 12.dp)
+                .padding(top = 12.dp)
                 .padding(it)
         ) {
             HeaderWithBackButton(

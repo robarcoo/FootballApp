@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,16 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.PlayerInTeam
 import com.example.footballplayassistant.presentation.customviews.cards.CountOfPlayers
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
@@ -43,14 +41,11 @@ fun ChooseTeamScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundButton(
+            RoundButton(
                     enable = true,
                     onClick = { navController.navigate(Route.PaymentScreen.path) })
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundButton(enable = false)
-            }
+
+            RoundButton(enable = false)
         }
     }) {
         Column(
@@ -68,10 +63,7 @@ fun ChooseTeamScreen() {
                 item {
                     Text(
                         text = stringResource(id = R.string.teamsCanChanged),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.W600,
-                        fontFamily = FontFamily(Font(R.font.inter)),
-                        color = Gray75,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(vertical = 14.dp)
                     )
                 }
@@ -84,9 +76,8 @@ fun ChooseTeamScreen() {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.lightTeam),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.labelLarge
+                                    .copy(fontWeight = FontWeight.W600),
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
                             CountOfPlayers(
@@ -101,9 +92,8 @@ fun ChooseTeamScreen() {
                         ) {
                             Text(
                                 text = stringResource(id = R.string.darkTeam),
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.W600,
-                                fontFamily = FontFamily(Font(R.font.inter)),
+                                style = MaterialTheme.typography.labelLarge
+                                    .copy(fontWeight = FontWeight.W600),
                                 modifier = Modifier.padding(bottom = 8.dp)
                             )
                             CountOfPlayers(
@@ -140,7 +130,6 @@ fun ChooseTeamScreen() {
                                 )
                         }
                     }
-
                 }
             }
         }
@@ -149,26 +138,28 @@ fun ChooseTeamScreen() {
 
 @Composable
 private fun RoundButton(enable: Boolean, onClick: () -> Unit = {}) {
-    IconButton(
-        onClick = { onClick.invoke() },
-        enabled = enable,
-        modifier = Modifier.border(
-            width = 1.dp,
-            color = if (enable) Gray75 else GrayBB,
-            shape = CircleShape
-        )
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
-            contentDescription = "",
-            tint = if (enable) Gray75 else GrayBB
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        IconButton(
+            onClick = { onClick.invoke() },
+            enabled = enable,
+            modifier = Modifier.border(
+                width = 1.dp,
+                color = if (enable) MaterialTheme.colorScheme.onSecondaryContainer
+                else MaterialTheme.colorScheme.tertiary,
+                shape = CircleShape
+            )
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
+                contentDescription = "",
+                tint = if (enable) Gray75 else GrayBB
+            )
+        }
+        Text(
+            text = if (enable) stringResource(id = R.string.join)
+            else stringResource(id = R.string.noEmpty),
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(top = 8.dp)
         )
     }
-    Text(
-        text = if (enable) stringResource(id = R.string.join) else stringResource(id = R.string.noEmpty),
-        fontSize = 16.sp,
-        fontWeight = FontWeight.W500,
-        fontFamily = FontFamily(Font(R.font.inter)),
-        modifier = Modifier.padding(top = 8.dp)
-    )
 }

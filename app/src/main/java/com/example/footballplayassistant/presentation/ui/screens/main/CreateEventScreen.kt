@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -17,28 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.RadioButtonGroup
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
+import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.GrayBB
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.Yellow00
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
 
 @Composable
 @Preview
@@ -91,7 +87,7 @@ fun CreateEventScreen() {
                 DropDownMenu(
                     placeholder = "field",
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -102,7 +98,7 @@ fun CreateEventScreen() {
                     placeholder = stringResource(id = R.string.date),
                     imStart = R.drawable.ic_calendar_22,
                     values = listOf("Поле 1", "Поле 2"),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
@@ -120,7 +116,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 4.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.end),
@@ -128,7 +124,7 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 4.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                 }
             }
@@ -140,12 +136,12 @@ fun CreateEventScreen() {
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.otherInfo),
-                    color = GrayF1,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     singleLine = false,
                     cornerRadius = 20.dp,
                     modifier = Modifier
@@ -177,7 +173,7 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
@@ -206,16 +202,14 @@ fun CreateEventScreen() {
                             "20",
                             "22"
                         ),
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
             }
             item {
                 BoldText(addStar = false, id = R.string.sexPlayers)
-                Row {
-                    RadioButtonGroup()
-                }
+                RadioButtonGroup()
             }
             item {
                 BoldText(id = R.string.inventory, modifier = Modifier.padding(top = 24.dp))
@@ -230,14 +224,16 @@ fun CreateEventScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
-                        color = Gray75,
+                        style = MaterialTheme.typography.displaySmall,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .weight(0.55f),
                     )
 
                     Text(
                         text = stringResource(id = R.string.commission),
-                        color = Yellow00,
+                        style = MaterialTheme.typography.displaySmall,
+                        color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .weight(0.45f),
                     )
@@ -253,12 +249,12 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(end = 16.dp),
-                        color = GrayF1
+                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
                         placeholder = stringResource(id = R.string.commission),
                         imageTrail = R.drawable.ic_ruble_15,
-                        color = GrayF1,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier
                             .weight(0.5f)
                             .padding(start = 16.dp),
@@ -274,13 +270,15 @@ fun CreateEventScreen() {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         onClick = { showDialog.value = true },
+                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
                 else
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
-                        containerColor = GrayBB,
-                        contentColor = Gray75,
+                        style = MaterialTheme.typography.bodyLarge,
+                        containerColor = MaterialTheme.colorScheme.tertiary,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )
             }
@@ -292,6 +290,7 @@ fun CreateEventScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.cantCancel),
+                        style = MaterialTheme.typography.displaySmall,
                         textAlign = TextAlign.Center
                     )
                     Icon(
@@ -313,17 +312,13 @@ fun BoldText(
     if (addStar)
         Text(
             text = addStar(id = id),
-            fontFamily = FontFamily(Font(R.font.inter)),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
             modifier = modifier.padding(horizontal = 16.dp)
         )
     else
         Text(
             text = stringResource(id = id),
-            fontFamily = FontFamily(Font(R.font.inter)),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.W600,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
             modifier = modifier.padding(horizontal = 16.dp)
         )
 }

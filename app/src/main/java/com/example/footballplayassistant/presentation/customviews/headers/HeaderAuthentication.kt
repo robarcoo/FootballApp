@@ -18,17 +18,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 
 @Composable
@@ -44,18 +40,18 @@ fun HeaderAuthentication(header: @Composable () -> Unit) {
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.primary)
         ) {
-            Column(modifier = Modifier.align(Alignment.TopStart)) {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full),
-                    contentDescription = ""
-                )
-            }
-            Column(modifier = Modifier.align(Alignment.BottomEnd)) {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full_79_87),
-                    contentDescription = ""
-                )
-            }
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full),
+                contentDescription = "",
+                modifier = Modifier.align(Alignment.TopStart)
+            )
+
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full_79_87),
+                contentDescription = "",
+                modifier = Modifier.align(Alignment.BottomEnd)
+            )
+
             Column(modifier = Modifier.align(Alignment.Center)) {
                 header()
             }
@@ -77,20 +73,24 @@ fun HeaderSignIn() {
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            Button(colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            ),
                 onClick = { /*TODO*/ }) {
-                Text(text = "Пропустить", fontSize = 16.sp, fontWeight = FontWeight.W500)
+                Text(
+                    text = "Пропустить",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                )
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Вход",
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
-                color = Color.White
-            )
-        }
+
+        Text(
+            text = "Вход",
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -108,67 +108,58 @@ fun HeaderSignUp() {
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
-            Button(colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+            Button(colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            ),
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W500
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
                 )
             }
         }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Регистрация",
-                fontFamily = FontFamily(Font(R.font.inter)),
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
-                color = Color.White
-            )
-        }
+        Text(
+            text = "Регистрация",
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
 @Composable
 @Preview
 fun HeaderSignUpCode() {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-        Text(
-            text = "Введите код из письма",
-            textAlign = TextAlign.Center,
-            fontSize = 36.sp,
-            fontWeight = FontWeight.W500,
-            color = Color.White
-        )
-    }
+    Text(
+        text = "Введите код из письма",
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+        color = MaterialTheme.colorScheme.onPrimary,
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 @Composable
 fun HeaderSignUpStep(numStep: Int) {
     Column {
-        Row(
+        Text(
+            text = "Регистрация",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Регистрация",
-                textAlign = TextAlign.Center,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.W500,
-                color = Color.White
-            )
-        }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Text(
-                text = "Шаг $numStep из 2",
-                textAlign = TextAlign.Center,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W400,
-                color = Color.White
-            )
-        }
+                .padding(bottom = 16.dp)
+        )
+
+        Text(
+            text = "Шаг $numStep из 2",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
     }
 }

@@ -8,21 +8,21 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.footballplayassistant.presentation.ui.screens.ChooseTeamScreen
-import com.example.footballplayassistant.presentation.ui.screens.CreateEventScreen
-import com.example.footballplayassistant.presentation.ui.screens.EnterInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.InviteFriendsScreen
-import com.example.footballplayassistant.presentation.ui.screens.MainScreen
-import com.example.footballplayassistant.presentation.ui.screens.MatchInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.MatchScreen
-import com.example.footballplayassistant.presentation.ui.screens.NewsScreen
-import com.example.footballplayassistant.presentation.ui.screens.PaymentScreen
-import com.example.footballplayassistant.presentation.ui.screens.SignInScreen
-import com.example.footballplayassistant.presentation.ui.screens.SignUpCodeScreen
-import com.example.footballplayassistant.presentation.ui.screens.SignUpEnterPhoneScreen
-import com.example.footballplayassistant.presentation.ui.screens.SignUpStepOneScreen
-import com.example.footballplayassistant.presentation.ui.screens.SignUpStepTwoScreen
-import com.example.footballplayassistant.presentation.ui.screens.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignInScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpCodeScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpEnterPhoneScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
 
 @Composable
 fun MainNavigationController(

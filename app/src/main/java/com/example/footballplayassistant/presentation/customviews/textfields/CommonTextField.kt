@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -20,15 +21,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 
 @Composable
@@ -39,7 +38,7 @@ fun CommonTextField(
     singleLine: Boolean = true,
     keyBoard: KeyboardType = KeyboardType.Email,
     isPassword: Boolean = false,
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     cornerRadius: Dp = 60.dp,
     maxLength: Int = 40,
     value: String = "",
@@ -83,22 +82,28 @@ fun CommonTextField(
                         painter = painterResource(id = imageStart),
                         contentDescription = "", modifier = Modifier.padding(end = 4.dp)
                     )
-                    Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
+                    Text(
+                        text = placeholder,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400)
+                    )
                 }
             else
-                Text(text = placeholder, fontFamily = FontFamily(Font(R.font.inter)))
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400)
+                )
         },
         singleLine = singleLine,
         shape = RoundedCornerShape(cornerRadius),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTextColor = Color.Black,
-            unfocusedPlaceholderColor = Gray75,
-            focusedPlaceholderColor = Gray75,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+            focusedTextColor = MaterialTheme.colorScheme.primary,
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
         ),
 
         modifier = modifier
