@@ -19,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -52,27 +53,12 @@ fun SearchScreen() {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
-        Row (verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)) {
-            SearchBar(
-                Modifier
-                    .height(48.dp)
-                    .weight(1f))
-            Spacer(modifier = Modifier
-                .size(6.dp))
-            OutlinedIconButton(onClick = {}, modifier = Modifier.size(48.dp),
-                border = BorderStroke(1.dp, Gray75)
-            ) {
-                Icon(painter = painterResource(id = R.drawable.ic_icons_24),
-                    contentDescription = "Filter", tint = Black04,
-                    modifier = Modifier.padding(10.dp))
-            }
-        }
+        SearchBar()
         LazyColumn() {
             item {
-                SearchCard()
-                SearchCard()
-                SearchCard()
+                SearchCard("Тест", "Тест", "4,2км")
+                SearchCard("Тест", "Тест", "4,2км")
+                SearchCard("Тест", "Тест", "4,2км")
             }
         }
 
@@ -80,7 +66,7 @@ fun SearchScreen() {
 }
 
 @Composable
-fun SearchCard() {
+fun SearchCard(title : String, address : String, distance : String) {
     Card(modifier = Modifier
         .padding(vertical = 5.dp)
         .fillMaxWidth(),
@@ -90,10 +76,11 @@ fun SearchCard() {
         Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
             Row() {
                 Text(
-                    text = "Тест", fontSize = 16.sp, fontWeight = FontWeight.W600,
-                    fontFamily = FontFamily(Font(R.font.inter))
+                    text = title, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.W600
                 )
-                Spacer(modifier = Modifier.size(12.dp).weight(1f))
+                Spacer(modifier = Modifier
+                    .size(12.dp)
+                    .weight(1f))
                 Icon(
                     painterResource(id = R.drawable.ic_arrow_green_search_map),
                     contentDescription = "Map Link",
@@ -103,13 +90,13 @@ fun SearchCard() {
             Spacer(modifier = Modifier.height(20.dp))
             Row() {
                 Text(
-                    text = "Тест", fontSize = 12.sp, fontWeight = FontWeight.W500,
-                    color = Gray75, fontFamily = FontFamily(Font(R.font.inter))
+                    text = address, color = Gray75, style = MaterialTheme.typography.displaySmall
                 )
-                Spacer(modifier = Modifier.width(26.dp).weight(1f))
+                Spacer(modifier = Modifier
+                    .width(26.dp)
+                    .weight(1f))
                 Text(
-                    text = "4,2км", fontSize = 12.sp, fontWeight = FontWeight.W500,
-                    color = Gray75, fontFamily = FontFamily(Font(R.font.inter))
+                    text = distance, color = Gray75, style = MaterialTheme.typography.displaySmall
                 )
             }
         }
@@ -119,11 +106,17 @@ fun SearchCard() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(modifier : Modifier) {
+fun SearchBar() {
     var value by remember { mutableStateOf(TextFieldValue(""))}
+    Row (verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp)) {
     BasicTextField(
         value = value,
-        modifier = modifier,
+        modifier = Modifier
+            .height(48.dp)
+            .weight(1f),
         onValueChange = { value = it },
     ) { innerTextField ->
         TextFieldDefaults.DecorationBox(
@@ -153,5 +146,15 @@ fun SearchBar(modifier : Modifier) {
             ),
 
             )
+    }
+        Spacer(modifier = Modifier
+            .size(6.dp))
+        OutlinedIconButton(onClick = {}, modifier = Modifier.size(48.dp),
+            border = BorderStroke(1.dp, Gray75)
+        ) {
+            Icon(painter = painterResource(id = R.drawable.ic_icons_24),
+                contentDescription = "Filter", tint = Black04,
+                modifier = Modifier.padding(10.dp))
+        }
     }
 }
