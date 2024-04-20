@@ -16,7 +16,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 
 @Composable
-fun AllButton(text: String, modifier: Modifier = Modifier) {
+fun AllButton(text: String, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
             text = text,
@@ -29,7 +29,7 @@ fun AllButton(text: String, modifier: Modifier = Modifier) {
                 containerColor = MaterialTheme.colorScheme.outlineVariant,
                 contentColor = Gray75
             ),
-            onClick = { /*TODO*/ }) {
+            onClick = { onClick.invoke() }) {
             Text(
                 text = stringResource(id = R.string.all),
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600)

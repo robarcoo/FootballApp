@@ -27,6 +27,8 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Bottom
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 
@@ -34,6 +36,7 @@ import com.example.footballplayassistant.presentation.customviews.textfields.Com
 @Preview
 fun SignUpStepOneScreen() {
     val context = LocalContext.current
+    val navController = LocalNavController.current!!
 
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpStep(numStep = 1) }
@@ -104,6 +107,9 @@ fun SignUpStepOneScreen() {
 
         CommonButton(
             text = context.getString(R.string.next),
+            onClick = {
+                navController.navigate(Route.SignUpStepTwoScreen.path)
+            },
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -122,6 +128,7 @@ fun SignUpStepOneScreen() {
             buttonText = context.getString(
                 R.string.signin
             ),
+            onClick = { navController.navigate(Route.SignInScreen.path) }
         )
     }
 }

@@ -29,20 +29,43 @@ import com.example.footballplayassistant.presentation.customviews.RadioButtonGro
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
 
 @Composable
 @Preview
 fun CreateEventScreen() {
+    val navController = LocalNavController.current!!
+
     val flag = remember {
+        mutableStateOf(true)
+    }
+    val showDialog = remember {
         mutableStateOf(false)
     }
+
+    if (showDialog.value)
+        DialogScreen(
+            header = stringResource(id = R.string.gameCreated),
+            description = stringResource(id = R.string.youGetNotify),
+            greenButton = stringResource(id = R.string.onGamePage),
+            whiteButton = stringResource(id = R.string.inviteFriends),
+            bottomButton = stringResource(id = R.string.copy),
+            image = R.drawable.ic_check_92,
+            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+            onClickBottom = {/*copy invitation*/ navController.navigate(Route.MatchScreen.path) },
+            onDismissRequest = { showDialog.value = false }
+        )
 
     Column {
         HeaderWithBackButton(
             text = stringResource(id = R.string.addGame),
+            onClickBack = { navController.navigate(Route.MainScreen.path) },
             modifier = Modifier.padding(vertical = 8.dp)
         )
         LazyColumn {
@@ -246,6 +269,7 @@ fun CreateEventScreen() {
                 if (flag.value)
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
+                        onClick = { showDialog.value = true },
                         style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                     )

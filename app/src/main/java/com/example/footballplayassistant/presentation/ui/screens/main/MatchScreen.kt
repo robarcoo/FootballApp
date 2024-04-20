@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,12 +30,31 @@ import com.example.footballplayassistant.presentation.customviews.cards.CommonIc
 import com.example.footballplayassistant.presentation.customviews.cards.CommonOtherInfoCard
 import com.example.footballplayassistant.presentation.customviews.cards.GreenBorderCard
 import com.example.footballplayassistant.presentation.customviews.cards.PlayersCard
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.FieldNameRow
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 @Preview
 fun MatchScreen() {
+    val navController = LocalNavController.current!!
+    val showDialog = remember { mutableStateOf(false) }
+
+    if (showDialog.value)
+        DialogScreen(
+            header = stringResource(id = R.string.whoPlays),
+            description = stringResource(id = R.string.youGetNotify2),
+            greenButton = stringResource(id = R.string.playYourself),
+            whiteButton = stringResource(id = R.string.callFriends),
+            bottomButton = stringResource(id = R.string.cancel),
+            onClickGreen = { navController.navigate(Route.ChooseTeamScreen.path) },
+            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+            onClickBottom = { showDialog.value = false },
+            onDismissRequest = { showDialog.value = false }
+        )
+
     Scaffold(
         bottomBar = {
             Box(
@@ -44,6 +65,7 @@ fun MatchScreen() {
                 CommonButton(
                     text = stringResource(id = R.string.participate),
                     style = MaterialTheme.typography.bodyLarge,
+                    onClick = { showDialog.value = true },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
                 )
             }
@@ -55,7 +77,9 @@ fun MatchScreen() {
         ) {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.match),
-                imageButton = R.drawable.ic_arrow_share_25
+                imageButton = R.drawable.ic_arrow_share_25,
+                onClickBack = { navController.navigate(Route.MainScreen.path) },
+                onClickOther = {}
             )
 
             LazyColumn {
@@ -129,6 +153,7 @@ fun MatchScreen() {
                         )
 
                         CommonOtherInfoCard(
+                            onClick = { navController.navigate(Route.MatchInfoScreen.path) },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()

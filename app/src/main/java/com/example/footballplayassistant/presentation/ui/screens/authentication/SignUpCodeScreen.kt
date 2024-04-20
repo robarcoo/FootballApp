@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -35,14 +36,23 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpCode
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 @Preview
-fun SignUpCodePage() {
+fun SignUpCodeScreen() {
+    val navController = LocalNavController.current!!
     val (item1, item2, item3, item4) =
         remember { FocusRequester.createRefs() }
     val focusManager = LocalFocusManager.current
+    val OK = remember {
+        mutableStateOf(false)
+    }
+
+    if (OK.value)
+        navController.navigate(Route.SignUpStepOneScreen.path)
 
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpCode() }
@@ -60,7 +70,8 @@ fun SignUpCodePage() {
             SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
             SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
             SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
-            SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
+            OK.value =
+                SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
 
         Text(
@@ -79,14 +90,13 @@ fun SquareTextField(
     itemStart: FocusRequester,
     itemNext: FocusRequester,
     focusManager: FocusManager
-) {
+): Boolean {
     val textValue = remember { mutableStateOf("") }
     val maxChar = 1
 
     TextField(
         value = textValue.value, onValueChange = { newText ->
             if (newText.length == maxChar) {
-
                 focusManager.moveFocus(FocusDirection.Next)
             }
             textValue.value = newText
@@ -119,4 +129,5 @@ fun SquareTextField(
                 right = itemNext
             }
     )
+    return textValue.value != ""
 }

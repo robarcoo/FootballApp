@@ -30,11 +30,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.Black21
 
 
 @Composable
 @Preview
 fun StartScreen() {
+    val navController = LocalNavController.current!!
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -101,19 +105,24 @@ fun StartScreen() {
                     CommonButton(
                         text = "Войти",
                         style = MaterialTheme.typography.bodyLarge,
+                        onClick = {
+                            navController.navigate(Route.SignInScreen.path)
+                        }
                     )
 
                     Button(modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(top = 10.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.outlineVariant
-                        ),
-                        onClick = { /*TODO*/ }) {
+                            containerColor = MaterialTheme.colorScheme.outlineVariant),
+                        onClick = {
+                            navController.navigate(Route.SignUpEnterPhoneScreen.path)
+                        }) {
                         Text(
                             text = "Зарегистрироваться",
                             style = MaterialTheme.typography.bodyMedium
                                 .copy(fontWeight = FontWeight.W600)
+
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),

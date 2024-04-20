@@ -17,6 +17,7 @@ fun CommonButton(
     containerColor: Color = MaterialTheme.colorScheme.secondary,
     contentColor: Color = MaterialTheme.colorScheme.primary,
     style: TextStyle = MaterialTheme.typography.bodyLarge,
+    onClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Button(modifier = modifier.fillMaxWidth(),
@@ -24,7 +25,7 @@ fun CommonButton(
             contentColor = contentColor,
             containerColor = containerColor
         ),
-        onClick = { /*TODO*/ }) {
+        onClick = { onClick.invoke() }) {
         Text(
             text = text,
             style = style

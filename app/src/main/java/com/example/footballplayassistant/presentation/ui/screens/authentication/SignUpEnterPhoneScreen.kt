@@ -20,10 +20,13 @@ import com.example.footballplayassistant.presentation.customviews.buttons.SignIn
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUp
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 @Preview
-fun SignUpEnterPhonePage() {
+fun SignUpEnterPhoneScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUp() }
         Text(
@@ -38,13 +41,17 @@ fun SignUpEnterPhonePage() {
         )
         CommonButton(
             text = stringResource(R.string.sendCode),
+            onClick = {
+                navController.navigate(Route.SignUpCodeScreen.path)
+            },
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
         SignInWithAccounts()
         BottomQuestion(
             question = stringResource(R.string.questionAcc),
-            buttonText = stringResource(R.string.signin)
+            buttonText = stringResource(R.string.signin),
+            onClick = { navController.navigate(Route.SignInScreen.path) }
         )
     }
 }

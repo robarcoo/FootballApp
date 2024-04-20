@@ -17,6 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,17 +28,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
 fun PaymentScreen() {
+    val navController = LocalNavController.current!!
+    val showDialog = remember { mutableStateOf(false) }
+
+    if (showDialog.value)
+        DialogScreen(
+            header = stringResource(id = R.string.payOK),
+            description = stringResource(id = R.string.darkdontForget),
+            greenButton = stringResource(id = R.string.onGamePage),
+            whiteButton = stringResource(id = R.string.returnMain),
+            bottomButton = stringResource(id = R.string.inviteFriendsAlso),
+            image = R.drawable.ic_check_92,
+            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+            onClickWhite = { navController.navigate(Route.MainScreen.path) },
+            onClickBottom = { navController.navigate(Route.InviteFriendsScreen.path) },
+            onDismissRequest = { showDialog.value = false }
+        )
+
     Scaffold(bottomBar = {
         Column {
             CommonButton(
                 text = stringResource(id = R.string.pay),
+                onClick = { showDialog.value = true },
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
@@ -57,6 +80,7 @@ fun PaymentScreen() {
         ) {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.payment),
+                onClickBack = { navController.navigate(Route.MatchScreen.path) },
                 modifier = Modifier.padding(vertical = 12.dp)
             )
 

@@ -85,8 +85,9 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun CommonOtherInfoCard(modifier: Modifier = Modifier) {
+fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Card(
+        onClick = { onClick.invoke() },
         modifier = modifier
             .border(
                 width = 1.dp,

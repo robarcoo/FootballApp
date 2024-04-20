@@ -27,18 +27,23 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.PlayerInTeam
 import com.example.footballplayassistant.presentation.customviews.cards.CountOfPlayers
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.Gray75
 import com.example.footballplayassistant.presentation.ui.theme.GrayBB
 
 @Composable
 @Preview
 fun ChooseTeamScreen() {
+    val navController = LocalNavController.current!!
     Scaffold(bottomBar = {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            RoundButton(enable = true)
+            RoundButton(
+                    enable = true,
+                    onClick = { navController.navigate(Route.PaymentScreen.path) })
 
             RoundButton(enable = false)
         }
@@ -48,7 +53,8 @@ fun ChooseTeamScreen() {
                 .padding(it)
                 .padding(top = 12.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderWithBackButton(text = "name")
+            HeaderWithBackButton(text = "name",
+                onClickBack = { navController.navigate(Route.MatchScreen.path) })
 
             LazyColumn(
                 modifier = Modifier.padding(horizontal = 16.dp),
@@ -131,10 +137,10 @@ fun ChooseTeamScreen() {
 }
 
 @Composable
-private fun RoundButton(enable: Boolean) {
+private fun RoundButton(enable: Boolean, onClick: () -> Unit = {}) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = { onClick.invoke() },
             enabled = enable,
             modifier = Modifier.border(
                 width = 1.dp,

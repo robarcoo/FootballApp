@@ -24,6 +24,8 @@ import com.example.footballplayassistant.R
 fun HeaderWithBackButton(
     text: String,
     imageButton: Int = 0,
+    onClickBack: () -> Unit = {},
+    onClickOther: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
@@ -37,7 +39,7 @@ fun HeaderWithBackButton(
             color = MaterialTheme.colorScheme.onSecondaryContainer,
             shape = CircleShape
         ),
-            onClick = { /*TODO*/ }) {
+            onClick = { onClickBack.invoke() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
                 contentDescription = ""
@@ -56,7 +58,7 @@ fun HeaderWithBackButton(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 shape = CircleShape
             ),
-                onClick = { /*TODO*/ }) {
+                onClick = { onClickOther.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
                     contentDescription = ""

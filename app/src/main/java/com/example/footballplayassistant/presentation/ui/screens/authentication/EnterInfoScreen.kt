@@ -34,11 +34,15 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import java.util.Date
 
 @Composable
 @Preview
 fun EnterInfoScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier.background(MaterialTheme.colorScheme.primaryContainer)) {
         Text(
             text = stringResource(id = R.string.enterInfoYourself),
@@ -106,6 +110,7 @@ fun EnterInfoScreen() {
             CommonButton(
                 text = "Сохранить",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                onClick = { navController.navigate(Route.MainScreen.path) },
                 modifier = Modifier
                     .weight(0.4f)
                     .padding(start = 16.dp, end = 8.dp)
@@ -113,6 +118,7 @@ fun EnterInfoScreen() {
             )
             CommonButton(
                 text = "Пропустить",
+                onClick = { navController.navigate(Route.MainScreen.path) },
                 containerColor = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier

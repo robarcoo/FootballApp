@@ -23,10 +23,13 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 @Preview
 fun SignInScreen() {
+    val navController = LocalNavController.current!!
     Column {
         HeaderAuthentication { HeaderSignIn() }
 
@@ -56,6 +59,7 @@ fun SignInScreen() {
 
         CommonButton(
             text = stringResource(R.string.signin),
+            onClick = { navController.navigate(Route.MainScreen.path) },
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -84,8 +88,9 @@ fun SignInScreen() {
         BottomQuestion(
             question = stringResource(R.string.questionNoAcc),
             buttonText = stringResource(R.string.signup),
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-        )
+            onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) },
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    )
     }
 }

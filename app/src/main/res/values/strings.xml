@@ -109,6 +109,23 @@
     <string name="lightTeam">Светлая команда</string>
     <string name="darkTeam">Темная команда</string>
 
+
+
+    <string name="gameCreated">Игра создана</string>
+    <string name="youGetNotify">Вы получите оповещение, как только игроки подключатся к вашему матчу.</string>
+    <string name="onGamePage">На страницу игры</string>
+    <string name="inviteFriends">Пригласить друзей на матч</string>
+    <string name="copy">Скопировать приглашение</string>
+    <string name="whoPlays">Кто участвует?</string>
+    <string name="youGetNotify2">Вы получите уведомление когда ваши друзья присоединятся к матчу</string>
+    <string name="playYourself">Участвовать самому</string>
+    <string name="callFriends">Позвать друзей</string>
+    <string name="payOK">Оплата прошла успешно</string>
+    <string name="darkdontForget">Не забудьте взять спортивный  инвентарь для матча.\nЖелаем хорошей игры!</string>
+    <string name="returnMain">Вернуться на главную</string>
+    <string name="inviteFriendsAlso">Пригласить еще друзей</string>
+    <string name="done">Готово</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>

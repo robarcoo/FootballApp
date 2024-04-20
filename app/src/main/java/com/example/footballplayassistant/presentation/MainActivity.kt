@@ -14,7 +14,7 @@ import com.example.footballplayassistant.presentation.ui.theme.FootballPlayAssis
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 //        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {

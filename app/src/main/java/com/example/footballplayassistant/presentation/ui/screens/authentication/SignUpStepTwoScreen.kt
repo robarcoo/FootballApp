@@ -22,10 +22,14 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpStep
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
 fun SignUpStepTwoScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier.fillMaxSize()) {
         HeaderAuthentication { HeaderSignUpStep(numStep = 2) }
 
@@ -75,6 +79,9 @@ fun SignUpStepTwoScreen() {
 
         CommonButton(
             text = stringResource(R.string.signup),
+            onClick = {
+                navController.navigate(Route.EnterInfoScreen.path)
+            },
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -93,6 +100,7 @@ fun SignUpStepTwoScreen() {
             buttonText = stringResource(
                 R.string.signin
             ),
+            onClick = { navController.navigate(Route.SignInScreen.path) }
         )
     }
 }

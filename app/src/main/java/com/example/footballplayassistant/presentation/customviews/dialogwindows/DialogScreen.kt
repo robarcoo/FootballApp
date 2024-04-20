@@ -36,6 +36,9 @@ fun DialogScreen(
     greenButton: String = "",
     whiteButton: String = "",
     bottomButton: String = "",
+    onClickGreen: () -> Unit = {},
+    onClickWhite: () -> Unit = {},
+    onClickBottom: () -> Unit = {},
     onDismissRequest: () -> Unit,
 ) {
     AlertDialog(
@@ -89,20 +92,22 @@ fun DialogScreen(
                     )
                     if (greenButton != "")
                         CommonButton(
-                            text = "green",
-                            style = MaterialTheme.typography.bodyLarge
+                            text = greenButton,
+                            style = MaterialTheme.typography.bodyLarge,
+                            onClick = { onClickGreen.invoke() }
                         )
                     if (whiteButton != "")
                         CommonButton(
-                            text = "white",
+                            text = whiteButton,
+                            onClick = { onClickWhite.invoke() },
                             containerColor = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(bottom = 12.dp)
                         )
                     if (bottomButton != "")
-                        TextButton(onClick = { /*TODO*/ }) {
+                        TextButton(onClick = { onClickBottom.invoke() }) {
                             Text(
-                                text = "bottom",
+                                text = bottomButton,
                                 style = MaterialTheme.typography.bodyMedium
                                     .copy(fontWeight = FontWeight.W600),
                                 color = MaterialTheme.colorScheme.onPrimary,
