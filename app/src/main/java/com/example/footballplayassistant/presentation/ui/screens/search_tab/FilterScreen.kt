@@ -63,8 +63,10 @@ fun FilterScreen() {
         CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
         CommonSwitch(text = stringResource(id = R.string.filterByDistance))
         Spacer(modifier = Modifier.height(32.dp))
-        FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f)
-        FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f)
+        Column(modifier = Modifier.padding(start = MaterialTheme.spacing.medium, end = MaterialTheme.spacing.medium)) {
+            FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f)
+            FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f)
+        }
         ToggleButton(stringResource(R.string.typesOfArena), stringArrayResource(id = R.array.typesOfArenaArray))
         ToggleButton(stringResource(id = R.string.coveringType), stringArrayResource(id = R.array.coveringTypeArray))
         Spacer(modifier = Modifier.weight(1f))
@@ -154,9 +156,7 @@ fun ToggleButton(title: String, items: Array<String>) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float) {
-    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium,
-        start = MaterialTheme.spacing.medium,
-        end = MaterialTheme.spacing.medium)) {
+    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)) {
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 text, style = MaterialTheme.typography.labelLarge
