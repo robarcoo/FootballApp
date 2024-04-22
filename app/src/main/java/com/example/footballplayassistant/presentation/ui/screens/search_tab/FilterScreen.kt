@@ -46,15 +46,20 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
 @Preview
 fun FilterScreen() {
+    val navController = LocalNavController.current!!
     Column (modifier = Modifier
-        .padding(top = 11.dp)
-        .fillMaxSize()){
-        HeaderWithBackButton(text = stringResource(id = R.string.filterHeader))
+        .padding(top = MaterialTheme.spacing.small)
+        .fillMaxSize()) {
+        HeaderWithBackButton(text = stringResource(id = R.string.filterHeader),
+            onClickBack = { navController.navigate(Route.SearchScreen.path) })
         CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
         CommonSwitch(text = stringResource(id = R.string.filterByDistance))
         Spacer(modifier = Modifier.height(32.dp))
@@ -63,24 +68,28 @@ fun FilterScreen() {
         ToggleButton(stringResource(R.string.typesOfArena), stringArrayResource(id = R.array.typesOfArenaArray))
         ToggleButton(stringResource(id = R.string.coveringType), stringArrayResource(id = R.array.coveringTypeArray))
         Spacer(modifier = Modifier.weight(1f))
-        FilterBottomBar()
+        FilterBottomBar {
+            navController.navigate(Route.SearchScreen.path)
+        }
     }
 }
 
 @Composable
-fun FilterBottomBar() {
+fun FilterBottomBar(onClick : () -> Unit) {
     HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
     Row(modifier = Modifier
         .height(82.dp)
         .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically) {
 
-        FilterButton(stringResource(id = R.string.dropFilters), MaterialTheme.colorScheme.outlineVariant,  MaterialTheme.colorScheme.onPrimaryContainer) {
-            TODO()
-        }
-        FilterButton(stringResource(id = R.string.applyFilters), MaterialTheme.colorScheme.onPrimaryContainer, MaterialTheme.colorScheme.onPrimary) {
-            TODO()
-        }
+        FilterButton(stringResource(id = R.string.dropFilters),
+            MaterialTheme.colorScheme.outlineVariant,
+            MaterialTheme.colorScheme.onPrimaryContainer,
+            onClick)
+        FilterButton(stringResource(id = R.string.applyFilters),
+            MaterialTheme.colorScheme.onPrimaryContainer,
+            MaterialTheme.colorScheme.onPrimary,
+            onClick)
     }
 }
 
@@ -88,10 +97,10 @@ fun FilterBottomBar() {
 fun FilterButton(text : String, containerColor : Color, contentColor: Color, onClick : () -> Unit) {
     Button(onClick = onClick,
         contentPadding = PaddingValues(
-            start = 40.dp,
-            end = 40.dp,
-            top = 16.dp,
-            bottom = 16.dp
+            start = MaterialTheme.spacing.large,
+            end = MaterialTheme.spacing.large,
+            top = MaterialTheme.spacing.medium,
+            bottom = MaterialTheme.spacing.medium
         ),
         colors = ButtonDefaults.buttonColors(containerColor = containerColor,
             contentColor = contentColor)) {
@@ -105,20 +114,22 @@ fun FilterButton(text : String, containerColor : Color, contentColor: Color, onC
 @Composable
 fun ToggleButton(title: String, items: Array<String>) {
     var selectedIndex by remember { mutableIntStateOf(0) }
-    Column(modifier = Modifier.padding(bottom = 32.dp, start = 16.dp, end = 16.dp)) {
+    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large,
+        start = MaterialTheme.spacing.medium,
+        end = MaterialTheme.spacing.medium)) {
         Text(
             title, style = MaterialTheme.typography.labelLarge
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             items.forEachIndexed { index, item ->
                 OutlinedButton(
                     contentPadding = PaddingValues(
-                        top = 4.dp,
-                        bottom = 4.dp,
-                        start = 12.dp,
-                        end = 12.dp
+                        top = MaterialTheme.spacing.extraSmall,
+                        bottom = MaterialTheme.spacing.extraSmall,
+                        start = MaterialTheme.spacing.small,
+                        end = MaterialTheme.spacing.small
                     ),
                     onClick = { selectedIndex = index },
                     shape = RoundedCornerShape(8.dp),
@@ -143,7 +154,9 @@ fun ToggleButton(title: String, items: Array<String>) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float) {
-    Column(modifier = Modifier.padding(bottom = 16.dp, start = 16.dp, end = 16.dp)) {
+    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium,
+        start = MaterialTheme.spacing.medium,
+        end = MaterialTheme.spacing.medium)) {
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 text, style = MaterialTheme.typography.labelLarge
@@ -153,7 +166,7 @@ fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Flo
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(8.dp))
                     .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(horizontal = 8.dp, vertical = 3.dp)
+                    .padding(horizontal = MaterialTheme.spacing.small, vertical = MaterialTheme.spacing.extraSmall)
             ) {
                 Text("${activeRangeStart.toInt()}-${activeRangeEnd.toInt()}",
                     style = MaterialTheme.typography.bodyMedium)

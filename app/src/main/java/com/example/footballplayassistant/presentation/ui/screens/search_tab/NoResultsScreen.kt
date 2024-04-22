@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
@@ -25,7 +26,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 fun NoResultsScreen() {
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp),
+        .padding(MaterialTheme.spacing.medium),
         horizontalAlignment = Alignment.CenterHorizontally) {
         Column(horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.weight(1f),
