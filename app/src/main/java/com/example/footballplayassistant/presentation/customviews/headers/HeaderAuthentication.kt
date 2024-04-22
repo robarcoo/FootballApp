@@ -108,12 +108,13 @@ fun HeaderSignUp() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp),
+                .padding(start = 16.dp, bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
                 modifier = Modifier.align(Alignment.CenterVertically)
+                    .fillMaxWidth(0.3f), alignment = Alignment.CenterStart
             )
             Button(colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.outlineVariant
