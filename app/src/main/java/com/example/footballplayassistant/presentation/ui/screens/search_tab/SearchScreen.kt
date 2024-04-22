@@ -39,15 +39,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
 @Preview
 fun SearchScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp)) {
-        SearchBar()
+        .padding(MaterialTheme.spacing.medium)) {
+        SearchBar {
+            navController.navigate(Route.FilterScreen.path)
+        }
         LazyColumn {
             item {
                 SearchCard("Тест", "Тест", "4,2км")
@@ -62,12 +68,13 @@ fun SearchScreen() {
 @Composable
 fun SearchCard(title : String, address : String, distance : String) {
     Card(modifier = Modifier
-        .padding(vertical = 5.dp)
+        .padding(vertical = MaterialTheme.spacing.extraSmall)
         .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
-        Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
+        Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal,
+            vertical = MaterialTheme.spacing.small)) {
             Row {
                 Text(
                     text = title, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.W600
@@ -102,12 +109,12 @@ fun SearchCard(title : String, address : String, distance : String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar() {
+fun SearchBar(onClick : () -> Unit) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     Row (verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 20.dp)) {
+            .padding(bottom = MaterialTheme.spacing.medium)) {
     BasicTextField(
         value = value,
         modifier = Modifier
@@ -145,12 +152,12 @@ fun SearchBar() {
     }
         Spacer(modifier = Modifier
             .size(6.dp))
-        OutlinedIconButton(onClick = {}, modifier = Modifier.size(48.dp),
+        OutlinedIconButton(onClick = onClick, modifier = Modifier.size(48.dp),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)
         ) {
             Icon(painter = painterResource(id = R.drawable.ic_icons_24),
                 contentDescription = stringResource(id = R.string.filterIconDescription), tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                modifier = Modifier.padding(10.dp))
+                modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
     }
 }
