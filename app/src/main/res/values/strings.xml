@@ -133,4 +133,34 @@
         <item>Нападающий</item>
         <item>Нет предпочитаемой позиции</item>
     </string-array>
+
+    <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
+    <string name="searchIconDescription">Поиск</string>
+    <string name="filterIconDescription">Открыть фильтры</string>
+
+    <string name="filterHeader">Фильтры</string>
+    <string name="filterByFavorites">По избранным площадкам</string>
+    <string name="filterByDistance">Фильтрация по удаленности</string>
+    <string name="awayFromUser">Удаленность от вас (км)</string>
+    <string name="amountOfPlayers">Количество игроков (чел)</string>
+    <string name="typesOfArena">Тип площадки</string>
+    <string-array name="typesOfArenaArray">
+        <item>Открытый</item>
+        <item>Закрытый</item>
+    </string-array>
+    <string name = "coveringType">Покрытие</string>
+    <string-array name="coveringTypeArray">
+        <item>Искусственная трава</item>
+        <item>Гибридный газон</item>
+        <item>Натуральная трава</item>
+        <item>Другое покрытие</item>
+    </string-array>
+    <string name="dropFilters">Сбросить</string>
+    <string name="applyFilters">Применить</string>
+
+    <string name="knobIconDescription">Ползунок</string>
+
+    <string name="areaNotFound">Поля не найдены</string>
+    <string name="tryChangeFilters">По заданным фильтрам не было найдено игр или площадок, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="addField">"Добавить поле"</string>
 </resources>
