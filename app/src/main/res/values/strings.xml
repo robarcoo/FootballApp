@@ -8,6 +8,9 @@
     <string name="questionAcc">Есть аккаунт?</string>
     <string name="signin">Войти</string>
     <string name="signup">Зарегистрироваться</string>
+    <string name="enterNick">Введите ник</string>
+    <string name="enterName">Введите имя</string>
+    <string name="enterSurname">Введите фамилию</string>
     <string name="enterEmail">Введите e-mail</string>
     <string name="enterEmailText">Введите электронную почту для входа</string>
     <string name="enterPhone">Введите телефон</string>
@@ -23,6 +26,8 @@
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
     <string name="repeatPass">Повторите пароль</string>
+    <string name="enterNewPass">Введите новый пароль</string>
+    <string name="repeatNewPass">Повторите новый пароль</string>
     <string name="next">Далее</string>
     <string name="nick">Ник</string>
     <string name="name">Имя</string>

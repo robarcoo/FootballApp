@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 fun HeaderAuthentication(header: @Composable () -> Unit) {
@@ -71,7 +72,7 @@ fun HeaderSignIn() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, bottom = 24.dp),
+                .padding(start = MaterialTheme.spacing.medium, bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
@@ -108,12 +109,13 @@ fun HeaderSignUp() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, bottom = 24.dp),
+                .padding(start = MaterialTheme.spacing.medium, bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
                     .fillMaxWidth(0.3f), alignment = Alignment.CenterStart
             )
             Button(colors = ButtonDefaults.buttonColors(
@@ -140,25 +142,25 @@ fun HeaderSignUp() {
 @Preview
 fun HeaderSignUpCode() {
     Text(
-        text = "Введите код из письма",
+        text = "Введите код из\n смс",
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
         color = MaterialTheme.colorScheme.onPrimary,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 14.dp)
+            .padding(horizontal = MaterialTheme.spacing.horizontal)
     )
 }
 
 @Composable
 fun HeaderSignUpStep(numStep: Int) {
     Column {
-        Text(
-            text = "Регистрация",
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
-            color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
+        HeaderWithBackButton(
+            text = "Регистрация", tint = MaterialTheme.colorScheme.onPrimary,
+            styleText = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            colorText = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(top = 20.dp, bottom = 35.dp)
         )
 
         Text(
