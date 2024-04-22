@@ -30,11 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
@@ -42,10 +39,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Black04
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 
 @Composable
@@ -55,7 +48,7 @@ fun SearchScreen() {
         .fillMaxSize()
         .padding(16.dp)) {
         SearchBar()
-        LazyColumn() {
+        LazyColumn {
             item {
                 SearchCard("Тест", "Тест", "4,2км")
                 SearchCard("Тест", "Тест", "4,2км")
@@ -72,10 +65,10 @@ fun SearchCard(title : String, address : String, distance : String) {
         .padding(vertical = 5.dp)
         .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)) {
-            Row() {
+            Row {
                 Text(
                     text = title, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.W600
                 )
@@ -84,21 +77,21 @@ fun SearchCard(title : String, address : String, distance : String) {
                     .weight(1f))
                 Icon(
                     painterResource(id = R.drawable.ic_arrow_green_search_map),
-                    contentDescription = "Map Link",
-                    tint = Green
+                    contentDescription = stringResource(id = R.string.mapLinkIconDescription),
+                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Row() {
+            Row {
                 Text(
-                    text = address, color = Gray75, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                    text = address, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
                         lineHeight = 12.sp)
                 )
                 Spacer(modifier = Modifier
                     .width(26.dp)
                     .weight(1f))
                 Text(
-                    text = distance, color = Gray75, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                    text = distance, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
                         lineHeight = 12.sp)
                 )
             }
@@ -131,20 +124,20 @@ fun SearchBar() {
             visualTransformation = VisualTransformation.None,
             trailingIcon = {
                 Icon(painterResource(id = R.drawable.ic_search_black_25),
-                    tint = Gray75,
-                    contentDescription = "Search",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                    contentDescription = stringResource(id = R.string.searchIconDescription),
                     modifier = Modifier.size(24.dp))
             },
             shape = RoundedCornerShape(60.dp),
             colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent,
-                focusedContainerColor = GrayF1,
-                unfocusedContainerColor = GrayF1,
-                focusedTextColor = Black04,
-                unfocusedTextColor = Black04,
-                cursorColor = Black04
+                focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+                disabledIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                unfocusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
 
             ),
 
@@ -153,10 +146,10 @@ fun SearchBar() {
         Spacer(modifier = Modifier
             .size(6.dp))
         OutlinedIconButton(onClick = {}, modifier = Modifier.size(48.dp),
-            border = BorderStroke(1.dp, Gray75)
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)
         ) {
             Icon(painter = painterResource(id = R.drawable.ic_icons_24),
-                contentDescription = "Filter", tint = Black04,
+                contentDescription = stringResource(id = R.string.filterIconDescription), tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.padding(10.dp))
         }
     }
