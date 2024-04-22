@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -35,7 +35,7 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
             Divider(
                 color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.3f)
+                    .weight(0.4f)
                     .align(Alignment.CenterVertically)
                     .padding(start = 16.dp)
             )
@@ -50,7 +50,7 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
             Divider(
                 color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.3f)
+                    .weight(0.4f)
                     .align(Alignment.CenterVertically)
                     .padding(end = 16.dp)
             )
@@ -71,7 +71,7 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
 
 @Composable
 fun SquareButton(text: String, image: Int) {
-    Button(modifier = Modifier.width(70.dp),
+    Button(modifier = Modifier.size(66.dp),
         contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.buttonColors(

@@ -107,8 +107,7 @@ fun CommonTextField(
         ),
 
         modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp),
+            .fillMaxWidth(),
         trailingIcon = { if (imageTrail != 0) trailingIconView() },
         visualTransformation =
         if (isPass) PasswordVisualTransformation()
