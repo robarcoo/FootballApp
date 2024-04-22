@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,8 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
@@ -25,7 +25,7 @@ fun DropDownMenu(
     imStart: Int = 0,
     imTrail: Int = R.drawable.ic_arrow_menu_18_10,
     values: List<String>,
-    color: Color = Color.White,
+    color: Color = MaterialTheme.colorScheme.onPrimary,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -37,7 +37,7 @@ fun DropDownMenu(
             expanded = !expanded
         }
     ) {
-        if (imStart!=0)
+        if (imStart != 0)
             TextFieldWithLeadingIcon(
                 placeholder = placeholder,
                 value = selectedOptionText,
@@ -67,7 +67,8 @@ fun DropDownMenu(
                     text = {
                         Text(
                             text = selectionOption,
-                            fontFamily = FontFamily(Font(R.font.inter))
+                            style = MaterialTheme.typography.labelLarge
+                                .copy(fontWeight = FontWeight.W400)
                         )
                     },
                     onClick = {

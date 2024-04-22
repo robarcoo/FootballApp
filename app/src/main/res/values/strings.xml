@@ -22,7 +22,7 @@
     <string name="writeInfo">Заполните информацию</string>
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
-    <string name="repeatPass">Подтвердите пароль</string>
+    <string name="repeatPass">Повторите пароль</string>
     <string name="next">Далее</string>
     <string name="nick">Ник</string>
     <string name="name">Имя</string>
@@ -109,6 +109,23 @@
     <string name="lightTeam">Светлая команда</string>
     <string name="darkTeam">Темная команда</string>
 
+
+
+    <string name="gameCreated">Игра создана</string>
+    <string name="youGetNotify">Вы получите оповещение, как только игроки подключатся к вашему матчу.</string>
+    <string name="onGamePage">На страницу игры</string>
+    <string name="inviteFriends">Пригласить друзей на матч</string>
+    <string name="copy">Скопировать приглашение</string>
+    <string name="whoPlays">Кто участвует?</string>
+    <string name="youGetNotify2">Вы получите уведомление когда ваши друзья присоединятся к матчу</string>
+    <string name="playYourself">Участвовать самому</string>
+    <string name="callFriends">Позвать друзей</string>
+    <string name="payOK">Оплата прошла успешно</string>
+    <string name="darkdontForget">Не забудьте взять спортивный  инвентарь для матча.\nЖелаем хорошей игры!</string>
+    <string name="returnMain">Вернуться на главную</string>
+    <string name="inviteFriendsAlso">Пригласить еще друзей</string>
+    <string name="done">Готово</string>
+
     <string-array name="positions_array">
         <item>Вратарь</item>
         <item>Защитник</item>
@@ -116,4 +133,34 @@
         <item>Нападающий</item>
         <item>Нет предпочитаемой позиции</item>
     </string-array>
+
+    <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
+    <string name="searchIconDescription">Поиск</string>
+    <string name="filterIconDescription">Открыть фильтры</string>
+
+    <string name="filterHeader">Фильтры</string>
+    <string name="filterByFavorites">По избранным площадкам</string>
+    <string name="filterByDistance">Фильтрация по удаленности</string>
+    <string name="awayFromUser">Удаленность от вас (км)</string>
+    <string name="amountOfPlayers">Количество игроков (чел)</string>
+    <string name="typesOfArena">Тип площадки</string>
+    <string-array name="typesOfArenaArray">
+        <item>Открытый</item>
+        <item>Закрытый</item>
+    </string-array>
+    <string name = "coveringType">Покрытие</string>
+    <string-array name="coveringTypeArray">
+        <item>Искусственная трава</item>
+        <item>Гибридный газон</item>
+        <item>Натуральная трава</item>
+        <item>Другое покрытие</item>
+    </string-array>
+    <string name="dropFilters">Сбросить</string>
+    <string name="applyFilters">Применить</string>
+
+    <string name="knobIconDescription">Ползунок</string>
+
+    <string name="areaNotFound">Поля не найдены</string>
+    <string name="tryChangeFilters">По заданным фильтрам не было найдено игр или площадок, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="addField">"Добавить поле"</string>
 </resources>

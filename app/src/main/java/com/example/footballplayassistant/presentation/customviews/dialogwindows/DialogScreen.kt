@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.ui.screens
+package com.example.footballplayassistant.presentation.customviews.dialogwindows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,23 +13,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.ui.theme.Black21
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +36,9 @@ fun DialogScreen(
     greenButton: String = "",
     whiteButton: String = "",
     bottomButton: String = "",
+    onClickGreen: () -> Unit = {},
+    onClickWhite: () -> Unit = {},
+    onClickBottom: () -> Unit = {},
     onDismissRequest: () -> Unit,
 ) {
     AlertDialog(
@@ -57,17 +56,15 @@ fun DialogScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Black21)
+                    .background(color = MaterialTheme.colorScheme.primary)
             ) {
-                Column(
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
+                    contentDescription = "",
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                ) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
-                        contentDescription = ""
-                    )
-                }
+                )
+
                 Column(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -81,36 +78,39 @@ fun DialogScreen(
                         )
                     Text(
                         text = header,
-                        fontWeight = FontWeight.W600,
-                        fontSize = 28.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
-                        color = Color.White,
+                        style = MaterialTheme.typography.displayLarge
+                            .copy(fontWeight = FontWeight.W600),
+                        color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.padding(vertical = 12.dp)
                     )
                     Text(
                         text = description,
-                        fontWeight = FontWeight.W400,
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.inter)),
-                        color = Color.White,
+                        style = MaterialTheme.typography.labelLarge
+                            .copy(fontWeight = FontWeight.W400),
+                        color = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
                     if (greenButton != "")
-                        CommonButton(text = "green")
+                        CommonButton(
+                            text = greenButton,
+                            style = MaterialTheme.typography.bodyLarge,
+                            onClick = { onClickGreen.invoke() }
+                        )
                     if (whiteButton != "")
                         CommonButton(
-                            text = "white",
-                            containerColor = Color.White,
+                            text = whiteButton,
+                            onClick = { onClickWhite.invoke() },
+                            containerColor = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(bottom = 12.dp)
                         )
                     if (bottomButton != "")
-                        TextButton(onClick = { /*TODO*/ }) {
+                        TextButton(onClick = { onClickBottom.invoke() }) {
                             Text(
-                                text = "bottom",
-                                fontWeight = FontWeight.W600,
-                                fontSize = 14.sp,
-                                fontFamily = FontFamily(Font(R.font.inter)),
-                                color = Color.White,
+                                text = bottomButton,
+                                style = MaterialTheme.typography.bodyMedium
+                                    .copy(fontWeight = FontWeight.W600),
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 modifier = Modifier.padding(end = 4.dp)
                             )
                             Image(
@@ -120,15 +120,13 @@ fun DialogScreen(
                                 )
                         }
                 }
-                Column(
+
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
+                    contentDescription = "",
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                ) {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
-                        contentDescription = ""
-                    )
-                }
+                )
             }
         }
     }
