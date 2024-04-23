@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,14 +34,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.AllButton
-import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
 import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
-import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,11 +50,14 @@ fun MainScreen() {
     val pagerState = rememberPagerState(pageCount = {
         3
     })
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+    Column(
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.onPrimary)
+    ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxHeight()
-                .weight(0.9f)
+                .fillMaxHeight(0.9f)
+                .padding(horizontal = MaterialTheme.spacing.horizontal)
         ) {
             item {
                 HeaderUser(
@@ -78,8 +80,6 @@ fun MainScreen() {
             }
             item { GameCard(place = "Арена Новый Футбол поле  Крылатское ", host = "") }
 
-
-            item { ShowMore() }
             item {
                 AllButton(
                     text = stringResource(id = R.string.news),
@@ -107,7 +107,7 @@ fun MainScreen() {
                         Box(
                             modifier = Modifier
                                 .padding(2.dp)
-                                .clip(RectangleShape)
+                                .clip(RoundedCornerShape(2.dp))
                                 .background(color)
                                 .size(8.dp)
                         )
@@ -122,21 +122,32 @@ fun MainScreen() {
 @Composable
 @Preview
 private fun BottomBar() {
-    val number = remember { mutableStateOf(-1) }
+    val number = remember { mutableStateOf(1) }
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
+            .padding(
+                vertical = MaterialTheme.spacing.small,
+                horizontal = MaterialTheme.spacing.horizontal
+            )
             .background(
                 color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(50.dp)
             ),
         contentAlignment = Alignment.Center
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .align(Alignment.Center),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
             Button(
-                modifier = Modifier.align(Alignment.CenterVertically),
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .fillMaxHeight(0.8f),
                 colors =
                 if (number.value == 1) ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
@@ -144,12 +155,14 @@ private fun BottomBar() {
                 else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),
+                contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = 1 }) {
                 Row {
                     if (number.value == 1) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_home_black_24),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier.padding(end = 8.dp)
                         )
                         Text(
                             text = stringResource(id = R.string.home),
@@ -166,19 +179,23 @@ private fun BottomBar() {
 
                 }
             }
-            Button(modifier = Modifier.align(Alignment.CenterVertically),
+            Button(modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .fillMaxHeight(0.8f),
                 colors = if (number.value == 2) ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
                 )
                 else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),
+                contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = 2 }) {
                 Row {
                     if (number.value == 2) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search_black_25),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
                             text = stringResource(id = R.string.search),
@@ -194,7 +211,9 @@ private fun BottomBar() {
                         )
                 }
             }
-            Button(modifier = Modifier.align(Alignment.CenterVertically),
+            Button(modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .fillMaxHeight(0.8f),
                 colors =
                 if (number.value == 3) ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
@@ -202,12 +221,14 @@ private fun BottomBar() {
                 else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),
+                contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = 3 }) {
                 Row {
                     if (number.value == 3) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_calendar_22),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
                             text = stringResource(id = R.string.calendar),
@@ -223,7 +244,9 @@ private fun BottomBar() {
                         )
                 }
             }
-            Button(modifier = Modifier.align(Alignment.CenterVertically),
+            Button(modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .fillMaxHeight(0.8f),
                 colors =
                 if (number.value == 4) ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
@@ -231,12 +254,14 @@ private fun BottomBar() {
                 else ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 ),
+                contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = 4 }) {
                 Row {
                     if (number.value == 4) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_profile_black_24),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary
+                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
                             text = stringResource(id = R.string.profile),

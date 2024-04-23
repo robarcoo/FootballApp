@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth()) {
-        Image(painter = painterResource(id = foto), contentDescription = "")
+        Image(
+            painter = painterResource(id = foto), contentDescription = "",
+            modifier = Modifier.fillMaxWidth(0.15f)
+        )
 
         Column(
             modifier = Modifier
