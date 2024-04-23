@@ -54,7 +54,7 @@ fun HeaderWithBackButton(
 
         Text(
             text = text,
-            style = styleText,//MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+            style = styleText,
             color = colorText,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
@@ -68,7 +68,8 @@ fun HeaderWithBackButton(
                 onClick = { onClickOther.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
-                    contentDescription = ""
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         else
