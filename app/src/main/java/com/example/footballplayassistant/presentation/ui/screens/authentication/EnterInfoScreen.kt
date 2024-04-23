@@ -3,8 +3,10 @@ package com.example.footballplayassistant.presentation.ui.screens.authentication
 import android.content.Context
 import android.icu.util.Calendar
 import android.widget.DatePicker
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,8 +24,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -125,13 +129,26 @@ fun EnterInfoScreen() {
                         imTrail = R.drawable.ic_arrow_menu_18_10,
                         values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
                     )
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.tellYourself),
-                        singleLine = false,
-                        cornerRadius = 20.dp,
-                        maxLength = 300,
-                        modifier = Modifier.fillMaxHeight()
-                    )
+                    Box {
+                        CommonTextField(
+                            placeholder = stringResource(id = R.string.tellYourself),
+                            singleLine = false,
+                            cornerRadius = 20.dp,
+                            maxLength = 300,
+                            modifier = Modifier.fillMaxHeight()
+                        )
+                        Image(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(
+                                    end = MaterialTheme.spacing.small,
+                                    bottom = MaterialTheme.spacing.small
+                                )
+                        )
+                    }
+
                     Text(
                         text = "0/300",
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
