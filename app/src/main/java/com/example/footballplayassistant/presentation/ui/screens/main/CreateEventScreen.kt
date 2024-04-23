@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
-import com.example.footballplayassistant.presentation.customviews.RadioButtonGroup
+import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroup
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
