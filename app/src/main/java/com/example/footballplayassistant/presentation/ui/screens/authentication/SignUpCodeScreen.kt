@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -38,6 +37,7 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpCode
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -54,19 +54,30 @@ fun SignUpCodeScreen() {
     if (OK.value)
         navController.navigate(Route.SignUpStepOneScreen.path)
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         HeaderAuthentication { HeaderSignUpCode() }
 
         Text(
-            text = stringResource(R.string.phoneCode/*or emailCode*/),
+            text = stringResource(R.string.phoneCode),
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = MaterialTheme.spacing.horizontal)
+                .padding(top = 24.dp, bottom = MaterialTheme.spacing.medium)
                 .fillMaxWidth()
         )
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = MaterialTheme.spacing.horizontal),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
             SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
             SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
             SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
@@ -78,8 +89,10 @@ fun SignUpCodeScreen() {
             text = stringResource(R.string.repeatCode),
             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = MaterialTheme.spacing.horizontal)
+                .padding(top = MaterialTheme.spacing.horizontal)
                 .fillMaxWidth()
         )
     }

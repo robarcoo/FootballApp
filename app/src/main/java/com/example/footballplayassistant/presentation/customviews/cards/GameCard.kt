@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,7 @@ import com.example.footballplayassistant.presentation.customviews.rows.BottomRow
 import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNameForCard
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.ui.theme.Gray75
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 fun GameCard(
@@ -37,16 +38,17 @@ fun GameCard(
         onClick = { navController.navigate(Route.MatchScreen.path) },
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = MaterialTheme.spacing.small),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
-        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)) {
             if (host == "") {
                 Text(
                     text = stringResource(id = R.string.youhost),
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
-                    modifier = Modifier.padding(vertical = 8.dp)
+                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
                 )
-                Row(modifier = Modifier.padding(vertical = 8.dp)) {
+                Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)) {
                     Text(
                         text = place,
                         style = MaterialTheme.typography.labelLarge
@@ -61,7 +63,11 @@ fun GameCard(
                             .align(Alignment.CenterVertically)
                     )
                 }
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+                )
             } else {
                 Row {
                     Text(
@@ -82,17 +88,19 @@ fun GameCard(
                     ) {
                         Image(
                             imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_24),
-                            contentDescription = ""
+                            contentDescription = "",
+                            modifier = Modifier.align(Alignment.CenterVertically)
                         )
                         Text(
                             text = "100км",
                             style = MaterialTheme.typography.bodyMedium
                                 .copy(fontWeight = FontWeight.W500),
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            modifier = Modifier.align(Alignment.CenterVertically)
                         )
                     }
                 }
-                Row {
+                Row() {
                     FotoAndNameForCard(
                         text = host,
                         name = host,

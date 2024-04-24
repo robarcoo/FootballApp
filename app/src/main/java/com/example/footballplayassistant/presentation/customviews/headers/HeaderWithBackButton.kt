@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -26,6 +28,9 @@ fun HeaderWithBackButton(
     imageButton: Int = 0,
     onClickBack: () -> Unit = {},
     onClickOther: () -> Unit = {},
+    tint: Color = MaterialTheme.colorScheme.primary,
+    styleText: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+    colorText: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
@@ -42,13 +47,15 @@ fun HeaderWithBackButton(
             onClick = { onClickBack.invoke() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
-                contentDescription = ""
+                contentDescription = "",
+                tint = tint
             )
         }
 
         Text(
             text = text,
-            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+            style = styleText,
+            color = colorText,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
 
@@ -61,7 +68,8 @@ fun HeaderWithBackButton(
                 onClick = { onClickOther.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
-                    contentDescription = ""
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         else

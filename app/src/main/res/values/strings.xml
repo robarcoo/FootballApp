@@ -4,14 +4,17 @@
     <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
     <string name="rules">&#032;Правилами и условиями&#032;</string>
     <string name="politic">&#032;Положением конфиденциальности</string>
-    <string name="signwith">Войти с помощью номера телефона или\n почты</string>
     <string name="questionNoAcc">Нет аккаунта?</string>
     <string name="questionAcc">Есть аккаунт?</string>
     <string name="signin">Войти</string>
     <string name="signup">Зарегистрироваться</string>
-    <string name="enterEmailorPhone">Введите почту или телефон</string>
-    <string name="enterEmail">Введите почту</string>
+    <string name="enterNick">Введите ник</string>
+    <string name="enterName">Введите имя</string>
+    <string name="enterSurname">Введите фамилию</string>
+    <string name="enterEmail">Введите e-mail</string>
+    <string name="enterEmailText">Введите электронную почту для входа</string>
     <string name="enterPhone">Введите телефон</string>
+    <string name="enterPhoneText">Введите номер телефона для входа</string>
     <string name="enterPass">Введите пароль</string>
     <string name="choosenPhone">На указанный номер телефона придет код подтверждения</string>
     <string name="choosenEmail">На указанный адрес электронной почты придет код подтверждения</string>
@@ -23,6 +26,8 @@
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
     <string name="repeatPass">Повторите пароль</string>
+    <string name="enterNewPass">Введите новый пароль</string>
+    <string name="repeatNewPass">Повторите новый пароль</string>
     <string name="next">Далее</string>
     <string name="nick">Ник</string>
     <string name="name">Имя</string>
@@ -33,8 +38,12 @@
     <string name="birthday">Дата рождения</string>
     <string name="sex">Пол</string>
     <string name="levelPlay">Выберите уровень игры</string>
-    <string name="tellYourself">Расскажите о себе</string>
+    <string name="tellYourself">Расскажите о себе\n</string>
     <string name="position">Ваша предпочитаемая позиция</string>
+    <string name="byPhone">По номеру</string>
+    <string name="byEmail">По почте</string>
+    <string name="nickLength">Ник должен быть длиной не более 10 символов</string>
+    <string name="passLength">Пароль должен быть длиной не менее 8 символов</string>
 
     <string name="money">Ваш баланс</string>
     <string name="mygames">Мои игры</string>

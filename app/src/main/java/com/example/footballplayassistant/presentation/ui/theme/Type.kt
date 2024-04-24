@@ -43,6 +43,10 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.inter)),
         fontSize = 14.sp,
     ),
+    titleSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.roboto_flex)),
+        fontSize = 14.sp,
+    ),
     displaySmall = TextStyle(
         fontFamily = FontFamily(Font(R.font.inter)),
         fontSize = 12.sp,
