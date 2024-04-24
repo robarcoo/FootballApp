@@ -79,7 +79,9 @@ fun InviteFriendsScreen() {
                 imageButton = R.drawable.ic_arrow_share_25,
                 onClickBack = { navController.navigate(Route.MatchScreen.path) },
                 onClickOther = {},
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier
+                    .padding(bottom = 24.dp)
+                    .padding(horizontal = 16.dp)
             )
 
             LazyColumn {

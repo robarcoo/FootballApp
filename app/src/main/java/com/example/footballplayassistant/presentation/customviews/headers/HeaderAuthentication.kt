@@ -160,7 +160,9 @@ fun HeaderSignUpStep(numStep: Int) {
             text = "Регистрация", tint = MaterialTheme.colorScheme.onPrimary,
             styleText = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
             colorText = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.padding(top = 20.dp, bottom = 35.dp)
+            modifier = Modifier
+                .padding(top = 20.dp, bottom = 35.dp)
+                .padding(horizontal = 16.dp)
         )
 
         Text(

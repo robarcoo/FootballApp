@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonBottomBar
-import com.example.footballplayassistant.presentation.customviews.buttons.SelectionButton
+import com.example.footballplayassistant.presentation.customviews.buttons.SelectionButtons
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.NewsCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
@@ -28,8 +28,8 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 fun NewsScreen() {
     val navController = LocalNavController.current!!
 
-    val filter = remember {
-        mutableStateOf("val1")
+    val filterButton = remember {
+        mutableStateOf(0)
     }
 
     Column(
@@ -42,14 +42,20 @@ fun NewsScreen() {
                 imageButton = R.drawable.ic_plus_24,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
                 onClickOther = { navController.navigate(Route.CreateEventScreen.path) },
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .padding(horizontal = 16.dp)
             )
 
-            filter.value =
-                SelectionButton(
-                    textButton1 = R.string.friends, textButton2 = R.string.places,
-                    modifier = Modifier.padding(vertical = 24.dp)
-                )
+            SelectionButtons(
+                valueList = listOf(
+                    stringResource(id = R.string.friends),
+                    stringResource(id = R.string.places)
+                ),
+                selectedItemIndex = 0,
+                onSelected = { filterButton.value = it },
+                modifier = Modifier.padding(vertical = 24.dp)
+            )
         }
 
         LazyColumn(
@@ -57,7 +63,7 @@ fun NewsScreen() {
                 .padding(horizontal = MaterialTheme.spacing.horizontal)
                 .fillMaxHeight(0.865f)
         ) {
-            if (filter.value == "val1") {
+            if (filterButton.value == 0) {
                 item { NewsCard(place = "place", name = "name") }
                 item { NewsCard(place = "place", name = "name") }
             } else {

@@ -1,40 +1,40 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
-import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroup
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroup
+import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 @Preview
@@ -62,13 +62,26 @@ fun CreateEventScreen() {
             onDismissRequest = { showDialog.value = false }
         )
 
-    Column {
+    Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderWithBackButton(
             text = stringResource(id = R.string.addGame),
             onClickBack = { navController.navigate(Route.MainScreen.path) },
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
         LazyColumn {
+            item {
+                BoldText(
+                    id = R.string.field,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
+                )
+
+                DropDownMenu(
+                    placeholder = "field",
+                    values = listOf("Поле 1", "Поле 2"),
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
             item {
                 CommonSwitch(
                     text = stringResource(id = R.string.closeGame), icon = true,
@@ -79,16 +92,6 @@ fun CreateEventScreen() {
                 CommonSwitch(
                     text = stringResource(id = R.string.iWill), icon = true,
                     textIcon = stringResource(id = R.string.iWillToast)
-                )
-            }
-            item {
-                BoldText(id = R.string.field, modifier = Modifier.padding(top = 24.dp))
-
-                DropDownMenu(
-                    placeholder = "field",
-                    values = listOf("Поле 1", "Поле 2"),
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
             item {
@@ -103,7 +106,10 @@ fun CreateEventScreen() {
                 )
             }
             item {
-                BoldText(id = R.string.time, modifier = Modifier.padding(top = 24.dp))
+                BoldText(
+                    id = R.string.time,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
+                )
 
                 Row(
                     modifier = Modifier
@@ -132,7 +138,7 @@ fun CreateEventScreen() {
                 BoldText(
                     addStar = false,
                     id = R.string.details,
-                    modifier = Modifier.padding(top = 24.dp)
+                    modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
@@ -216,15 +222,21 @@ fun CreateEventScreen() {
                 CheckBoxInventory()
             }
             item {
-                BoldText(id = R.string.costEntry, modifier = Modifier.padding(top = 24.dp))
+                BoldText(
+                    id = R.string.costEntry,
+                    modifier = Modifier.padding(top = 24.dp, bottom = 12.dp)
+                )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+                        .padding(bottom = MaterialTheme.spacing.small),
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
-                        style = MaterialTheme.typography.displaySmall,
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.W500
+                        ),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .weight(0.55f),
@@ -232,7 +244,9 @@ fun CreateEventScreen() {
 
                     Text(
                         text = stringResource(id = R.string.commission),
-                        style = MaterialTheme.typography.displaySmall,
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.W500
+                        ),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
                             .weight(0.45f),
@@ -241,7 +255,8 @@ fun CreateEventScreen() {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+                        .padding(bottom = 24.dp),
                 ) {
                     CommonTextField(
                         placeholder = stringResource(id = R.string.cost),
@@ -266,36 +281,45 @@ fun CreateEventScreen() {
                 CommonCheckBoxAgree()
             }
             item {
-                if (flag.value)
+                if (flag.value) {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         onClick = { showDialog.value = true },
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
                     )
-                else
+//                    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+//                        Text(
+//                            text = stringResource(id = R.string.cancel),
+//                            style = MaterialTheme.typography.bodyMedium.copy(
+//                                fontWeight = FontWeight.W600),
+//                            color = MaterialTheme.colorScheme.onSecondaryContainer
+//                        )
+//                    }
+                } else {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         style = MaterialTheme.typography.bodyLarge,
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
                     )
-            }
-            item {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 16.dp)
-                ) {
+//                    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+//                        Text(
+//                            text = stringResource(id = R.string.cancel),
+//                            style = MaterialTheme.typography.bodyMedium.copy(
+//                                fontWeight = FontWeight.W600),
+//                            color = MaterialTheme.colorScheme.onSecondaryContainer
+//                        )
+//                    }
+                }
+                TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        text = stringResource(id = R.string.cantCancel),
-                        style = MaterialTheme.typography.displaySmall,
-                        textAlign = TextAlign.Center
-                    )
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
-                        contentDescription = ""
+                        text = stringResource(id = R.string.cancel),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.W600
+                        ),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }
@@ -311,14 +335,19 @@ fun BoldText(
 ) {
     if (addStar)
         Text(
-            text = addStar(id = id),
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
-            modifier = modifier.padding(horizontal = 16.dp)
+            text = addStar(
+                id = id,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W600,
+                color = MaterialTheme.colorScheme.primary
+            ),
+            modifier = modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
         )
     else
         Text(
             text = stringResource(id = id),
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
-            modifier = modifier.padding(horizontal = 16.dp)
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+            color = MaterialTheme.colorScheme.primary,
+            modifier = modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
         )
 }

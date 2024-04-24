@@ -42,8 +42,8 @@ fun ChooseTeamScreen() {
             horizontalArrangement = Arrangement.SpaceAround
         ) {
             RoundButton(
-                    enable = true,
-                    onClick = { navController.navigate(Route.PaymentScreen.path) })
+                enable = true,
+                onClick = { navController.navigate(Route.PaymentScreen.path) })
 
             RoundButton(enable = false)
         }
@@ -53,8 +53,11 @@ fun ChooseTeamScreen() {
                 .padding(it)
                 .padding(top = 12.dp), horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            HeaderWithBackButton(text = "name",
-                onClickBack = { navController.navigate(Route.MatchScreen.path) })
+            HeaderWithBackButton(
+                text = "name",
+                onClickBack = { navController.navigate(Route.MatchScreen.path) },
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
 
             LazyColumn(
                 modifier = Modifier.padding(horizontal = 16.dp),

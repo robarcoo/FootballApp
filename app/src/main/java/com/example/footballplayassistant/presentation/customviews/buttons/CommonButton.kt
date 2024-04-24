@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.customviews.buttons
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 fun CommonButton(
@@ -17,6 +19,7 @@ fun CommonButton(
     containerColor: Color = MaterialTheme.colorScheme.secondary,
     contentColor: Color = MaterialTheme.colorScheme.primary,
     style: TextStyle = MaterialTheme.typography.bodyLarge,
+    enable: Boolean = true,
     onClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -25,6 +28,8 @@ fun CommonButton(
             contentColor = contentColor,
             containerColor = containerColor
         ),
+        contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
+        enabled = enable,
         onClick = { onClick.invoke() }) {
         Text(
             text = text,

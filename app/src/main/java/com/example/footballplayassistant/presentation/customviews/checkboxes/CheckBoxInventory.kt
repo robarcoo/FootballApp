@@ -42,6 +42,7 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
             Text(
                 text = stringResource(id = R.string.manish),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(4.dp)
                     .align(Alignment.CenterVertically)
@@ -64,6 +65,7 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
             Text(
                 text = stringResource(id = R.string.ball),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(4.dp)
                     .align(Alignment.CenterVertically)
@@ -87,6 +89,7 @@ fun CheckBoxInventory() {//пока так, потом мб придумаю п�
             Text(
                 text = stringResource(id = R.string.noInventory),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(4.dp)
                     .align(Alignment.CenterVertically)

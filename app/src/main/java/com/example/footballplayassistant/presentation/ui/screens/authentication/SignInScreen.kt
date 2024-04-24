@@ -22,7 +22,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.buttons.ForgotPassword
-import com.example.footballplayassistant.presentation.customviews.buttons.SelectionButton
+import com.example.footballplayassistant.presentation.customviews.buttons.SelectionButtons
 import com.example.footballplayassistant.presentation.customviews.buttons.SignInWithAccounts
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
@@ -37,7 +37,7 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 fun SignInScreen() {
     val navController = LocalNavController.current!!
     val filterButton = remember {
-        mutableStateOf("val1")
+        mutableStateOf(0)
     }
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
@@ -45,12 +45,17 @@ fun SignInScreen() {
 
         LazyColumn {
             item {
-                filterButton.value =
-                    SelectionButton(
-                        textButton1 = R.string.byPhone,
-                        textButton2 = R.string.byEmail,
-                        modifier = Modifier.padding(top = 24.dp, bottom = 20.dp)
-                    )
+                SelectionButtons(
+                    valueList = listOf(
+                        stringResource(id = R.string.byPhone),
+                        stringResource(id = R.string.byEmail)
+                    ),
+                    selectedItemIndex = 0,
+                    onSelected = { filterButton.value = it },
+                    modifier = Modifier
+                        .padding(top = 24.dp, bottom = 20.dp)
+                        .padding(horizontal = 16.dp)
+                )
             }
 
             item {
@@ -60,7 +65,7 @@ fun SignInScreen() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
-                    if (filterButton.value == "val1") {
+                    if (filterButton.value == 0) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge
@@ -110,7 +115,7 @@ fun SignInScreen() {
                 ForgotPassword(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 10.dp)
+                        .padding(bottom = 20.dp, top = 12.dp, end = 16.dp)
                 )
             }
 
