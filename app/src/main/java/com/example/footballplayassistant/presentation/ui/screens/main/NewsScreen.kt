@@ -42,7 +42,9 @@ fun NewsScreen() {
                 imageButton = R.drawable.ic_plus_24,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
                 onClickOther = { navController.navigate(Route.CreateEventScreen.path) },
-                modifier = Modifier.padding(top = 12.dp)
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .padding(horizontal = 16.dp)
             )
 
             SelectionButtons(

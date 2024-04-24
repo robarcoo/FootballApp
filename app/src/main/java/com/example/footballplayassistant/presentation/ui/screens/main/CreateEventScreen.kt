@@ -66,7 +66,7 @@ fun CreateEventScreen() {
         HeaderWithBackButton(
             text = stringResource(id = R.string.addGame),
             onClickBack = { navController.navigate(Route.MainScreen.path) },
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
         LazyColumn {
             item {

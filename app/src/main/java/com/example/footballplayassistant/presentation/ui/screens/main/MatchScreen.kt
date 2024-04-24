@@ -79,7 +79,8 @@ fun MatchScreen() {
                 text = stringResource(id = R.string.match),
                 imageButton = R.drawable.ic_arrow_share_25,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
-                onClickOther = {}
+                onClickOther = {},
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
 
             LazyColumn {

@@ -52,7 +52,9 @@ fun SignInScreen() {
                     ),
                     selectedItemIndex = 0,
                     onSelected = { filterButton.value = it },
-                    modifier = Modifier.padding(top = 24.dp, bottom = 20.dp)
+                    modifier = Modifier
+                        .padding(top = 24.dp, bottom = 20.dp)
+                        .padding(horizontal = 16.dp)
                 )
             }
 

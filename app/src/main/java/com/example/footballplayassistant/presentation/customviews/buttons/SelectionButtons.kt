@@ -34,7 +34,6 @@ fun SelectionButtons(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
     ) {
 
         valueList.forEachIndexed { index, text ->
