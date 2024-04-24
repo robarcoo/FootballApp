@@ -53,7 +53,8 @@ fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.primary
             )
 
             if (icon)
@@ -117,7 +118,7 @@ fun CustomSwitchButton(
             .width(56.dp)
             .height(22.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(GrayF1)
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null
@@ -144,7 +145,8 @@ fun CustomSwitchButton(
                 modifier = Modifier
                     .size(width = 34.dp, height = 24.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(if (switchClicked) Green else GrayC9)
+                    .background(if (switchClicked) MaterialTheme.colorScheme.secondary
+                    else MaterialTheme.colorScheme.tertiaryContainer)
             )
         }
     }
