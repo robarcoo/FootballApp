@@ -112,7 +112,7 @@ private fun CurrentButton(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+            style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier.padding(vertical = 10.dp)
         )

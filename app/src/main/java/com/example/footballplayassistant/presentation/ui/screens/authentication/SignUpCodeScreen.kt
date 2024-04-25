@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -78,16 +79,16 @@ fun SignUpCodeScreen() {
                 .padding(horizontal = MaterialTheme.spacing.horizontal),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
-            SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
-            SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
+            squareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
+            squareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
+            squareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
             OK.value =
-                SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
+                squareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
 
         Text(
             text = stringResource(R.string.repeatCode),
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
@@ -99,7 +100,7 @@ fun SignUpCodeScreen() {
 }
 
 @Composable
-fun SquareTextField(
+fun squareTextField(
     itemStart: FocusRequester,
     itemNext: FocusRequester,
     focusManager: FocusManager
@@ -128,7 +129,8 @@ fun SquareTextField(
         ),
         singleLine = true,
         modifier = Modifier
-            .widthIn(min = 64.dp, max = 80.dp)
+            .widthIn(max = 80.dp)
+            .heightIn(max = 80.dp)
             .padding(5.dp)
             .background(MaterialTheme.colorScheme.outlineVariant)
             .border(
