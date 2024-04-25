@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,27 +33,29 @@ import com.example.footballplayassistant.R
 fun SignInWithAccounts(modifier: Modifier = Modifier) {
     Column(modifier = modifier.wrapContentSize()) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            Divider(
-                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
+            HorizontalDivider(
+                modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.4f)
                     .align(Alignment.CenterVertically)
-                    .padding(start = 16.dp)
+                    .padding(start = 16.dp),
+                thickness = 1.dp, color = MaterialTheme.colorScheme.outline
             )
             Text(
                 text = "Или", textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.2f)
             )
-            Divider(
-                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
+            HorizontalDivider(
+                modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.4f)
                     .align(Alignment.CenterVertically)
-                    .padding(end = 16.dp)
+                    .padding(end = 16.dp),
+                thickness = 1.dp, color = MaterialTheme.colorScheme.outline
             )
         }
         Row(

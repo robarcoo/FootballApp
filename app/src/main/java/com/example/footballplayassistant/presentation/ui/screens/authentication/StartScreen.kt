@@ -116,7 +116,7 @@ fun StartScreen() {
                         }) {
                         Text(
                             text = "Зарегистрироваться",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodySmall
                                 .copy(fontWeight = FontWeight.W600)
 
                         )

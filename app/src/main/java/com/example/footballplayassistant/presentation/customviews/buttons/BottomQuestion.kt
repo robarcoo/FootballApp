@@ -27,7 +27,7 @@ fun BottomQuestion(
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(
             text = question,
-            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W500),
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
             textAlign = TextAlign.End,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.align(Alignment.CenterVertically)
@@ -38,7 +38,7 @@ fun BottomQuestion(
             onClick = { onClick.invoke() }) {
             Text(
                 text = buttonText,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.secondary
             )
         }

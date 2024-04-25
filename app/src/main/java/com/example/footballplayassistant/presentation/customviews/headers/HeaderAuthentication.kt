@@ -87,7 +87,7 @@ fun HeaderSignIn() {
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500)
                 )
             }
         }
@@ -124,13 +124,13 @@ fun HeaderSignUp() {
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500)
                 )
             }
         }
         Text(
             text = "Регистрация",
-            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
@@ -142,13 +142,13 @@ fun HeaderSignUp() {
 @Preview
 fun HeaderSignUpCode() {
     Text(
-        text = "Введите код из\n смс",
+        text = "Введите код\n из смс",
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+        style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
         color = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 14.dp)
+            .padding(top = 20.dp)
             .padding(horizontal = MaterialTheme.spacing.horizontal)
     )
 }
@@ -158,7 +158,7 @@ fun HeaderSignUpStep(numStep: Int) {
     Column {
         HeaderWithBackButton(
             text = "Регистрация", tint = MaterialTheme.colorScheme.onPrimary,
-            styleText = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
+            styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             colorText = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 35.dp)
@@ -168,7 +168,7 @@ fun HeaderSignUpStep(numStep: Int) {
         Text(
             text = "Шаг $numStep из 2",
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W400),
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier
                 .fillMaxWidth()

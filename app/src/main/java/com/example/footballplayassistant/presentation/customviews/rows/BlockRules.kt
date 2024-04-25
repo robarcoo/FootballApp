@@ -41,7 +41,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter)),
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
                     fontSize = 12.sp
                 )
             ) {
@@ -56,7 +56,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter)),
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
                     fontSize = 12.sp
                 )
             ) {
