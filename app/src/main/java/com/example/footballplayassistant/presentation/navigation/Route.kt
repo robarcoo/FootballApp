@@ -36,6 +36,8 @@ sealed class Route(val path: String) {
 
     data object FilterScreen : Route(path = "filter_screen")
 
+    data object CreateFieldScreen : Route(path = "create_field_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

@@ -118,7 +118,7 @@ fun CustomSwitchButton(
             .width(56.dp)
             .height(22.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(MaterialTheme.colorScheme.onPrimary)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null

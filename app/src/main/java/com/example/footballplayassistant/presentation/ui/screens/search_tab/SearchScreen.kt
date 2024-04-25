@@ -80,16 +80,17 @@ fun SearchScreen() {
         SearchBar {
             navController.navigate(Route.FilterScreen.path)
         }
-        LazyColumn (userScrollEnabled = true){
-            item {
-                SearchCard("Арена Новый Футбол | Крылатское",
-                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
-                SearchCard("Футбольный манеж Академия будущего на Кузнецова",
-                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
-                SearchCard("Арена Новый Футбол | Крылатское",
-                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
-            }
-        }
+//        LazyColumn (userScrollEnabled = true){
+//            item {
+//                SearchCard("Арена Новый Футбол | Крылатское",
+//                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
+//                SearchCard("Футбольный манеж Академия будущего на Кузнецова",
+//                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
+//                SearchCard("Арена Новый Футбол | Крылатское",
+//                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
+//            }
+//        }
+        NoResultsScreen()
 
     }
 }
@@ -104,8 +105,10 @@ fun SearchCard(title : String, address : String, distance : String) {
     ) {
         Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium,
             vertical = MaterialTheme.spacing.medium)) {
-            Row(modifier = Modifier.fillMaxWidth().padding(bottom = MaterialTheme.spacing.medium), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(text = title, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.W600,
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = MaterialTheme.spacing.medium), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(text = title, style = MaterialTheme.typography.displayMedium, fontWeight = FontWeight.W600,
                     maxLines = 2, overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f, fill = false))
                 Spacer(modifier = Modifier
@@ -169,8 +172,7 @@ fun SearchBar(onClick : () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .weight(1f, fill = false)
-            .fillMaxHeight()
-            ,
+            .fillMaxHeight(),
         onValueChange = { value = it },
         textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
         interactionSource = interactionSource,

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +16,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,8 +45,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
@@ -56,39 +63,52 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 fun FilterScreen() {
     val navController = LocalNavController.current!!
     Column (modifier = Modifier
-        .padding(top = MaterialTheme.spacing.small)
-        .fillMaxSize()) {
-        HeaderWithBackButton(text = stringResource(id = R.string.filterHeader),
-            onClickBack = { navController.navigate(Route.SearchScreen.path) })
-        CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
-        CommonSwitch(text = stringResource(id = R.string.filterByDistance))
-        Spacer(modifier = Modifier.height(32.dp))
-        Column(modifier = Modifier.padding(start = MaterialTheme.spacing.medium, end = MaterialTheme.spacing.medium)) {
+        .background(color = MaterialTheme.colorScheme.primaryContainer)
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())){
+        Column(
+            modifier = Modifier
+                .padding(start = MaterialTheme.spacing.medium, end = MaterialTheme.spacing.medium, top = MaterialTheme.spacing.medium)
+        ) {
+            HeaderWithBackButton(text = stringResource(id = R.string.filterHeader),
+                onClickBack = { navController.navigate(Route.SearchScreen.path) })
+            CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
+            CommonSwitch(text = stringResource(id = R.string.filterByDistance))
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
             FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f)
             FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f)
+            ToggleButton(
+                stringResource(R.string.typesOfArena),
+                stringArrayResource(id = R.array.typesOfArenaArray)
+            )
+            ToggleButton(
+                stringResource(id = R.string.coveringType),
+                stringArrayResource(id = R.array.coveringTypeArray)
+            )
         }
-        ToggleButton(stringResource(R.string.typesOfArena), stringArrayResource(id = R.array.typesOfArenaArray))
-        ToggleButton(stringResource(id = R.string.coveringType), stringArrayResource(id = R.array.coveringTypeArray))
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f, fill = false))
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
         FilterBottomBar {
             navController.navigate(Route.SearchScreen.path)
         }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FilterBottomBar(onClick : () -> Unit) {
-    HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-    Row(modifier = Modifier
-        .height(82.dp)
-        .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically) {
+    FlowRow(modifier = Modifier
+        .height(IntrinsicSize.Min)
+        .fillMaxWidth()
+        .padding(vertical = MaterialTheme.spacing.medium, horizontal = MaterialTheme.spacing.medium), horizontalArrangement = Arrangement.SpaceEvenly) {
 
         FilterButton(stringResource(id = R.string.dropFilters),
+            MaterialTheme.spacing.large,
             MaterialTheme.colorScheme.outlineVariant,
             MaterialTheme.colorScheme.onPrimaryContainer,
             onClick)
         FilterButton(stringResource(id = R.string.applyFilters),
+            MaterialTheme.spacing.extraLarge,
             MaterialTheme.colorScheme.onPrimaryContainer,
             MaterialTheme.colorScheme.onPrimary,
             onClick)
@@ -96,18 +116,15 @@ fun FilterBottomBar(onClick : () -> Unit) {
 }
 
 @Composable
-fun FilterButton(text : String, containerColor : Color, contentColor: Color, onClick : () -> Unit) {
+fun FilterButton(text : String, horizontalPadding : Dp, containerColor : Color, contentColor: Color, onClick : () -> Unit) {
     Button(onClick = onClick,
         contentPadding = PaddingValues(
-            start = MaterialTheme.spacing.large,
-            end = MaterialTheme.spacing.large,
-            top = MaterialTheme.spacing.medium,
-            bottom = MaterialTheme.spacing.medium
+            horizontal = horizontalPadding,
+            vertical = MaterialTheme.spacing.medium
         ),
         colors = ButtonDefaults.buttonColors(containerColor = containerColor,
             contentColor = contentColor)) {
-        Text(text, style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W500,
-            fontFamily = FontFamily(Font(R.font.montserrat))))
+        Text(text, style = MaterialTheme.typography.bodySmall)
     }
 
 }
@@ -116,22 +133,18 @@ fun FilterButton(text : String, containerColor : Color, contentColor: Color, onC
 @Composable
 fun ToggleButton(title: String, items: Array<String>) {
     var selectedIndex by remember { mutableIntStateOf(0) }
-    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large,
-        start = MaterialTheme.spacing.medium,
-        end = MaterialTheme.spacing.medium)) {
+    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large)) {
         Text(
-            title, style = MaterialTheme.typography.labelLarge
+            title, style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
         )
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             items.forEachIndexed { index, item ->
                 OutlinedButton(
                     contentPadding = PaddingValues(
-                        top = MaterialTheme.spacing.extraSmall,
-                        bottom = MaterialTheme.spacing.extraSmall,
-                        start = MaterialTheme.spacing.small,
-                        end = MaterialTheme.spacing.small
+                        vertical = MaterialTheme.spacing.small,
+                        horizontal = MaterialTheme.spacing.small
                     ),
                     onClick = { selectedIndex = index },
                     shape = RoundedCornerShape(8.dp),
@@ -146,7 +159,8 @@ fun ToggleButton(title: String, items: Array<String>) {
                         ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.outlineVariant)
                     }
                 ) {
-                    Text(text = item, style = MaterialTheme.typography.labelMedium,  color = MaterialTheme.colorScheme.onPrimaryContainer)
+                    Text(text = item, modifier = Modifier.padding(horizontal = MaterialTheme.spacing.extraSmall),
+                        style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),  color = MaterialTheme.colorScheme.onPrimaryContainer)
                 }
             }
         }
@@ -157,22 +171,31 @@ fun ToggleButton(title: String, items: Array<String>) {
 @Composable
 fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float) {
     Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)) {
-        Row(verticalAlignment = Alignment.Bottom) {
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                text, style = MaterialTheme.typography.labelLarge
+                maxLines = 2,
+                text = text,
+                modifier = Modifier.weight(1f, fill = false),
+                style = MaterialTheme.typography.displayMedium
+                    .copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                overflow = TextOverflow.Ellipsis
+
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
             Box(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(8.dp))
                     .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(horizontal = MaterialTheme.spacing.small, vertical = MaterialTheme.spacing.extraSmall)
+                    .padding(
+                        horizontal = MaterialTheme.spacing.small,
+                        vertical = MaterialTheme.spacing.extraSmall
+                    )
             ) {
                 Text("${activeRangeStart.toInt()}-${activeRangeEnd.toInt()}",
-                    style = MaterialTheme.typography.bodyMedium)
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
         val rangeSliderState = remember {
             RangeSliderState(
                 activeRangeStart,

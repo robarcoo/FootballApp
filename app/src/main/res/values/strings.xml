@@ -170,8 +170,8 @@
     <string name="knobIconDescription">Ползунок</string>
 
     <string name="areaNotFound">Поля не найдены</string>
-    <string name="tryChangeFilters">По заданным фильтрам не было найдено игр или площадок, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="tryChangeFilters">По заданным фильтрам и запросу не было найдено полей, попробуйте изменить параметры поиска</string>
     <string name="addField">Добавить поле</string>
-    <string name="fieldName">Название поля<font color="#FFC700">*</font></string>
+    <string name="fieldName">Название поля</string>
     <string name="fieldInfoTitle">Информация о поле</string>
 </resources>
