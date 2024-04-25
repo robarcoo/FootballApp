@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -87,7 +88,9 @@ fun HeaderSignIn() {
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500)
+                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -124,7 +127,9 @@ fun HeaderSignUp() {
                 onClick = { /*TODO*/ }) {
                 Text(
                     text = "Пропустить",
-                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500)
+                    style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

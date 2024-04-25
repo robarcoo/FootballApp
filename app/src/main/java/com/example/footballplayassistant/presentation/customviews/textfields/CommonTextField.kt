@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.customviews.textfields
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,6 +44,7 @@ fun CommonTextField(
     maxLength: Int = 40,
     value: String = "",
     readOnly: Boolean = false,
+    isError: Boolean = false,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val textValue = remember { mutableStateOf("") }
@@ -95,6 +97,7 @@ fun CommonTextField(
         },
         singleLine = singleLine,
         shape = RoundedCornerShape(cornerRadius),
+        textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
@@ -103,11 +106,21 @@ fun CommonTextField(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             unfocusedTextColor = MaterialTheme.colorScheme.primary,
-            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
-        ),
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
 
+            errorContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.15f),
+            errorCursorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            errorIndicatorColor = MaterialTheme.colorScheme.outlineVariant
+        ),
+        isError = isError,
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .border(
+                color = if (isError) MaterialTheme.colorScheme.error
+                else MaterialTheme.colorScheme.onPrimary,
+                width = 1.dp,
+                shape = RoundedCornerShape(cornerRadius)
+            ),
         trailingIcon = { if (imageTrail != 0) trailingIconView() },
         visualTransformation =
         if (isPass) PasswordVisualTransformation()

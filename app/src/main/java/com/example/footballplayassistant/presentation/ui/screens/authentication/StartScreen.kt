@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -65,7 +67,9 @@ fun StartScreen() {
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
         ) {
             Box(
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .verticalScroll(ScrollState(0))
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_144_223),
@@ -84,7 +88,8 @@ fun StartScreen() {
                     modifier = Modifier
                         .wrapContentSize()
                         .align(Alignment.Center)
-                        .padding(/*top = 100.dp,*/ start = MaterialTheme.spacing.medium,
+                        .padding(
+                            start = MaterialTheme.spacing.medium,
                             end = MaterialTheme.spacing.medium
                         )
                 ) {
@@ -94,7 +99,7 @@ fun StartScreen() {
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W400),
-                        modifier = Modifier.padding(bottom = 30.dp, top = 125.dp)
+                        modifier = Modifier.padding(bottom = 30.dp, top = 120.dp)
                     )
 
                     CommonButton(

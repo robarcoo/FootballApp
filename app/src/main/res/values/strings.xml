@@ -34,10 +34,11 @@
     <string name="surname">Фамилия</string>
     <string name="email">Почта</string>
     <string name="forgotPassword">Забыли пароль?</string>
-    <string name="enterInfoYourself">Введите информацию о себе</string>
+    <string name="enterInfoYourself">Введите\n информацию о себе</string>
     <string name="birthday">Дата рождения</string>
-    <string name="sex">Пол</string>
+    <string name="sex">Ваш пол</string>
     <string name="levelPlay">Выберите уровень игры</string>
+    <string name="city">Выберите ваш город</string>
     <string name="tellYourself">Расскажите о себе\n</string>
     <string name="position">Ваша предпочитаемая позиция</string>
     <string name="byPhone">По номеру</string>

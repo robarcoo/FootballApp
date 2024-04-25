@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
 @Composable
@@ -29,12 +30,12 @@ fun RadioButtonGroupPositions() {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.SpaceAround
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        for (i in 0 until positions.size) {
+        for (i in positions.indices) {
             Row {
                 RadioButton(
-                    selected = if (state.value == i + 1) true else false,
+                    selected = state.value == i + 1,
                     onClick = { state.value = i + 1 },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = MaterialTheme.colorScheme.secondary,
@@ -43,7 +44,9 @@ fun RadioButtonGroupPositions() {
                 )
                 Text(
                     text = positions[i],
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.W400
+                    ),
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )

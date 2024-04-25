@@ -31,6 +31,7 @@ fun TextFieldWithLeadingIcon(
     keyBoard: KeyboardType = KeyboardType.Email,
     value: String = "",
     color: Color = MaterialTheme.colorScheme.onPrimary,
+    isError: Boolean = false,
     onTrailClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -61,6 +62,7 @@ fun TextFieldWithLeadingIcon(
         },
         singleLine = true,
         shape = RoundedCornerShape(60.dp),
+        textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
@@ -69,9 +71,13 @@ fun TextFieldWithLeadingIcon(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             unfocusedTextColor = MaterialTheme.colorScheme.primary,
-            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
-        ),
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
 
+            errorContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.15f),
+            errorCursorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            errorIndicatorColor = MaterialTheme.colorScheme.outlineVariant
+        ),
+        isError = isError,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),

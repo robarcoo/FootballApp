@@ -8,12 +8,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroupPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
-import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -59,7 +63,7 @@ fun EnterInfoScreen() {
             ) {
                 CommonButton(
                     text = "Сохранить",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W500),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     modifier = Modifier
                         .weight(0.4f)
@@ -73,7 +77,7 @@ fun EnterInfoScreen() {
                     text = "Пропустить",
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     containerColor = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W500),
                     modifier = Modifier
                         .weight(0.4f)
                         .padding(end = MaterialTheme.spacing.medium)
@@ -86,6 +90,7 @@ fun EnterInfoScreen() {
             modifier = Modifier
                 .background(color = MaterialTheme.colorScheme.primaryContainer)
                 .padding(it)
+                .padding(top = 12.dp)
                 .fillMaxSize()
         ) {
             item {
@@ -96,7 +101,7 @@ fun EnterInfoScreen() {
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 12.dp, bottom = 24.dp)
+                        .padding(bottom = 24.dp)
                 )
             }
 
@@ -104,31 +109,45 @@ fun EnterInfoScreen() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+                        .padding(horizontal = MaterialTheme.spacing.horizontal),
+                    verticalArrangement = Arrangement.Top
                 ) {
                     val context = LocalContext.current
                     val date = remember { mutableStateOf("") }
 
-                    TextFieldWithLeadingIcon(
-                        placeholder = stringResource(id = R.string.birthday),
-                        imageStart = R.drawable.ic_calendar_22,
-                        imageTrail = R.drawable.ic_arrow_menu_18_10,
-                        value = date.value,
-                        onTrailClick = {
-                            openCalendar(context, date)
-                        }
+                    ButtonCalendar(
+                        onCLick = { openCalendar(context, date) },
+                        date = date.value,
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
-                    DropDownMenu(
+
+                    ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.sex),
+                        values = listOf("Мужчина", "Женщина"),
                         imStart = R.drawable.ic_sex_23,
-                        imTrail = R.drawable.ic_arrow_menu_18_10,
-                        values = listOf("Мужчина", "Женщина")
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
                     DropDownMenu(
-                        placeholder = stringResource(id = R.string.levelPlay),
+                        placeholder = stringResource(id = R.string.city),
                         imTrail = R.drawable.ic_arrow_menu_18_10,
-                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
+                        values = listOf("1", "2", "3"),
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
+                    ButtonDropDownMenu(
+                        placeholder = stringResource(id = R.string.levelPlay),
+                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал"),
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
+                    )
+
+
                     Box {
                         CommonTextField(
                             placeholder = stringResource(id = R.string.tellYourself),
@@ -161,6 +180,67 @@ fun EnterInfoScreen() {
                 }
             }
 
+//            item {
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+//                ) {
+//                    val context = LocalContext.current
+//                    val date = remember { mutableStateOf("") }
+//
+//                    TextFieldWithLeadingIcon(
+//                        placeholder = stringResource(id = R.string.birthday),
+//                        imageStart = R.drawable.ic_calendar_22,
+//                        imageTrail = R.drawable.ic_arrow_menu_18_10,
+//                        value = date.value,
+//                        onTrailClick = {
+//                            openCalendar(context, date)
+//                        }
+//                    )
+//                    DropDownMenu(
+//                        placeholder = stringResource(id = R.string.sex),
+//                        imStart = R.drawable.ic_sex_23,
+//                        imTrail = R.drawable.ic_arrow_menu_18_10,
+//                        values = listOf("Мужчина", "Женщина")
+//                    )
+//                    DropDownMenu(
+//                        placeholder = stringResource(id = R.string.levelPlay),
+//                        imTrail = R.drawable.ic_arrow_menu_18_10,
+//                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
+//                    )
+//                    Box {
+//                        CommonTextField(
+//                            placeholder = stringResource(id = R.string.tellYourself),
+//                            singleLine = false,
+//                            cornerRadius = 20.dp,
+//                            maxLength = 300,
+//                            modifier = Modifier.fillMaxHeight()
+//                        )
+//                        Image(
+//                            imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
+//                            contentDescription = "",
+//                            modifier = Modifier
+//                                .align(Alignment.BottomEnd)
+//                                .padding(
+//                                    end = MaterialTheme.spacing.small,
+//                                    bottom = MaterialTheme.spacing.small
+//                                )
+//                        )
+//                    }
+//
+//                    Text(
+//                        text = "0/300",
+//                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
+//                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+//                        textAlign = TextAlign.End,
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .padding(top = MaterialTheme.spacing.extraSmall)
+//                    )
+//                }
+//            }
+
             item {
                 Column(
                     modifier = Modifier
@@ -170,7 +250,7 @@ fun EnterInfoScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.position),
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                        style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.primary
                     )
                     RadioButtonGroupPositions()
@@ -207,5 +287,41 @@ private fun openCalendar(context: Context, date: MutableState<String>) {
     mDatePickerDialog.show()
 }
 
+@Composable
+private fun ButtonCalendar(modifier: Modifier = Modifier, onCLick: () -> Unit, date: String) {
+    Button(
+        onClick = { onCLick.invoke() },
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row {
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_calendar_22),
+                    contentDescription = "",
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text(
+                    text = if (date == "") stringResource(id = R.string.birthday) else date,
+                    color = if (date == "") MaterialTheme.colorScheme.onSecondaryContainer
+                    else MaterialTheme.colorScheme.onPrimaryContainer,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+            }
+            Image(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_menu_18_10),
+                contentDescription = ""
+            )
+        }
+    }
+}
 
 
