@@ -85,13 +85,19 @@ fun CreateEventScreen() {
             item {
                 CommonSwitch(
                     text = stringResource(id = R.string.closeGame), icon = true,
-                    textIcon = stringResource(id = R.string.closeGameToast)
+                    textIcon = stringResource(id = R.string.closeGameToast),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp)
                 )
             }
             item {
                 CommonSwitch(
                     text = stringResource(id = R.string.iWill), icon = true,
-                    textIcon = stringResource(id = R.string.iWillToast)
+                    textIcon = stringResource(id = R.string.iWillToast),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 24.dp)
                 )
             }
             item {

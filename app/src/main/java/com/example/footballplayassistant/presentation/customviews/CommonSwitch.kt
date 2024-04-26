@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
@@ -41,13 +42,17 @@ import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
-fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
+fun CommonSwitch(
+    text: String,
+    icon: Boolean = false,
+    textIcon: String = "",
+    colorBackground: Color = MaterialTheme.colorScheme.primaryContainer,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 24.dp),
+        modifier = modifier
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
@@ -71,7 +76,8 @@ fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
             switchPadding = 0.dp,
             buttonWidth = 34.dp,
             buttonHeight = 24.dp,
-            value = false
+            value = false,
+            colorBackground = colorBackground
         )
     }
 }
@@ -82,7 +88,8 @@ fun CustomSwitchButton(
     switchPadding: Dp,
     buttonWidth: Dp,
     buttonHeight: Dp,
-    value: Boolean
+    value: Boolean,
+    colorBackground: Color
 ) {
 
     val switchSize by remember {
@@ -118,7 +125,7 @@ fun CustomSwitchButton(
             .width(56.dp)
             .height(22.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(colorBackground)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null
@@ -145,8 +152,10 @@ fun CustomSwitchButton(
                 modifier = Modifier
                     .size(width = 34.dp, height = 24.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(if (switchClicked) MaterialTheme.colorScheme.secondary
-                    else MaterialTheme.colorScheme.tertiaryContainer)
+                    .background(
+                        if (switchClicked) MaterialTheme.colorScheme.secondary
+                        else MaterialTheme.colorScheme.tertiaryContainer
+                    )
             )
         }
     }
