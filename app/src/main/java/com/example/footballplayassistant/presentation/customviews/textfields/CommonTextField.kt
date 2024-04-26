@@ -2,16 +2,17 @@ package com.example.footballplayassistant.presentation.customviews.textfields
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun CommonTextField(
     placeholder: String,
@@ -45,6 +48,7 @@ fun CommonTextField(
     value: String = "",
     readOnly: Boolean = false,
     isError: Boolean = false,
+    tintIcon: Color = MaterialTheme.colorScheme.primary,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val textValue = remember { mutableStateOf("") }
@@ -65,54 +69,28 @@ fun CommonTextField(
         ) {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = ""
+                contentDescription = "",
+                tint = tintIcon
             )
         }
     }
+    val source = remember {
+        MutableInteractionSource()
+    }
 
-    TextField(
+    BasicTextField(
         value = if (value == "") textValue.value else value,
         onValueChange = {
             if (it.length <= maxLength) {
                 textValue.value = it
             }
         },
-        placeholder = {
-            if (imageStart != 0)
-                Row {
-                    Icon(
-                        painter = painterResource(id = imageStart),
-                        contentDescription = "", modifier = Modifier.padding(end = 4.dp)
-                    )
-                    Text(
-                        text = placeholder,
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400)
-                    )
-                }
-            else
-                Text(
-                    text = placeholder,
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400)
-                )
-        },
-        singleLine = singleLine,
-        shape = RoundedCornerShape(cornerRadius),
-        textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-        colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = color,
-            focusedContainerColor = color,
-            unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
-            focusedTextColor = MaterialTheme.colorScheme.primary,
-            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
-            focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
-            unfocusedTextColor = MaterialTheme.colorScheme.primary,
-            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
-
-            errorContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.15f),
-            errorCursorColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            errorIndicatorColor = MaterialTheme.colorScheme.outlineVariant
+        textStyle = MaterialTheme.typography.labelLarge.copy(
+            fontWeight = FontWeight.W400,
+            color = MaterialTheme.colorScheme.primary
         ),
-        isError = isError,
+        singleLine = true,
+        interactionSource = source,
         modifier = modifier
             .fillMaxWidth()
             .border(
@@ -121,12 +99,49 @@ fun CommonTextField(
                 width = 1.dp,
                 shape = RoundedCornerShape(cornerRadius)
             ),
-        trailingIcon = { if (imageTrail != 0) trailingIconView() },
-        visualTransformation =
-        if (isPass) PasswordVisualTransformation()
-        else VisualTransformation.None,
+        readOnly = readOnly,
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard),
-        readOnly = readOnly
+        visualTransformation = if (isPass) PasswordVisualTransformation()
+        else VisualTransformation.None,
     )
-}
+    {
+        TextFieldDefaults.DecorationBox(
+            value = if (value == "") textValue.value else value,
+            innerTextField = { it() },
+            enabled = true,
+            singleLine = singleLine,
+            visualTransformation = VisualTransformation.None,
+            interactionSource = source,
+            isError = isError,
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontWeight = FontWeight.W400,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                )
+            },
+            trailingIcon = { if (imageTrail != 0) trailingIconView() },
+            shape = RoundedCornerShape(cornerRadius),
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = color,
+                focusedContainerColor = color,
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
+                focusedTextColor = MaterialTheme.colorScheme.primary,
+                unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                unfocusedTextColor = MaterialTheme.colorScheme.primary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
 
+                errorContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.15f),
+                errorCursorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                errorIndicatorColor = MaterialTheme.colorScheme.outlineVariant
+            ),
+            contentPadding = PaddingValues(
+                vertical = 12.dp,
+                horizontal = 16.dp
+            ),
+        )
+    }
+}

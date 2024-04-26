@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.dropdownmenus
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

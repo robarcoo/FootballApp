@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -40,7 +42,8 @@ fun RadioButtonGroupPositions() {
                     colors = RadioButtonDefaults.colors(
                         selectedColor = MaterialTheme.colorScheme.secondary,
                         unselectedColor = MaterialTheme.colorScheme.secondary
-                    )
+                    ),
+                    modifier = Modifier.size(20.dp).padding(end = 8.dp)
                 )
                 Text(
                     text = positions[i],

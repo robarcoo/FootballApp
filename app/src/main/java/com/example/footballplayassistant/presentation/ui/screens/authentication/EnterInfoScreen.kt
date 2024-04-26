@@ -37,9 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroupPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -58,7 +58,8 @@ fun EnterInfoScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = MaterialTheme.colorScheme.primaryContainer),
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
+                    .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 CommonButton(
@@ -180,67 +181,6 @@ fun EnterInfoScreen() {
                 }
             }
 
-//            item {
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxSize()
-//                        .padding(horizontal = MaterialTheme.spacing.horizontal)
-//                ) {
-//                    val context = LocalContext.current
-//                    val date = remember { mutableStateOf("") }
-//
-//                    TextFieldWithLeadingIcon(
-//                        placeholder = stringResource(id = R.string.birthday),
-//                        imageStart = R.drawable.ic_calendar_22,
-//                        imageTrail = R.drawable.ic_arrow_menu_18_10,
-//                        value = date.value,
-//                        onTrailClick = {
-//                            openCalendar(context, date)
-//                        }
-//                    )
-//                    DropDownMenu(
-//                        placeholder = stringResource(id = R.string.sex),
-//                        imStart = R.drawable.ic_sex_23,
-//                        imTrail = R.drawable.ic_arrow_menu_18_10,
-//                        values = listOf("Мужчина", "Женщина")
-//                    )
-//                    DropDownMenu(
-//                        placeholder = stringResource(id = R.string.levelPlay),
-//                        imTrail = R.drawable.ic_arrow_menu_18_10,
-//                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
-//                    )
-//                    Box {
-//                        CommonTextField(
-//                            placeholder = stringResource(id = R.string.tellYourself),
-//                            singleLine = false,
-//                            cornerRadius = 20.dp,
-//                            maxLength = 300,
-//                            modifier = Modifier.fillMaxHeight()
-//                        )
-//                        Image(
-//                            imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-//                            contentDescription = "",
-//                            modifier = Modifier
-//                                .align(Alignment.BottomEnd)
-//                                .padding(
-//                                    end = MaterialTheme.spacing.small,
-//                                    bottom = MaterialTheme.spacing.small
-//                                )
-//                        )
-//                    }
-//
-//                    Text(
-//                        text = "0/300",
-//                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
-//                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-//                        textAlign = TextAlign.End,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .padding(top = MaterialTheme.spacing.extraSmall)
-//                    )
-//                }
-//            }
-
             item {
                 Column(
                     modifier = Modifier
@@ -251,7 +191,8 @@ fun EnterInfoScreen() {
                     Text(
                         text = stringResource(id = R.string.position),
                         style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
                     RadioButtonGroupPositions()
                 }
