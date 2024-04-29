@@ -2,6 +2,7 @@ package com.example.footballplayassistant.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -149,7 +150,9 @@ fun CreateEventScreen() {
                 CommonTextField(
                     placeholder = stringResource(id = R.string.title),
                     color = MaterialTheme.colorScheme.primaryContainer,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 12.dp)
                 )
                 CommonTextField(
                     placeholder = stringResource(id = R.string.otherInfo),
@@ -159,6 +162,7 @@ fun CreateEventScreen() {
                     modifier = Modifier
                         .fillMaxHeight()
                         .padding(horizontal = 16.dp)
+                        .padding(bottom = 24.dp)
                 )
             }
             item {
@@ -237,6 +241,7 @@ fun CreateEventScreen() {
                         .fillMaxWidth()
                         .padding(horizontal = MaterialTheme.spacing.horizontal)
                         .padding(bottom = MaterialTheme.spacing.small),
+                    horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
@@ -245,7 +250,9 @@ fun CreateEventScreen() {
                         ),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
-                            .weight(0.55f),
+                            .fillMaxWidth(0.53f)
+//                            .weight(0.55f)
+                            .padding(start = 10.dp),
                     )
 
                     Text(
@@ -255,7 +262,8 @@ fun CreateEventScreen() {
                         ),
                         color = MaterialTheme.colorScheme.onBackground,
                         modifier = Modifier
-                            .weight(0.45f),
+                            .fillMaxWidth(0.5f)
+//                            .weight(0.45f),
                     )
                 }
                 Row(
@@ -263,13 +271,14 @@ fun CreateEventScreen() {
                         .fillMaxWidth()
                         .padding(horizontal = MaterialTheme.spacing.horizontal)
                         .padding(bottom = 24.dp),
+                    horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
                     CommonTextField(
                         placeholder = stringResource(id = R.string.cost),
                         imageTrail = R.drawable.ic_ruble_15,
                         modifier = Modifier
-                            .weight(0.5f)
-                            .padding(end = 16.dp),
+                            .weight(0.5f),
+//                            .padding(end = 16.dp),
                         color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
@@ -277,8 +286,8 @@ fun CreateEventScreen() {
                         imageTrail = R.drawable.ic_ruble_15,
                         color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier
-                            .weight(0.5f)
-                            .padding(start = 16.dp),
+                            .weight(0.5f),
+//                            .padding(start = 16.dp),
                         readOnly = true
                     )
                 }

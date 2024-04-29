@@ -56,6 +56,8 @@
     <string name="calendar">Календарь</string>
     <string name="profile">Профиль</string>
     <string name="youhost">Вы являетесь хостом игры:</string>
+    <string name="noGames">На данные момент у вас нет игр.\nСоздайте свою игру или начните\n участвовать в играх </string>
+    <string name="noNews">На данный момент новости отсутствуют.\n Подпишитесь на игроков, чтобы ваша\n новостная лента пополнялась</string>
 
     <string name="addGame">Создать игру</string>
     <string name="closeGame">Закрытая игра</string>
@@ -69,7 +71,7 @@
     <string name="start">Начало</string>
     <string name="end">Конец</string>
     <string name="title">Название</string>
-    <string name="otherInfo">Дополнительная информация</string>
+    <string name="otherInfo">Дополнительная информация\n</string>
     <string name="countPlayers">Количество игроков</string>
     <string name="minCountPlayers">Мин. количество игроков</string>
     <string name="sexPlayers">Пол участников</string>
