@@ -49,7 +49,6 @@ fun MainScreen() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxHeight(0.9f)
-//                .padding(horizontal = MaterialTheme.spacing.horizontal)
         ) {
             item {
                 HeaderUser(

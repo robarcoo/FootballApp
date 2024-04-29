@@ -58,7 +58,7 @@ fun CommonSwitch(
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.primary
             )
 
@@ -66,7 +66,9 @@ fun CommonSwitch(
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
                     contentDescription = "",
-                    modifier = Modifier.clickable {
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                        .padding(start = 4.dp)
+                        .clickable {
                         Toast.makeText(context, textIcon, Toast.LENGTH_SHORT).show()
                     }
                 )

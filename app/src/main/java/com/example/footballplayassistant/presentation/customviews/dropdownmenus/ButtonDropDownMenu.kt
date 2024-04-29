@@ -63,7 +63,7 @@ fun ButtonDropDownMenu(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     if (imStart != 0)
                         Image(
                             imageVector = ImageVector.vectorResource(imStart),

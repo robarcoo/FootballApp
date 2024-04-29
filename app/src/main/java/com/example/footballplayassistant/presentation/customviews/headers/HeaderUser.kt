@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -35,32 +36,35 @@ fun HeaderUser(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp)
+            .padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(painter = painterResource(id = R.drawable.user_foto), contentDescription = "",
-            modifier = Modifier.fillMaxWidth(0.12f))
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.user_foto), contentDescription = "",
+            )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(0.7f)
-                .padding(start = 10.dp), verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "Привет,",
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.primary
-            )
+            Column(
+                modifier = Modifier
+                    .padding(start = 10.dp), verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Привет,",
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.3f)
                 .height(42.dp)
                 .border(
                     width = 1.dp,

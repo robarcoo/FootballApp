@@ -1,34 +1,47 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
-import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxInventory
 import com.example.footballplayassistant.presentation.customviews.checkboxes.CommonCheckBoxAgree
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroup
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
@@ -36,7 +49,9 @@ import com.example.footballplayassistant.presentation.navigation.LocalNavControl
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import java.time.OffsetDateTime
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 @Preview
 fun CreateEventScreen() {
@@ -103,13 +118,31 @@ fun CreateEventScreen() {
             }
             item {
                 BoldText(id = R.string.date, modifier = Modifier.padding(top = 24.dp))
-
-                DropDownMenu(
+                val dates = mutableListOf<String>()
+                val now = OffsetDateTime.now()
+                for (day in 0..30) {
+                    val nextDay = now.plusDays(day.toLong())
+                    dates.add(
+                        index = day,
+                        element = "${
+                            if (nextDay.dayOfMonth > 9) nextDay.dayOfMonth
+                            else "0${nextDay.dayOfMonth}"
+                        }." +
+                                "${
+                                    if (nextDay.monthValue > 9) nextDay.monthValue
+                                    else "0${nextDay.monthValue}"
+                                }." +
+                                "${nextDay.year}"
+                    )
+                }
+                ButtonDropDownMenu(
                     placeholder = stringResource(id = R.string.date),
+                    values = dates,
                     imStart = R.drawable.ic_calendar_22,
-                    values = listOf("Поле 1", "Поле 2"),
                     color = MaterialTheme.colorScheme.primaryContainer,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier
+                        .padding(bottom = 10.dp, top = 12.dp)
+                        .padding(horizontal = 16.dp)
                 )
             }
             item {
@@ -123,21 +156,27 @@ fun CreateEventScreen() {
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                 ) {
-                    CommonTextField(
+                    val time = mutableListOf<String>()
+                    for (i in 0..23) {
+                        time.add(index = i * 2, element = if (i < 10) "0$i:00" else "$i:00")
+                        time.add(index = i * 2 + 1, element = if (i < 10) "0$i:30" else "$i:30")
+                    }
+                    ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.start),
-                        imageTrail = R.drawable.ic_time_black_24,
+                        imTrail = R.drawable.ic_time_black_24,
                         modifier = Modifier
-                            .weight(0.5f)
+                            .fillMaxWidth(0.5f)
                             .padding(end = 4.dp),
-                        color = MaterialTheme.colorScheme.primaryContainer
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        values = time
                     )
-                    CommonTextField(
+                    ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.end),
-                        imageTrail = R.drawable.ic_time_black_24,
+                        imTrail = R.drawable.ic_time_black_24,
                         modifier = Modifier
-                            .weight(0.5f)
                             .padding(start = 4.dp),
-                        color = MaterialTheme.colorScheme.primaryContainer
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        values = time
                     )
                 }
             }
@@ -154,75 +193,85 @@ fun CreateEventScreen() {
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 12.dp)
                 )
-                CommonTextField(
-                    placeholder = stringResource(id = R.string.otherInfo),
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                    singleLine = false,
-                    cornerRadius = 20.dp,
+                Box(
                     modifier = Modifier
-                        .fillMaxHeight()
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 24.dp)
-                )
+                ) {
+                    CommonTextField(
+                        placeholder = stringResource(id = R.string.otherInfo),
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        singleLine = false,
+                        cornerRadius = 20.dp,
+                        maxLength = 300,
+                        modifier = Modifier.fillMaxHeight()
+                    )
+                    Image(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(
+                                end = MaterialTheme.spacing.small,
+                                bottom = MaterialTheme.spacing.small
+                            )
+                    )
+                }
             }
             item {
-                Row {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp)
+                ) {
                     BoldText(
                         id = R.string.countPlayers,
                         modifier = Modifier
                             .fillMaxWidth(0.6f)
                             .align(Alignment.CenterVertically)
                     )
-                    DropDownMenu(
+                    val countPlayers = mutableListOf<String>()
+                    for (i in 0..10)
+                        countPlayers.add(index = i, element = "${i * 2 + 2}")
+                    ButtonDropDownMenu(
                         placeholder = "",
                         imStart = R.drawable.ic_people_24,
-                        values = listOf(
-                            "2",
-                            "4",
-                            "6",
-                            "8",
-                            "10",
-                            "12",
-                            "14",
-                            "16",
-                            "18",
-                            "20",
-                            "22"
-                        ),
+                        values = countPlayers,
                         color = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }
             }
-            item {
-                Row {
-                    BoldText(
-                        id = R.string.minCountPlayers,
-                        modifier = Modifier
-                            .fillMaxWidth(0.6f)
-                            .align(Alignment.CenterVertically)
-                    )
-                    DropDownMenu(
-                        placeholder = "",
-                        imStart = R.drawable.ic_people_24,
-                        values = listOf(
-                            "2",
-                            "4",
-                            "6",
-                            "8",
-                            "10",
-                            "12",
-                            "14",
-                            "16",
-                            "18",
-                            "20",
-                            "22"
-                        ),
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier.padding(end = 16.dp)
-                    )
-                }
-            }
+            //убрано из фигмы
+//            item {
+//                Row {
+//                    BoldText(
+//                        id = R.string.minCountPlayers,
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.6f)
+//                            .align(Alignment.CenterVertically)
+//                    )
+//                    ButtonDropDownMenu(
+//                        placeholder = "",
+//                        imStart = R.drawable.ic_people_24,
+//                        values = listOf(
+//                            "2",
+//                            "4",
+//                            "6",
+//                            "8",
+//                            "10",
+//                            "12",
+//                            "14",
+//                            "16",
+//                            "18",
+//                            "20",
+//                            "22"
+//                        ),
+//                        color = MaterialTheme.colorScheme.primaryContainer,
+//                        modifier = Modifier.padding(end = 16.dp)
+//                    )
+//                }
+//            }
             item {
                 BoldText(addStar = false, id = R.string.sexPlayers)
                 RadioButtonGroup()
@@ -249,9 +298,10 @@ fun CreateEventScreen() {
                             fontWeight = FontWeight.W500
                         ),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .fillMaxWidth(0.53f)
-//                            .weight(0.55f)
                             .padding(start = 10.dp),
                     )
 
@@ -261,9 +311,10 @@ fun CreateEventScreen() {
                             fontWeight = FontWeight.W500
                         ),
                         color = MaterialTheme.colorScheme.onBackground,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .fillMaxWidth(0.5f)
-//                            .weight(0.45f),
                     )
                 }
                 Row(
@@ -273,22 +324,27 @@ fun CreateEventScreen() {
                         .padding(bottom = 24.dp),
                     horizontalArrangement = Arrangement.spacedBy(7.dp)
                 ) {
+                    val price = remember {
+                        mutableStateOf("0")
+                    }
                     CommonTextField(
-                        placeholder = stringResource(id = R.string.cost),
+                        placeholder = price.value,
                         imageTrail = R.drawable.ic_ruble_15,
+                        keyBoard = KeyboardType.Number,
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        onClick = { price.value = it },
                         modifier = Modifier
                             .weight(0.5f),
-//                            .padding(end = 16.dp),
-                        color = MaterialTheme.colorScheme.primaryContainer
                     )
                     CommonTextField(
-                        placeholder = stringResource(id = R.string.commission),
+                        placeholder = if (price.value.isNotEmpty()) "${(price.value).toInt() / 10}"
+                        else "0",
                         imageTrail = R.drawable.ic_ruble_15,
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        color = MaterialTheme.colorScheme.background,
+                        tintIcon = MaterialTheme.colorScheme.onSecondaryContainer,
+                        readOnly = true,
                         modifier = Modifier
                             .weight(0.5f),
-//                            .padding(start = 16.dp),
-                        readOnly = true
                     )
                 }
             }
@@ -301,42 +357,33 @@ fun CreateEventScreen() {
                         text = stringResource(id = R.string.addEvent),
                         onClick = { showDialog.value = true },
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                        modifier = Modifier
+                            .padding(horizontal = MaterialTheme.spacing.horizontal)
+                            .padding(top = MaterialTheme.spacing.medium, bottom = 20.dp)
                     )
-//                    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-//                        Text(
-//                            text = stringResource(id = R.string.cancel),
-//                            style = MaterialTheme.typography.bodyMedium.copy(
-//                                fontWeight = FontWeight.W600),
-//                            color = MaterialTheme.colorScheme.onSecondaryContainer
-//                        )
-//                    }
                 } else {
                     CommonButton(
                         text = stringResource(id = R.string.addEvent),
                         style = MaterialTheme.typography.bodyLarge,
                         containerColor = MaterialTheme.colorScheme.tertiary,
                         contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                    )
-//                    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-//                        Text(
-//                            text = stringResource(id = R.string.cancel),
-//                            style = MaterialTheme.typography.bodyMedium.copy(
-//                                fontWeight = FontWeight.W600),
-//                            color = MaterialTheme.colorScheme.onSecondaryContainer
-//                        )
-//                    }
-                }
-                TextButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        text = stringResource(id = R.string.cancel),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.W600
-                        ),
-                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                        modifier = Modifier
+                            .padding(horizontal = MaterialTheme.spacing.horizontal)
+                            .padding(top = MaterialTheme.spacing.medium, bottom = 20.dp)
                     )
                 }
+                ClickableText(
+                    onClick = {},
+                    text = AnnotatedString(stringResource(id = R.string.cancel)),
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.W600,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                )
             }
         }
     }
@@ -354,6 +401,7 @@ fun BoldText(
                 id = id,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W600,
+                fontFamily = FontFamily(Font(R.font.inter_semibold)),
                 color = MaterialTheme.colorScheme.primary
             ),
             modifier = modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
@@ -361,7 +409,7 @@ fun BoldText(
     else
         Text(
             text = stringResource(id = id),
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+            style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
             color = MaterialTheme.colorScheme.primary,
             modifier = modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
         )

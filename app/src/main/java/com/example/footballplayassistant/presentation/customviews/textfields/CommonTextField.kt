@@ -49,6 +49,7 @@ fun CommonTextField(
     readOnly: Boolean = false,
     isError: Boolean = false,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
+    onClick: (String) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val textValue = remember { mutableStateOf("") }
@@ -84,6 +85,7 @@ fun CommonTextField(
             if (it.length <= maxLength) {
                 textValue.value = it
             }
+            onClick.invoke(textValue.value)
         },
         textStyle = MaterialTheme.typography.labelLarge.copy(
             fontWeight = FontWeight.W400,

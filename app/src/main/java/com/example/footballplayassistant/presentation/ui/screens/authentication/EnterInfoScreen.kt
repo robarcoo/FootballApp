@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -37,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.buttons.ButtonCalendar
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
@@ -119,6 +117,8 @@ fun EnterInfoScreen() {
                     ButtonCalendar(
                         onCLick = { openCalendar(context, date) },
                         date = date.value,
+                        placeholder = stringResource(id = R.string.birthday),
+                        containerColor = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
@@ -228,41 +228,6 @@ private fun openCalendar(context: Context, date: MutableState<String>) {
     mDatePickerDialog.show()
 }
 
-@Composable
-private fun ButtonCalendar(modifier: Modifier = Modifier, onCLick: () -> Unit, date: String) {
-    Button(
-        onClick = { onCLick.invoke() },
-        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimary),
-        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row {
-                Image(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_calendar_22),
-                    contentDescription = "",
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    text = if (date == "") stringResource(id = R.string.birthday) else date,
-                    color = if (date == "") MaterialTheme.colorScheme.onSecondaryContainer
-                    else MaterialTheme.colorScheme.onPrimaryContainer,
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
-            }
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_menu_18_10),
-                contentDescription = ""
-            )
-        }
-    }
-}
+
 
 
