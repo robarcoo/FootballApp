@@ -28,13 +28,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.RangeSliderState
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.SliderPositions
+import androidx.compose.material3.SliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -75,8 +84,8 @@ fun FilterScreen() {
             CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
             CommonSwitch(text = stringResource(id = R.string.filterByDistance))
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
-            FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f)
-            FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f)
+            FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f, true)
+            FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f, true)
             ToggleButton(
                 stringResource(R.string.typesOfArena),
                 stringArrayResource(id = R.array.typesOfArenaArray)
@@ -132,7 +141,7 @@ fun FilterButton(text : String, horizontalPadding : Dp, containerColor : Color, 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ToggleButton(title: String, items: Array<String>) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    val selectedIndex = remember { items.indices.toList().toMutableStateList() }
     Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large)) {
         Text(
             title, style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
@@ -146,16 +155,16 @@ fun ToggleButton(title: String, items: Array<String>) {
                         vertical = MaterialTheme.spacing.small,
                         horizontal = MaterialTheme.spacing.small
                     ),
-                    onClick = { selectedIndex = index },
+                    onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index)) },
                     shape = RoundedCornerShape(8.dp),
-                    border = if (selectedIndex == index) {
+                    border = if (selectedIndex.contains(index)) {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.secondary)
                     } else {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.tertiaryContainer)
                     },
-                    colors = if (selectedIndex == index) {
-                        ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.onPrimary) }
-                    else {
+                    colors = if (selectedIndex.contains(index)) {
+                        ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+                    } else {
                         ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.outlineVariant)
                     }
                 ) {
@@ -167,11 +176,32 @@ fun ToggleButton(title: String, items: Array<String>) {
     }
 }
 
+private fun <T> SnapshotStateList<T>.swap(list: List<T>) {
+    this.clear()
+    this.addAll(list)
+}
+
+fun toggleLogic(list : List<Int>, element : Int) : List<Int> {
+    val newList = list.toMutableList()
+    if (newList.contains(element) && newList.size > 1) {
+        newList.remove(element)
+    } else if (!newList.contains(element)) {
+        newList.add(element)
+    }
+    return newList.toList()
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float) {
+fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float, needTwoThumbs: Boolean = false) {
+    var sliderPosition by remember{ mutableFloatStateOf(activeRangeStart) }
+    var rangeSliderPosition by remember { mutableStateOf(activeRangeStart..activeRangeEnd) }
     Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)) {
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 maxLines = 2,
                 text = text,
@@ -191,41 +221,75 @@ fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Flo
                         vertical = MaterialTheme.spacing.extraSmall
                     )
             ) {
-                Text("${activeRangeStart.toInt()}-${activeRangeEnd.toInt()}",
-                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
+                if (needTwoThumbs) {
+                    Text(
+                        "${rangeSliderPosition.start.toInt()}-${rangeSliderPosition.endInclusive.toInt()}",
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                    )
+                } else {
+                    Text(
+                        "${sliderPosition.toInt()}",
+                        style = MaterialTheme.typography.bodyMedium.copy(color =
+                            if (sliderPosition == 0f) {
+                                MaterialTheme.colorScheme.onSecondaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.onPrimaryContainer
+                            }
+                        )
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
-        val rangeSliderState = remember {
-            RangeSliderState(
-                activeRangeStart,
-                activeRangeEnd,
+
+        if (needTwoThumbs) {
+            RangeSlider(
+                value = rangeSliderPosition,
+                onValueChange = { rangeSliderPosition = it },
                 valueRange = activeRangeStart..activeRangeEnd,
-                onValueChangeFinished = {
-                    // add business logic
-                },
-                steps = (activeRangeEnd - activeRangeStart).toInt()
-            )
-        }
-        RangeSlider(state = rangeSliderState,
-            startThumb = {
-                Image(painterResource(R.drawable.knob), contentDescription = stringResource(id = R.string.knobIconDescription))
-            },
-            endThumb = {
-                Image(painterResource(R.drawable.knob), contentDescription = stringResource(id = R.string.knobIconDescription))
-            },
-            track = {
-                SliderDefaults.Track(
+                startThumb = { ThumbKnob() },
+                endThumb = { ThumbKnob() },
+                track = { SliderDefaults.Track(
                     modifier = Modifier.height(2.dp),
-                    colors = SliderDefaults.colors(
-                        activeTrackColor = MaterialTheme.colorScheme.secondary,
-                        inactiveTrackColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        activeTickColor = MaterialTheme.colorScheme.outlineVariant,
-                        inactiveTickColor = MaterialTheme.colorScheme.outlineVariant
-                    ),
-                    rangeSliderState = rangeSliderState
-                )
-            }
-        )
+                    colors = SliderTrackColors(),
+                    rangeSliderState = it
+                    )
+                }
+            )
+        } else {
+            Slider(
+                value = sliderPosition,
+                valueRange = activeRangeStart..activeRangeEnd,
+                steps = (activeRangeEnd - activeRangeStart).toInt(),
+                onValueChange = { sliderPosition = it },
+                thumb = { ThumbKnob() },
+                track = { SliderDefaults.Track(
+                    sliderState = it,
+                    modifier = Modifier.height(2.dp),
+                    colors = SliderTrackColors(),
+                    )
+                }
+            )
+
+        }
     }
+}
+
+@Composable
+fun ThumbKnob() {
+    Image(
+        painterResource(R.drawable.knob),
+        contentDescription = stringResource(id = R.string.knobIconDescription)
+    )
+}
+
+
+@Composable
+fun SliderTrackColors(): SliderColors {
+    return SliderDefaults.colors(
+        activeTrackColor = MaterialTheme.colorScheme.secondary,
+        inactiveTrackColor = MaterialTheme.colorScheme.tertiaryContainer,
+        activeTickColor = MaterialTheme.colorScheme.outlineVariant,
+        inactiveTickColor = MaterialTheme.colorScheme.outlineVariant
+    )
 }

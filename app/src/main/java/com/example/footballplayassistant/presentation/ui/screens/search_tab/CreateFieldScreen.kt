@@ -11,6 +11,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +31,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -46,10 +48,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -77,23 +81,50 @@ fun CreateFieldScreen() {
         .verticalScroll(rememberScrollState())) {
         HeaderWithBackButton(stringResource(id = R.string.addField), onClickBack = { TODO() })
         Text(text = stringResource(id = R.string.fieldInfoTitle), modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium))
-        NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_field, trailingIcon = R.drawable.ic_field)
+        NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_field)
+        DropDownMenu(placeholder = "Укажите город", values = listOf())
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = stringResource(id = R.string.fieldName), true)
+        NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_location)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            NecessaryTextField(label = "Открытие", true, modifier = Modifier
+            NecessaryTextField(label = "Открытие", true, trailingIcon = R.drawable.ic_time_black_24, modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(end = MaterialTheme.spacing.extraSmall))
-            NecessaryTextField(label = "Закрытие", true, modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall))
+            NecessaryTextField(label = "Закрытие", true, trailingIcon = R.drawable.ic_time_black_24,  modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall))
         }
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-
+        NecessaryTextField(label = "Контактный телефон", isNecessary = true, leadingIcon = R.drawable.ic_call)
+        DropDownMenu(placeholder = "Ближайшее метро", values = listOf(), imStart = R.drawable.ic_metro)
+        NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
         Row() {
-            Text("Вместимость")
+            AddAsterisk(text = "Вместимость игроков", style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                fontWeight = FontWeight.W400,
+                isNecessary = true,
+                modifier = Modifier.padding( MaterialTheme.spacing.small))
             DropDownMenu(placeholder = "чел.", values = listOf())
         }
+        Row() {
+            Column() {
+                Text("Загрузить изображения", style = MaterialTheme.typography.displayMedium)
+                Text("JPEG, PNG. 15 Мбайт. Не более 10 изображений", style = MaterialTheme.typography.labelSmall
+                    .copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400))
+            }
+            IconButton(onClick = { /*TODO*/ },
+                modifier = Modifier.border(width = 1.dp,
+                    color =  MaterialTheme.colorScheme.onSecondaryContainer)) {
+                Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = "Download",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                
+            }
+        }
+
+        Text(text = "Размеры поля")
+        FilterRangeSlider(text = "Длина (м)", activeRangeStart = 0f, activeRangeEnd = 1000.0f)
+        FilterRangeSlider(text = "Ширина (м)", activeRangeStart = 0f, activeRangeEnd = 1000.0f)
+
     }
 
     
@@ -103,7 +134,7 @@ fun CreateFieldScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NecessaryTextField(label : String,
-                       isNecessary : Boolean,
+                       isNecessary : Boolean = false,
                        trailingIcon : Int = 0,
                         leadingIcon : Int = 0,
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
@@ -117,24 +148,11 @@ fun NecessaryTextField(label : String,
             enter = expandVertically(),
             exit = shrinkVertically()
         ) {
-            Text(
-                buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            fontWeight = FontWeight.W400
-                        )
-                    ) {
-                        append(label)
-                    }
-                    if (isNecessary) {
-                        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
-                            append("*")
-                        }
-                    }
-                }, style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.padding( MaterialTheme.spacing.small )
-            )
+            AddAsterisk(text = label, style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                fontWeight = FontWeight.W400,
+                isNecessary = isNecessary,
+                modifier = Modifier.padding( MaterialTheme.spacing.small ))
         }
         BasicTextField(modifier = modifier
             .fillMaxWidth()
@@ -152,41 +170,60 @@ fun NecessaryTextField(label : String,
                 Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically) {
                 if (leadingIcon != 0) {
                     Icon(painter = painterResource(id = leadingIcon), contentDescription = "",
-                        modifier = Modifier.padding(end = MaterialTheme.spacing.small))
+                        modifier = Modifier.padding(end = MaterialTheme.spacing.small),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer)
                 }
                 if (!isFocused && value.text.isEmpty()) {
-                    Text(
-                        buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                                    fontWeight = FontWeight.W400
-                                )
-                            ) {
-                                append(label)
-                            }
-                            if (isNecessary) {
-                                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
-                                    append("*")
-                                }
-                            }
-                        },
-                        style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-
-                    )
+                    AddAsterisk(text = label, style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400,
+                        isNecessary = isNecessary,
+                        modifier = Modifier.padding( MaterialTheme.spacing.small))
                 }
 
                     innerTextField()
                 }
                 if (trailingIcon != 0) {
                     Icon(painter = painterResource(id = trailingIcon), contentDescription = "",
-                        modifier = Modifier.padding(start = MaterialTheme.spacing.small))
+                        modifier = Modifier.padding(start = MaterialTheme.spacing.small),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer)
                 }
             }
         }
     }
+
+
+}
+
+@Composable
+fun AddAsterisk(text : String,
+                style : TextStyle,
+                color : Color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight = FontWeight.W500,
+                isNecessary: Boolean = false,
+                maxLines : Int = 1,
+                overflow: TextOverflow = TextOverflow.Ellipsis,
+                @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
+    Text(
+        buildAnnotatedString {
+            withStyle(
+                style = SpanStyle(
+                    color = color,
+                    fontWeight = fontWeight
+                )
+            ) {
+                append(text)
+            }
+            if (isNecessary) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
+                    append("*")
+                }
+            }
+        }, style = style,
+        modifier = modifier,
+        maxLines = maxLines,
+        overflow = overflow
+    )
 
 
 }
