@@ -34,7 +34,7 @@ fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier
             )
             Text(
                 text = name,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
             )
         }
     }

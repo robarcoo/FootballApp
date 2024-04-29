@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -34,43 +35,68 @@ fun NewsScreen() {
 
     Column(
         modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.onPrimary),
+        verticalArrangement = Arrangement.Top
     ) {
-        Column(modifier = Modifier.fillMaxHeight(0.25f)) {
-            HeaderWithBackButton(
-                text = stringResource(id = R.string.news),
-                imageButton = R.drawable.ic_plus_24,
-                onClickBack = { navController.navigate(Route.MainScreen.path) },
-                onClickOther = { navController.navigate(Route.CreateEventScreen.path) },
-                modifier = Modifier
-                    .padding(top = 12.dp)
-                    .padding(horizontal = 16.dp)
-            )
-
-            SelectionButtons(
-                valueList = listOf(
-                    stringResource(id = R.string.friends),
-                    stringResource(id = R.string.places)
-                ),
-                selectedItemIndex = 0,
-                onSelected = { filterButton.value = it },
-                modifier = Modifier.padding(vertical = 24.dp)
-            )
-        }
-
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.horizontal)
-                .fillMaxHeight(0.865f)
+                .fillMaxHeight(0.9f)
         ) {
-            if (filterButton.value == 0) {
-                item { NewsCard(place = "place", name = "name") }
-                item { NewsCard(place = "place", name = "name") }
-            } else {
-                item { GameCard(place = "place", host = "name") }
+                HeaderWithBackButton(
+                    text = stringResource(id = R.string.news),
+                    imageButton = R.drawable.ic_plus_24,
+                    onClickBack = { navController.navigate(Route.MainScreen.path) },
+                    onClickOther = { navController.navigate(Route.CreateEventScreen.path) },
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .padding(horizontal = 16.dp)
+                )
+
+                SelectionButtons(
+                    valueList = listOf(
+                        stringResource(id = R.string.friends),
+                        stringResource(id = R.string.places)
+                    ),
+                    selectedItemIndex = 0,
+                    onSelected = { filterButton.value = it },
+                    modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)
+                )
+
+            LazyColumn(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.horizontal)
+            ) {
+                if (filterButton.value == 0) {
+                    item {
+                        NewsCard(
+                            place = "Москва, ул. Ленинский проспект, строение 2 корпус 3",
+                            name = "name",
+                            address = "Москва, ул. Ленинский проспект, строение 2 корпус 3",
+                            modifier = Modifier.padding(bottom = 10.dp)
+                        )
+                    }
+                    item {
+                        NewsCard(
+                            place = "place",
+                            name = "name",
+                            address = "Москва, ул. Ленинский проспект, строение 2 корпус 3",
+                            modifier = Modifier.padding(bottom = 10.dp)
+                        )
+                    }
+                } else {
+                    item {
+                        GameCard(
+                            place = "Москва, ул. Ленинский проспект, строение 2 корпус 3",
+                            host = "name",
+                            address = "Москва, ул. Ленинский проспект, строение 2 корпус 3",
+                            modifier = Modifier.padding(bottom = 10.dp)
+                        )
+                    }
+                }
             }
         }
 
-        CommonBottomBar()
+        CommonBottomBar(
+        )
     }
 }

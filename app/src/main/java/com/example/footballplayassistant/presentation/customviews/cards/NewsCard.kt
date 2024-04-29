@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
@@ -25,11 +26,10 @@ import com.example.footballplayassistant.presentation.customviews.rows.FotoAndNa
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
-fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
+fun NewsCard(place: String, name: String, modifier: Modifier = Modifier, address: String = "") {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = MaterialTheme.spacing.small)
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -55,15 +55,33 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier) {
                         .align(Alignment.CenterVertically)
                 )
             }
-            Row(modifier = Modifier.padding(vertical = 12.dp)) {
-                Text(
-                    text = place,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
-                    maxLines = 2,
+            Row(
+                modifier = Modifier.padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(0.8f)
-                )
+                ) {
+                    Text(
+                        text = place,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                        maxLines = 2
+                    )
+                    if (address.isNotEmpty()) {
+                        Text(
+                            text = address,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.displaySmall.copy(
+                                fontWeight = FontWeight.W500,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            ),
+                            modifier = Modifier.padding(top = 2.dp)
+                        )
+                    }
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

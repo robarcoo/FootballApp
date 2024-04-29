@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.example.footballplayassistant.R
@@ -41,10 +42,10 @@ fun DialogScreen(
     onClickBottom: () -> Unit = {},
     onDismissRequest: () -> Unit,
 ) {
-    AlertDialog(
+    BasicAlertDialog(
         onDismissRequest = { onDismissRequest() },
-        properties = DialogProperties(usePlatformDefaultWidth = false),
-        modifier = Modifier.size(350.dp, 500.dp)
+        modifier = Modifier.size(350.dp, 500.dp),
+        properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Card(
             modifier = Modifier
@@ -88,13 +89,15 @@ fun DialogScreen(
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W400),
                         color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(bottom = 20.dp)
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
                     )
                     if (greenButton != "")
                         CommonButton(
                             text = greenButton,
                             style = MaterialTheme.typography.bodyLarge,
-                            onClick = { onClickGreen.invoke() }
+                            onClick = { onClickGreen.invoke() },
+                            modifier = Modifier.padding(bottom = 12.dp)
                         )
                     if (whiteButton != "")
                         CommonButton(
