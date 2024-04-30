@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -19,17 +21,23 @@ import com.example.footballplayassistant.R
 fun FieldNameRow(modifier: Modifier = Modifier, fieldName: String) {
     Row(modifier = modifier
         .fillMaxWidth()
-        .padding(vertical = 10.dp, horizontal = 16.dp)
+        .padding(horizontal = 16.dp).padding(top = 10.dp)
         .clickable { }) {
         Text(
             text = fieldName,
             maxLines = 2,
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.W500, fontFamily = FontFamily(
+                    Font(R.font.inter_medium)
+                )
+            ),
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.fillMaxWidth(0.9f)
         )
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_next_24),
             contentDescription = "",
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.fillMaxWidth()
         )
     }

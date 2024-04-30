@@ -1,6 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -55,12 +62,12 @@ fun MatchScreen() {
             onDismissRequest = { showDialog.value = false }
         )
 
-    Scaffold(
+    Scaffold(containerColor = MaterialTheme.colorScheme.onPrimary,
         bottomBar = {
+//            BottomButtonsEventEnd()
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 CommonButton(
                     text = stringResource(id = R.string.participate),
@@ -95,6 +102,22 @@ fun MatchScreen() {
                 }
 
                 item { FieldNameRow(fieldName = "Футбольный манеж 38х16 «Спорт Ангар» Теплый стан ") }
+
+                item {
+                    Text(
+                        text = "Москва, ул. Ленинский проспект, строение 2 корпус 3 ул. Ленинский проспект, строение 2",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.W500,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        ),
+                        modifier = Modifier
+                            .padding(top = 4.dp, bottom = 22.dp)
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(0.9f)
+                    )
+                }
 
                 item {
                     Row(
@@ -171,3 +194,75 @@ fun MatchScreen() {
     }
 }
 
+@Composable
+private fun BottomButtonsCancel() {
+    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Row(
+            modifier = Modifier.padding(vertical = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(9.dp)
+        ) {
+            Button(
+                onClick = { /*TODO*/ },
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                modifier = Modifier.border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                    shape = RoundedCornerShape(12.dp)
+                )
+            ) {
+                Column {
+                    Text(
+                        text = "Депозит",
+                        style = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = FontWeight.W500,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        ),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
+                    Text(
+                        text = "1500p",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.W600,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            CommonButton(
+                text = stringResource(id = R.string.cancelParticipate),
+                containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            )
+        }
+        Text(
+            text = stringResource(id = R.string.autoReturn),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.W500,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            ),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 12.dp)
+        )
+    }
+}
+
+@Composable
+private fun BottomButtonsEventEnd() {
+    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        CommonButton(text = stringResource(id = R.string.rateGame))
+        Text(
+            text = stringResource(id = R.string.eventEnd),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.W500,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            ),
+            textAlign = TextAlign.Center
+        )
+    }
+}

@@ -50,7 +50,7 @@ fun CurrentCommentCard(
                 ) {
                     Text(
                         text = "$likes",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.labelMedium
                             .copy(fontWeight = FontWeight.W400),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(end = 4.dp)
@@ -65,8 +65,9 @@ fun CurrentCommentCard(
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
-                maxLines = 3
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
+                maxLines = 3,
+                modifier = Modifier.padding(top = 12.dp)
             )
         }
     }

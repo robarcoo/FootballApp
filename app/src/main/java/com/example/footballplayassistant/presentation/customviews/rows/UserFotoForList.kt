@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.customviews.rows
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,11 +23,12 @@ fun UserFotoForList(text: String, name: String, foto: Int, modifier: Modifier = 
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.7f)
-                .padding(start = 10.dp)
+                .padding(start = 10.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = name,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500)
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500)
             )
             Text(
                 text = text,

@@ -42,7 +42,7 @@ fun GreenBorderCard(modifier: Modifier = Modifier, text: String, value: String) 
             )
             Text(
                 text = value,
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -42,7 +42,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = stringResource(id = R.string.players),
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(bottom = 16.dp),
             )
 
@@ -82,7 +82,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                     ) {
                         Text(
                             text = "name",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodySmall
                                 .copy(fontWeight = FontWeight.W600)
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -102,7 +102,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         }
 
                     }
-                    Divider(
+                    HorizontalDivider(thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -115,19 +116,20 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                     ) {
                         Text(
                             text = "name",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.labelMedium
                                 .copy(fontWeight = FontWeight.W400),
                         )
                         IconButton(
                             onClick = { /*TODO*/ },
                             colors = IconButtonDefaults.iconButtonColors(
                                 containerColor = MaterialTheme.colorScheme.secondary
-                            )
+                            ),
+                            modifier = Modifier.align(Alignment.Bottom)
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrows_24),
-                                contentDescription = "",
+                                contentDescription = ""
                             )
                         }
                     }

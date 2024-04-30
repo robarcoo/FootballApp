@@ -43,7 +43,7 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -60,7 +60,7 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
         Column {
             Text(
                 text = stringResource(id = R.string.inventory),
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -106,7 +106,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
             Text(
                 text = stringResource(id = R.string.otherInfo),
                 maxLines = 2,
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)

@@ -117,8 +117,14 @@
     <string name="match">Матч</string>
     <string name="type">Тип</string>
     <string name="players">Участники:</string>
-    <string name="comments">Комментарии</string>
+    <string name="comments">Сообщения</string>
     <string name="participate">Участвовать</string>
+    <string name="sendMessage">Оставить сообщение</string>
+    <string name="cancelParticipate">Отменить участие</string>
+    <string name="autoReturn">До начала события более 12 часов, при отмене участия средства автоматически вернутся на Ваш баланс</string>
+    <string name="eventEnd">Событие завершено</string>
+    <string name="rateGame">Оценить игру</string>
+    <string name="markParticipants">Отметить участников</string>
 
     <string name="matchInfo">Информация о матче</string>
     <string name="matchPlace">Место проведения матча</string>
