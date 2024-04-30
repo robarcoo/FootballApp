@@ -3,53 +3,47 @@ package com.example.footballplayassistant.presentation.ui.screens.search_tab
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -64,11 +58,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
-
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroup
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
@@ -78,15 +69,20 @@ fun CreateFieldScreen() {
         .background(MaterialTheme.colorScheme.primaryContainer)
         .fillMaxSize()
         .padding(16.dp)
-        .verticalScroll(rememberScrollState())) {
+        .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.SpaceBetween) {
         HeaderWithBackButton(stringResource(id = R.string.addField), onClickBack = { TODO() })
-        Text(text = stringResource(id = R.string.fieldInfoTitle), modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium))
+        Text(text = stringResource(id = R.string.fieldInfoTitle),
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+            style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
         NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_field)
+        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
         DropDownMenu(placeholder = "Укажите город", values = listOf())
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
         NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_location)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically) {
             NecessaryTextField(label = "Открытие", true, trailingIcon = R.drawable.ic_time_black_24, modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(end = MaterialTheme.spacing.extraSmall))
@@ -96,42 +92,134 @@ fun CreateFieldScreen() {
         NecessaryTextField(label = "Контактный телефон", isNecessary = true, leadingIcon = R.drawable.ic_call)
         DropDownMenu(placeholder = "Ближайшее метро", values = listOf(), imStart = R.drawable.ic_metro)
         NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
+        NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
-        Row() {
-            AddAsterisk(text = "Вместимость игроков", style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            AddAsterisk(text = "Вместимость игроков", style = MaterialTheme.typography.displayMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.W400,
                 isNecessary = true,
-                modifier = Modifier.padding( MaterialTheme.spacing.small))
+                modifier = Modifier.padding(end = MaterialTheme.spacing.small))
             DropDownMenu(placeholder = "чел.", values = listOf())
         }
-        Row() {
-            Column() {
-                Text("Загрузить изображения", style = MaterialTheme.typography.displayMedium)
-                Text("JPEG, PNG. 15 Мбайт. Не более 10 изображений", style = MaterialTheme.typography.labelSmall
+        Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.spacing.large,
+            bottom = MaterialTheme.spacing.medium),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+            Column(modifier = Modifier.weight(1f, fill = false).padding(vertical = MaterialTheme.spacing.extraSmall)) {
+                Text("Загрузить изображения", style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
+                Spacer(modifier = Modifier.size(MaterialTheme.spacing.extraSmall))
+                Text("JPEG, PNG. 15 Мбайт. Не более 10 изображений", style = MaterialTheme.typography.displaySmall
                     .copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400))
             }
-            IconButton(onClick = { /*TODO*/ },
-                modifier = Modifier.border(width = 1.dp,
-                    color =  MaterialTheme.colorScheme.onSecondaryContainer)) {
+            OutlinedButton(onClick = { /*TODO*/ },
+                shape = CircleShape,
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.size(48.dp)
+            ) {
                 Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = "Download",
                     tint = MaterialTheme.colorScheme.onPrimaryContainer)
                 
             }
         }
 
-        Text(text = "Размеры поля")
-        FilterRangeSlider(text = "Длина (м)", activeRangeStart = 0f, activeRangeEnd = 1000.0f)
-        FilterRangeSlider(text = "Ширина (м)", activeRangeStart = 0f, activeRangeEnd = 1000.0f)
+        Column(modifier = Modifier.padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.large)) {
+            Text(
+                text = "Размеры поля",
+                style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+            )
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
+            FilterRangeSlider(
+                text = "Длина (м)",
+                MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400
+                ),
+                activeRangeStart = 0f,
+                activeRangeEnd = 1000.0f
+            )
+            FilterRangeSlider(
+                text = "Ширина (м)",
+                MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400
+                ),
+                activeRangeStart = 0f,
+                activeRangeEnd = 1000.0f
+            )
+        }
+        CustomRadioButtons("Тип площадки", true, listOf("Открытый", "Закрытый"))
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
+        CustomRadioButtons("Освещение", true, listOf("Искусственное", "Естественное"))
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
+        CustomRadioButtons("Душ", false, listOf("Есть", "Нет"))
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
+        CustomRadioButtons("Раздевалки", false, listOf("Есть", "Нет"))
+        Column(modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            CommonButton("Добавить поле")
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
+            ClickableText(text = buildAnnotatedString {
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W600)) {
+                    append("Отмена")
+                }
+            },
+                style = MaterialTheme.typography.bodySmall,
+                onClick = {})
+
+        }
 
     }
-
-    
-
+}
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun CustomRadioButtons(title : String, isNecessary : Boolean, items : List<String>) {
+    val state = remember { mutableIntStateOf(-1) }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        AddAsterisk(
+            text = title,
+            style = MaterialTheme.typography.displayMedium,
+            isNecessary = isNecessary,
+            modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+        )
+        FlowRow(
+            modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.medium)
+        ) {
+            items.forEachIndexed { index, name ->
+                Row(verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(end = MaterialTheme.spacing.medium)) {
+                    IconToggleButton(
+                        modifier = Modifier.size(24.dp),
+                        checked = index == state.intValue,
+                        onCheckedChange = { state.intValue = index },
+                    ) {
+                        if (state.intValue == index) {
+                            Icon(
+                                painterResource(R.drawable.ic_radio_checked),
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.secondary
+                            )
+                        } else {
+                            Icon(
+                                painterResource(R.drawable.ic_radio_unchecked),
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.secondary
+                            )
+                        }
+                    }
+                    Text(
+                        name,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                    )
+                }
+            }
+        }
+    }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun NecessaryTextField(label : String,
                        isNecessary : Boolean = false,
@@ -158,7 +246,7 @@ fun NecessaryTextField(label : String,
             .fillMaxWidth()
             .clip(RoundedCornerShape(60.dp))
             .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
             value = value,
             onValueChange = { value = it },
             interactionSource = interactionSource,

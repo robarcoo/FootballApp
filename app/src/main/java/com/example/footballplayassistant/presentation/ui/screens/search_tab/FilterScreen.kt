@@ -51,8 +51,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,8 +86,8 @@ fun FilterScreen() {
             CommonSwitch(text = stringResource(id = R.string.filterByFavorites))
             CommonSwitch(text = stringResource(id = R.string.filterByDistance))
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
-            FilterRangeSlider(stringResource(id = R.string.awayFromUser), 0f, 50f, true)
-            FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), 12f, 48f, true)
+            FilterRangeSlider(stringResource(id = R.string.awayFromUser), activeRangeStart = 0f, activeRangeEnd = 50f, needTwoThumbs = true)
+            FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), activeRangeStart = 12f, activeRangeEnd = 48f, needTwoThumbs = true)
             ToggleButton(
                 stringResource(R.string.typesOfArena),
                 stringArrayResource(id = R.array.typesOfArenaArray)
@@ -193,7 +195,10 @@ fun toggleLogic(list : List<Int>, element : Int) : List<Int> {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Float, needTwoThumbs: Boolean = false) {
+fun FilterRangeSlider(text: String, style : TextStyle = MaterialTheme.typography.displayMedium
+    .copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                      activeRangeStart: Float, activeRangeEnd: Float,
+                      needTwoThumbs: Boolean = false) {
     var sliderPosition by remember{ mutableFloatStateOf(activeRangeStart) }
     var rangeSliderPosition by remember { mutableStateOf(activeRangeStart..activeRangeEnd) }
     Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.medium)) {
@@ -206,8 +211,7 @@ fun FilterRangeSlider(text: String, activeRangeStart: Float, activeRangeEnd: Flo
                 maxLines = 2,
                 text = text,
                 modifier = Modifier.weight(1f, fill = false),
-                style = MaterialTheme.typography.displayMedium
-                    .copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                style = style,
                 overflow = TextOverflow.Ellipsis
 
             )
