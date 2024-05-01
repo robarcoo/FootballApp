@@ -18,9 +18,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RichTooltip
+import androidx.compose.material3.RichTooltipColors
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,17 +38,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.zIndex
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayC9
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommonSwitch(
     text: String,
@@ -49,12 +60,12 @@ fun CommonSwitch(
     colorBackground: Color = MaterialTheme.colorScheme.primaryContainer,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
     Row(
         modifier = modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val tooltipState = remember { mutableStateOf(false) }
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
@@ -66,13 +77,26 @@ fun CommonSwitch(
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
                     contentDescription = "",
-                    modifier = Modifier.align(Alignment.CenterVertically)
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
                         .padding(start = 4.dp)
                         .clickable {
-                        Toast.makeText(context, textIcon, Toast.LENGTH_SHORT).show()
-                    }
+                            tooltipState.value = !tooltipState.value
+                        }
                 )
         }
+
+        if (tooltipState.value)
+            RichTooltip(
+                modifier = Modifier,
+                colors = RichTooltipColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    actionContentColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(12.dp),
+                text = { Text(text = textIcon) })
 
         CustomSwitchButton(
             switchPadding = 0.dp,
@@ -83,7 +107,6 @@ fun CommonSwitch(
         )
     }
 }
-
 
 @Composable
 fun CustomSwitchButton(
