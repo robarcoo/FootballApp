@@ -33,7 +33,7 @@ fun UserFotoForList(text: String, name: String, foto: Int, modifier: Modifier = 
             Text(
                 text = text,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.tertiaryContainer
+                color = MaterialTheme.colorScheme.onSecondaryContainer
             )
         }
     }

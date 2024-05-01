@@ -14,6 +14,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -26,6 +27,7 @@ fun FieldNameRow(modifier: Modifier = Modifier, fieldName: String) {
         Text(
             text = fieldName,
             maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.W500, fontFamily = FontFamily(
                     Font(R.font.inter_medium)

@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -37,6 +38,8 @@ fun BottomRowDateTimeMoney(
             Text(
                 text = date,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(start = 4.dp)
@@ -50,6 +53,8 @@ fun BottomRowDateTimeMoney(
             Text(
                 text = time,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(start = 4.dp)
@@ -59,6 +64,8 @@ fun BottomRowDateTimeMoney(
         Text(
             text = price,
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W700),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 4.dp)

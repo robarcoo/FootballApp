@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -83,7 +84,9 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         Text(
                             text = "name",
                             style = MaterialTheme.typography.bodySmall
-                                .copy(fontWeight = FontWeight.W600)
+                                .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
@@ -91,6 +94,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                                 style = MaterialTheme.typography.displaySmall
                                     .copy(fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.padding(end = 2.dp)
                             )
                             Icon(
@@ -118,6 +123,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                             text = "name",
                             style = MaterialTheme.typography.labelMedium
                                 .copy(fontWeight = FontWeight.W400),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                         IconButton(
                             onClick = { /*TODO*/ },

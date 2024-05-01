@@ -82,6 +82,7 @@ fun DialogScreen(
                         style = MaterialTheme.typography.displayLarge
                             .copy(fontWeight = FontWeight.W600),
                         color = MaterialTheme.colorScheme.onPrimary,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier.padding(vertical = 12.dp)
                     )
                     Text(

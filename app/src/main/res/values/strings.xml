@@ -116,6 +116,7 @@
 
     <string name="match">Матч</string>
     <string name="type">Тип</string>
+    <string name="sexMatch">Пол</string>
     <string name="players">Участники:</string>
     <string name="comments">Сообщения</string>
     <string name="participate">Участвовать</string>
@@ -125,6 +126,9 @@
     <string name="eventEnd">Событие завершено</string>
     <string name="rateGame">Оценить игру</string>
     <string name="markParticipants">Отметить участников</string>
+    <string name="noMessages">По данному матчу отсутствуют \nсообщения. Будьте первым, пообщайтесь \nсо своими членами команды</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="copyInvitation">Скопировать приглашение</string>
 
     <string name="matchInfo">Информация о матче</string>
     <string name="matchPlace">Место проведения матча</string>

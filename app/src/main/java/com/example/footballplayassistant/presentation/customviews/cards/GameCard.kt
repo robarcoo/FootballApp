@@ -48,6 +48,8 @@ fun GameCard(
                 Text(
                     text = stringResource(id = R.string.youhost),
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
                 )
                 Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)) {
@@ -55,6 +57,8 @@ fun GameCard(
                         text = place,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W500),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(0.85f)
@@ -98,6 +102,8 @@ fun GameCard(
                                 style = MaterialTheme.typography.bodyMedium
                                     .copy(fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         }

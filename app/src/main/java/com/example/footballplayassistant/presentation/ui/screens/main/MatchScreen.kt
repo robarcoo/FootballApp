@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,10 +15,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -48,6 +53,7 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun MatchScreen() {
     val navController = LocalNavController.current!!
     val showDialog = remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     if (showDialog.value)
         DialogScreen(
@@ -86,7 +92,8 @@ fun MatchScreen() {
                 text = stringResource(id = R.string.match),
                 imageButton = R.drawable.ic_arrow_share_25,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
-                onClickOther = {},
+                onClickOther = { expanded.value = true },
+                shareMenu = { ShareMenu(expand = expanded) },
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
@@ -124,17 +131,23 @@ fun MatchScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         GreenBorderCard(
                             text = stringResource(id = R.string.cost), value = "1500₽",
+                            modifier = Modifier
+                                .weight(0.3f)
                         )
                         GreenBorderCard(
-                            text = stringResource(id = R.string.sex), value = "M",
+                            text = stringResource(id = R.string.sexMatch), value = "M",
+                            modifier = Modifier
+                                .weight(0.3f)
                         )
                         GreenBorderCard(
                             text = stringResource(id = R.string.type),
                             value = "открытый",
+                            modifier = Modifier
+                                .weight(0.3f)
                         )
                     }
                 }
@@ -143,15 +156,15 @@ fun MatchScreen() {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 20.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 32.dp, bottom = 11.dp),
+                        horizontalArrangement = Arrangement.spacedBy(11.dp)
                     ) {
                         CommonIconTextCard(
                             icon = R.drawable.ic_time_black_24,
                             text = "08:00 - 12:00",
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(end = 8.dp)
                         )
 
                         CommonIconTextCard(
@@ -168,12 +181,11 @@ fun MatchScreen() {
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .height(intrinsicSize = IntrinsicSize.Max),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.spacedBy(11.dp)
                     ) {
                         CommonIconTextInventoryCard(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(end = 8.dp)
                         )
 
                         CommonOtherInfoCard(
@@ -188,7 +200,7 @@ fun MatchScreen() {
 
                 item { PlayersCard() }
 
-                item { CommentsCard() }
+                item { CommentsCard(commentsList = listOf()) }
             }
         }
     }
@@ -253,8 +265,10 @@ private fun BottomButtonsCancel() {
 
 @Composable
 private fun BottomButtonsEventEnd() {
-    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         CommonButton(text = stringResource(id = R.string.rateGame))
         Text(
             text = stringResource(id = R.string.eventEnd),
@@ -264,5 +278,55 @@ private fun BottomButtonsEventEnd() {
             ),
             textAlign = TextAlign.Center
         )
+    }
+}
+
+@Composable
+private fun ShareMenu(expand: MutableState<Boolean>) {
+    MaterialTheme(
+        shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(20.dp))
+    ) {
+        DropdownMenu(
+            expanded = expand.value,
+            onDismissRequest = { expand.value = false },
+            modifier = Modifier
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = RoundedCornerShape(20.dp)
+                )
+        ) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.whatsapp),
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.W400,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                },
+                modifier = Modifier
+                    .padding(horizontal = 12.dp),
+                onClick = {/*whatsapp*/ }
+            )
+            HorizontalDivider(
+                thickness = 1.dp, color = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.padding(horizontal = 12.dp)
+            )
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = stringResource(id = R.string.copyInvitation),
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.W400,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                },
+                modifier = Modifier
+                    .padding(horizontal = 12.dp),
+                onClick = {/*copy*/ }
+            )
+        }
     }
 }

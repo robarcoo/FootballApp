@@ -22,16 +22,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column {
             Icon(
@@ -44,6 +44,8 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
             Text(
                 text = text,
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -55,12 +57,14 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
 fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column {
             Text(
                 text = stringResource(id = R.string.inventory),
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -106,6 +110,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
             Text(
                 text = stringResource(id = R.string.otherInfo),
                 maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)

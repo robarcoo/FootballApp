@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Modifier) {
@@ -24,6 +25,8 @@ fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Mo
             text = "$currentPlayers/$maxPlayers",
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
             textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.fillMaxWidth()
         )
     }

@@ -27,6 +27,7 @@ fun HeaderWithBackButton(
     imageButton: Int = 0,
     onClickBack: () -> Unit = {},
     onClickOther: () -> Unit = {},
+    shareMenu: @Composable () -> Unit = {},
     tint: Color = MaterialTheme.colorScheme.primary,
     styleText: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
     colorText: Color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -69,6 +70,7 @@ fun HeaderWithBackButton(
                     contentDescription = "",
                     tint = MaterialTheme.colorScheme.primary
                 )
+                shareMenu()
             }
         else
             IconButton(modifier = Modifier.border(

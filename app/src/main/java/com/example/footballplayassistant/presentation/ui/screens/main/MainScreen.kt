@@ -29,6 +29,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonBottomBar
 import com.example.footballplayassistant.presentation.customviews.buttons.AllButton
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -67,19 +68,20 @@ fun MainScreen() {
                 )
             }
 
-            item { NoGames() }
+            //если нет игр
+//            item { NoGames() }
             //если есть игры
-//            item {
-//                AllButton(
-//                    text = stringResource(id = R.string.mygames),
-//                    modifier = Modifier.padding(horizontal = 16.dp)
-//                )
-//                GameCard(
-//                    place = "Арена Новый Футбол поле  Крылатское ",
-//                    host = "Игорь Султанов",
-//                    modifier = Modifier.padding(horizontal = 16.dp)
-//                )
-//            }
+            item {
+                AllButton(
+                    text = stringResource(id = R.string.mygames),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                GameCard(
+                    place = "Арена Новый Футбол поле  Крылатское ",
+                    host = "Игорь Султанов",
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
 
             item {
                 Text(
@@ -102,11 +104,13 @@ fun MainScreen() {
                 )
 
                 //если есть новости
-                AllButton(
-                    text = stringResource(id = R.string.news),
-                    onClick = { navController.navigate(Route.NewsScreen.path) },
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
-                )
+//                AllButton(
+//                    text = stringResource(id = R.string.news),
+//                    onClick = { navController.navigate(Route.NewsScreen.path) },
+//                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
+//                )
+
+
 //
 //                HorizontalPager(state = pagerState) { page ->
 //                    NewsCard(
