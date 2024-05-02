@@ -95,6 +95,9 @@
     <string name="inviteFriend">Пригласить друзей</string>
     <string name="invite">Пригласить</string>
     <string name="cancel">Отмена</string>
+    <string name="noFriends">Друзей не найдено</string>
+    <string name="youCanCopy">Вы можете скопировать ссылку, чтобы \nотправить приглашение</string>
+    <string name="refCopied">Ссылка скопирована в буфер обмена</string>
 
     <string name="friends">Друзья</string>
     <string name="places">Площадки</string>
@@ -111,10 +114,11 @@
     <string name="partInMatch">Участие в матче</string>
     <string name="total">Итого:</string>
     <string name="pay">Оплатить</string>
-    <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча. </string>
+    <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча.</string>
     <string name="geolocationOff">Геолокация отключена</string>
     <string name="geolocationText">Выдача новостей отсутствует по причине отключенной геолокации, для появления новостей по ближайшему к вам расположению включите геолокацию в профиле</string>
     <string name="geolocationOn">Включить геолокацию</string>
+    <string name="paymentFail">Не хватает денежных средств для оплаты матча. \nПополните баланс и повторите оплату снова</string>
 
     <string name="match">Матч</string>
     <string name="type">Тип</string>

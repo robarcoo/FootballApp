@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -27,7 +29,7 @@ fun HeaderWithBackButton(
     imageButton: Int = 0,
     onClickBack: () -> Unit = {},
     onClickOther: () -> Unit = {},
-    shareMenu: @Composable () -> Unit = {},
+    actionsMenu: @Composable () -> Unit = {},
     tint: Color = MaterialTheme.colorScheme.primary,
     styleText: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
     colorText: Color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -36,13 +38,15 @@ fun HeaderWithBackButton(
     Row(
         modifier = modifier
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        IconButton(modifier = Modifier.border(
-            width = 1.dp,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            shape = CircleShape
-        ),
+        IconButton(modifier = Modifier
+            .weight(0.1f)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                shape = CircleShape
+            ),
             onClick = { onClickBack.invoke() }) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
@@ -55,25 +59,32 @@ fun HeaderWithBackButton(
             text = text,
             style = styleText,
             color = colorText,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(0.8f)
         )
 
         if (imageButton != 0)
-            IconButton(modifier = Modifier.border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                shape = CircleShape
-            ),
+            IconButton(modifier = Modifier
+                .weight(0.1f)
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    shape = CircleShape
+                ),
                 onClick = { onClickOther.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
                     contentDescription = "",
                     tint = MaterialTheme.colorScheme.primary
                 )
-                shareMenu()
+                actionsMenu()
             }
         else
-            IconButton(modifier = Modifier.border(
+            IconButton(modifier = Modifier.weight(0.1f).border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
                 shape = CircleShape

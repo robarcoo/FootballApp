@@ -31,7 +31,8 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Yellow00,
     outlineVariant = Color.Transparent,
     outline = Color.Gray,
-    error = Red0C
+    error = Red0C,
+    errorContainer = Red6A
 
 
 //    secondary = PurpleGrey40,

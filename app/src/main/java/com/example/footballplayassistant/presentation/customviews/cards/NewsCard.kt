@@ -97,6 +97,8 @@ fun NewsCard(place: String, name: String, modifier: Modifier = Modifier, address
                         style = MaterialTheme.typography.bodyMedium
                             .copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.align(Alignment.CenterVertically)
                     )
                 }

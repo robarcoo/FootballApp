@@ -69,7 +69,11 @@ fun MainScreen() {
             }
 
             //если нет игр
-//            item { NoGames() }
+//            item {
+//                NoGames(
+//                    createEventClick = { navController.navigate(Route.CreateEventScreen.path) },
+//                    participateClick = {})
+//            }
             //если есть игры
             item {
                 AllButton(
@@ -109,8 +113,8 @@ fun MainScreen() {
 //                    onClick = { navController.navigate(Route.NewsScreen.path) },
 //                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
 //                )
-
-
+//
+//
 //
 //                HorizontalPager(state = pagerState) { page ->
 //                    NewsCard(
@@ -146,7 +150,7 @@ fun MainScreen() {
 }
 
 @Composable
-private fun NoGames() {
+private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> Unit = {}) {
     Card(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
@@ -178,6 +182,7 @@ private fun NoGames() {
         }
         CommonButton(
             text = stringResource(R.string.addGame),
+            onClick = { createEventClick.invoke() },
             modifier = Modifier
                 .padding(top = 32.dp)
                 .padding(horizontal = 16.dp)
@@ -186,6 +191,7 @@ private fun NoGames() {
             text = stringResource(R.string.participate),
             containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary,
+            onClick = { participateClick.invoke() },
             modifier = Modifier
                 .padding(top = 8.dp, bottom = 32.dp)
                 .padding(horizontal = 16.dp)

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -74,6 +75,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                             text = stringResource(id = R.string.home),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -107,6 +110,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                             text = stringResource(id = R.string.search),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -140,6 +145,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                             text = stringResource(id = R.string.calendar),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -173,6 +180,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                             text = stringResource(id = R.string.profile),
                             style = MaterialTheme.typography.displaySmall
                                 .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             color = MaterialTheme.colorScheme.primary
                         )

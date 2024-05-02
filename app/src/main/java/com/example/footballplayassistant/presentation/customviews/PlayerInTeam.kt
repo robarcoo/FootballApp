@@ -10,17 +10,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PlayerInTeam(userTag: String, position: String, foto: Int){
-    Column( modifier = Modifier.padding(bottom = 12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+fun PlayerInTeam(userTag: String, position: String, foto: Int) {
+    Column(
+        modifier = Modifier.padding(bottom = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(painter = painterResource(id = foto), contentDescription = "")
-        Text(text = userTag,
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
-            modifier = Modifier.padding(top = 8.dp, bottom = 4.dp))
-        Text(text = position,
+        Text(
+            text = userTag,
+            style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
+        )
+        Text(
+            text = position,
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-            color = MaterialTheme.colorScheme.tertiaryContainer)
+            color = MaterialTheme.colorScheme.tertiaryContainer,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
