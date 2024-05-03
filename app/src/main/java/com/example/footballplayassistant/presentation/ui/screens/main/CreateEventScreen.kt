@@ -377,7 +377,7 @@ fun CreateEventScreen() {
                         )
                     }
                     ClickableText(
-                        onClick = {},
+                        onClick = { navController.navigate(Route.MainScreen.path) },
                         text = AnnotatedString(stringResource(id = R.string.cancel)),
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.W600,

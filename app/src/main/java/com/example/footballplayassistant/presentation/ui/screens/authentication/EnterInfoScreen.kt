@@ -62,7 +62,7 @@ fun EnterInfoScreen() {
             ) {
                 CommonButton(
                     text = "Сохранить",
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W500),
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     modifier = Modifier
                         .weight(0.4f)
@@ -76,7 +76,7 @@ fun EnterInfoScreen() {
                     text = "Пропустить",
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     containerColor = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W500),
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
                     modifier = Modifier
                         .weight(0.4f)
                         .padding(end = MaterialTheme.spacing.medium)

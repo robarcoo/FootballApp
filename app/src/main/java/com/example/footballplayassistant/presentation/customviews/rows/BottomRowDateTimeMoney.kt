@@ -63,7 +63,7 @@ fun BottomRowDateTimeMoney(
 
         Text(
             text = price,
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W700),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W700),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier

@@ -159,12 +159,13 @@ fun HeaderSignUpCode() {
 }
 
 @Composable
-fun HeaderSignUpStep(numStep: Int) {
+fun HeaderSignUpStep(numStep: Int, onClick: () -> Unit = {}) {
     Column {
         HeaderWithBackButton(
             text = "Регистрация", tint = MaterialTheme.colorScheme.onPrimary,
             styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             colorText = MaterialTheme.colorScheme.onPrimary,
+            onClickBack = {onClick.invoke()},
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 35.dp)
                 .padding(horizontal = 16.dp)

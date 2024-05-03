@@ -37,7 +37,11 @@ fun SignUpStepTwoScreen() {
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.onPrimary)
     ) {
-        HeaderAuthentication { HeaderSignUpStep(numStep = 2) }
+        HeaderAuthentication {
+            HeaderSignUpStep(
+                numStep = 2,
+                onClick = { navController.navigate(Route.SignUpStepOneScreen.path) })
+        }
 
 
         Text(

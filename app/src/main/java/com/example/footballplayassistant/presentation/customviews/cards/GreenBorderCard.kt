@@ -25,8 +25,6 @@ fun GreenBorderCard(modifier: Modifier = Modifier, text: String, value: String) 
                 color = MaterialTheme.colorScheme.secondary,
                 shape = RoundedCornerShape(12.dp)
             ),
-//            .fillMaxWidth(),
-//            .width(105.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(

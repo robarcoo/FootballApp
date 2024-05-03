@@ -40,7 +40,7 @@ fun AllButton(
             onClick = { onClick.invoke() }) {
             Text(
                 text = stringResource(id = R.string.all),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600)
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600)
             )
         }
     }

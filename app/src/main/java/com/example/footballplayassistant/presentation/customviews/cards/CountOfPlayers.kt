@@ -25,7 +25,7 @@ fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Mo
     ) {
         Text(
             text = "$currentPlayers/$maxPlayers",
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Center,
             maxLines = 1,

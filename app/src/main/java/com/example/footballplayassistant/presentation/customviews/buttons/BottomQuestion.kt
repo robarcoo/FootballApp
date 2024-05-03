@@ -39,7 +39,7 @@ fun BottomQuestion(
             onClick = { onClick.invoke() }) {
             Text(
                 text = buttonText,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.secondary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
