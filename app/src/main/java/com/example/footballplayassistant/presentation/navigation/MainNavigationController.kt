@@ -36,7 +36,7 @@ fun MainNavigationController(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Route.SearchScreen.path,
+            startDestination = Route.StartScreen.path,
             enterTransition = { fadeIn(animationSpec = tween(350)) },
             exitTransition = { fadeOut(animationSpec = tween(350)) },
         ) {
