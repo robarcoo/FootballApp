@@ -180,4 +180,31 @@
         <item>Неподдерживаемый формат файла</item>
         <item>Количество изображений превышает допустимый лимит</item>
     </string-array>
+
+    <string name = "inputCity">Укажите город</string>
+    <string name = "inputAddress">Адрес</string>
+    <string name = "openTime">Открытие</string>
+    <string name = "closingTime">Закрытие</string>
+    <string name = "inputContacts">Контактный телефон</string>
+    <string name = "closeMetro">Ближайшее метро</string>
+    <string name = "inputSite">Сайт</string>
+    <string name = "inputDescription">Описание</string>
+    <string name = "howManyPeopleInGame">Вместимость игроков</string>
+    <string name="personInput">чел.</string>
+    <string name = "loadImageInput">Загрузить изображения</string>
+    <string name= "loadImageDescription">JPEG, PNG. 15 Мбайт. Не более 10 изображений</string>
+    <string name="fieldSize">Размеры поля</string>
+    <string name="lengthInput">Длина (м)</string>
+    <string name="widthInput">Ширина (м)</string>
+    <string name="lightningType">Освещение</string>
+    <string-array name="lightningTypeArray">
+        <item>Искусственное</item>
+        <item>Естественное</item>
+    </string-array>
+    <string name="showering">Душ</string>
+    <string-array name="hasOrNo">
+        <item>Есть</item>
+        <item>Нет</item>
+    </string-array>
+    <string name="changingRoom">Раздевалки</string>
 </resources>

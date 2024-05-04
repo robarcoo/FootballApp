@@ -6,7 +6,6 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +21,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -56,7 +56,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -72,6 +71,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 @Preview
 fun CreateFieldScreen() {
@@ -87,33 +87,34 @@ fun CreateFieldScreen() {
             style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
         NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_field)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        DropDownMenu(placeholder = "Укажите город", values = listOf())
+        DropDownMenu(placeholder = stringResource(R.string.inputCity), values = listOf())
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_location)
+        NecessaryTextField(label = stringResource(id = R.string.inputAddress), true, leadingIcon = R.drawable.ic_location)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically) {
-            NecessaryTextField(label = "Открытие", true, trailingIcon = R.drawable.ic_time_black_24, modifier = Modifier
+            NecessaryTextField(label = stringResource(id = R.string.openTime), true, trailingIcon = R.drawable.ic_time_black_24, modifier = Modifier
                 .fillMaxWidth(0.5f)
                 .padding(end = MaterialTheme.spacing.extraSmall))
-            NecessaryTextField(label = "Закрытие", true, trailingIcon = R.drawable.ic_time_black_24,  modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall))
+            NecessaryTextField(label = stringResource(id = R.string.closingTime), true, trailingIcon = R.drawable.ic_time_black_24,  modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall))
         }
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = "Контактный телефон", isNecessary = true, leadingIcon = R.drawable.ic_call)
-        DropDownMenu(placeholder = "Ближайшее метро", values = listOf(), imStart = R.drawable.ic_metro)
-        NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
+        NecessaryTextField(label = stringResource(id = R.string.inputContacts), isNecessary = true, leadingIcon = R.drawable.ic_call)
+        DropDownMenu(placeholder = stringResource(id = R.string.closeMetro), values = listOf(), imStart = R.drawable.ic_metro)
+        NecessaryTextField(label = stringResource(id = R.string.inputSite), leadingIcon = R.drawable.ic_world)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = "Описание", modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
+        NecessaryTextField(label = stringResource(id = R.string.inputDescription), modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
             isSingleLine = false, shape = RoundedCornerShape(20.dp), toCountWords = true)
 
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            AddAsterisk(text = "Вместимость игроков", style = MaterialTheme.typography.displayMedium,
+        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            AddAsterisk(text = stringResource(id = R.string.howManyPeopleInGame), style = MaterialTheme.typography.displayMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.W400,
                 isNecessary = true,
-                modifier = Modifier.padding(end = MaterialTheme.spacing.small))
-            DropDownMenu(placeholder = "чел.", values = listOf())
+                modifier = Modifier.padding(end = MaterialTheme.spacing.small).weight(1f, fill = false))
+            DropDownMenu(placeholder = stringResource(id = R.string.personInput), values = listOf(),
+                modifier = Modifier.width(120.dp))
         }
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -125,9 +126,10 @@ fun CreateFieldScreen() {
             Column(modifier = Modifier
                 .weight(1f, fill = false)
                 .padding(vertical = MaterialTheme.spacing.extraSmall)) {
-                Text("Загрузить изображения", style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
+                Text(stringResource(R.string.loadImageInput), style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
                 Spacer(modifier = Modifier.size(MaterialTheme.spacing.extraSmall))
-                Text("JPEG, PNG. 15 Мбайт. Не более 10 изображений", style = MaterialTheme.typography.displaySmall
+                Text(
+                    stringResource(id = R.string.loadImageDescription), style = MaterialTheme.typography.displaySmall
                     .copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400))
             }
@@ -136,7 +138,7 @@ fun CreateFieldScreen() {
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.size(48.dp)
             ) {
-                Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = "Download",
+                Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimaryContainer)
                 
             }
@@ -144,16 +146,19 @@ fun CreateFieldScreen() {
         FinishedLoadingPhoto(image = R.drawable.loadexample, fileName = "football.jpeg", size = "260 Кбайт")
         InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
         InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
+        ErrorText(errorType = loadError.fileTooBig.ordinal)
+        ErrorText(errorType = loadError.formatUnsupported.ordinal)
+        ErrorText(errorType = loadError.limitExceeded.ordinal)
 
 
         Column(modifier = Modifier.padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.large)) {
             Text(
-                text = "Размеры поля",
+                text = stringResource(id = R.string.fieldSize),
                 style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
             )
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
             FilterRangeSlider(
-                text = "Длина (м)",
+                text = stringResource(id = R.string.lengthInput),
                 MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400
@@ -162,7 +167,7 @@ fun CreateFieldScreen() {
                 activeRangeEnd = 1000.0f
             )
             FilterRangeSlider(
-                text = "Ширина (м)",
+                text = stringResource(id = R.string.widthInput),
                 MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400
@@ -171,20 +176,20 @@ fun CreateFieldScreen() {
                 activeRangeEnd = 1000.0f
             )
         }
-        CustomRadioButtons("Тип площадки", true, listOf("Открытый", "Закрытый"))
+        CustomRadioButtons(stringResource(id = R.string.typesOfArena), true, stringArrayResource(id = R.array.typesOfArenaArray))
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons("Освещение", true, listOf("Искусственное", "Естественное"))
+        CustomRadioButtons(stringResource(id = R.string.lightningType), true, stringArrayResource(id = R.array.lightningTypeArray))
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons("Душ", false, listOf("Есть", "Нет"))
+        CustomRadioButtons(stringResource(id = R.string.showering), false, stringArrayResource(id = R.array.hasOrNo))
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons("Раздевалки", false, listOf("Есть", "Нет"))
+        CustomRadioButtons(stringResource(id = R.string.changingRoom), false, stringArrayResource(id = R.array.hasOrNo))
         Column(modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            CommonButton("Добавить поле")
+            CommonButton(stringResource(id = R.string.addField))
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
             ClickableText(text = buildAnnotatedString {
                 withStyle(style = SpanStyle(fontWeight = FontWeight.W600, color = MaterialTheme.colorScheme.onSecondaryContainer)) {
-                    append("Отмена")
+                    append(stringResource(id = R.string.cancel))
                 }
             },
                 style = MaterialTheme.typography.bodySmall,
@@ -195,12 +200,15 @@ fun CreateFieldScreen() {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
     var currentProgress by remember { mutableFloatStateOf(50.0f) }
     var loading by remember { mutableStateOf(false) }
-    Column (modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.medium)){
-        Row(verticalAlignment = Alignment.CenterVertically) {
+    Column (modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = MaterialTheme.spacing.medium)){
+        FlowRow(verticalArrangement = Arrangement.Center) {
             Text(fileName, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400,
                 color = MaterialTheme.colorScheme.onPrimaryContainer),
                 modifier = Modifier.padding(end = MaterialTheme.spacing.small))
@@ -211,7 +219,9 @@ fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
                     tint = MaterialTheme.colorScheme.onPrimaryContainer)
             }
         }
-        Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.spacing.small)) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = MaterialTheme.spacing.small)) {
             LinearProgressIndicator(
                     progress = { currentProgress },
                     modifier = Modifier.fillMaxWidth(),
@@ -224,7 +234,9 @@ fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
 @Composable
 fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.small),
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = MaterialTheme.spacing.small),
             horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1f, fill = false)) {
                 Image(painterResource(id = image), contentDescription = "",
@@ -255,7 +267,7 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
 }
 @Composable
 fun ErrorText(errorType : Int) {
-    Row() {
+    Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.extraSmall)) {
         Icon(
             painterResource(id = R.drawable.ic_warning_12),
             contentDescription = "",
@@ -279,7 +291,7 @@ enum class loadError {
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CustomRadioButtons(title : String, isNecessary : Boolean, items : List<String>) {
+fun CustomRadioButtons(title: String, isNecessary: Boolean, items: Array<String>) {
     val state = remember { mutableIntStateOf(-1) }
     Column(modifier = Modifier.fillMaxWidth()) {
         AddAsterisk(
