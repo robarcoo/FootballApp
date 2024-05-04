@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,12 +33,14 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,18 +49,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -92,7 +102,10 @@ fun CreateFieldScreen() {
         NecessaryTextField(label = "Контактный телефон", isNecessary = true, leadingIcon = R.drawable.ic_call)
         DropDownMenu(placeholder = "Ближайшее метро", values = listOf(), imStart = R.drawable.ic_metro)
         NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
-        NecessaryTextField(label = "Сайт", leadingIcon = R.drawable.ic_world)
+        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+        NecessaryTextField(label = "Описание", modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
+            isSingleLine = false, shape = RoundedCornerShape(20.dp), toCountWords = true)
+
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
         Row(verticalAlignment = Alignment.CenterVertically) {
             AddAsterisk(text = "Вместимость игроков", style = MaterialTheme.typography.displayMedium,
@@ -102,10 +115,16 @@ fun CreateFieldScreen() {
                 modifier = Modifier.padding(end = MaterialTheme.spacing.small))
             DropDownMenu(placeholder = "чел.", values = listOf())
         }
-        Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.spacing.large,
-            bottom = MaterialTheme.spacing.medium),
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                top = MaterialTheme.spacing.large,
+                bottom = MaterialTheme.spacing.medium
+            ),
             horizontalArrangement = Arrangement.SpaceBetween) {
-            Column(modifier = Modifier.weight(1f, fill = false).padding(vertical = MaterialTheme.spacing.extraSmall)) {
+            Column(modifier = Modifier
+                .weight(1f, fill = false)
+                .padding(vertical = MaterialTheme.spacing.extraSmall)) {
                 Text("Загрузить изображения", style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
                 Spacer(modifier = Modifier.size(MaterialTheme.spacing.extraSmall))
                 Text("JPEG, PNG. 15 Мбайт. Не более 10 изображений", style = MaterialTheme.typography.displaySmall
@@ -122,6 +141,10 @@ fun CreateFieldScreen() {
                 
             }
         }
+        FinishedLoadingPhoto(image = R.drawable.loadexample, fileName = "football.jpeg", size = "260 Кбайт")
+        InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
+        InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
+
 
         Column(modifier = Modifier.padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.large)) {
             Text(
@@ -160,7 +183,7 @@ fun CreateFieldScreen() {
             CommonButton("Добавить поле")
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
             ClickableText(text = buildAnnotatedString {
-                withStyle(style = SpanStyle(fontWeight = FontWeight.W600)) {
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W600, color = MaterialTheme.colorScheme.onSecondaryContainer)) {
                     append("Отмена")
                 }
             },
@@ -170,6 +193,89 @@ fun CreateFieldScreen() {
         }
 
     }
+}
+
+@Composable
+fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
+    var currentProgress by remember { mutableFloatStateOf(50.0f) }
+    var loading by remember { mutableStateOf(false) }
+    Column (modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.medium)){
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(fileName, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400,
+                color = MaterialTheme.colorScheme.onPrimaryContainer),
+                modifier = Modifier.padding(end = MaterialTheme.spacing.small))
+            Text(fileSize, style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
+                fontWeight = FontWeight.W400), modifier = Modifier.padding(end = MaterialTheme.spacing.small))
+            IconButton(onClick = {}, modifier = Modifier.size(16.dp)) {
+                Icon(painterResource(id = R.drawable.ic_close), contentDescription = "",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
+            }
+        }
+        Row(modifier = Modifier.fillMaxWidth().padding(top = MaterialTheme.spacing.small)) {
+            LinearProgressIndicator(
+                    progress = { currentProgress },
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.secondary,
+                    trackColor = MaterialTheme.colorScheme.tertiaryContainer
+                )
+        }
+    }
+}
+@Composable
+fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.weight(1f, fill = false)) {
+                Image(painterResource(id = image), contentDescription = "",
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(12.dp)),
+                    contentScale = ContentScale.Crop)
+                Column(modifier = Modifier.padding(start = MaterialTheme.spacing.small)) {
+                    Text(fileName, style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
+                    Text(
+                        size, style = MaterialTheme.typography.displaySmall.copy(
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        ), modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
+                    )
+                }
+            }
+
+            IconButton(onClick = {}) {
+                Icon(
+                    painterResource(id = R.drawable.ic_close), contentDescription = "",
+                    modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
+
+        }
+        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.primaryContainer)
+    }
+}
+@Composable
+fun ErrorText(errorType : Int) {
+    Row() {
+        Icon(
+            painterResource(id = R.drawable.ic_warning_12),
+            contentDescription = "",
+            tint = Color(0xFFC0000C)
+        )
+        Text(
+            stringArrayResource(id = R.array.loadFileErrorArray)[errorType],
+            style = MaterialTheme.typography.headlineSmall.copy(
+                color = Color(0xFFC0000C),
+                fontWeight = FontWeight.W400
+            ),
+            modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall)
+        )
+    }
+}
+
+enum class loadError {
+    fileTooBig,
+    formatUnsupported,
+    limitExceeded
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -183,7 +289,9 @@ fun CustomRadioButtons(title : String, isNecessary : Boolean, items : List<Strin
             modifier = Modifier.padding(top = MaterialTheme.spacing.small)
         )
         FlowRow(
-            modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.medium)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = MaterialTheme.spacing.medium)
         ) {
             items.forEachIndexed { index, name ->
                 Row(verticalAlignment = Alignment.CenterVertically,
@@ -224,13 +332,16 @@ fun CustomRadioButtons(title : String, isNecessary : Boolean, items : List<Strin
 fun NecessaryTextField(label : String,
                        isNecessary : Boolean = false,
                        trailingIcon : Int = 0,
-                        leadingIcon : Int = 0,
+                       leadingIcon : Int = 0,
+                       isSingleLine : Boolean = true,
+                       shape : RoundedCornerShape = RoundedCornerShape(60.dp),
+                       toCountWords : Boolean = false,
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
-    Column (){
+    Column {
         AnimatedVisibility(
             visible = visible,
             enter = expandVertically(),
@@ -240,43 +351,86 @@ fun NecessaryTextField(label : String,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontWeight = FontWeight.W400,
                 isNecessary = isNecessary,
-                modifier = Modifier.padding( MaterialTheme.spacing.small ))
+                modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
-        BasicTextField(modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(60.dp))
-            .background(MaterialTheme.colorScheme.onPrimary)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-            value = value,
-            onValueChange = { value = it },
-            interactionSource = interactionSource,
-            maxLines = 1,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        ) { innerTextField ->
-            Row (modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween) {
-                Row(Modifier.weight(1f, fill = false), verticalAlignment = Alignment.CenterVertically) {
-                if (leadingIcon != 0) {
-                    Icon(painter = painterResource(id = leadingIcon), contentDescription = "",
-                        modifier = Modifier.padding(end = MaterialTheme.spacing.small),
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer)
-                }
-                if (!isFocused && value.text.isEmpty()) {
-                    AddAsterisk(text = label, style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        fontWeight = FontWeight.W400,
-                        isNecessary = isNecessary,
-                        modifier = Modifier.padding( MaterialTheme.spacing.small))
+        Box(contentAlignment = Alignment.BottomEnd) {
+            BasicTextField(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clip(shape)
+                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                value = value,
+                onValueChange = { value = it },
+                interactionSource = interactionSource,
+                singleLine = isSingleLine,
+                textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400, lineHeight = 24.sp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            ) { innerTextField ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = MaterialTheme.spacing.small),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        Modifier.weight(1f, fill = false),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (leadingIcon != 0) {
+                            Icon(
+                                painter = painterResource(id = leadingIcon),
+                                contentDescription = "",
+                                modifier = Modifier.padding(end = MaterialTheme.spacing.small),
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
+                        if (!isFocused && value.text.isEmpty()) {
+                            AddAsterisk(
+                                text = label, style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                fontWeight = FontWeight.W400,
+                                isNecessary = isNecessary
+                            )
+                        }
+
+                        innerTextField()
+                    }
+                    if (trailingIcon != 0) {
+                        Icon(
+                            painter = painterResource(id = trailingIcon), contentDescription = "",
+                            modifier = Modifier.padding(start = MaterialTheme.spacing.small),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                 }
 
-                    innerTextField()
-                }
-                if (trailingIcon != 0) {
-                    Icon(painter = painterResource(id = trailingIcon), contentDescription = "",
-                        modifier = Modifier.padding(start = MaterialTheme.spacing.small),
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer)
-                }
             }
+            if (toCountWords) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_rezible_10),
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.secondary,
+                    modifier = Modifier.padding(
+                        bottom = MaterialTheme.spacing.small,
+                        end = MaterialTheme.spacing.small
+                    )
+                )
+            }
+        }
+        if (value.text.isNotEmpty() && toCountWords) {
+            Text(
+                text = "${value.text.count()}/255",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = MaterialTheme.spacing.extraSmall),
+                textAlign = TextAlign.End,
+                style = MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400
+                )
+            )
         }
     }
 

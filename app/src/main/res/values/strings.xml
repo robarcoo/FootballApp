@@ -174,4 +174,10 @@
     <string name="addField">Добавить поле</string>
     <string name="fieldName">Название поля</string>
     <string name="fieldInfoTitle">Информация о поле</string>
+
+    <string-array name="loadFileErrorArray">
+        <item>Слишком большой размер изображения</item>
+        <item>Неподдерживаемый формат файла</item>
+        <item>Количество изображений превышает допустимый лимит</item>
+    </string-array>
 </resources>

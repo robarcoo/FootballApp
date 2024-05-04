@@ -2,75 +2,23 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ChooseTeamScreen">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-16T09:32:22.899125300Z" />
-        </State>
-      </entry>
-      <entry key="CreateEventScreen">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Small_Phone_API_24.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-15T10:42:48.142806600Z" />
-        </State>
-      </entry>
-      <entry key="MatchScreen">
+      <entry key="FilterScreen">
         <State />
       </entry>
-      <entry key="NewsScreen">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Small_Phone_API_24.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-12T14:59:55.865734300Z" />
-        </State>
+      <entry key="MainScreen">
+        <State />
       </entry>
-      <entry key="PaymentScreen">
+      <entry key="NoResultsScreen">
+        <State />
+      </entry>
+      <entry key="SearchScreen">
+        <State />
+      </entry>
+      <entry key="SearchScreen (1)">
         <State />
       </entry>
       <entry key="app">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Anastossi\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-05T07:44:50.268651100Z" />
-        </State>
+        <State />
       </entry>
     </value>
   </component>

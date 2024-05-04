@@ -23,6 +23,7 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 
@@ -35,7 +36,7 @@ fun MainNavigationController(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Route.StartScreen.path,
+            startDestination = Route.SearchScreen.path,
             enterTransition = { fadeIn(animationSpec = tween(350)) },
             exitTransition = { fadeOut(animationSpec = tween(350)) },
         ) {
@@ -105,6 +106,10 @@ fun MainNavigationController(
 
             composable(route = Route.FilterScreen.path) {
                 FilterScreen()
+            }
+
+            composable(route = Route.CreateFieldScreen.path) {
+                CreateFieldScreen()
             }
         }
     }
