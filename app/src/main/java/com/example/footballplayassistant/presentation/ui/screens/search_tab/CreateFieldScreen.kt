@@ -71,7 +71,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
-@OptIn(ExperimentalLayoutApi::class)
+
 @Composable
 @Preview
 fun CreateFieldScreen() {
@@ -112,43 +112,19 @@ fun CreateFieldScreen() {
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.W400,
                 isNecessary = true,
-                modifier = Modifier.padding(end = MaterialTheme.spacing.small).weight(1f, fill = false))
+                modifier = Modifier
+                    .padding(end = MaterialTheme.spacing.small)
+                    .weight(1f, fill = false))
             DropDownMenu(placeholder = stringResource(id = R.string.personInput), values = listOf(),
                 modifier = Modifier.width(120.dp))
         }
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = MaterialTheme.spacing.large,
-                bottom = MaterialTheme.spacing.medium
-            ),
-            horizontalArrangement = Arrangement.SpaceBetween) {
-            Column(modifier = Modifier
-                .weight(1f, fill = false)
-                .padding(vertical = MaterialTheme.spacing.extraSmall)) {
-                Text(stringResource(R.string.loadImageInput), style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
-                Spacer(modifier = Modifier.size(MaterialTheme.spacing.extraSmall))
-                Text(
-                    stringResource(id = R.string.loadImageDescription), style = MaterialTheme.typography.displaySmall
-                    .copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontWeight = FontWeight.W400))
-            }
-            OutlinedButton(onClick = { /*TODO*/ },
-                shape = CircleShape,
-                contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.size(48.dp)
-            ) {
-                Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
-                
-            }
-        }
+        LoadImageField()
         FinishedLoadingPhoto(image = R.drawable.loadexample, fileName = "football.jpeg", size = "260 Кбайт")
         InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
         InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
-        ErrorText(errorType = loadError.fileTooBig.ordinal)
-        ErrorText(errorType = loadError.formatUnsupported.ordinal)
-        ErrorText(errorType = loadError.limitExceeded.ordinal)
+        ErrorText(errorType = LoadError.FileTooBig.ordinal)
+        ErrorText(errorType = LoadError.FormatUnsupported.ordinal)
+        ErrorText(errorType = LoadError.LimitExceeded.ordinal)
 
 
         Column(modifier = Modifier.padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.large)) {
@@ -200,11 +176,41 @@ fun CreateFieldScreen() {
     }
 }
 
+@Composable
+fun LoadImageField() {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(
+            top = MaterialTheme.spacing.large,
+            bottom = MaterialTheme.spacing.medium
+        ),
+        horizontalArrangement = Arrangement.SpaceBetween) {
+        Column(modifier = Modifier
+            .weight(1f, fill = false)
+            .padding(vertical = MaterialTheme.spacing.extraSmall)) {
+            Text(stringResource(R.string.loadImageInput), style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.extraSmall))
+            Text(
+                stringResource(id = R.string.loadImageDescription), style = MaterialTheme.typography.displaySmall
+                    .copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400))
+        }
+        OutlinedButton(onClick = { /*TODO*/ },
+            shape = CircleShape,
+            contentPadding = PaddingValues(0.dp),
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer)
+
+        }
+    }
+}
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
-    var currentProgress by remember { mutableFloatStateOf(50.0f) }
-    var loading by remember { mutableStateOf(false) }
+    val currentProgress by remember { mutableFloatStateOf(50.0f) }
+    // var loading by remember { mutableStateOf(false) }
     Column (modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = MaterialTheme.spacing.medium)){
@@ -284,10 +290,10 @@ fun ErrorText(errorType : Int) {
     }
 }
 
-enum class loadError {
-    fileTooBig,
-    formatUnsupported,
-    limitExceeded
+enum class LoadError {
+    FileTooBig,
+    FormatUnsupported,
+    LimitExceeded
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
