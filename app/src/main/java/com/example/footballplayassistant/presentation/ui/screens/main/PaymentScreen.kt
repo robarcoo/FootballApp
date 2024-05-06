@@ -78,7 +78,7 @@ fun PaymentScreen() {
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
-                    BottomWarning()
+                BottomWarning()
                 //не хватает денег
 //                    Text(
 //                        text = stringResource(id = R.string.paymentFail),
@@ -117,7 +117,10 @@ fun PaymentScreen() {
                     Text(
                         text = stringResource(id = R.string.detailsOperation),
                         style = MaterialTheme.typography.labelLarge
-                            .copy(fontWeight = FontWeight.W500),
+                            .copy(
+                                fontWeight = FontWeight.W500,
+                                fontFamily = FontFamily(Font(R.font.inter_medium))
+                            ),
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
@@ -256,7 +259,7 @@ private fun BalanceCard(price: String) {
 
             Text(
                 text = stringResource(id = R.string.replenish),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.align(Alignment.Bottom)
