@@ -42,7 +42,8 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp), horizontalArrangement = Arrangement.SpaceBetween
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
                 Text(

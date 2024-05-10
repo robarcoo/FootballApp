@@ -24,13 +24,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
 @Composable
-@Preview
-fun PlayersCard(modifier: Modifier = Modifier) {
+fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<String>) {
     Card(
         modifier = modifier.padding(top = 32.dp),
         shape = RectangleShape,
@@ -81,7 +79,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "name",
+                            text = name,
                             style = MaterialTheme.typography.bodySmall
                                 .copy(fontWeight = FontWeight.W600),
                             maxLines = 1,
@@ -89,7 +87,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "name",
+                                text = stringResource(id = R.string.host),
                                 style = MaterialTheme.typography.displaySmall
                                     .copy(fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -106,7 +104,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         }
 
                     }
-                    HorizontalDivider(thickness = 1.dp,
+                    HorizontalDivider(
+                        thickness = 1.dp,
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -119,7 +118,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "name",
+                            text = participants.joinToString(separator = ", "),
                             style = MaterialTheme.typography.labelMedium
                                 .copy(fontWeight = FontWeight.W400),
                             maxLines = 1,

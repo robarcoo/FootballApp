@@ -85,7 +85,7 @@ fun SignUpStepTwoScreen() {
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
-                    contentDescription = "",
+                    contentDescription = "Warning",
                     modifier = Modifier.padding(end = 2.dp)
                 )
                 Text(
@@ -115,12 +115,9 @@ fun SignUpStepTwoScreen() {
 
         CommonButton(
             text = stringResource(R.string.signup),
-            onClick = {
-                navController.navigate(Route.EnterInfoScreen.path)
-            },
+            onClick = { navController.navigate(Route.EnterInfoScreen.path) },
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.horizontal)
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
         )
     }
 }

@@ -33,6 +33,7 @@ fun GameCard(
     place: String,
     host: String,
     address: String = "",
+    distance: Int = 0,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val navController = LocalNavController.current!!
@@ -64,7 +65,9 @@ fun GameCard(
                             .weight(0.85f)
                     )
                     CountOfPlayers(
-                        currentPlayers = 10, maxPlayers = 10, modifier = Modifier
+                        currentPlayers = 10,
+                        maxPlayers = 10,
+                        modifier = Modifier
                             .weight(0.15f)
                             .align(Alignment.CenterVertically)
                     )
@@ -86,8 +89,7 @@ fun GameCard(
                             style = MaterialTheme.typography.displayMedium
                                 .copy(fontWeight = FontWeight.W500),
                             maxLines = 2,
-                            modifier = Modifier
-                                .weight(0.75f)
+                            modifier = Modifier.weight(0.75f)
                         )
                         Row(
                             modifier = Modifier.weight(0.25f),
@@ -99,7 +101,7 @@ fun GameCard(
                                 modifier = Modifier.align(Alignment.CenterVertically)
                             )
                             Text(
-                                text = "100км",
+                                text = "${distance}км",
                                 style = MaterialTheme.typography.bodyMedium
                                     .copy(fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -132,13 +134,14 @@ fun GameCard(
                         modifier = Modifier.weight(0.85f)
                     )
                     CountOfPlayers(
-                        currentPlayers = 10, maxPlayers = 10, modifier = Modifier
+                        currentPlayers = 10,
+                        maxPlayers = 10,
+                        modifier = Modifier
                             .weight(0.15f)
                             .align(Alignment.CenterVertically)
                     )
                 }
             }
-
             BottomRowDateTimeMoney(date = "27.08.10", time = "12:00", price = "700")
         }
     }

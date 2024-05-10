@@ -21,10 +21,7 @@ import com.example.footballplayassistant.presentation.navigation.Route
 @Preview
 fun MatchInfoScreen(/*type: String, name: String, description: String*/) {
     val navController = LocalNavController.current!!
-    Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.onPrimary)
-    ) {
+    Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderWithBackButton(
             text = stringResource(id = R.string.matchInfo),
             onClickBack = { navController.navigate(Route.MatchScreen.path) },

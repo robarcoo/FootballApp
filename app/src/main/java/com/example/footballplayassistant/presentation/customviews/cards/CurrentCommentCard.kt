@@ -33,7 +33,8 @@ fun CurrentCommentCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(),
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 UserFotoForList(
@@ -55,7 +56,7 @@ fun CurrentCommentCard(
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_like_20),
-                        contentDescription = "",
+                        contentDescription = "Like",
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }

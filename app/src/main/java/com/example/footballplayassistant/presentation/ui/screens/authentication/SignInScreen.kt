@@ -37,9 +37,7 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
-    val filterButton = remember {
-        mutableStateOf(0)
-    }
+    val filterButton = remember { mutableStateOf(0) }
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderAuthentication { HeaderSignIn() }
@@ -142,10 +140,7 @@ fun SignInScreen() {
             }
 
             item {
-                SignInWithAccounts(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                SignInWithAccounts(modifier = Modifier.fillMaxWidth())
             }
 
             item {

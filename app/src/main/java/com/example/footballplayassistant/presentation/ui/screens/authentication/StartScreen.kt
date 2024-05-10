@@ -49,7 +49,7 @@ fun StartScreen() {
     ) {
         Image(
             painter = painterResource(id = R.drawable.player),
-            contentDescription = "",
+            contentDescription = "Player",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
@@ -74,14 +74,13 @@ fun StartScreen() {
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_144_223),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
+                    contentDescription = "Ball left",
+                    modifier = Modifier.align(Alignment.TopStart)
                 )
 
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_140_170),
-                    contentDescription = "",
+                    contentDescription = "Ball right",
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
 
@@ -104,11 +103,9 @@ fun StartScreen() {
                     )
 
                     CommonButton(
-                        text = "Войти",
+                        text = stringResource(id = R.string.signin),
                         style = MaterialTheme.typography.bodyLarge,
-                        onClick = {
-                            navController.navigate(Route.SignInScreen.path)
-                        }
+                        onClick = { navController.navigate(Route.SignInScreen.path) }
                     )
 
                     Button(modifier = Modifier
@@ -117,20 +114,17 @@ fun StartScreen() {
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.outlineVariant
                         ),
-                        onClick = {
-                            navController.navigate(Route.SignUpEnterPhoneScreen.path)
-                        }) {
+                        onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) }) {
                         Text(
-                            text = "Зарегистрироваться",
+                            text = stringResource(id = R.string.signup),
                             style = MaterialTheme.typography.bodySmall
                                 .copy(fontWeight = FontWeight.W600),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
-
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
-                            contentDescription = ""
+                            contentDescription = "Arrows"
                         )
                     }
                 }
@@ -138,7 +132,7 @@ fun StartScreen() {
         }
         Image(
             painter = painterResource(id = R.drawable.logo),
-            contentDescription = "",
+            contentDescription = "Center loge",
             modifier = Modifier
                 .align(Alignment.Center)
                 .fillMaxHeight(0.3f)

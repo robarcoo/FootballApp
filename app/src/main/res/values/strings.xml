@@ -55,6 +55,7 @@
     <string name="enterCode">Введите код\n из смс</string>
     <string name="step">Шаг %1$d из 2</string>
     <string name="and">и</string>
+    <string name="save">Сохранить</string>
 
     <string name="money">Ваш баланс</string>
     <string name="mygames">Мои игры</string>
@@ -147,6 +148,8 @@
     <string name="noMessages">По данному матчу отсутствуют \nсообщения. Будьте первым, пообщайтесь \nсо своими членами команды</string>
     <string name="whatsapp">WhatsApp</string>
     <string name="copyInvitation">Скопировать приглашение</string>
+    <string name="host">Хост</string>
+    <string name="deposit">Депозит</string>
 
     <string name="matchInfo">Информация о матче</string>
     <string name="matchPlace">Место проведения матча</string>

@@ -32,19 +32,13 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun NewsScreen() {
     val navController = LocalNavController.current!!
 
-    val filterButton = remember {
-        mutableStateOf(0)
-    }
+    val filterButton = remember { mutableStateOf(0) }
 
     Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.onPrimary),
+        modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary),
         verticalArrangement = Arrangement.Top
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxHeight(0.9f)
-        ) {
+        Column(modifier = Modifier.fillMaxHeight(0.9f)) {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.news),
                 imageButton = R.drawable.ic_plus_24,
@@ -81,7 +75,6 @@ fun NewsScreen() {
                             .align(Alignment.BottomCenter)
                     )
                 }
-
             }
 
 //есть новости
@@ -119,7 +112,6 @@ fun NewsScreen() {
 //                }
 //            }
         }
-
         CommonBottomBar(
         )
     }

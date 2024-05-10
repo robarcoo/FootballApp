@@ -97,7 +97,7 @@ fun SignUpStepOneScreen() {
                     ) {
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
-                            contentDescription = "",
+                            contentDescription = "Warning",
                             modifier = Modifier.padding(end = 2.dp)
                         )
                         Text(

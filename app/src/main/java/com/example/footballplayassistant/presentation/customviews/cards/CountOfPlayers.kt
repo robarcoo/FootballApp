@@ -20,8 +20,8 @@ fun CountOfPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Mo
         color = MaterialTheme.colorScheme.tertiaryContainer
 
     Card(
-        modifier = modifier
-            .fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = color)
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = color)
     ) {
         Text(
             text = "$currentPlayers/$maxPlayers",

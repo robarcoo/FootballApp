@@ -76,10 +76,7 @@ fun MatchScreen() {
     Scaffold(containerColor = MaterialTheme.colorScheme.onPrimary,
         bottomBar = {
 //            BottomButtonsEventEnd()
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
                 CommonButton(
                     text = stringResource(id = R.string.participate),
                     style = MaterialTheme.typography.bodyLarge,
@@ -89,9 +86,7 @@ fun MatchScreen() {
             }
         },
         snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState,
-            ) {
+            SnackbarHost(hostState = snackbarHostState) {
                 Snackbar(
                     snackbarData = it,
                     containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -117,12 +112,14 @@ fun MatchScreen() {
                         expand = expanded,
                         actions = listOf(R.string.whatsapp, R.string.copyInvitation),
                         onClicks = listOf(
-                            { Log.d("MyLog", "click menu 1") },
-                            { snackBarScope.launch {
-                                snackbarHostState.showSnackbar(
-                                    message = str
-                                )
-                            } })
+                            { /*whatsapp*/ },
+                            {
+                                snackBarScope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        message = str
+                                    )
+                                }
+                            })
                     )
                 },
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -166,19 +163,16 @@ fun MatchScreen() {
                     ) {
                         GreenBorderCard(
                             text = stringResource(id = R.string.cost), value = "1500₽",
-                            modifier = Modifier
-                                .weight(0.3f)
+                            modifier = Modifier.weight(0.3f)
                         )
                         GreenBorderCard(
                             text = stringResource(id = R.string.sexMatch), value = "M",
-                            modifier = Modifier
-                                .weight(0.3f)
+                            modifier = Modifier.weight(0.3f)
                         )
                         GreenBorderCard(
                             text = stringResource(id = R.string.type),
                             value = "открытый",
-                            modifier = Modifier
-                                .weight(0.3f)
+                            modifier = Modifier.weight(0.3f)
                         )
                     }
                 }
@@ -194,8 +188,7 @@ fun MatchScreen() {
                         CommonIconTextCard(
                             icon = R.drawable.ic_time_black_24,
                             text = "08:00 - 12:00",
-                            modifier = Modifier
-                                .weight(1f)
+                            modifier = Modifier.weight(1f)
                         )
 
                         CommonIconTextCard(
@@ -214,10 +207,7 @@ fun MatchScreen() {
                             .height(intrinsicSize = IntrinsicSize.Max),
                         horizontalArrangement = Arrangement.spacedBy(11.dp)
                     ) {
-                        CommonIconTextInventoryCard(
-                            modifier = Modifier
-                                .weight(1f)
-                        )
+                        CommonIconTextInventoryCard(modifier = Modifier.weight(1f))
 
                         CommonOtherInfoCard(
                             onClick = { navController.navigate(Route.MatchInfoScreen.path) },
@@ -229,7 +219,12 @@ fun MatchScreen() {
                     }
                 }
 
-                item { PlayersCard() }
+                item {
+                    PlayersCard(
+                        name = "Name name",
+                        participants = listOf("first", "second", "third")
+                    )
+                }
 
                 item { CommentsCard(commentsList = listOf()) }
             }
@@ -258,7 +253,7 @@ private fun BottomButtonsCancel() {
             ) {
                 Column {
                     Text(
-                        text = "Депозит",
+                        text = stringResource(id = R.string.deposit),
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontWeight = FontWeight.W500,
                             color = MaterialTheme.colorScheme.onSecondaryContainer
@@ -297,7 +292,8 @@ private fun BottomButtonsCancel() {
 @Composable
 private fun BottomButtonsEventEnd() {
     Column(
-        modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CommonButton(text = stringResource(id = R.string.rateGame))

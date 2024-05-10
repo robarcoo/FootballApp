@@ -73,9 +73,7 @@ fun SignUpEnterPhoneScreen() {
             )
         }
         Spacer(modifier = Modifier.weight(0.1f))
-        Column(
-            verticalArrangement = Arrangement.Bottom
-        ) {
+        Column(verticalArrangement = Arrangement.Bottom) {
             SignInWithAccounts()
             BottomQuestion(
                 question = stringResource(R.string.questionAcc),

@@ -45,12 +45,10 @@ fun MainScreen() {
         3
     })
     Column(
-        modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+        modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)
     ) {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight(0.9f)
+            modifier = Modifier.fillMaxHeight(0.9f)
         ) {
             item {
                 HeaderUser(
@@ -169,7 +167,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
             )
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ball_games_60),
-                contentDescription = "",
+                contentDescription = "Ball",
                 modifier = Modifier.padding(top = 24.dp)
             )
             Text(
@@ -182,7 +180,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
         }
         CommonButton(
             text = stringResource(R.string.addGame),
-            onClick = { createEventClick.invoke() },
+            onClick = createEventClick,
             modifier = Modifier
                 .padding(top = 32.dp)
                 .padding(horizontal = 16.dp)
@@ -191,7 +189,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
             text = stringResource(R.string.participate),
             containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            onClick = { participateClick.invoke() },
+            onClick = participateClick,
             modifier = Modifier
                 .padding(top = 8.dp, bottom = 32.dp)
                 .padding(horizontal = 16.dp)

@@ -100,7 +100,7 @@ fun SquareButton(modifier: Modifier = Modifier, text: String, image: Int) {
                     .align(Alignment.CenterHorizontally)
                     .padding(bottom = 4.dp),
                 imageVector = ImageVector.vectorResource(image),
-                contentDescription = ""
+                contentDescription = "Logo"
             )
             Text(
                 text = text,

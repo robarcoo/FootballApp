@@ -24,14 +24,16 @@ fun CommonButton(
     onClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
-    Button(modifier = modifier.fillMaxWidth(),
+    Button(
+        modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             contentColor = contentColor,
             containerColor = containerColor
         ),
         contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
         enabled = enable,
-        onClick = onClick) {
+        onClick = onClick
+    ) {
         Text(
             text = text,
             style = style,

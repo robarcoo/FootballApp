@@ -44,7 +44,7 @@ fun TextFieldWithLeadingIcon(
         ) {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = "Icon"
+                contentDescription = "Trail icon"
             )
         }
     }

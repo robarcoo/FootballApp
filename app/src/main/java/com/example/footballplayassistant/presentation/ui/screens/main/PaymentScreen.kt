@@ -94,7 +94,7 @@ fun PaymentScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(GrayF1)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(it)
         ) {
             HeaderWithBackButton(
@@ -116,8 +116,7 @@ fun PaymentScreen() {
                 item {
                     Text(
                         text = stringResource(id = R.string.detailsOperation),
-                        style = MaterialTheme.typography.labelLarge
-                            .copy(
+                        style = MaterialTheme.typography.labelLarge.copy(
                                 fontWeight = FontWeight.W500,
                                 fontFamily = FontFamily(Font(R.font.inter_medium))
                             ),
@@ -241,7 +240,8 @@ private fun BalanceCard(price: String) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp), horizontalArrangement = Arrangement.SpaceBetween
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row {
                 Text(
@@ -249,7 +249,7 @@ private fun BalanceCard(price: String) {
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.W600),
                 )
                 Text(
-                    text = "₽",
+                    text = stringResource(id = R.string.currency),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W400),
                     modifier = Modifier
                         .align(Alignment.Bottom)
@@ -296,7 +296,7 @@ fun BottomWarning() {
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
-                    contentDescription = "",
+                    contentDescription = "Question",
                     tint = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .padding(4.dp)

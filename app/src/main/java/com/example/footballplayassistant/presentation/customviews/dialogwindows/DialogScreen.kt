@@ -63,7 +63,7 @@ fun DialogScreen(
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
-                    contentDescription = "Ball",
+                    contentDescription = "Ball left",
                     modifier = Modifier
                         .align(Alignment.TopStart)
                 )
@@ -79,7 +79,7 @@ fun DialogScreen(
                         if (image != 0)
                             Image(
                                 imageVector = ImageVector.vectorResource(image),
-                                contentDescription = "Image"
+                                contentDescription = "Status"
                             )
                     }
 
@@ -146,7 +146,7 @@ fun DialogScreen(
 
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
-                    contentDescription = "Ball",
+                    contentDescription = "Ball right",
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                 )

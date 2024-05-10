@@ -22,7 +22,8 @@ import com.example.footballplayassistant.R
 fun FieldNameRow(modifier: Modifier = Modifier, fieldName: String) {
     Row(modifier = modifier
         .fillMaxWidth()
-        .padding(horizontal = 16.dp).padding(top = 10.dp)
+        .padding(horizontal = 16.dp)
+        .padding(top = 10.dp)
         .clickable { }) {
         Text(
             text = fieldName,

@@ -116,7 +116,7 @@ fun InviteFriendsScreen() {
                         expand = expanded,
                         actions = listOf(R.string.whatsapp, R.string.copyInvitation),
                         onClicks = listOf(
-                            { Log.d("MyLog", "click menu 1") },
+                            { /*whatsapp*/ },
                             {
                                 snackBarScope.launch {
                                     snackbarHostState.showSnackbar(

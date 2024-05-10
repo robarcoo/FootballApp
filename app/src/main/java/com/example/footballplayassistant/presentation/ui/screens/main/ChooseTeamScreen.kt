@@ -51,14 +51,14 @@ fun ChooseTeamScreen() {
                     onClick = { navController.navigate(Route.PaymentScreen.path) },
                     modifier = Modifier.weight(0.4f)
                 )
-
                 RoundButton(enable = false, modifier = Modifier.weight(0.4f))
             }
         }) {
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(top = 12.dp), horizontalAlignment = Alignment.CenterHorizontally
+                .padding(top = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             HeaderWithBackButton(
                 text = "name",
@@ -86,7 +86,7 @@ fun ChooseTeamScreen() {
                         )
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
-                            contentDescription = "",
+                            contentDescription = "Warning",
                             tint = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)

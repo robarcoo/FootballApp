@@ -61,7 +61,7 @@ fun EnterInfoScreen() {
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 CommonButton(
-                    text = "Сохранить",
+                    text = stringResource(id = R.string.save),
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     modifier = Modifier
@@ -73,7 +73,7 @@ fun EnterInfoScreen() {
                         .align(Alignment.CenterVertically)
                 )
                 CommonButton(
-                    text = "Пропустить",
+                    text = stringResource(id = R.string.skip),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     containerColor = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
@@ -147,19 +147,19 @@ fun EnterInfoScreen() {
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
                     )
-
-
+                    val textLength = remember { mutableStateOf(0) }
                     Box {
                         CommonTextField(
                             placeholder = stringResource(id = R.string.tellYourself),
                             singleLine = false,
                             cornerRadius = 20.dp,
                             maxLength = 300,
+                            onClick = {textLength.value=it.length},
                             modifier = Modifier.fillMaxHeight()
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-                            contentDescription = "",
+                            contentDescription = "Rezible",
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
                                 .padding(
@@ -170,7 +170,7 @@ fun EnterInfoScreen() {
                     }
 
                     Text(
-                        text = "0/300",
+                        text = "${textLength.value}/300",
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         textAlign = TextAlign.End,

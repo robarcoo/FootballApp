@@ -36,7 +36,7 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
         Column {
             Icon(
                 imageVector = ImageVector.vectorResource(icon),
-                contentDescription = "",
+                contentDescription = "DateTime",
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -71,14 +71,14 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
             Row {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_manish_18_22),
-                    contentDescription = "",
+                    contentDescription = "Manishka",
                     modifier = Modifier
                         .padding(8.dp)
                 )
 
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_22),
-                    contentDescription = "",
+                    contentDescription = "Ball",
                     modifier = Modifier
                         .padding(8.dp)
                 )
@@ -127,7 +127,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_white_arrows_18),
-                    contentDescription = "",
+                    contentDescription = "Arrows",
                 )
             }
         }

@@ -36,8 +36,7 @@ fun HeaderWithBackButton(
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         IconButton(modifier = Modifier

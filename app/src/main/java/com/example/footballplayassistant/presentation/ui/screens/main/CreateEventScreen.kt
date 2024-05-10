@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,19 +51,14 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 import java.time.OffsetDateTime
 
-@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 @Preview
 fun CreateEventScreen() {
     val navController = LocalNavController.current!!
 
-    val flag = remember {
-        mutableStateOf(true)
-    }
-    val showDialog = remember {
-        mutableStateOf(false)
-    }
+    val flag = remember { mutableStateOf(true) }
+    val showDialog = remember { mutableStateOf(false) }
 
     if (showDialog.value)
         DialogScreen(
@@ -108,7 +102,6 @@ fun CreateEventScreen() {
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .padding(top = 24.dp)
-
                     )
                 }
                 item {
@@ -212,7 +205,7 @@ fun CreateEventScreen() {
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-                            contentDescription = "",
+                            contentDescription = "Rezible",
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
                                 .padding(
@@ -337,8 +330,7 @@ fun CreateEventScreen() {
                             keyBoard = KeyboardType.Number,
                             color = MaterialTheme.colorScheme.primaryContainer,
                             onClick = { price.value = it },
-                            modifier = Modifier
-                                .weight(0.5f),
+                            modifier = Modifier.weight(0.5f),
                         )
                         CommonTextField(
                             placeholder = if (price.value.isNotEmpty()) "${(price.value).toInt() / 10}"
@@ -347,8 +339,7 @@ fun CreateEventScreen() {
                             color = MaterialTheme.colorScheme.background,
                             tintIcon = MaterialTheme.colorScheme.onSecondaryContainer,
                             readOnly = true,
-                            modifier = Modifier
-                                .weight(0.5f),
+                            modifier = Modifier.weight(0.5f),
                         )
                     }
                 }

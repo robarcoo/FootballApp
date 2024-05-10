@@ -31,13 +31,15 @@ fun AllButton(
             color = MaterialTheme.colorScheme.primary
         )
 
-        Button(modifier = Modifier.align(Alignment.CenterVertically),
+        Button(
+            modifier = Modifier.align(Alignment.CenterVertically),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.outlineVariant,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
             ),
             contentPadding = PaddingValues(0.dp),
-            onClick = onClick) {
+            onClick = onClick
+        ) {
             Text(
                 text = stringResource(id = R.string.all),
                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600)

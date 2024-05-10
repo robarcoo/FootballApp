@@ -34,9 +34,7 @@ fun DropDownMenu(
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        }
+        onExpandedChange = { expanded = !expanded }
     ) {
         if (imStart != 0)
             TextFieldWithLeadingIcon(

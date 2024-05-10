@@ -46,9 +46,7 @@ fun ButtonDropDownMenu(
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = {
-            expanded = !expanded
-        }
+        onExpandedChange = { expanded = !expanded }
     ) {
         Button(
             onClick = { onClick.invoke(selectedOptionText) },

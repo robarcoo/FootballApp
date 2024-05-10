@@ -70,7 +70,7 @@ fun CommonTextField(
         ) {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = "",
+                contentDescription = "Trail icon",
                 tint = tintIcon
             )
         }
