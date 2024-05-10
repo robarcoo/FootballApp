@@ -200,7 +200,7 @@ fun LoadImageField() {
             contentPadding = PaddingValues(0.dp),
             modifier = Modifier.size(48.dp)
         ) {
-            Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = null,
+            Icon(painter = painterResource(id = R.drawable.ic_download), contentDescription = stringResource(id = R.string.loadPhoto),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer)
 
         }
@@ -210,7 +210,6 @@ fun LoadImageField() {
 @Composable
 fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
     val currentProgress by remember { mutableFloatStateOf(50.0f) }
-    // var loading by remember { mutableStateOf(false) }
     Column (modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = MaterialTheme.spacing.medium)){
@@ -221,7 +220,9 @@ fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
             Text(fileSize, style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontWeight = FontWeight.W400), modifier = Modifier.padding(end = MaterialTheme.spacing.small))
             IconButton(onClick = {}, modifier = Modifier.size(16.dp)) {
-                Icon(painterResource(id = R.drawable.ic_close), contentDescription = "",
+                Icon(painterResource(id = R.drawable.ic_close), contentDescription = stringResource(
+                    id = R.string.deletePhoto
+                ),
                     tint = MaterialTheme.colorScheme.onPrimaryContainer)
             }
         }
@@ -245,7 +246,7 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
             .padding(vertical = MaterialTheme.spacing.small),
             horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1f, fill = false)) {
-                Image(painterResource(id = image), contentDescription = "",
+                Image(painterResource(id = image), contentDescription = stringResource(R.string.loadPhoto),
                     modifier = Modifier
                         .size(40.dp)
                         .clip(RoundedCornerShape(12.dp)),
@@ -262,7 +263,9 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
 
             IconButton(onClick = {}) {
                 Icon(
-                    painterResource(id = R.drawable.ic_close), contentDescription = "",
+                    painterResource(id = R.drawable.ic_close), contentDescription = stringResource(
+                        id = R.string.deletePhoto
+                    ),
                     modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
@@ -276,13 +279,13 @@ fun ErrorText(errorType : Int) {
     Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.extraSmall)) {
         Icon(
             painterResource(id = R.drawable.ic_warning_12),
-            contentDescription = "",
-            tint = Color(0xFFC0000C)
+            contentDescription = stringResource(R.string.warningIcon),
+            tint = MaterialTheme.colorScheme.error
         )
         Text(
             stringArrayResource(id = R.array.loadFileErrorArray)[errorType],
             style = MaterialTheme.typography.headlineSmall.copy(
-                color = Color(0xFFC0000C),
+                color = MaterialTheme.colorScheme.error,
                 fontWeight = FontWeight.W400
             ),
             modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall)
@@ -322,13 +325,13 @@ fun CustomRadioButtons(title: String, isNecessary: Boolean, items: Array<String>
                         if (state.intValue == index) {
                             Icon(
                                 painterResource(R.drawable.ic_radio_checked),
-                                contentDescription = "",
+                                contentDescription = stringResource(R.string.radioButtonOn),
                                 tint = MaterialTheme.colorScheme.secondary
                             )
                         } else {
                             Icon(
                                 painterResource(R.drawable.ic_radio_unchecked),
-                                contentDescription = "",
+                                contentDescription = stringResource(R.string.radioButtonOff),
                                 tint = MaterialTheme.colorScheme.secondary
                             )
                         }
@@ -389,7 +392,7 @@ fun NecessaryTextField(label : String,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = MaterialTheme.spacing.small),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(
@@ -399,7 +402,7 @@ fun NecessaryTextField(label : String,
                         if (leadingIcon != 0) {
                             Icon(
                                 painter = painterResource(id = leadingIcon),
-                                contentDescription = "",
+                                contentDescription = stringResource(R.string.leadingFieldIcon),
                                 modifier = Modifier.padding(end = MaterialTheme.spacing.small),
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer
                             )
@@ -417,7 +420,7 @@ fun NecessaryTextField(label : String,
                     }
                     if (trailingIcon != 0) {
                         Icon(
-                            painter = painterResource(id = trailingIcon), contentDescription = "",
+                            painter = painterResource(id = trailingIcon), contentDescription = stringResource(R.string.trailingFieldIcon),
                             modifier = Modifier.padding(start = MaterialTheme.spacing.small),
                             tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )

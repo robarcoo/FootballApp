@@ -159,12 +159,12 @@ fun ToggleButton(title: String, items: Array<String>) {
                     ),
                     onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index)) },
                     shape = RoundedCornerShape(8.dp),
-                    border = if (selectedIndex.contains(index)) {
+                    border = if (index in selectedIndex) {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.secondary)
                     } else {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.tertiaryContainer)
                     },
-                    colors = if (selectedIndex.contains(index)) {
+                    colors = if (index in selectedIndex) {
                         ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.onPrimary)
                     } else {
                         ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.outlineVariant)

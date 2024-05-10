@@ -207,4 +207,15 @@
         <item>Нет</item>
     </string-array>
     <string name="changingRoom">Раздевалки</string>
+    <string name="addToFavorites">Добавить в избранное</string>
+    <string name="cleanSearchBar">Очистить строку поиска</string>
+    <string name="typeInSearchQuery">Введите свой запрос</string>
+    <string name="loadPhoto">Загрузить фотографию</string>
+    <string name="radioButtonOn">Выбрано</string>
+    <string name="radioButtonOff">Не выбрано</string>
+    <string name="leadingFieldIcon">Ведущая иконка поля</string>
+    <string name="trailingFieldIcon">Следующая иконка поля</string>
+    <string name="warningIcon">Предупреждение</string>
+    <string name="loadedImage">Загруженная картинка</string>
+    <string name="deletePhoto">Удалить фото</string>
 </resources>

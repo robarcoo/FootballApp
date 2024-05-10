@@ -39,6 +39,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -151,7 +152,7 @@ fun FavoriteButton() {
         } else {
             painterResource(id = R.drawable.ic_heart)
         },
-            contentDescription = "Добавить в избранное",
+            contentDescription = stringResource(R.string.addToFavorites),
         tint = MaterialTheme.colorScheme.onPrimaryContainer)
     }
     
@@ -202,7 +203,7 @@ fun SearchBar(onClick : () -> Unit) {
                                 .size(24.dp)
                                 .offset((-5).dp)) {
                             Icon(painterResource(id = R.drawable.ic_close),
-                                contentDescription = "Clean search bar",
+                                contentDescription = stringResource(R.string.cleanSearchBar),
                                 tint = MaterialTheme.colorScheme.onPrimaryContainer)
                         }
                     }
@@ -231,7 +232,7 @@ fun SearchBar(onClick : () -> Unit) {
             )
             if (value.text.isEmpty()) {
                 Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
-                    PlaceholderText(text = "Введите свой запрос")
+                    PlaceholderText(text = stringResource(R.string.typeInSearchQuery))
                 }
             }
     }
@@ -251,7 +252,7 @@ fun SearchBar(onClick : () -> Unit) {
 
 @Composable
 fun PlaceholderText(text : String, needToResize : Boolean = false) {
-    var multiplier by remember { mutableStateOf(1f) }
+    var multiplier by remember { mutableFloatStateOf(1f) }
     Text(
         maxLines = 1,
         text = text,
