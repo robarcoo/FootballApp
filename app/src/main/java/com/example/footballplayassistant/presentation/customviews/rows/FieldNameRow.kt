@@ -38,7 +38,7 @@ fun FieldNameRow(modifier: Modifier = Modifier, fieldName: String) {
         )
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_next_24),
-            contentDescription = "",
+            contentDescription = "Arrow next",
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.fillMaxWidth()
         )

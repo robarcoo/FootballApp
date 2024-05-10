@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun UserFotoForList(text: String, name: String, foto: Int, modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth()) {
-        Image(painter = painterResource(id = foto), contentDescription = "")
+        Image(painter = painterResource(id = foto), contentDescription = "Foto")
 
         Column(
             modifier = Modifier

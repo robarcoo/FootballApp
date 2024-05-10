@@ -44,7 +44,7 @@ fun GameCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)) {
-            if (host == "") {
+            if (host.isEmpty()) {
                 Text(
                     text = stringResource(id = R.string.youhost),
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
@@ -75,26 +75,27 @@ fun GameCard(
                     modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
                 )
             } else {
-                Column{
-                    Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 12.dp, bottom = 4.dp)) {
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp, bottom = 4.dp)
+                    ) {
                         Text(
                             text = place,
                             style = MaterialTheme.typography.displayMedium
                                 .copy(fontWeight = FontWeight.W500),
                             maxLines = 2,
                             modifier = Modifier
-                            .weight(0.75f)
+                                .weight(0.75f)
                         )
                         Row(
-                            modifier = Modifier
-                            .weight(0.25f),
+                            modifier = Modifier.weight(0.25f),
                             horizontalArrangement = Arrangement.End
                         ) {
                             Image(
                                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_24),
-                                contentDescription = "",
+                                contentDescription = "Location",
                                 modifier = Modifier.align(Alignment.CenterVertically)
                             )
                             Text(
@@ -123,7 +124,7 @@ fun GameCard(
                         )
                     }
                 }
-                Row( modifier = Modifier.padding(top = 20.dp)) {
+                Row(modifier = Modifier.padding(top = 20.dp)) {
                     FotoAndNameForCard(
                         text = host,
                         name = host,

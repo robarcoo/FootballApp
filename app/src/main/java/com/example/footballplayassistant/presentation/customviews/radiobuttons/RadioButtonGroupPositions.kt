@@ -24,9 +24,7 @@ import com.example.footballplayassistant.R
 @Composable
 @Preview
 fun RadioButtonGroupPositions() {
-    val state = remember {
-        mutableStateOf(1)
-    }
+    val state = remember { mutableStateOf(1) }
     val positions = stringArrayResource(id = R.array.positions_array)
 
     Column(

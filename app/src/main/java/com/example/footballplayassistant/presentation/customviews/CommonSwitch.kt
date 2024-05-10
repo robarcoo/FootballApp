@@ -76,7 +76,7 @@ fun CommonSwitch(
             if (icon)
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
-                    contentDescription = "",
+                    contentDescription = "Question",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 4.dp)
@@ -117,21 +117,13 @@ fun CustomSwitchButton(
     colorBackground: Color
 ) {
 
-    val switchSize by remember {
-        mutableStateOf(buttonHeight / 2 - switchPadding * 2)
-    }
+    val switchSize by remember { mutableStateOf(buttonHeight / 2 - switchPadding * 2) }
 
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    val interactionSource = remember { MutableInteractionSource() }
 
-    var switchClicked by remember {
-        mutableStateOf(value)
-    }
+    var switchClicked by remember { mutableStateOf(value) }
 
-    var padding by remember {
-        mutableStateOf(0.dp)
-    }
+    var padding by remember { mutableStateOf(0.dp) }
 
     padding = if (switchClicked) buttonWidth - switchSize - switchPadding * 2 else 0.dp
 
@@ -155,9 +147,7 @@ fun CustomSwitchButton(
                 interactionSource = interactionSource,
                 indication = null
             ) {
-
                 switchClicked = !switchClicked
-
             }
     ) {
         Row(

@@ -19,7 +19,7 @@ fun PlayerInTeam(userTag: String, position: String, foto: Int) {
         modifier = Modifier.padding(bottom = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(painter = painterResource(id = foto), contentDescription = "")
+        Image(painter = painterResource(id = foto), contentDescription = "Foto")
         Text(
             text = userTag,
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),

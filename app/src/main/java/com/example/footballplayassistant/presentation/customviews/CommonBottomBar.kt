@@ -68,7 +68,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     if (number.value == 1) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_home_black_24),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            contentDescription = "Home black",
+                            tint = MaterialTheme.colorScheme.onTertiary,
                             modifier = Modifier.padding(end = 8.dp)
                         )
                         Text(
@@ -83,7 +84,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     } else
                         Icon(
                             painter = painterResource(id = R.drawable.ic_home_white_24),
-                            contentDescription = null,
+                            contentDescription = "Home white",
                         )
 
                 }
@@ -103,7 +104,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     if (number.value == 2) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search_black_25),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            contentDescription = "Search black",
+                            tint = MaterialTheme.colorScheme.onTertiary,
                             modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
@@ -118,7 +120,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     } else
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search_white_25),
-                            contentDescription = null,
+                            contentDescription = "Search white",
                         )
                 }
             }
@@ -138,7 +140,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     if (number.value == 3) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_calendar_22),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            contentDescription = "Calendar black",
+                            tint = MaterialTheme.colorScheme.onTertiary,
                             modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
@@ -153,7 +156,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     } else
                         Icon(
                             painter = painterResource(id = R.drawable.ic_calendar_white_24),
-                            contentDescription = null,
+                            contentDescription = "Calendar white",
                         )
                 }
             }
@@ -173,7 +176,8 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     if (number.value == 4) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_profile_black_24),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.onTertiary,
+                            contentDescription = "Profile black",
+                            tint = MaterialTheme.colorScheme.onTertiary,
                             modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
@@ -188,7 +192,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                     } else
                         Icon(
                             painter = painterResource(id = R.drawable.ic_profile_white_24),
-                            contentDescription = null,
+                            contentDescription = "Profile white"
                         )
                 }
             }

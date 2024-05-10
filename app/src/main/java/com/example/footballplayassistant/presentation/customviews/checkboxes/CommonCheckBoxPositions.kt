@@ -48,9 +48,7 @@ private fun CheckBoxGroup() {
     val positions = stringArrayResource(id = R.array.positions_array)
 
     val (selectedOption: String, onOptionSelected: (String) -> Unit) = remember {
-        mutableStateOf(
-            ""
-        )
+        mutableStateOf("")
     }
 
     Column(Modifier.selectableGroup()) {

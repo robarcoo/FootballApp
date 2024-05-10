@@ -25,7 +25,7 @@ fun MatchFotoBox(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Modi
     Box(modifier = modifier) {
         Image(
             painter = painterResource(id = R.drawable.match_foto),
-            contentDescription = ""
+            contentDescription = "Match foto"
         )
         CountPlayers(
             currentPlayers = currentPlayers, maxPlayers = maxPlayers,

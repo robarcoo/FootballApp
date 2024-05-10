@@ -53,7 +53,7 @@ fun CommonActionsMenu(
                     trailingIcon = {
                         if (icons.isNotEmpty()) Icon(
                             imageVector = ImageVector.vectorResource(id = icons[i]),
-                            contentDescription = "",
+                            contentDescription = "Icon",
                             tint = color
                         )
                     },

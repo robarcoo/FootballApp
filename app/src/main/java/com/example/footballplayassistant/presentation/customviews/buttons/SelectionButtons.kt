@@ -27,15 +27,9 @@ fun SelectionButtons(
     selectedItemIndex: Int,
     onSelected: (Int) -> Unit
 ) {
-    val indexItem = remember {
-        mutableStateOf(selectedItemIndex)
-    }
+    val indexItem = remember { mutableStateOf(selectedItemIndex) }
 
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
-
+    Box(modifier = modifier.fillMaxWidth()) {
         valueList.forEachIndexed { index, text ->
             if (indexItem.value == index) {
                 CurrentButton(
@@ -95,13 +89,10 @@ private fun CurrentButton(
     value: Int,
     onSelected: (Int) -> Unit
 ) {
-
     Box(
         modifier = modifier
             .fillMaxWidth(0.55f)
-            .background(
-                color = containerColor, shape = RoundedCornerShape(80.dp)
-            )
+            .background(color = containerColor, shape = RoundedCornerShape(80.dp))
             .border(1.dp, borderColor, RoundedCornerShape(80.dp))
             .zIndex(zIndex)
             .clickable {

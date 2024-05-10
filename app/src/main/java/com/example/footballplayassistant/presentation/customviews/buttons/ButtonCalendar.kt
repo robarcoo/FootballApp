@@ -30,7 +30,7 @@ fun ButtonCalendar(
     containerColor: Color
 ) {
     Button(
-        onClick = { onCLick.invoke() },
+        onClick = onCLick,
         colors = ButtonDefaults.buttonColors(containerColor = containerColor),
         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
         modifier = modifier
@@ -44,12 +44,12 @@ fun ButtonCalendar(
             Row {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_calendar_22),
-                    contentDescription = "",
+                    contentDescription = "Calendar",
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = if (date == "") placeholder else date,
-                    color = if (date == "") MaterialTheme.colorScheme.onSecondaryContainer
+                    text = if (date.isEmpty()) placeholder else date,
+                    color = if (date.isEmpty()) MaterialTheme.colorScheme.onSecondaryContainer
                     else MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
@@ -58,7 +58,7 @@ fun ButtonCalendar(
             }
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_menu_18_10),
-                contentDescription = ""
+                contentDescription = "Down arrow"
             )
         }
     }

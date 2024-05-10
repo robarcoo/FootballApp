@@ -36,7 +36,7 @@ fun BottomQuestion(
         Button(modifier = Modifier.wrapContentSize(),
             contentPadding = PaddingValues(5.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.outlineVariant),
-            onClick = { onClick.invoke() }) {
+            onClick = onClick) {
             Text(
                 text = buttonText,
                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),

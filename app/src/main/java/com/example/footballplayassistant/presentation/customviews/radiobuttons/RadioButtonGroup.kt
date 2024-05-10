@@ -23,9 +23,7 @@ import com.example.footballplayassistant.R
 @Composable
 @Preview
 fun RadioButtonGroup() {
-    val state = remember {
-        mutableStateOf(1)
-    }
+    val state = remember { mutableStateOf(1) }
     Row(
         modifier = Modifier
             .fillMaxWidth()

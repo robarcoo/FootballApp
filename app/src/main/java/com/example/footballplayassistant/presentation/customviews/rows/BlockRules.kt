@@ -46,10 +46,12 @@ fun BlockRules(modifier: Modifier = Modifier) {
                 )
             ) {
                 append(stringResource(R.string.rules))
+                append(" ")
             }
             pop()
 
-            append(" и ")
+            append(stringResource(id = R.string.and))
+            append(" ")
 
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(

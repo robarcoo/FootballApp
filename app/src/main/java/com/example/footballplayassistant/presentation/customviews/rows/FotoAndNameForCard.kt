@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth()) {
         Image(
-            painter = painterResource(id = foto), contentDescription = "",
+            painter = painterResource(id = foto), contentDescription = "Foto",
             modifier = Modifier.fillMaxWidth(0.15f)
         )
 

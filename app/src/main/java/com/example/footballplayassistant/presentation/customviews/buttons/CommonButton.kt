@@ -31,7 +31,7 @@ fun CommonButton(
         ),
         contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
         enabled = enable,
-        onClick = { onClick.invoke() }) {
+        onClick = onClick) {
         Text(
             text = text,
             style = style,

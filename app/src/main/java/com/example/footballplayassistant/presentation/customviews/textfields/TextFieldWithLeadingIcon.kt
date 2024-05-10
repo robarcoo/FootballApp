@@ -40,20 +40,18 @@ fun TextFieldWithLeadingIcon(
     val icon by remember { mutableIntStateOf(imageTrail) }
     val trailingIconView = @Composable {
         IconButton(
-            onClick = { onTrailClick() },
+            onClick = onTrailClick,
         ) {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = ""
+                contentDescription = "Icon"
             )
         }
     }
 
     TextField(
-        value = if (value == "") textValue.value else value,
-        onValueChange = {
-            textValue.value = it
-        },
+        value = if (value.isEmpty()) textValue.value else value,
+        onValueChange = { textValue.value = it },
         placeholder = {
             Text(
                 text = placeholder,
@@ -85,7 +83,7 @@ fun TextFieldWithLeadingIcon(
         leadingIcon = {
             Icon(
                 painter = painterResource(id = imageStart),
-                contentDescription = ""
+                contentDescription = "Image start"
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard),

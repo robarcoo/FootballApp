@@ -33,7 +33,7 @@ fun BottomRowDateTimeMoney(
         Row {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_calendar_gray_24),
-                contentDescription = ""
+                contentDescription = "Calendar"
             )
             Text(
                 text = date,
@@ -48,7 +48,7 @@ fun BottomRowDateTimeMoney(
         Row {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_time_24),
-                contentDescription = ""
+                contentDescription = "Time"
             )
             Text(
                 text = time,

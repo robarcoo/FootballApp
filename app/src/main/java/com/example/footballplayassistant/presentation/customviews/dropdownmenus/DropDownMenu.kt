@@ -60,9 +60,7 @@ fun DropDownMenu(
         ExposedDropdownMenu(
             expanded = expanded,
             modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary),
-            onDismissRequest = {
-                expanded = false
-            }
+            onDismissRequest = { expanded = false }
         ) {
             values.forEach { selectionOption ->
                 DropdownMenuItem(

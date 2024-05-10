@@ -75,12 +75,10 @@ fun CommonTextField(
             )
         }
     }
-    val source = remember {
-        MutableInteractionSource()
-    }
+    val source = remember { MutableInteractionSource() }
 
     BasicTextField(
-        value = if (value == "") textValue.value else value,
+        value = if (value.isEmpty()) textValue.value else value,
         onValueChange = {
             if (it.length <= maxLength) {
                 textValue.value = it
@@ -108,7 +106,7 @@ fun CommonTextField(
     )
     {
         TextFieldDefaults.DecorationBox(
-            value = if (value == "") textValue.value else value,
+            value = if (value.isEmpty()) textValue.value else value,
             innerTextField = { it() },
             enabled = true,
             singleLine = singleLine,

@@ -47,10 +47,10 @@ fun HeaderWithBackButton(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 shape = CircleShape
             ),
-            onClick = { onClickBack.invoke() }) {
+            onClick = onClickBack) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
-                contentDescription = "",
+                contentDescription = "Back arrow",
                 tint = tint
             )
         }
@@ -75,10 +75,10 @@ fun HeaderWithBackButton(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     shape = CircleShape
                 ),
-                onClick = { onClickOther.invoke() }) {
+                onClick = onClickOther) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
-                    contentDescription = "",
+                    contentDescription = "Image",
                     tint = MaterialTheme.colorScheme.primary
                 )
                 actionsMenu()

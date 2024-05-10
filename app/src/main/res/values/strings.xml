@@ -45,6 +45,16 @@
     <string name="byEmail">По почте</string>
     <string name="nickLength">Ник должен быть длиной не более 10 символов</string>
     <string name="passLength">Пароль должен быть длиной не менее 8 символов</string>
+    <string name="vk">VK</string>
+    <string name="google">Google</string>
+    <string name="yandex">Яндекс</string>
+    <string name="or">Или</string>
+    <string name="skip">Пропустить</string>
+    <string name="enter">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="enterCode">Введите код\n из смс</string>
+    <string name="step">Шаг %1$d из 2</string>
+    <string name="and">и</string>
 
     <string name="money">Ваш баланс</string>
     <string name="mygames">Мои игры</string>
@@ -58,6 +68,8 @@
     <string name="youhost">Вы являетесь хостом игры:</string>
     <string name="noGames">На данные момент у вас нет игр.\nСоздайте свою игру или начните\n участвовать в играх </string>
     <string name="noNews">На данный момент новости отсутствуют.\n Подпишитесь на игроков, чтобы ваша\n новостная лента пополнялась</string>
+    <string name="currency">₽</string>
+    <string name="hello">Привет,</string>
 
     <string name="addGame">Создать игру</string>
     <string name="closeGame">Закрытая игра</string>

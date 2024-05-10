@@ -58,11 +58,11 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                     Row(modifier = Modifier.align(Alignment.CenterVertically)) {
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_money_24),
-                            contentDescription = "",
+                            contentDescription = "Money",
                             modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                         )
                         Text(
-                            text = "$money ₽",
+                            text = "$money ${stringResource(id = R.string.currency)}",
                             style = MaterialTheme.typography.titleMedium
                                 .copy(fontWeight = FontWeight.W600),
                         )
@@ -75,7 +75,7 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                         onClick = { /*TODO*/ }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_24),
-                            contentDescription = ""
+                            contentDescription = "Arrows"
                         )
                     }
                 }

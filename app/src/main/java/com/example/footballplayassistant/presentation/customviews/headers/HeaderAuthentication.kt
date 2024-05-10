@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -49,13 +50,13 @@ fun HeaderAuthentication(header: @Composable () -> Unit) {
         ) {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full),
-                contentDescription = "",
+                contentDescription = "Ball left",
                 modifier = Modifier.align(Alignment.TopStart)
             )
 
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ball_full_79_87),
-                contentDescription = "",
+                contentDescription = "Ball right",
                 modifier = Modifier.align(Alignment.BottomEnd)
             )
 
@@ -77,7 +78,7 @@ fun HeaderSignIn() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
+                painter = painterResource(id = R.drawable.logo_header), contentDescription = "Logo",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .fillMaxWidth(0.3f), alignment = Alignment.CenterStart
@@ -87,7 +88,7 @@ fun HeaderSignIn() {
             ), modifier = Modifier.align(Alignment.CenterVertically),
                 onClick = { /*TODO*/ }) {
                 Text(
-                    text = "Пропустить",
+                    text = stringResource(id = R.string.skip),
                     style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -96,7 +97,7 @@ fun HeaderSignIn() {
         }
 
         Text(
-            text = "Вход",
+            text = stringResource(id = R.string.enter),
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.W500),
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center,
@@ -116,7 +117,7 @@ fun HeaderSignUp() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_header), contentDescription = "",
+                painter = painterResource(id = R.drawable.logo_header), contentDescription = "Logo",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .fillMaxWidth(0.3f), alignment = Alignment.CenterStart
@@ -126,7 +127,7 @@ fun HeaderSignUp() {
             ),
                 onClick = { /*TODO*/ }) {
                 Text(
-                    text = "Пропустить",
+                    text = stringResource(id = R.string.skip),
                     style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -134,7 +135,7 @@ fun HeaderSignUp() {
             }
         }
         Text(
-            text = "Регистрация",
+            text = stringResource(id = R.string.registration),
             style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center,
@@ -147,7 +148,7 @@ fun HeaderSignUp() {
 @Preview
 fun HeaderSignUpCode() {
     Text(
-        text = "Введите код\n из смс",
+        text = stringResource(id = R.string.enterCode),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
         color = MaterialTheme.colorScheme.onPrimary,
@@ -162,17 +163,17 @@ fun HeaderSignUpCode() {
 fun HeaderSignUpStep(numStep: Int, onClick: () -> Unit = {}) {
     Column {
         HeaderWithBackButton(
-            text = "Регистрация", tint = MaterialTheme.colorScheme.onPrimary,
+            text = stringResource(id = R.string.registration), tint = MaterialTheme.colorScheme.onPrimary,
             styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             colorText = MaterialTheme.colorScheme.onPrimary,
-            onClickBack = {onClick.invoke()},
+            onClickBack = onClick,
             modifier = Modifier
                 .padding(top = 20.dp, bottom = 35.dp)
                 .padding(horizontal = 16.dp)
         )
 
         Text(
-            text = "Шаг $numStep из 2",
+            text = stringResource(id = R.string.step, numStep),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             color = MaterialTheme.colorScheme.onPrimary,

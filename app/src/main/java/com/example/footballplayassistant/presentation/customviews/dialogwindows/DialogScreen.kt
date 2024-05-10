@@ -45,7 +45,7 @@ fun DialogScreen(
     onDismissRequest: () -> Unit,
 ) {
     BasicAlertDialog(
-        onDismissRequest = { onDismissRequest() },
+        onDismissRequest = onDismissRequest,
         modifier = Modifier.size(350.dp, 500.dp),
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
@@ -63,7 +63,7 @@ fun DialogScreen(
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_161_158),
-                    contentDescription = "",
+                    contentDescription = "Ball",
                     modifier = Modifier
                         .align(Alignment.TopStart)
                 )
@@ -79,7 +79,7 @@ fun DialogScreen(
                         if (image != 0)
                             Image(
                                 imageVector = ImageVector.vectorResource(image),
-                                contentDescription = ""
+                                contentDescription = "Image"
                             )
                     }
 
@@ -106,27 +106,27 @@ fun DialogScreen(
                         )
                     }
                     item {
-                        if (greenButton != "")
+                        if (greenButton.isNotEmpty())
                             CommonButton(
                                 text = greenButton,
                                 style = MaterialTheme.typography.bodyLarge,
-                                onClick = { onClickGreen.invoke() },
+                                onClick = onClickGreen,
                                 modifier = Modifier.padding(bottom = 12.dp)
                             )
                     }
                     item {
-                        if (whiteButton != "")
+                        if (whiteButton.isNotEmpty())
                             CommonButton(
                                 text = whiteButton,
-                                onClick = { onClickWhite.invoke() },
+                                onClick = onClickWhite,
                                 containerColor = MaterialTheme.colorScheme.onPrimary,
                                 style = MaterialTheme.typography.bodyLarge,
                                 modifier = Modifier.padding(bottom = 12.dp)
                             )
                     }
                     item {
-                        if (bottomButton != "")
-                            TextButton(onClick = { onClickBottom.invoke() }) {
+                        if (bottomButton.isNotEmpty())
+                            TextButton(onClick = onClickBottom) {
                                 Text(
                                     text = bottomButton,
                                     style = MaterialTheme.typography.bodyMedium
@@ -138,16 +138,15 @@ fun DialogScreen(
                                 )
                                 Image(
                                     imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
-                                    contentDescription = "",
-
-                                    )
+                                    contentDescription = "Arrows"
+                                )
                             }
                     }
                 }
 
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_dialog_158_196),
-                    contentDescription = "",
+                    contentDescription = "Ball",
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                 )

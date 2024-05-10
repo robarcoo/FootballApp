@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 @Preview
@@ -51,24 +50,24 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                 Column(modifier = Modifier.weight(0.15f)) {
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                 }
                 Column(modifier = Modifier.weight(0.15f)) {
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                 }
@@ -101,8 +100,8 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrow_green_next_8_13),
-                                contentDescription = "",
-                                tint = Green
+                                contentDescription = "Arrow next",
+                                tint = MaterialTheme.colorScheme.secondary
                             )
                         }
 
@@ -136,7 +135,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrows_24),
-                                contentDescription = ""
+                                contentDescription = "Arrows"
                             )
                         }
                     }

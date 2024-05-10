@@ -67,12 +67,12 @@ fun ButtonDropDownMenu(
                     if (imStart != 0)
                         Image(
                             imageVector = ImageVector.vectorResource(imStart),
-                            contentDescription = "",
+                            contentDescription = "Image start",
                             modifier = Modifier.padding(end = 8.dp)
                         )
                     Text(
-                        text = if (selectedOptionText == "" ) placeholder else selectedOptionText,
-                        color = if (selectedOptionText == "") MaterialTheme.colorScheme.onSecondaryContainer
+                        text = if (selectedOptionText.isEmpty()) placeholder else selectedOptionText,
+                        color = if (selectedOptionText.isEmpty()) MaterialTheme.colorScheme.onSecondaryContainer
                         else MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
@@ -81,33 +81,31 @@ fun ButtonDropDownMenu(
                 }
                 Image(
                     imageVector = ImageVector.vectorResource(imTrail),
-                    contentDescription = ""
+                    contentDescription = "Image trail"
                 )
             }
         }
 
-            ExposedDropdownMenu(
-                expanded = expanded,
-                modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary),
-                onDismissRequest = {
-                    expanded = false
-                }
-            ) {
-                values.forEach { selectionOption ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                text = selectionOption,
-                                style = MaterialTheme.typography.labelLarge
-                                    .copy(fontWeight = FontWeight.W400)
-                            )
-                        },
-                        onClick = {
-                            selectedOptionText = selectionOption
-                            expanded = false
-                        }
-                    )
-                }
+        ExposedDropdownMenu(
+            expanded = expanded,
+            modifier = Modifier.background(MaterialTheme.colorScheme.onPrimary),
+            onDismissRequest = { expanded = false }
+        ) {
+            values.forEach { selectionOption ->
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = selectionOption,
+                            style = MaterialTheme.typography.labelLarge
+                                .copy(fontWeight = FontWeight.W400)
+                        )
+                    },
+                    onClick = {
+                        selectedOptionText = selectionOption
+                        expanded = false
+                    }
+                )
             }
+        }
     }
 }
