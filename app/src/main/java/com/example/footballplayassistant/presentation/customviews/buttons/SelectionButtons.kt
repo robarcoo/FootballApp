@@ -1,5 +1,13 @@
 package com.example.footballplayassistant.presentation.customviews.buttons
 
+import android.util.Log
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -11,14 +19,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
 fun SelectionButtons(
@@ -28,6 +39,28 @@ fun SelectionButtons(
     onSelected: (Int) -> Unit
 ) {
     val indexItem = remember { mutableStateOf(selectedItemIndex) }
+    val selected = remember { mutableStateOf(true) }
+
+    val animatedButtonColor: Color by animateColorAsState(
+        targetValue = if(selected.value) MaterialTheme.colorScheme.secondary
+        else MaterialTheme.colorScheme.onPrimary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedBorderColor: Color by animateColorAsState(
+        targetValue = if(selected.value) MaterialTheme.colorScheme.secondary
+        else MaterialTheme.colorScheme.onPrimaryContainer,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedButtonColor2: Color by animateColorAsState(
+        targetValue = if(!selected.value) MaterialTheme.colorScheme.secondary
+        else MaterialTheme.colorScheme.onPrimary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedBorderColor2: Color by animateColorAsState(
+        targetValue = if(!selected.value) MaterialTheme.colorScheme.secondary
+        else MaterialTheme.colorScheme.onPrimaryContainer,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
 
     Box(modifier = modifier.fillMaxWidth()) {
         valueList.forEachIndexed { index, text ->
@@ -43,12 +76,12 @@ fun SelectionButtons(
                         }
                     ),
                     filter = indexItem,
-                    borderColor = MaterialTheme.colorScheme.secondary,
-                    containerColor = MaterialTheme.colorScheme.secondary,
+                    borderColor = animatedBorderColor,
+                    containerColor = animatedButtonColor,
                     text = text,
                     zIndex = 1f,
                     value = index,
-                    onSelected = { onSelected.invoke(indexItem.value) }
+                    onSelected = { onSelected.invoke(indexItem.value) },
                 )
             } else {
                 CurrentButton(
@@ -62,8 +95,8 @@ fun SelectionButtons(
                         }
                     ),
                     filter = indexItem,
-                    borderColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    borderColor = animatedBorderColor2,//MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = animatedButtonColor2,//MaterialTheme.colorScheme.onPrimary,
                     text = text,
                     zIndex = when (index) {
                         0 -> 0f
@@ -71,7 +104,7 @@ fun SelectionButtons(
                         else -> 0.5f
                     },
                     value = index,
-                    onSelected = { onSelected.invoke(indexItem.value) }
+                    onSelected = { onSelected.invoke(indexItem.value) },
                 )
             }
         }
@@ -87,8 +120,21 @@ private fun CurrentButton(
     text: String,
     zIndex: Float,
     value: Int,
-    onSelected: (Int) -> Unit
+    onSelected: (Int) -> Unit,
 ) {
+
+//    val animatedButtonColor: Color by animateColorAsState(
+//        targetValue = if(filter.value==value && value==0) MaterialTheme.colorScheme.secondary
+//        else MaterialTheme.colorScheme.onPrimary,
+//        animationSpec = tween(500, 0, LinearEasing)
+//    )
+//
+//    val animatedBorderColor: Color by animateColorAsState(
+//        targetValue = if(filter.value==0) MaterialTheme.colorScheme.secondary
+//        else MaterialTheme.colorScheme.onPrimaryContainer,
+//        animationSpec = tween(500, 0, LinearEasing)
+//    )
+//Log.d("MyLog", "${filter.value} $value")
     Box(
         modifier = modifier
             .fillMaxWidth(0.55f)

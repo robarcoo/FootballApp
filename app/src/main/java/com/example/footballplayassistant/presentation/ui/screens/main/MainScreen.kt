@@ -44,12 +44,8 @@ fun MainScreen() {
     val pagerState = rememberPagerState(pageCount = {
         3
     })
-    Column(
-        modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxHeight(0.9f)
-        ) {
+    Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
+        LazyColumn(modifier = Modifier.fillMaxHeight(0.9f)) {
             item {
                 HeaderUser(
                     name = "Alex",

@@ -24,6 +24,8 @@ import com.example.footballplayassistant.presentation.customviews.CommonBottomBa
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.buttons.SelectionButtons
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.enums.FilterFriendsPlaces
+import com.example.footballplayassistant.presentation.enums.getFiltersFriendsPlaces
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 
@@ -32,7 +34,7 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun NewsScreen() {
     val navController = LocalNavController.current!!
 
-    val filterButton = remember { mutableStateOf(0) }
+    val filterButton = remember { mutableStateOf(FilterFriendsPlaces.Friends.ordinal) }
 
     Column(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary),
@@ -50,10 +52,7 @@ fun NewsScreen() {
             )
 
             SelectionButtons(
-                valueList = listOf(
-                    stringResource(id = R.string.friends),
-                    stringResource(id = R.string.places)
-                ),
+                valueList = getFiltersFriendsPlaces(),
                 selectedItemIndex = 0,
                 onSelected = { filterButton.value = it },
                 modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)
@@ -63,7 +62,7 @@ fun NewsScreen() {
 //            GeolocationOff()
 
             //геолокация включена, новостей нет
-            if (filterButton.value == 0) {
+            if (filterButton.value == FilterFriendsPlaces.Friends.ordinal) {
                 NoNewsFriends()
             } else {
                 Box(modifier = Modifier.fillMaxSize()) {

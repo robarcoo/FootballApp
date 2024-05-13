@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FootballPlayAssistant</string>
     <string name="takePart">Принимайте участие в матчах, созданных другими игроками или создайте свои собственные события</string>
-    <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
+    <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими</string>
     <string name="rules">&#032;Правилами и условиями&#032;</string>
     <string name="politic">&#032;Положением конфиденциальности</string>
     <string name="questionNoAcc">Нет аккаунта?</string>
@@ -56,6 +56,13 @@
     <string name="step">Шаг %1$d из 2</string>
     <string name="and">и</string>
     <string name="save">Сохранить</string>
+    <string name="beginner">Новичок</string>
+    <string name="amateur">Любитель</string>
+    <string name="experienced">Опытный</string>
+    <string name="professional">Профессионал</string>
+    <string name="man">Мужчина</string>
+    <string name="woman">Женщина</string>
+
 
     <string name="money">Ваш баланс</string>
     <string name="mygames">Мои игры</string>
@@ -176,13 +183,18 @@
     <string name="inviteFriendsAlso">Пригласить еще друзей</string>
     <string name="done">Готово</string>
 
-    <string-array name="positions_array">
-        <item>Вратарь</item>
-        <item>Защитник</item>
-        <item>Полузащитник</item>
-        <item>Нападающий</item>
-        <item>Нет предпочитаемой позиции</item>
-    </string-array>
+    <string name="goalkeeper">Вратарь</string>
+    <string name="fullback">Защитник</string>
+    <string name="halfback">Полузащитник</string>
+    <string name="forward">Нападающий</string>
+    <string name="noPosition">Нет предпочитаемой позиции</string>
+<!--    <string-array name="positions_array">-->
+<!--        <item>Вратарь</item>-->
+<!--        <item>Защитник</item>-->
+<!--        <item>Полузащитник</item>-->
+<!--        <item>Нападающий</item>-->
+<!--        <item>Нет предпочитаемой позиции</item>-->
+<!--    </string-array>-->
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>

@@ -29,6 +29,8 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.enums.FilterPhoneEmail
+import com.example.footballplayassistant.presentation.enums.getFilters
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -37,7 +39,7 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
-    val filterButton = remember { mutableStateOf(0) }
+    val filterPhoneEmail = remember { mutableStateOf(FilterPhoneEmail.Phone.ordinal) }
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderAuthentication { HeaderSignIn() }
@@ -45,12 +47,9 @@ fun SignInScreen() {
         LazyColumn {
             item {
                 SelectionButtons(
-                    valueList = listOf(
-                        stringResource(id = R.string.byPhone),
-                        stringResource(id = R.string.byEmail)
-                    ),
+                    valueList = getFilters(),
                     selectedItemIndex = 0,
-                    onSelected = { filterButton.value = it },
+                    onSelected = { filterPhoneEmail.value = it },
                     modifier = Modifier
                         .padding(top = 24.dp, bottom = 20.dp)
                         .padding(horizontal = 16.dp)
@@ -64,7 +63,7 @@ fun SignInScreen() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
-                    if (filterButton.value == 0) {
+                    if (filterPhoneEmail.value == FilterPhoneEmail.Phone.ordinal) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge

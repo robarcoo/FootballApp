@@ -40,6 +40,9 @@ import com.example.footballplayassistant.presentation.customviews.dropdownmenus.
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroupPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.enums.LevelPlay
+import com.example.footballplayassistant.presentation.enums.getGenders
+import com.example.footballplayassistant.presentation.enums.getLevels
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -126,7 +129,7 @@ fun EnterInfoScreen() {
 
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.sex),
-                        values = listOf("Мужчина", "Женщина"),
+                        values = getGenders(),
                         imStart = R.drawable.ic_sex_23,
                         modifier = Modifier
                             .padding(bottom = 10.dp)
@@ -142,7 +145,7 @@ fun EnterInfoScreen() {
                     )
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.levelPlay),
-                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал"),
+                        values = getLevels(),
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)

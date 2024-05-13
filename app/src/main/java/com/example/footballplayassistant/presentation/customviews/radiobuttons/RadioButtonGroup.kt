@@ -19,11 +19,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.enums.GenderPlayers
 
 @Composable
 @Preview
 fun RadioButtonGroup() {
-    val state = remember { mutableStateOf(1) }
+    val state = remember { mutableStateOf(GenderPlayers.Men) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +33,8 @@ fun RadioButtonGroup() {
     ) {
         Row {
             RadioButton(
-                selected = state.value == 1, onClick = { state.value = 1 },
+                selected = state.value == GenderPlayers.Men,
+                onClick = { state.value = GenderPlayers.Men },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
@@ -49,7 +51,8 @@ fun RadioButtonGroup() {
         }
         Row {
             RadioButton(
-                selected = state.value == 2, onClick = { state.value = 2 },
+                selected = state.value == GenderPlayers.Women,
+                onClick = { state.value = GenderPlayers.Women },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
@@ -66,7 +69,8 @@ fun RadioButtonGroup() {
         }
         Row {
             RadioButton(
-                selected = state.value == 3, onClick = { state.value = 3 },
+                selected = state.value == GenderPlayers.Both,
+                onClick = { state.value = GenderPlayers.Both },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
