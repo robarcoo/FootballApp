@@ -121,7 +121,7 @@ fun MainScreen() {
 //                        .wrapContentHeight()
 //                        .fillMaxWidth()
 //                        .align(Alignment.CenterHorizontally)
-//                        .padding(bottom = 8.dp),
+//                        .padding(bottom = 8.dp, top = 12.dp),
 //                    horizontalArrangement = Arrangement.Center
 //                ) {
 //                    repeat(pagerState.pageCount) { iteration ->

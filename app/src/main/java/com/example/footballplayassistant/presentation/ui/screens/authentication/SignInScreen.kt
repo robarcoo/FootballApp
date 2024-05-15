@@ -10,7 +10,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -39,7 +39,8 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
-    val filterPhoneEmail = remember { mutableStateOf(FilterPhoneEmail.Phone.ordinal) }
+    val filtersList = FilterPhoneEmail.entries.toList()
+    val filterPhoneEmail = remember { mutableIntStateOf(filtersList[0].ordinal) }
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderAuthentication { HeaderSignIn() }
@@ -48,8 +49,8 @@ fun SignInScreen() {
             item {
                 SelectionButtons(
                     valueList = getFilters(),
-                    selectedItemIndex = 0,
-                    onSelected = { filterPhoneEmail.value = it },
+                    selectedItemIndex = filterPhoneEmail.intValue,
+                    onSelected = { filterPhoneEmail.intValue = it },
                     modifier = Modifier
                         .padding(top = 24.dp, bottom = 20.dp)
                         .padding(horizontal = 16.dp)
@@ -63,7 +64,7 @@ fun SignInScreen() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
-                    if (filterPhoneEmail.value == FilterPhoneEmail.Phone.ordinal) {
+                    if (filterPhoneEmail.intValue == FilterPhoneEmail.Phone.ordinal) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge

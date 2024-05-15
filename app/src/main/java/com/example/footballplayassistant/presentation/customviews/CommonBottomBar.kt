@@ -37,15 +37,38 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 fun CommonBottomBar(modifier: Modifier = Modifier) {
     val number = remember { mutableStateOf(BottomMenu.Home) }
 
+    val animatedColorHome: Color by animateColorAsState(
+        targetValue = if (number.value.ordinal == 0) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedColorSearch: Color by animateColorAsState(
+        targetValue = if (number.value.ordinal == 1) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedColorCalendar: Color by animateColorAsState(
+        targetValue = if (number.value.ordinal == 2) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedColorProfile: Color by animateColorAsState(
+        targetValue = if (number.value.ordinal == 3) MaterialTheme.colorScheme.onPrimary
+        else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+
     Box(
         modifier = modifier
             .fillMaxWidth()
             .padding(
                 vertical = MaterialTheme.spacing.small,
-                horizontal = MaterialTheme.spacing.horizontal)
+                horizontal = MaterialTheme.spacing.horizontal
+            )
             .background(
                 color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(50.dp)),
+                shape = RoundedCornerShape(50.dp)
+            ),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -59,13 +82,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .fillMaxHeight(0.8f),
-                colors =
-                if (number.value == BottomMenu.Home) ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                )
-                else ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
+                colors = ButtonDefaults.buttonColors(containerColor = animatedColorHome),
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = BottomMenu.Home }) {
                 Row {
@@ -96,12 +113,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .fillMaxHeight(0.8f),
-                colors = if (number.value == BottomMenu.Search) ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                )
-                else ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
+                colors =ButtonDefaults.buttonColors(containerColor = animatedColorSearch),
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = BottomMenu.Search }) {
                 Row {
@@ -131,13 +143,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .fillMaxHeight(0.8f),
-                colors =
-                if (number.value == BottomMenu.Calendar) ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                )
-                else ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
+                colors =ButtonDefaults.buttonColors(containerColor = animatedColorCalendar),
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = BottomMenu.Calendar }) {
                 Row {
@@ -167,13 +173,7 @@ fun CommonBottomBar(modifier: Modifier = Modifier) {
             Button(modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .fillMaxHeight(0.8f),
-                colors =
-                if (number.value == BottomMenu.Profile) ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                )
-                else ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
+                colors =ButtonDefaults.buttonColors(containerColor = animatedColorProfile),
                 contentPadding = PaddingValues(horizontal = 20.dp),
                 onClick = { number.value = BottomMenu.Profile }) {
                 Row {

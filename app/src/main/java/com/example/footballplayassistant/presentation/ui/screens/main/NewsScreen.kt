@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,8 +33,8 @@ import com.example.footballplayassistant.presentation.navigation.Route
 @Preview
 fun NewsScreen() {
     val navController = LocalNavController.current!!
-
-    val filterButton = remember { mutableStateOf(FilterFriendsPlaces.Friends.ordinal) }
+    val filtersList = FilterFriendsPlaces.entries.toList()
+    val filterButton = remember { mutableIntStateOf(filtersList[0].ordinal) }
 
     Column(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary),
@@ -53,8 +53,8 @@ fun NewsScreen() {
 
             SelectionButtons(
                 valueList = getFiltersFriendsPlaces(),
-                selectedItemIndex = 0,
-                onSelected = { filterButton.value = it },
+                selectedItemIndex = filterButton.intValue,
+                onSelected = { filterButton.intValue = it },
                 modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)
             )
 
@@ -62,7 +62,7 @@ fun NewsScreen() {
 //            GeolocationOff()
 
             //геолокация включена, новостей нет
-            if (filterButton.value == FilterFriendsPlaces.Friends.ordinal) {
+            if (filterButton.intValue == FilterFriendsPlaces.Friends.ordinal) {
                 NoNewsFriends()
             } else {
                 Box(modifier = Modifier.fillMaxSize()) {
