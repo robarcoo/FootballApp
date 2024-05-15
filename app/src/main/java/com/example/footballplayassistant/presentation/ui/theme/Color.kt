@@ -12,3 +12,4 @@ val GrayF1 = Color(0xFFF1F1F1)
 val Yellow00 = Color(0xFFFFC700)
 val Red0C = Color(0xFFC0000C)
 val Red6A = Color(0xFFF3566A)
+

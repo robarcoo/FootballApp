@@ -32,6 +32,12 @@ sealed class Route(val path: String) {
 
     data object InviteFriendsScreen : Route(path = "invite_friends_screen")
 
+    data object SearchScreen : Route(path = "search_screen")
+
+    data object FilterScreen : Route(path = "filter_screen")
+
+    data object CreateFieldScreen : Route(path = "create_field_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

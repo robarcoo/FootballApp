@@ -223,7 +223,54 @@
     <string name="knobIconDescription">Ползунок</string>
 
     <string name="areaNotFound">Поля не найдены</string>
-    <string name="tryChangeFilters">По заданным фильтрам не было найдено игр или площадок, попробуйте изменить параметры поиска или создать собственное событие</string>
-    <string name="addField">"Добавить поле"</string>
+
+    <string name="tryChangeFilters">По заданным фильтрам и запросу не было найдено полей, попробуйте изменить параметры поиска</string>
+    <string name="addField">Добавить поле</string>
+    <string name="fieldName">Название поля</string>
+    <string name="fieldInfoTitle">Информация о поле</string>
+
+    <string-array name="loadFileErrorArray">
+        <item>Слишком большой размер изображения</item>
+        <item>Неподдерживаемый формат файла</item>
+        <item>Количество изображений превышает допустимый лимит</item>
+    </string-array>
+
+    <string name = "inputCity">Укажите город</string>
+    <string name = "inputAddress">Адрес</string>
+    <string name = "openTime">Открытие</string>
+    <string name = "closingTime">Закрытие</string>
+    <string name = "inputContacts">Контактный телефон</string>
+    <string name = "closeMetro">Ближайшее метро</string>
+    <string name = "inputSite">Сайт</string>
+    <string name = "inputDescription">Описание</string>
+    <string name = "howManyPeopleInGame">Вместимость игроков</string>
+    <string name="personInput">чел.</string>
+    <string name = "loadImageInput">Загрузить изображения</string>
+    <string name= "loadImageDescription">JPEG, PNG. 15 Мбайт. Не более 10 изображений</string>
+    <string name="fieldSize">Размеры поля</string>
+    <string name="lengthInput">Длина (м)</string>
+    <string name="widthInput">Ширина (м)</string>
+    <string name="lightningType">Освещение</string>
+    <string-array name="lightningTypeArray">
+        <item>Искусственное</item>
+        <item>Естественное</item>
+    </string-array>
+    <string name="showering">Душ</string>
+    <string-array name="hasOrNo">
+        <item>Есть</item>
+        <item>Нет</item>
+    </string-array>
+    <string name="changingRoom">Раздевалки</string>
+    <string name="addToFavorites">Добавить в избранное</string>
+    <string name="cleanSearchBar">Очистить строку поиска</string>
+    <string name="typeInSearchQuery">Введите свой запрос</string>
+    <string name="loadPhoto">Загрузить фотографию</string>
+    <string name="radioButtonOn">Выбрано</string>
+    <string name="radioButtonOff">Не выбрано</string>
+    <string name="leadingFieldIcon">Ведущая иконка поля</string>
+    <string name="trailingFieldIcon">Следующая иконка поля</string>
+    <string name="warningIcon">Предупреждение</string>
+    <string name="loadedImage">Загруженная картинка</string>
+    <string name="deletePhoto">Удалить фото</string>
 
 </resources>
