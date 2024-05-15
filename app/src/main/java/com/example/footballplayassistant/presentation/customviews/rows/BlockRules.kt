@@ -16,6 +16,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,13 +34,14 @@ fun BlockRules(modifier: Modifier = Modifier) {
     ) {
         val text = buildAnnotatedString {
             append(stringResource(R.string.blockrulesstart))
+            append(" ")
 
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter)),
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
                     fontSize = 12.sp
                 )
             ) {
@@ -47,14 +49,14 @@ fun BlockRules(modifier: Modifier = Modifier) {
             }
             pop()
 
-            append("и")
+            append(" и ")
 
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
                     fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter)),
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
                     fontSize = 12.sp
                 )
             ) {
@@ -65,7 +67,10 @@ fun BlockRules(modifier: Modifier = Modifier) {
         }
         val context = LocalContext.current
         ClickableText(text = text,
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.W500,
+                textAlign = TextAlign.Center
+            ),
             onClick = { offset ->
                 text.getStringAnnotations(tag = "click", start = offset, end = offset).firstOrNull()
                     ?.let {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -38,6 +38,7 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignUpCode
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -54,39 +55,52 @@ fun SignUpCodeScreen() {
     if (OK.value)
         navController.navigate(Route.SignUpStepOneScreen.path)
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
         HeaderAuthentication { HeaderSignUpCode() }
 
         Text(
-            text = stringResource(R.string.phoneCode/*or emailCode*/),
+            text = stringResource(R.string.phoneCode),
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = MaterialTheme.spacing.horizontal)
+                .padding(top = 24.dp, bottom = MaterialTheme.spacing.medium)
                 .fillMaxWidth()
         )
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
-            SquareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
-            SquareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
-            SquareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = MaterialTheme.spacing.horizontal),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            squareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
+            squareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
+            squareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
             OK.value =
-                SquareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
+                squareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
 
         Text(
             text = stringResource(R.string.repeatCode),
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = MaterialTheme.spacing.horizontal)
+                .padding(top = MaterialTheme.spacing.horizontal)
                 .fillMaxWidth()
         )
     }
 }
 
 @Composable
-fun SquareTextField(
+fun squareTextField(
     itemStart: FocusRequester,
     itemNext: FocusRequester,
     focusManager: FocusManager
@@ -115,7 +129,8 @@ fun SquareTextField(
         ),
         singleLine = true,
         modifier = Modifier
-            .widthIn(min = 64.dp, max = 80.dp)
+            .widthIn(max = 80.dp)
+            .heightIn(max = 80.dp)
             .padding(5.dp)
             .background(MaterialTheme.colorScheme.outlineVariant)
             .border(

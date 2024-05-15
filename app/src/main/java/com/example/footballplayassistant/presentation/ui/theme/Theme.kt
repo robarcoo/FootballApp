@@ -27,10 +27,11 @@ private val LightColorScheme = lightColorScheme(
     tertiary = GrayBB,
     onTertiary = Color.Unspecified,
     tertiaryContainer = GrayC9,
-    background = Color.LightGray,
+    background = Color.White,
     onBackground = Yellow00,
     outlineVariant = Color.Transparent,
     outline = Color.Gray,
+    error = Red0C
 
 
 //    secondary = PurpleGrey40,

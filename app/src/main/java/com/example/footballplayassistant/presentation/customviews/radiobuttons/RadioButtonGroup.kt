@@ -1,4 +1,4 @@
-package com.example.footballplayassistant.presentation.customviews
+package com.example.footballplayassistant.presentation.customviews.radiobuttons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -42,7 +42,8 @@ fun RadioButtonGroup() {
             Text(
                 text = stringResource(id = R.string.men),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
+                color = MaterialTheme.colorScheme.primary
             )
         }
         Row {
@@ -56,7 +57,8 @@ fun RadioButtonGroup() {
             Text(
                 text = stringResource(id = R.string.women),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
+                color = MaterialTheme.colorScheme.primary
             )
         }
         Row {
@@ -70,7 +72,8 @@ fun RadioButtonGroup() {
             Text(
                 text = stringResource(id = R.string.mw),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                modifier = Modifier.align(Alignment.CenterVertically)
+                modifier = Modifier.align(Alignment.CenterVertically),
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

@@ -21,8 +21,11 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun MatchInfoScreen(/*type: String, name: String, description: String*/) {
     val navController = LocalNavController.current!!
     Column(modifier = Modifier.padding(top = 12.dp)) {
-        HeaderWithBackButton(text = stringResource(id = R.string.matchInfo),
-            onClickBack = { navController.navigate(Route.MatchScreen.path) })
+        HeaderWithBackButton(
+            text = stringResource(id = R.string.matchInfo),
+            onClickBack = { navController.navigate(Route.MatchScreen.path) },
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
 
         LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
             item {

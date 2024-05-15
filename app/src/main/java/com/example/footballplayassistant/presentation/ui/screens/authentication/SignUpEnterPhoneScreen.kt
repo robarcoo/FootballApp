@@ -1,5 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,36 +24,57 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 @Preview
 fun SignUpEnterPhoneScreen() {
     val navController = LocalNavController.current!!
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimary), verticalArrangement = Arrangement.SpaceBetween
+    ) {
         HeaderAuthentication { HeaderSignUp() }
-        Text(
-            text = stringResource(R.string.choosenPhone),
-            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        CommonTextField(
-            placeholder = stringResource(R.string.enterPhone),
-            keyBoard = KeyboardType.Phone
-        )
-        CommonButton(
-            text = stringResource(R.string.sendCode),
-            onClick = {
-                navController.navigate(Route.SignUpCodeScreen.path)
-            },
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
-        SignInWithAccounts()
-        BottomQuestion(
-            question = stringResource(R.string.questionAcc),
-            buttonText = stringResource(R.string.signin),
-            onClick = { navController.navigate(Route.SignInScreen.path) }
-        )
+
+        Column(
+            modifier = Modifier
+                .weight(0.5f)
+        ) {
+            Text(
+                text = stringResource(R.string.choosenPhone),
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.horizontal)
+                    .padding(top = 24.dp, bottom = MaterialTheme.spacing.medium)
+            )
+            CommonTextField(
+                placeholder = stringResource(R.string.enterPhone),
+                keyBoard = KeyboardType.Phone,
+                color = MaterialTheme.colorScheme.primaryContainer,
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.horizontal)
+                    .padding(bottom = 10.dp)
+            )
+            CommonButton(
+                text = stringResource(R.string.sendCode),
+                onClick = {
+                    navController.navigate(Route.SignUpCodeScreen.path)
+                },
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+
+        Column(modifier = Modifier.weight(0.5f), verticalArrangement = Arrangement.Bottom) {
+            SignInWithAccounts()
+            BottomQuestion(
+                question = stringResource(R.string.questionAcc),
+                buttonText = stringResource(R.string.signin),
+                onClick = { navController.navigate(Route.SignInScreen.path) }
+            )
+        }
     }
 }

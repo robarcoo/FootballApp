@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -23,6 +25,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
@@ -33,7 +36,8 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 shape = RoundedCornerShape(12.dp)
-            )
+            ),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Row(
             modifier = Modifier
@@ -44,30 +48,37 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                 Text(
                     text = stringResource(id = R.string.money),
                     style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                    modifier = Modifier.padding(bottom = 8.dp),
+                    modifier = Modifier.padding(bottom = MaterialTheme.spacing.small),
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
-                Row {
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_money_24),
-                        contentDescription = "",
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-                    Text(
-                        text = "$money ₽",
-                        style = MaterialTheme.typography.titleMedium
-                            .copy(fontWeight = FontWeight.W600),
-                    )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(modifier = Modifier.align(Alignment.CenterVertically)) {
+                        Image(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_money_24),
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = MaterialTheme.spacing.small)
+                        )
+                        Text(
+                            text = "$money ₽",
+                            style = MaterialTheme.typography.titleMedium
+                                .copy(fontWeight = FontWeight.W600),
+                        )
+                    }
+
+                    IconButton(modifier = Modifier.align(Alignment.CenterVertically),
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.secondary
+                        ),
+                        onClick = { /*TODO*/ }) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_24),
+                            contentDescription = ""
+                        )
+                    }
                 }
-            }
-            IconButton(modifier = Modifier.align(Alignment.Bottom),
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary),
-                onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_24),
-                    contentDescription = ""
-                )
             }
         }
     }

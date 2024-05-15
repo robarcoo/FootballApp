@@ -3,6 +3,7 @@ package com.example.footballplayassistant.presentation.customviews.headers
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,21 +27,23 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
 @Composable
-fun HeaderUser(name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Unit = {}, @SuppressLint(
-    "ModifierParameter"
-) modifier: Modifier = Modifier) {
+fun HeaderUser(
+    name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Unit = {}, @SuppressLint(
+        "ModifierParameter"
+    ) modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp)
     ) {
-        Image(painter = painterResource(id = R.drawable.user_foto), contentDescription = "")
+        Image(painter = painterResource(id = R.drawable.user_foto), contentDescription = "",
+            modifier = Modifier.fillMaxWidth(0.12f))
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.7f)
-                .padding(start = 10.dp)
+                .fillMaxWidth(0.7f)
+                .padding(start = 10.dp), verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = "Привет,",
@@ -50,6 +53,7 @@ fun HeaderUser(name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Un
             Text(
                 text = name,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                color = MaterialTheme.colorScheme.primary
             )
         }
 
@@ -67,11 +71,12 @@ fun HeaderUser(name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Un
             IconButton(onClick = { onClickPlus.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
-                    contentDescription = ""
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(vertical = 8.dp)
@@ -82,7 +87,8 @@ fun HeaderUser(name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Un
             IconButton(onClick = { onClickBell.invoke() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_bell_24),
-                    contentDescription = ""
+                    contentDescription = "",
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }

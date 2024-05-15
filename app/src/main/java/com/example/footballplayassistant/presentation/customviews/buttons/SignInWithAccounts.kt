@@ -7,13 +7,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,56 +33,65 @@ import com.example.footballplayassistant.R
 fun SignInWithAccounts(modifier: Modifier = Modifier) {
     Column(modifier = modifier.wrapContentSize()) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            Divider(
-                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
+            HorizontalDivider(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.3f)
+                    .weight(0.4f)
                     .align(Alignment.CenterVertically)
-                    .padding(start = 16.dp)
+                    .padding(start = 16.dp),
+                thickness = 1.dp, color = MaterialTheme.colorScheme.outline
             )
             Text(
                 text = "Или", textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.2f)
             )
-            Divider(
-                color = MaterialTheme.colorScheme.outline, thickness = 1.dp, modifier = Modifier
+            HorizontalDivider(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.3f)
+                    .weight(0.4f)
                     .align(Alignment.CenterVertically)
-                    .padding(end = 16.dp)
+                    .padding(end = 16.dp),
+                thickness = 1.dp, color = MaterialTheme.colorScheme.outline
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 35.dp, vertical = 50.dp)
+                .padding(vertical = 32.dp)
                 .align(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.Center
         ) {
             SquareButton(text = "Google", image = R.drawable.ic_google_25)
-            SquareButton(text = "VK", image = R.drawable.ic_vk_29_16)
+            SquareButton(
+                text = "VK", image = R.drawable.ic_vk_29_16,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
             SquareButton(text = "Яндекс", image = R.drawable.ic_yandex_13_24)
         }
     }
 }
 
 @Composable
-fun SquareButton(text: String, image: Int) {
-    Button(modifier = Modifier.width(70.dp),
-        contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
-        shape = RoundedCornerShape(20.dp),
+fun SquareButton(modifier: Modifier = Modifier, text: String, image: Int) {
+    Button(modifier = modifier
+        .heightIn(min = 66.dp)
+        .widthIn(min = 66.dp),
+        contentPadding = PaddingValues(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 4.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer),
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
         onClick = { /*TODO*/ }) {
         Column(modifier = Modifier) {
             Image(
                 modifier = Modifier
                     .height(25.dp)
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 4.dp),
                 imageVector = ImageVector.vectorResource(image),
                 contentDescription = ""
             )

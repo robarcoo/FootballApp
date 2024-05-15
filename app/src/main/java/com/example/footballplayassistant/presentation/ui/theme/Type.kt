@@ -19,20 +19,24 @@ val Typography = Typography(
         fontSize = 32.sp,
     ),
     displayLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_medium)),
         fontSize = 28.sp,
     ),
     titleMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_semibold)),
         fontSize = 20.sp,
     ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_semibold)),
         fontWeight = FontWeight.W600,
         fontSize = 18.sp,
     ),
     labelLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_regular)),
+        fontSize = 16.sp,
+    ),
+    displayMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.inter_semibold)),
         fontSize = 16.sp,
     ),
     titleLarge = TextStyle(
@@ -40,11 +44,27 @@ val Typography = Typography(
         fontSize = 16.sp,
     ),
     bodyMedium = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_medium)),
+        fontSize = 14.sp,
+    ),
+    bodySmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.inter_semibold)),
+        fontSize = 14.sp,
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.inter_regular)),
+        fontSize = 14.sp,
+    ),
+    titleSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.roboto_flex)),
         fontSize = 14.sp,
     ),
     displaySmall = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_medium)),
+        fontSize = 12.sp,
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.inter_semibold)),
         fontSize = 12.sp,
     ),
     headlineSmall = TextStyle(
