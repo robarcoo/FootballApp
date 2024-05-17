@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -32,14 +33,18 @@ fun BottomQuestion(
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
-        Button(modifier = Modifier.wrapContentSize(),
+        Button(
+            modifier = Modifier.wrapContentSize(),
             contentPadding = PaddingValues(5.dp),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.outlineVariant),
-            onClick = { onClick.invoke() }) {
+            onClick = onClick
+        ) {
             Text(
                 text = buttonText,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.secondary
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
+                color = MaterialTheme.colorScheme.secondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

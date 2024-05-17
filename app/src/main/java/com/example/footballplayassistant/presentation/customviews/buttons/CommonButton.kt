@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
@@ -23,17 +24,21 @@ fun CommonButton(
     onClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
-    Button(modifier = modifier.fillMaxWidth(),
+    Button(
+        modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             contentColor = contentColor,
             containerColor = containerColor
         ),
         contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
         enabled = enable,
-        onClick = { onClick.invoke() }) {
+        onClick = onClick
+    ) {
         Text(
             text = text,
-            style = style
+            style = style,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

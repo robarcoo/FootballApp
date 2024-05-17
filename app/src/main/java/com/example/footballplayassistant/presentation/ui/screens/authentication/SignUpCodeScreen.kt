@@ -48,9 +48,7 @@ fun SignUpCodeScreen() {
     val (item1, item2, item3, item4) =
         remember { FocusRequester.createRefs() }
     val focusManager = LocalFocusManager.current
-    val OK = remember {
-        mutableStateOf(false)
-    }
+    val OK = remember { mutableStateOf(false) }
 
     if (OK.value)
         navController.navigate(Route.SignUpStepOneScreen.path)

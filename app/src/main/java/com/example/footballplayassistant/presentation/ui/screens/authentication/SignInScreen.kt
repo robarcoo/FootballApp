@@ -10,11 +10,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +29,8 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderSignIn
 import com.example.footballplayassistant.presentation.customviews.rows.BlockRules
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.enums.FilterPhoneEmail
+import com.example.footballplayassistant.presentation.enums.getFilters
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -36,9 +39,8 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
-    val filterButton = remember {
-        mutableStateOf(0)
-    }
+    val filtersList = FilterPhoneEmail.entries.toList()
+    val filterPhoneEmail = remember { mutableIntStateOf(filtersList[0].ordinal) }
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderAuthentication { HeaderSignIn() }
@@ -46,12 +48,9 @@ fun SignInScreen() {
         LazyColumn {
             item {
                 SelectionButtons(
-                    valueList = listOf(
-                        stringResource(id = R.string.byPhone),
-                        stringResource(id = R.string.byEmail)
-                    ),
-                    selectedItemIndex = 0,
-                    onSelected = { filterButton.value = it },
+                    valueList = getFilters(),
+                    selectedItemIndex = filterPhoneEmail.intValue,
+                    onSelected = { filterPhoneEmail.intValue = it },
                     modifier = Modifier
                         .padding(top = 24.dp, bottom = 20.dp)
                         .padding(horizontal = 16.dp)
@@ -65,7 +64,7 @@ fun SignInScreen() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer
                     )
                 ) {
-                    if (filterButton.value == 0) {
+                    if (filterPhoneEmail.intValue == FilterPhoneEmail.Phone.ordinal) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge
@@ -78,6 +77,7 @@ fun SignInScreen() {
                         )
                         CommonTextField(
                             placeholder = stringResource(R.string.enterPhone),
+                            keyBoard = KeyboardType.Phone,
                             modifier = Modifier
                                 .padding(horizontal = MaterialTheme.spacing.horizontal)
                                 .padding(bottom = 10.dp)
@@ -140,10 +140,7 @@ fun SignInScreen() {
             }
 
             item {
-                SignInWithAccounts(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
+                SignInWithAccounts(modifier = Modifier.fillMaxWidth())
             }
 
             item {

@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -24,7 +25,7 @@ fun MatchFotoBox(currentPlayers: Int, maxPlayers: Int, modifier: Modifier = Modi
     Box(modifier = modifier) {
         Image(
             painter = painterResource(id = R.drawable.match_foto),
-            contentDescription = ""
+            contentDescription = "Match foto"
         )
         CountPlayers(
             currentPlayers = currentPlayers, maxPlayers = maxPlayers,
@@ -47,9 +48,11 @@ private fun CountPlayers(currentPlayers: Int, maxPlayers: Int, modifier: Modifie
     ) {
         Text(
             text = "$currentPlayers/$maxPlayers",
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W600),
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 6.dp)
                 .fillMaxWidth()

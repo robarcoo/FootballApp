@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.HorizontalDivider
@@ -33,11 +34,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.DropDownMenu
+import com.example.footballplayassistant.presentation.customviews.buttons.ButtonCalendar
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroupPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
-import com.example.footballplayassistant.presentation.customviews.textfields.TextFieldWithLeadingIcon
+import com.example.footballplayassistant.presentation.enums.LevelPlay
+import com.example.footballplayassistant.presentation.enums.getGenders
+import com.example.footballplayassistant.presentation.enums.getLevels
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -54,12 +59,13 @@ fun EnterInfoScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = MaterialTheme.colorScheme.primaryContainer),
+                    .background(color = MaterialTheme.colorScheme.primaryContainer)
+                    .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 CommonButton(
-                    text = "Сохранить",
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                    text = stringResource(id = R.string.save),
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     modifier = Modifier
                         .weight(0.4f)
@@ -70,10 +76,10 @@ fun EnterInfoScreen() {
                         .align(Alignment.CenterVertically)
                 )
                 CommonButton(
-                    text = "Пропустить",
+                    text = stringResource(id = R.string.skip),
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     containerColor = MaterialTheme.colorScheme.onPrimary,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500),
                     modifier = Modifier
                         .weight(0.4f)
                         .padding(end = MaterialTheme.spacing.medium)
@@ -86,6 +92,7 @@ fun EnterInfoScreen() {
             modifier = Modifier
                 .background(color = MaterialTheme.colorScheme.primaryContainer)
                 .padding(it)
+                .padding(top = 12.dp)
                 .fillMaxSize()
         ) {
             item {
@@ -96,7 +103,7 @@ fun EnterInfoScreen() {
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 12.dp, bottom = 24.dp)
+                        .padding(bottom = 24.dp)
                 )
             }
 
@@ -104,42 +111,58 @@ fun EnterInfoScreen() {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+                        .padding(horizontal = MaterialTheme.spacing.horizontal),
+                    verticalArrangement = Arrangement.Top
                 ) {
                     val context = LocalContext.current
                     val date = remember { mutableStateOf("") }
 
-                    TextFieldWithLeadingIcon(
+                    ButtonCalendar(
+                        onCLick = { openCalendar(context, date) },
+                        date = date.value,
                         placeholder = stringResource(id = R.string.birthday),
-                        imageStart = R.drawable.ic_calendar_22,
-                        imageTrail = R.drawable.ic_arrow_menu_18_10,
-                        value = date.value,
-                        onTrailClick = {
-                            openCalendar(context, date)
-                        }
+                        containerColor = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
-                    DropDownMenu(
+
+                    ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.sex),
+                        values = getGenders(),
                         imStart = R.drawable.ic_sex_23,
-                        imTrail = R.drawable.ic_arrow_menu_18_10,
-                        values = listOf("Мужчина", "Женщина")
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
                     DropDownMenu(
-                        placeholder = stringResource(id = R.string.levelPlay),
+                        placeholder = stringResource(id = R.string.city),
                         imTrail = R.drawable.ic_arrow_menu_18_10,
-                        values = listOf("Новичок", "Любитель", "Опытный", "Профессионал")
+                        values = listOf("1", "2", "3"),
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
                     )
+                    ButtonDropDownMenu(
+                        placeholder = stringResource(id = R.string.levelPlay),
+                        values = getLevels(),
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                            .heightIn(min = 48.dp)
+                    )
+                    val textLength = remember { mutableStateOf(0) }
                     Box {
                         CommonTextField(
                             placeholder = stringResource(id = R.string.tellYourself),
                             singleLine = false,
                             cornerRadius = 20.dp,
                             maxLength = 300,
+                            onClick = {textLength.value=it.length},
                             modifier = Modifier.fillMaxHeight()
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-                            contentDescription = "",
+                            contentDescription = "Rezible",
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
                                 .padding(
@@ -150,7 +173,7 @@ fun EnterInfoScreen() {
                     }
 
                     Text(
-                        text = "0/300",
+                        text = "${textLength.value}/300",
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         textAlign = TextAlign.End,
@@ -170,8 +193,9 @@ fun EnterInfoScreen() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.position),
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
-                        color = MaterialTheme.colorScheme.primary
+                        style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
                     RadioButtonGroupPositions()
                 }
@@ -206,6 +230,7 @@ private fun openCalendar(context: Context, date: MutableState<String>) {
 
     mDatePickerDialog.show()
 }
+
 
 
 

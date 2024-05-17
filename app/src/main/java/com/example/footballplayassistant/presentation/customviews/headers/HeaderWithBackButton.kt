@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -27,25 +29,27 @@ fun HeaderWithBackButton(
     imageButton: Int = 0,
     onClickBack: () -> Unit = {},
     onClickOther: () -> Unit = {},
+    actionsMenu: @Composable () -> Unit = {},
     tint: Color = MaterialTheme.colorScheme.primary,
     styleText: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
     colorText: Color = MaterialTheme.colorScheme.onPrimaryContainer,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        IconButton(modifier = Modifier.border(
-            width = 1.dp,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            shape = CircleShape
-        ),
-            onClick = { onClickBack.invoke() }) {
+        IconButton(modifier = Modifier
+            .weight(0.1f)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                shape = CircleShape
+            ),
+            onClick = onClickBack) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_back_arrow_10_18),
-                contentDescription = "",
+                contentDescription = "Back arrow",
                 tint = tint
             )
         }
@@ -54,24 +58,32 @@ fun HeaderWithBackButton(
             text = text,
             style = styleText,
             color = colorText,
-            modifier = Modifier.align(Alignment.CenterVertically)
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(0.8f)
         )
 
         if (imageButton != 0)
-            IconButton(modifier = Modifier.border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                shape = CircleShape
-            ),
-                onClick = { onClickOther.invoke() }) {
+            IconButton(modifier = Modifier
+                .weight(0.1f)
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    shape = CircleShape
+                ),
+                onClick = onClickOther) {
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
-                    contentDescription = "",
+                    contentDescription = "Image",
                     tint = MaterialTheme.colorScheme.primary
                 )
+                actionsMenu()
             }
         else
-            IconButton(modifier = Modifier.border(
+            IconButton(modifier = Modifier.weight(0.1f).border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
                 shape = CircleShape

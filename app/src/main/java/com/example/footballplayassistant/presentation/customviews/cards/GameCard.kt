@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
@@ -31,6 +32,8 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 fun GameCard(
     place: String,
     host: String,
+    address: String = "",
+    distance: Int = 0,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val navController = LocalNavController.current!!
@@ -42,10 +45,12 @@ fun GameCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)) {
-            if (host == "") {
+            if (host.isEmpty()) {
                 Text(
                     text = stringResource(id = R.string.youhost),
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
                 )
                 Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)) {
@@ -53,12 +58,16 @@ fun GameCard(
                         text = place,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W500),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(0.85f)
                     )
                     CountOfPlayers(
-                        currentPlayers = 10, maxPlayers = 10, modifier = Modifier
+                        currentPlayers = 10,
+                        maxPlayers = 10,
+                        modifier = Modifier
                             .weight(0.15f)
                             .align(Alignment.CenterVertically)
                     )
@@ -69,38 +78,55 @@ fun GameCard(
                     modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
                 )
             } else {
-                Row {
-                    Text(
-                        text = place,
-                        style = MaterialTheme.typography.labelLarge
-                            .copy(fontWeight = FontWeight.W500),
-                        maxLines = 2,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.75f)
-                            .padding(vertical = 12.dp)
-                    )
+                Column {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(0.25f)
-                            .padding(top = 12.dp), horizontalArrangement = Arrangement.End
+                            .padding(top = 12.dp, bottom = 4.dp)
                     ) {
-                        Image(
-                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_24),
-                            contentDescription = "",
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        )
                         Text(
-                            text = "100км",
-                            style = MaterialTheme.typography.bodyMedium
+                            text = place,
+                            style = MaterialTheme.typography.displayMedium
                                 .copy(fontWeight = FontWeight.W500),
-                            color = MaterialTheme.colorScheme.onSecondaryContainer,
-                            modifier = Modifier.align(Alignment.CenterVertically)
+                            maxLines = 2,
+                            modifier = Modifier.weight(0.75f)
+                        )
+                        Row(
+                            modifier = Modifier.weight(0.25f),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            Image(
+                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_location_24),
+                                contentDescription = "Location",
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                            )
+                            Text(
+                                text = "${distance}км",
+                                style = MaterialTheme.typography.bodyMedium
+                                    .copy(fontWeight = FontWeight.W500),
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                            )
+                        }
+                    }
+                    if (address.isNotEmpty()) {
+                        Text(
+                            text = address,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.displaySmall.copy(
+                                fontWeight = FontWeight.W500,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            ),
+                            modifier = Modifier
+                                .padding(top = 2.dp)
+                                .fillMaxWidth(0.75f)
                         )
                     }
                 }
-                Row() {
+                Row(modifier = Modifier.padding(top = 20.dp)) {
                     FotoAndNameForCard(
                         text = host,
                         name = host,
@@ -108,13 +134,14 @@ fun GameCard(
                         modifier = Modifier.weight(0.85f)
                     )
                     CountOfPlayers(
-                        currentPlayers = 10, maxPlayers = 10, modifier = Modifier
+                        currentPlayers = 10,
+                        maxPlayers = 10,
+                        modifier = Modifier
                             .weight(0.15f)
                             .align(Alignment.CenterVertically)
                     )
                 }
             }
-
             BottomRowDateTimeMoney(date = "27.08.10", time = "12:00", price = "700")
         }
     }

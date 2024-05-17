@@ -22,28 +22,30 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column {
             Icon(
                 imageVector = ImageVector.vectorResource(icon),
-                contentDescription = "",
+                contentDescription = "DateTime",
                 modifier = Modifier
                     .padding(8.dp)
             )
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(8.dp)
             )
@@ -55,26 +57,28 @@ fun CommonIconTextCard(modifier: Modifier = Modifier, icon: Int, text: String) {
 fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = GrayF1)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column {
             Text(
                 text = stringResource(id = R.string.inventory),
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W600),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .padding(8.dp)
             )
             Row {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_manish_18_22),
-                    contentDescription = "",
+                    contentDescription = "Manishka",
                     modifier = Modifier
                         .padding(8.dp)
                 )
 
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_22),
-                    contentDescription = "",
+                    contentDescription = "Ball",
                     modifier = Modifier
                         .padding(8.dp)
                 )
@@ -87,7 +91,7 @@ fun CommonIconTextInventoryCard(modifier: Modifier = Modifier) {
 @Preview
 fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {}) {
     Card(
-        onClick = { onClick.invoke() },
+        onClick = onClick,
         modifier = modifier
             .border(
                 width = 1.dp,
@@ -106,7 +110,8 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
             Text(
                 text = stringResource(id = R.string.otherInfo),
                 maxLines = 2,
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)
@@ -122,7 +127,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_white_arrows_18),
-                    contentDescription = "",
+                    contentDescription = "Arrows",
                 )
             }
         }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -23,14 +23,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
 @Composable
-@Preview
-fun PlayersCard(modifier: Modifier = Modifier) {
+fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<String>) {
     Card(
         modifier = modifier.padding(top = 32.dp),
         shape = RectangleShape,
@@ -42,7 +40,7 @@ fun PlayersCard(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = stringResource(id = R.string.players),
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
                 modifier = Modifier.padding(bottom = 16.dp),
             )
 
@@ -50,24 +48,24 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                 Column(modifier = Modifier.weight(0.15f)) {
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                 }
                 Column(modifier = Modifier.weight(0.15f)) {
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                     Image(
                         painter = painterResource(R.drawable.user_foto),
-                        contentDescription = "",
+                        contentDescription = "User foto",
                         modifier = Modifier.padding(2.dp)
                     )
                 }
@@ -81,28 +79,34 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "name",
-                            style = MaterialTheme.typography.bodyMedium
-                                .copy(fontWeight = FontWeight.W600)
+                            text = name,
+                            style = MaterialTheme.typography.bodySmall
+                                .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "name",
+                                text = stringResource(id = R.string.host),
                                 style = MaterialTheme.typography.displaySmall
                                     .copy(fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier.padding(end = 2.dp)
                             )
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrow_green_next_8_13),
-                                contentDescription = "",
-                                tint = Green
+                                contentDescription = "Arrow next",
+                                tint = MaterialTheme.colorScheme.secondary
                             )
                         }
 
                     }
-                    Divider(
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -114,20 +118,23 @@ fun PlayersCard(modifier: Modifier = Modifier) {
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "name",
-                            style = MaterialTheme.typography.bodyMedium
+                            text = participants.joinToString(separator = ", "),
+                            style = MaterialTheme.typography.labelMedium
                                 .copy(fontWeight = FontWeight.W400),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                         IconButton(
                             onClick = { /*TODO*/ },
                             colors = IconButtonDefaults.iconButtonColors(
                                 containerColor = MaterialTheme.colorScheme.secondary
-                            )
+                            ),
+                            modifier = Modifier.align(Alignment.Bottom)
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrows_24),
-                                contentDescription = "",
+                                contentDescription = "Arrows"
                             )
                         }
                     }

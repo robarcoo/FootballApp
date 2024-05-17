@@ -20,7 +20,8 @@ import com.example.footballplayassistant.R
 fun ShowMore(modifier: Modifier = Modifier) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Button(colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.outlineVariant),
+            containerColor = MaterialTheme.colorScheme.outlineVariant
+        ),
             onClick = { /*TODO*/ }) {
             Text(
                 text = stringResource(id = R.string.showmore),
@@ -28,7 +29,7 @@ fun ShowMore(modifier: Modifier = Modifier) {
             )
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_down_24),
-                contentDescription = ""
+                contentDescription = "Arrows down"
             )
         }
     }

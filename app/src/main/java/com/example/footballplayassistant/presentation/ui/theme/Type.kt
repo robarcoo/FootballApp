@@ -11,7 +11,7 @@ import com.example.footballplayassistant.R
 // Set of Material typography styles to start with
 val Typography = Typography(
     headlineLarge = TextStyle(
-        fontFamily = FontFamily(Font(R.font.inter)),
+        fontFamily = FontFamily(Font(R.font.inter_medium)),
         fontSize = 36.sp,
     ),
     headlineMedium = TextStyle(

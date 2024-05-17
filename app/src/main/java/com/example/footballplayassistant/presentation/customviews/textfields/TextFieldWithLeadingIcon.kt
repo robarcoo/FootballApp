@@ -31,6 +31,7 @@ fun TextFieldWithLeadingIcon(
     keyBoard: KeyboardType = KeyboardType.Email,
     value: String = "",
     color: Color = MaterialTheme.colorScheme.onPrimary,
+    isError: Boolean = false,
     onTrailClick: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -39,20 +40,18 @@ fun TextFieldWithLeadingIcon(
     val icon by remember { mutableIntStateOf(imageTrail) }
     val trailingIconView = @Composable {
         IconButton(
-            onClick = { onTrailClick() },
+            onClick = onTrailClick,
         ) {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = ""
+                contentDescription = "Trail icon"
             )
         }
     }
 
     TextField(
-        value = if (value == "") textValue.value else value,
-        onValueChange = {
-            textValue.value = it
-        },
+        value = if (value.isEmpty()) textValue.value else value,
+        onValueChange = { textValue.value = it },
         placeholder = {
             Text(
                 text = placeholder,
@@ -61,6 +60,7 @@ fun TextFieldWithLeadingIcon(
         },
         singleLine = true,
         shape = RoundedCornerShape(60.dp),
+        textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = color,
             focusedContainerColor = color,
@@ -69,9 +69,13 @@ fun TextFieldWithLeadingIcon(
             unfocusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             focusedPlaceholderColor = MaterialTheme.colorScheme.onSecondaryContainer,
             unfocusedTextColor = MaterialTheme.colorScheme.primary,
-            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant
-        ),
+            focusedIndicatorColor = MaterialTheme.colorScheme.outlineVariant,
 
+            errorContainerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.15f),
+            errorCursorColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            errorIndicatorColor = MaterialTheme.colorScheme.outlineVariant
+        ),
+        isError = isError,
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),
@@ -79,7 +83,7 @@ fun TextFieldWithLeadingIcon(
         leadingIcon = {
             Icon(
                 painter = painterResource(id = imageStart),
-                contentDescription = ""
+                contentDescription = "Image start"
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard),
