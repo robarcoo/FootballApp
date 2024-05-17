@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
@@ -32,11 +33,13 @@ fun BottomRowDateTimeMoney(
         Row {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_calendar_gray_24),
-                contentDescription = ""
+                contentDescription = "Calendar"
             )
             Text(
                 text = date,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(start = 4.dp)
@@ -45,11 +48,13 @@ fun BottomRowDateTimeMoney(
         Row {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_time_24),
-                contentDescription = ""
+                contentDescription = "Time"
             )
             Text(
                 text = time,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .padding(start = 4.dp)
@@ -58,7 +63,9 @@ fun BottomRowDateTimeMoney(
 
         Text(
             text = price,
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W700),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W700),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(start = 4.dp)

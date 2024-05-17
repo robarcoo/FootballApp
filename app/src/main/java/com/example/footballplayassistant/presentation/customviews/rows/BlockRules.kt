@@ -40,26 +40,23 @@ fun BlockRules(modifier: Modifier = Modifier) {
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
-                    fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter_medium)),
-                    fontSize = 12.sp
                 )
             ) {
                 append(stringResource(R.string.rules))
+                append(" ")
             }
             pop()
 
-            append(" и ")
+            append(stringResource(id = R.string.and))
+            append(" ")
 
             pushStringAnnotation(tag = "click", annotation = "click")
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
-                    fontWeight = FontWeight.W500,
-                    fontFamily = FontFamily(Font(R.font.inter_medium)),
-                    fontSize = 12.sp
                 )
-            ) {
+            )
+            {
                 append(stringResource(R.string.politic))
             }
             pop()

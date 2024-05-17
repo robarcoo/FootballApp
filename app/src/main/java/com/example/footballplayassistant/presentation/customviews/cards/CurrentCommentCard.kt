@@ -34,8 +34,7 @@ fun CurrentCommentCard(
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 UserFotoForList(
@@ -50,14 +49,14 @@ fun CurrentCommentCard(
                 ) {
                     Text(
                         text = "$likes",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.labelMedium
                             .copy(fontWeight = FontWeight.W400),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Icon(
                         imageVector = ImageVector.vectorResource(R.drawable.ic_like_20),
-                        contentDescription = "",
+                        contentDescription = "Like",
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
@@ -65,8 +64,9 @@ fun CurrentCommentCard(
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
-                maxLines = 3
+                style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
+                maxLines = 3,
+                modifier = Modifier.padding(top = 12.dp)
             )
         }
     }

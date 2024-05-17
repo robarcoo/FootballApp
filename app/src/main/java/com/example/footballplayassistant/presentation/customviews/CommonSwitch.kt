@@ -18,9 +18,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RichTooltip
+import androidx.compose.material3.RichTooltipColors
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,77 +37,92 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupPositionProvider
+import androidx.compose.ui.zIndex
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.theme.GrayC9
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
-import com.example.footballplayassistant.presentation.ui.theme.Green
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CommonSwitch(text: String, icon: Boolean = false, textIcon: String = "") {
-    val context = LocalContext.current
+fun CommonSwitch(
+    text: String,
+    icon: Boolean = false,
+    textIcon: String = "",
+    colorBackground: Color = MaterialTheme.colorScheme.primaryContainer,
+    modifier: Modifier = Modifier
+) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 24.dp),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        val tooltipState = remember { mutableStateOf(false) }
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W500),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
                 color = MaterialTheme.colorScheme.primary
             )
 
             if (icon)
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
-                    contentDescription = "",
-                    modifier = Modifier.clickable {
-                        Toast.makeText(context, textIcon, Toast.LENGTH_SHORT).show()
-                    }
+                    contentDescription = "Question",
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 4.dp)
+                        .clickable {
+                            tooltipState.value = !tooltipState.value
+                        }
                 )
         }
+
+        if (tooltipState.value)
+            RichTooltip(
+                modifier = Modifier,
+                colors = RichTooltipColors(
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    actionContentColor = MaterialTheme.colorScheme.primary
+                ),
+                shape = RoundedCornerShape(12.dp),
+                text = { Text(text = textIcon) })
 
         CustomSwitchButton(
             switchPadding = 0.dp,
             buttonWidth = 34.dp,
             buttonHeight = 24.dp,
-            value = false
+            value = false,
+            colorBackground = colorBackground
         )
     }
 }
-
 
 @Composable
 fun CustomSwitchButton(
     switchPadding: Dp,
     buttonWidth: Dp,
     buttonHeight: Dp,
-    value: Boolean
+    value: Boolean,
+    colorBackground: Color
 ) {
 
-    val switchSize by remember {
-        mutableStateOf(buttonHeight / 2 - switchPadding * 2)
-    }
+    val switchSize by remember { mutableStateOf(buttonHeight / 2 - switchPadding * 2) }
 
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    val interactionSource = remember { MutableInteractionSource() }
 
-    var switchClicked by remember {
-        mutableStateOf(value)
-    }
+    var switchClicked by remember { mutableStateOf(value) }
 
-    var padding by remember {
-        mutableStateOf(0.dp)
-    }
+    var padding by remember { mutableStateOf(0.dp) }
 
     padding = if (switchClicked) buttonWidth - switchSize - switchPadding * 2 else 0.dp
 
@@ -118,14 +141,12 @@ fun CustomSwitchButton(
             .width(56.dp)
             .height(22.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.onPrimary)
+            .background(colorBackground)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null
             ) {
-
                 switchClicked = !switchClicked
-
             }
     ) {
         Row(
@@ -145,8 +166,10 @@ fun CustomSwitchButton(
                 modifier = Modifier
                     .size(width = 34.dp, height = 24.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(if (switchClicked) MaterialTheme.colorScheme.secondary
-                    else MaterialTheme.colorScheme.tertiaryContainer)
+                    .background(
+                        if (switchClicked) MaterialTheme.colorScheme.secondary
+                        else MaterialTheme.colorScheme.tertiaryContainer
+                    )
             )
         }
     }

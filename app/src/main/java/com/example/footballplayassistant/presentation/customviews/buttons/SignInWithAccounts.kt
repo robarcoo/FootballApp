@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +43,7 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
                 thickness = 1.dp, color = MaterialTheme.colorScheme.outline
             )
             Text(
-                text = "Или", textAlign = TextAlign.Center,
+                text = stringResource(id = R.string.or), textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier
@@ -61,16 +62,22 @@ fun SignInWithAccounts(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 32.dp)
+                .padding(top = 32.dp, bottom = 24.dp)
                 .align(Alignment.CenterHorizontally),
             horizontalArrangement = Arrangement.Center
         ) {
-            SquareButton(text = "Google", image = R.drawable.ic_google_25)
             SquareButton(
-                text = "VK", image = R.drawable.ic_vk_29_16,
+                text = stringResource(id = R.string.google),
+                image = R.drawable.ic_google_25
+            )
+            SquareButton(
+                text = stringResource(id = R.string.vk), image = R.drawable.ic_vk_29_16,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            SquareButton(text = "Яндекс", image = R.drawable.ic_yandex_13_24)
+            SquareButton(
+                text = stringResource(id = R.string.yandex),
+                image = R.drawable.ic_yandex_13_24
+            )
         }
     }
 }
@@ -93,7 +100,7 @@ fun SquareButton(modifier: Modifier = Modifier, text: String, image: Int) {
                     .align(Alignment.CenterHorizontally)
                     .padding(bottom = 4.dp),
                 imageVector = ImageVector.vectorResource(image),
-                contentDescription = ""
+                contentDescription = "Logo"
             )
             Text(
                 text = text,

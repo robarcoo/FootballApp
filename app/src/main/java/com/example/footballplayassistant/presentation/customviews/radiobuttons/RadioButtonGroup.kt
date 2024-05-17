@@ -15,16 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.enums.GenderPlayers
 
 @Composable
 @Preview
 fun RadioButtonGroup() {
-    val state = remember {
-        mutableStateOf(1)
-    }
+    val state = remember { mutableStateOf(GenderPlayers.Men) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -33,7 +33,8 @@ fun RadioButtonGroup() {
     ) {
         Row {
             RadioButton(
-                selected = if (state.value == 1) true else false, onClick = { state.value = 1 },
+                selected = state.value == GenderPlayers.Men,
+                onClick = { state.value = GenderPlayers.Men },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
@@ -43,12 +44,15 @@ fun RadioButtonGroup() {
                 text = stringResource(id = R.string.men),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 modifier = Modifier.align(Alignment.CenterVertically),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Row {
             RadioButton(
-                selected = if (state.value == 2) true else false, onClick = { state.value = 2 },
+                selected = state.value == GenderPlayers.Women,
+                onClick = { state.value = GenderPlayers.Women },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
@@ -58,12 +62,15 @@ fun RadioButtonGroup() {
                 text = stringResource(id = R.string.women),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 modifier = Modifier.align(Alignment.CenterVertically),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Row {
             RadioButton(
-                selected = if (state.value == 3) true else false, onClick = { state.value = 3 },
+                selected = state.value == GenderPlayers.Both,
+                onClick = { state.value = GenderPlayers.Both },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
                     unselectedColor = MaterialTheme.colorScheme.secondary
@@ -73,7 +80,9 @@ fun RadioButtonGroup() {
                 text = stringResource(id = R.string.mw),
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                 modifier = Modifier.align(Alignment.CenterVertically),
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

@@ -1,10 +1,14 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,13 +37,14 @@ fun SignUpEnterPhoneScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimary), verticalArrangement = Arrangement.SpaceBetween
+            .background(MaterialTheme.colorScheme.onPrimary)
+            .verticalScroll(ScrollState(0)),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         HeaderAuthentication { HeaderSignUp() }
 
         Column(
-            modifier = Modifier
-                .weight(0.5f)
+            modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Top
         ) {
             Text(
                 text = stringResource(R.string.choosenPhone),
@@ -67,8 +72,8 @@ fun SignUpEnterPhoneScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
-
-        Column(modifier = Modifier.weight(0.5f), verticalArrangement = Arrangement.Bottom) {
+        Spacer(modifier = Modifier.weight(0.1f))
+        Column(verticalArrangement = Arrangement.Bottom) {
             SignInWithAccounts()
             BottomQuestion(
                 question = stringResource(R.string.questionAcc),

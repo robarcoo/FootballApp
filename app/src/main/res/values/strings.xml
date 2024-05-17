@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FootballPlayAssistant</string>
     <string name="takePart">Принимайте участие в матчах, созданных другими игроками или создайте свои собственные события</string>
-    <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими&#032;</string>
+    <string name="blockrulesstart">Входя в аккаунт или создавая новый, вы соглашаетесь с нашими</string>
     <string name="rules">&#032;Правилами и условиями&#032;</string>
     <string name="politic">&#032;Положением конфиденциальности</string>
     <string name="questionNoAcc">Нет аккаунта?</string>
@@ -34,16 +34,35 @@
     <string name="surname">Фамилия</string>
     <string name="email">Почта</string>
     <string name="forgotPassword">Забыли пароль?</string>
-    <string name="enterInfoYourself">Введите информацию о себе</string>
+    <string name="enterInfoYourself">Введите\n информацию о себе</string>
     <string name="birthday">Дата рождения</string>
-    <string name="sex">Пол</string>
+    <string name="sex">Ваш пол</string>
     <string name="levelPlay">Выберите уровень игры</string>
+    <string name="city">Выберите ваш город</string>
     <string name="tellYourself">Расскажите о себе\n</string>
     <string name="position">Ваша предпочитаемая позиция</string>
     <string name="byPhone">По номеру</string>
     <string name="byEmail">По почте</string>
     <string name="nickLength">Ник должен быть длиной не более 10 символов</string>
     <string name="passLength">Пароль должен быть длиной не менее 8 символов</string>
+    <string name="vk">VK</string>
+    <string name="google">Google</string>
+    <string name="yandex">Яндекс</string>
+    <string name="or">Или</string>
+    <string name="skip">Пропустить</string>
+    <string name="enter">Вход</string>
+    <string name="registration">Регистрация</string>
+    <string name="enterCode">Введите код\n из смс</string>
+    <string name="step">Шаг %1$d из 2</string>
+    <string name="and">и</string>
+    <string name="save">Сохранить</string>
+    <string name="beginner">Новичок</string>
+    <string name="amateur">Любитель</string>
+    <string name="experienced">Опытный</string>
+    <string name="professional">Профессионал</string>
+    <string name="man">Мужчина</string>
+    <string name="woman">Женщина</string>
+
 
     <string name="money">Ваш баланс</string>
     <string name="mygames">Мои игры</string>
@@ -55,6 +74,10 @@
     <string name="calendar">Календарь</string>
     <string name="profile">Профиль</string>
     <string name="youhost">Вы являетесь хостом игры:</string>
+    <string name="noGames">На данные момент у вас нет игр.\nСоздайте свою игру или начните\n участвовать в играх </string>
+    <string name="noNews">На данный момент новости отсутствуют.\n Подпишитесь на игроков, чтобы ваша\n новостная лента пополнялась</string>
+    <string name="currency">₽</string>
+    <string name="hello">Привет,</string>
 
     <string name="addGame">Создать игру</string>
     <string name="closeGame">Закрытая игра</string>
@@ -68,7 +91,7 @@
     <string name="start">Начало</string>
     <string name="end">Конец</string>
     <string name="title">Название</string>
-    <string name="otherInfo">Дополнительная информация</string>
+    <string name="otherInfo">Дополнительная информация\n</string>
     <string name="countPlayers">Количество игроков</string>
     <string name="minCountPlayers">Мин. количество игроков</string>
     <string name="sexPlayers">Пол участников</string>
@@ -85,14 +108,24 @@
     <string name="agree">Вы подтверждаете, что зарезервировали поле на данную дату и время</string>
     <string name="addEvent">Создать событие</string>
     <string name="cantCancel">Вы не сможете вносить изменения в игру, если до её начала осталось меньше 12 часов.</string>
+    <string name="tooltipClose">Игра не будет опубликована в календаре событий. Игроки смогут присоединиться по Вашему приглашению. Вы можете сделать игру открытой в настройках игры</string>
+    <string name="tooltipPlay">Будете Вы играть с другими игроками или следить за матчем со стороны?</string>
 
 
     <string name="inviteFriend">Пригласить друзей</string>
     <string name="invite">Пригласить</string>
     <string name="cancel">Отмена</string>
+    <string name="noFriends">Друзей не найдено</string>
+    <string name="youCanCopy">Вы можете скопировать ссылку, чтобы \nотправить приглашение</string>
+    <string name="refCopied">Ссылка скопирована в буфер обмена</string>
 
     <string name="friends">Друзья</string>
     <string name="places">Площадки</string>
+    <string name="noNewsTitle">Новостей нет</string>
+    <string name="noNewsFriens">В данный момент ваши друзья не планируют футбольные матчи, вы можете посмотреть ближайшие матчи у площадок
+или создать свою игру</string>
+    <string name="noNewsPlaces">В данный момент ваши избранные площадки не планируют футбольные матчи, вы можете добавить площадки в избранное или создать свою игру</string>
+    <string name="addToFavourite">Добавить в избранное</string>
 
     <string name="payment">Оплата</string>
     <string name="balance">Баланс кошелька:</string>
@@ -101,13 +134,29 @@
     <string name="partInMatch">Участие в матче</string>
     <string name="total">Итого:</string>
     <string name="pay">Оплатить</string>
-    <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча. </string>
+    <string name="cancelWithoutLoss">Отменить участие без потери средств можно не позднее, чем за 24 часа до начала матча.</string>
+    <string name="geolocationOff">Геолокация отключена</string>
+    <string name="geolocationText">Выдача новостей отсутствует по причине отключенной геолокации, для появления новостей по ближайшему к вам расположению включите геолокацию в профиле</string>
+    <string name="geolocationOn">Включить геолокацию</string>
+    <string name="paymentFail">Не хватает денежных средств для оплаты матча. \nПополните баланс и повторите оплату снова</string>
 
     <string name="match">Матч</string>
     <string name="type">Тип</string>
+    <string name="sexMatch">Пол</string>
     <string name="players">Участники:</string>
-    <string name="comments">Комментарии</string>
+    <string name="comments">Сообщения</string>
     <string name="participate">Участвовать</string>
+    <string name="sendMessage">Оставить сообщение</string>
+    <string name="cancelParticipate">Отменить участие</string>
+    <string name="autoReturn">До начала события более 12 часов, при отмене участия средства автоматически вернутся на Ваш баланс</string>
+    <string name="eventEnd">Событие завершено</string>
+    <string name="rateGame">Оценить игру</string>
+    <string name="markParticipants">Отметить участников</string>
+    <string name="noMessages">По данному матчу отсутствуют \nсообщения. Будьте первым, пообщайтесь \nсо своими членами команды</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="copyInvitation">Скопировать приглашение</string>
+    <string name="host">Хост</string>
+    <string name="deposit">Депозит</string>
 
     <string name="matchInfo">Информация о матче</string>
     <string name="matchPlace">Место проведения матча</string>
@@ -117,7 +166,6 @@
     <string name="noEmpty">Свободных мест нет</string>
     <string name="lightTeam">Светлая команда</string>
     <string name="darkTeam">Темная команда</string>
-
 
 
     <string name="gameCreated">Игра создана</string>
@@ -135,13 +183,18 @@
     <string name="inviteFriendsAlso">Пригласить еще друзей</string>
     <string name="done">Готово</string>
 
-    <string-array name="positions_array">
-        <item>Вратарь</item>
-        <item>Защитник</item>
-        <item>Полузащитник</item>
-        <item>Нападающий</item>
-        <item>Нет предпочитаемой позиции</item>
-    </string-array>
+    <string name="goalkeeper">Вратарь</string>
+    <string name="fullback">Защитник</string>
+    <string name="halfback">Полузащитник</string>
+    <string name="forward">Нападающий</string>
+    <string name="noPosition">Нет предпочитаемой позиции</string>
+<!--    <string-array name="positions_array">-->
+<!--        <item>Вратарь</item>-->
+<!--        <item>Защитник</item>-->
+<!--        <item>Полузащитник</item>-->
+<!--        <item>Нападающий</item>-->
+<!--        <item>Нет предпочитаемой позиции</item>-->
+<!--    </string-array>-->
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
@@ -157,7 +210,7 @@
         <item>Открытый</item>
         <item>Закрытый</item>
     </string-array>
-    <string name = "coveringType">Покрытие</string>
+    <string name="coveringType">Покрытие</string>
     <string-array name="coveringTypeArray">
         <item>Искусственная трава</item>
         <item>Гибридный газон</item>
@@ -170,6 +223,7 @@
     <string name="knobIconDescription">Ползунок</string>
 
     <string name="areaNotFound">Поля не найдены</string>
+
     <string name="tryChangeFilters">По заданным фильтрам и запросу не было найдено полей, попробуйте изменить параметры поиска</string>
     <string name="addField">Добавить поле</string>
     <string name="fieldName">Название поля</string>
@@ -218,4 +272,5 @@
     <string name="warningIcon">Предупреждение</string>
     <string name="loadedImage">Загруженная картинка</string>
     <string name="deletePhoto">Удалить фото</string>
+
 </resources>

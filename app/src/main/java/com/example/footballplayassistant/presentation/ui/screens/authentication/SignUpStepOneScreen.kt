@@ -50,7 +50,10 @@ fun SignUpStepOneScreen() {
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.onPrimary)
     ) {
-        HeaderAuthentication { HeaderSignUpStep(numStep = 1) }
+        HeaderAuthentication {
+            HeaderSignUpStep(numStep = 1,
+                onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) })
+        }
 
         LazyColumn {
             item {
@@ -94,7 +97,7 @@ fun SignUpStepOneScreen() {
                     ) {
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
-                            contentDescription = "",
+                            contentDescription = "Warning",
                             modifier = Modifier.padding(end = 2.dp)
                         )
                         Text(
@@ -168,8 +171,11 @@ fun SignUpStepOneScreen() {
 
 @Composable
 fun addStar(
-    id: Int, fontSize: TextUnit = 12.sp, fontWeight: FontWeight = FontWeight.W500,
-    fontFamily: FontFamily = FontFamily(Font(R.font.inter)), color: Color = MaterialTheme.colorScheme.onSecondaryContainer
+    id: Int,
+    fontSize: TextUnit = 12.sp,
+    fontWeight: FontWeight = FontWeight.W500,
+    fontFamily: FontFamily = FontFamily(Font(R.font.inter)),
+    color: Color = MaterialTheme.colorScheme.onSecondaryContainer
 ): AnnotatedString {
     val text = buildAnnotatedString {
         withStyle(

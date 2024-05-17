@@ -31,7 +31,7 @@ fun CommonCheckBoxAgree(){
         )
         Text(
             text = stringResource(id = R.string.agree),
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(4.dp)

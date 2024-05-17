@@ -12,55 +12,62 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 
 @Composable
 fun HeaderUser(
-    name: String, onClickPlus: () -> Unit = {}, onClickBell: () -> Unit = {}, @SuppressLint(
-        "ModifierParameter"
-    ) modifier: Modifier = Modifier
+    name: String,
+    onClickPlus: () -> Unit = {},
+    onClickBell: () -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp)
+            .padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Image(painter = painterResource(id = R.drawable.user_foto), contentDescription = "",
-            modifier = Modifier.fillMaxWidth(0.12f))
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.user_foto),
+                contentDescription = "User foto",
+            )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(0.7f)
-                .padding(start = 10.dp), verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = "Привет,",
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-            Text(
-                text = name,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.primary
-            )
+            Column(
+                modifier = Modifier
+                    .padding(start = 10.dp), verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.hello),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(0.3f)
                 .height(42.dp)
                 .border(
                     width = 1.dp,
@@ -68,26 +75,27 @@ fun HeaderUser(
                     RoundedCornerShape(40.dp)
                 )
         ) {
-            IconButton(onClick = { onClickPlus.invoke() }) {
+            IconButton(onClick = onClickPlus) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_plus_24),
-                    contentDescription = "",
+                    contentDescription = "Plus",
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
 
-            HorizontalDivider(
+            VerticalDivider(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(vertical = 8.dp)
                     .width(1.dp),
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                thickness = 1.dp
             )
 
-            IconButton(onClick = { onClickBell.invoke() }) {
+            IconButton(onClick = onClickBell) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_bell_24),
-                    contentDescription = "",
+                    contentDescription = "Bell",
                     tint = MaterialTheme.colorScheme.primary
                 )
             }

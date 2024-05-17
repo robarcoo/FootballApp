@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -19,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -26,8 +29,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -46,7 +51,7 @@ fun StartScreen() {
     ) {
         Image(
             painter = painterResource(id = R.drawable.player),
-            contentDescription = "",
+            contentDescription = "Player",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
@@ -64,29 +69,35 @@ fun StartScreen() {
             ),
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
         ) {
-            Box(
-                modifier = Modifier.fillMaxHeight()
-            ) {
+            ConstraintLayout(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .verticalScroll(ScrollState(0))
+            )
+            {
+                val (column, leftImage, rightImage) = createRefs()
+                val horizontalLine = createGuidelineFromTop(0.4f)
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_144_223),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
+                    contentDescription = "Ball left",
+                    modifier = Modifier.constrainAs(ref = leftImage) {
+                        top.linkTo(parent.top, margin = 0.dp)
+                    }
                 )
 
                 Image(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_ball_140_170),
-                    contentDescription = "",
-                    modifier = Modifier.align(Alignment.BottomEnd)
+                    contentDescription = "Ball right",
+                    modifier = Modifier.constrainAs(ref = rightImage) {
+                        bottom.linkTo(parent.bottom, margin = 0.dp)
+                        end.linkTo(parent.end)
+                    }
                 )
-
-                Column(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center)
-                        .padding(/*top = 100.dp,*/ start = MaterialTheme.spacing.medium,
-                            end = MaterialTheme.spacing.medium
-                        )
+                Column(modifier = Modifier
+                    .constrainAs(ref = column) {
+                        top.linkTo(horizontalLine)
+                        bottom.linkTo(parent.bottom, margin = 16.dp)
+                    }
                 ) {
                     Text(
                         text = stringResource(id = R.string.takePart),
@@ -94,15 +105,14 @@ fun StartScreen() {
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W400),
-                        modifier = Modifier.padding(bottom = 30.dp, top = 125.dp)
+                        modifier = Modifier.padding(bottom = 30.dp/*, top = 120.dp*/)
                     )
 
                     CommonButton(
-                        text = "Войти",
+                        text = stringResource(id = R.string.signin),
                         style = MaterialTheme.typography.bodyLarge,
-                        onClick = {
-                            navController.navigate(Route.SignInScreen.path)
-                        }
+                        onClick = { navController.navigate(Route.SignInScreen.path) },
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
 
                     Button(modifier = Modifier
@@ -111,18 +121,17 @@ fun StartScreen() {
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.outlineVariant
                         ),
-                        onClick = {
-                            navController.navigate(Route.SignUpEnterPhoneScreen.path)
-                        }) {
+                        onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) }) {
                         Text(
-                            text = "Зарегистрироваться",
+                            text = stringResource(id = R.string.signup),
                             style = MaterialTheme.typography.bodySmall
-                                .copy(fontWeight = FontWeight.W600)
-
+                                .copy(fontWeight = FontWeight.W600),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                         Image(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
-                            contentDescription = ""
+                            contentDescription = "Arrows"
                         )
                     }
                 }
@@ -130,7 +139,7 @@ fun StartScreen() {
         }
         Image(
             painter = painterResource(id = R.drawable.logo),
-            contentDescription = "",
+            contentDescription = "Center loge",
             modifier = Modifier
                 .align(Alignment.Center)
                 .fillMaxHeight(0.3f)
