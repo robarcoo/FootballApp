@@ -34,6 +34,8 @@
     <string name="surname">Фамилия</string>
     <string name="email">Почта</string>
     <string name="forgotPassword">Забыли пароль?</string>
+    <string name="recoveryPassword">Восстановление \nпароля</string>
+    <string name="instructionRecoveryPassword">На указанный адрес электронной почты придет инструкция по восстановлению пароля</string>
     <string name="enterInfoYourself">Введите\n информацию о себе</string>
     <string name="birthday">Дата рождения</string>
     <string name="sex">Ваш пол</string>
@@ -53,6 +55,7 @@
     <string name="enter">Вход</string>
     <string name="registration">Регистрация</string>
     <string name="enterCode">Введите код\n из смс</string>
+    <string name="enterCodeFromEmail">Введите код\n из письма</string>
     <string name="step">Шаг %1$d из 2</string>
     <string name="and">и</string>
     <string name="save">Сохранить</string>
@@ -62,6 +65,12 @@
     <string name="professional">Профессионал</string>
     <string name="man">Мужчина</string>
     <string name="woman">Женщина</string>
+    <string name="doneWithPoint">Готово!</string>
+    <string name="newPassIsRecovery">Новый пароль успешно восстановлен</string>
+    <string name="onSignInScreen">На страницу входа</string>
+
+    <string name="Phone">phone</string>
+    <string name="Email">email</string>
 
 
     <string name="money">Ваш баланс</string>

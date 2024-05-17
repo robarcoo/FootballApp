@@ -145,10 +145,9 @@ fun HeaderSignUp() {
 }
 
 @Composable
-@Preview
-fun HeaderSignUpCode() {
+fun HeaderSignUpCode(textResource: Int) {
     Text(
-        text = stringResource(id = R.string.enterCode),
+        text = stringResource(id = textResource),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
         color = MaterialTheme.colorScheme.onPrimary,
@@ -181,4 +180,30 @@ fun HeaderSignUpStep(numStep: Int, onClick: () -> Unit = {}) {
                 .fillMaxWidth()
         )
     }
+}
+
+@Composable
+fun HeaderForgotPassword(onClick: () -> Unit = {}) {
+    HeaderWithBackButton(
+        text = stringResource(id = R.string.forgotPassword), tint = MaterialTheme.colorScheme.onPrimary,
+        styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
+        colorText = MaterialTheme.colorScheme.onPrimary,
+        onClickBack = onClick,
+        modifier = Modifier
+            .padding(top = 20.dp)
+            .padding(horizontal = 16.dp)
+    )
+}
+
+@Composable
+fun HeaderRecoveryPassword(onClick: () -> Unit = {}) {
+    HeaderWithBackButton(
+        text = stringResource(id = R.string.recoveryPassword), tint = MaterialTheme.colorScheme.onPrimary,
+        styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
+        colorText = MaterialTheme.colorScheme.onPrimary,
+        onClickBack = onClick,
+        modifier = Modifier
+            .padding(top = 20.dp)
+            .padding(horizontal = 16.dp)
+    )
 }

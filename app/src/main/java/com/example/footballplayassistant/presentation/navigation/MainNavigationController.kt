@@ -5,12 +5,17 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RecoveryPasswordScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
@@ -26,11 +31,12 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
+import com.example.footballplayassistant.R
 
 @Composable
 fun MainNavigationController(
     navController: NavHostController,
-){
+) {
     CompositionLocalProvider(
         LocalNavController provides navController
     ) {
@@ -52,8 +58,20 @@ fun MainNavigationController(
                 SignUpEnterPhoneScreen()
             }
 
-            composable(route = Route.SignUpCodeScreen.path) {
-                SignUpCodeScreen()
+            composable(
+                route = Route.SignUpCodeScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.StringType
+                    defaultValue = "phone"
+                    nullable = false
+                })
+            ) {entry ->
+                entry.arguments?.getString("type").let{type ->
+                    if(type!=null){
+                        SignUpCodeScreen(sendCode = type)
+                    }
+                }
+
             }
 
             composable(route = Route.SignUpStepOneScreen.path) {
@@ -110,6 +128,14 @@ fun MainNavigationController(
 
             composable(route = Route.CreateFieldScreen.path) {
                 CreateFieldScreen()
+            }
+
+            composable(route = Route.ForgotPasswordScreen.path) {
+                ForgotPasswordScreen()
+            }
+
+            composable(route = Route.RecoveryPasswordScreen.path) {
+                RecoveryPasswordScreen()
             }
         }
     }
