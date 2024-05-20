@@ -38,6 +38,8 @@ sealed class Route(val path: String) {
 
     data object CreateFieldScreen : Route(path = "create_field_screen")
 
+    data object RulesAndPoliticScreen : Route(path = "rules_and_politic_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

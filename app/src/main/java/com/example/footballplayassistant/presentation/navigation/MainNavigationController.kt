@@ -1,16 +1,21 @@
 package com.example.footballplayassistant.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RulesAndPoliticScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
@@ -27,10 +32,11 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainNavigationController(
     navController: NavHostController,
-){
+) {
     CompositionLocalProvider(
         LocalNavController provides navController
     ) {
@@ -110,6 +116,21 @@ fun MainNavigationController(
 
             composable(route = Route.CreateFieldScreen.path) {
                 CreateFieldScreen()
+            }
+
+            composable(
+                route = Route.RulesAndPoliticScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.StringType
+                    defaultValue = "rules"
+                    nullable = false
+                })
+            ) { entry ->
+                entry.arguments?.getString("type").let { type ->
+                    if (type != null) {
+                        RulesAndPoliticScreen(header = type)
+                    }
+                }
             }
         }
     }
