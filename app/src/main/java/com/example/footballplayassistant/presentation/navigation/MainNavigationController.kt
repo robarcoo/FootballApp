@@ -1,5 +1,7 @@
 package com.example.footballplayassistant.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,6 +13,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RulesAndPoliticScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
@@ -33,6 +37,7 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Filt
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 import com.example.footballplayassistant.R
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainNavigationController(
     navController: NavHostController,
@@ -129,6 +134,20 @@ fun MainNavigationController(
             composable(route = Route.CreateFieldScreen.path) {
                 CreateFieldScreen()
             }
+
+            composable(
+                route = Route.RulesAndPoliticScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.StringType
+                    defaultValue = RulesPolitic.RULES
+                    nullable = false
+                })
+            ) { entry ->
+                entry.arguments?.getString("type").let { type ->
+                    if (type != null) {
+                        RulesAndPoliticScreen(header = type)
+                    }
+                }
 
             composable(route = Route.ForgotPasswordScreen.path) {
                 ForgotPasswordScreen()

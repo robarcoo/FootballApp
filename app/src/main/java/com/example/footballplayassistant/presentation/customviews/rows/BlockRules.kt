@@ -1,6 +1,5 @@
 package com.example.footballplayassistant.presentation.customviews.rows
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,23 +8,23 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 @Preview
 fun BlockRules(modifier: Modifier = Modifier) {
+    val navController = LocalNavController.current!!
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -36,7 +35,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
             append(stringResource(R.string.blockrulesstart))
             append(" ")
 
-            pushStringAnnotation(tag = "click", annotation = "click")
+            pushStringAnnotation(tag = RulesPolitic.RULES, annotation = RulesPolitic.RULES)
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
@@ -50,10 +49,10 @@ fun BlockRules(modifier: Modifier = Modifier) {
             append(stringResource(id = R.string.and))
             append(" ")
 
-            pushStringAnnotation(tag = "click", annotation = "click")
+            pushStringAnnotation(tag = RulesPolitic.POLITIC, annotation = RulesPolitic.POLITIC)
             withStyle(
                 SpanStyle(
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.secondary
                 )
             )
             {
@@ -62,16 +61,21 @@ fun BlockRules(modifier: Modifier = Modifier) {
             pop()
 
         }
-        val context = LocalContext.current
+
         ClickableText(text = text,
             style = MaterialTheme.typography.displaySmall.copy(
                 fontWeight = FontWeight.W500,
                 textAlign = TextAlign.Center
             ),
             onClick = { offset ->
-                text.getStringAnnotations(tag = "click", start = offset, end = offset).firstOrNull()
+                text.getStringAnnotations(tag = RulesPolitic.RULES, start = offset, end = offset).firstOrNull()
                     ?.let {
-                        Toast.makeText(context, "hey", Toast.LENGTH_SHORT).show()
+                        navController.navigate(Route.RulesAndPoliticScreen.withArgs(RulesPolitic.RULES))
+                    }
+                text.getStringAnnotations(tag = RulesPolitic.POLITIC, start = offset, end = offset)
+                    .firstOrNull()
+                    ?.let {
+                        navController.navigate(Route.RulesAndPoliticScreen.withArgs(RulesPolitic.POLITIC))
                     }
             })
     }
