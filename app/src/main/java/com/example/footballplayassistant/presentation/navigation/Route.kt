@@ -38,6 +38,10 @@ sealed class Route(val path: String) {
 
     data object CreateFieldScreen : Route(path = "create_field_screen")
 
+    data object MatchParticipantsScreen : Route(path = "match_participants_screen")
+
+    data object ManagingParticipantsScreen : Route(path = "managing_participants_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

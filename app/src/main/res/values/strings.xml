@@ -183,6 +183,12 @@
     <string name="inviteFriendsAlso">Пригласить еще друзей</string>
     <string name="done">Готово</string>
 
+    <string name="matchParticipants">Участники матча</string>
+    <string name="managingParticipants">Управление участниками матча</string>
+    <string name="inviteParticipants">Пригласить участников</string>
+    <string name="noPlayers">Игроков не найдено</string>
+    <string name="youCanInvite">На данный момент никто не присоединился к игре. Вы можете пригласить новых участников. </string>
+
     <string name="goalkeeper">Вратарь</string>
     <string name="fullback">Защитник</string>
     <string name="halfback">Полузащитник</string>

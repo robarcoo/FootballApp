@@ -26,9 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<String>) {
+    val navController = LocalNavController.current!!
+
     Card(
         modifier = modifier.padding(top = 32.dp),
         shape = RectangleShape,
@@ -125,7 +129,7 @@ fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<
                             overflow = TextOverflow.Ellipsis,
                         )
                         IconButton(
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(Route.MatchParticipantsScreen.path) },
                             colors = IconButtonDefaults.iconButtonColors(
                                 containerColor = MaterialTheme.colorScheme.secondary
                             ),

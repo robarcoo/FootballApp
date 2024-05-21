@@ -30,6 +30,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.PlayerInTeam
 import com.example.footballplayassistant.presentation.customviews.cards.CountOfPlayers
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.customviews.rows.TeamsAndCountPlayers
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 
@@ -96,44 +97,11 @@ fun ChooseTeamScreen() {
                 }
 
                 item {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Column(
-                            modifier = Modifier.weight(0.4f),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.lightTeam),
-                                style = MaterialTheme.typography.displayMedium
-                                    .copy(fontWeight = FontWeight.W600),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                            CountOfPlayers(
-                                currentPlayers = 5,
-                                maxPlayers = 10,
-                                modifier = Modifier.width(60.dp)
-                            )
-                        }
-                        Column(
-                            modifier = Modifier.weight(0.4f),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.darkTeam),
-                                style = MaterialTheme.typography.displayMedium
-                                    .copy(fontWeight = FontWeight.W600),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.padding(bottom = 8.dp)
-                            )
-                            CountOfPlayers(
-                                currentPlayers = 10,
-                                maxPlayers = 10,
-                                modifier = Modifier.width(60.dp)
-                            )
-                        }
-                    }
+                    TeamsAndCountPlayers(
+                        maxPlayers = 10,
+                        currentPlayersFirstTeam = 5,
+                        currentPlayersSecondTeam = 10
+                    )
                 }
 
                 item {
