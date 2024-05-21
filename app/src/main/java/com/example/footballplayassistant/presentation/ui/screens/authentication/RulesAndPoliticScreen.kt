@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.RULES
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 
@@ -24,10 +25,9 @@ fun RulesAndPoliticScreen(header: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .padding(top = 12.dp)
+            .padding(top = 12.dp, start = 16.dp, end = 16.dp)
     ) {
-        HeaderWithBackButton(text = stringResource(id = if (header == "rules") R.string.rulesHeader
+        HeaderWithBackButton(text = stringResource(id = if (header == RULES) R.string.rulesHeader
         else R.string.politicHeader),
             onClickBack = { navController.navigate(Route.SignInScreen.path) })
 

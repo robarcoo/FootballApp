@@ -17,6 +17,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.POLITIC
+import com.example.footballplayassistant.presentation.constants.RULES
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 
@@ -34,7 +36,7 @@ fun BlockRules(modifier: Modifier = Modifier) {
             append(stringResource(R.string.blockrulesstart))
             append(" ")
 
-            pushStringAnnotation(tag = "rules", annotation = "rules")
+            pushStringAnnotation(tag = RULES, annotation = RULES)
             withStyle(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.secondary,
@@ -48,10 +50,10 @@ fun BlockRules(modifier: Modifier = Modifier) {
             append(stringResource(id = R.string.and))
             append(" ")
 
-            pushStringAnnotation(tag = "politic", annotation = "politic")
+            pushStringAnnotation(tag = POLITIC, annotation = POLITIC)
             withStyle(
                 SpanStyle(
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.secondary
                 )
             )
             {
@@ -67,14 +69,14 @@ fun BlockRules(modifier: Modifier = Modifier) {
                 textAlign = TextAlign.Center
             ),
             onClick = { offset ->
-                text.getStringAnnotations(tag = "rules", start = offset, end = offset).firstOrNull()
+                text.getStringAnnotations(tag = RULES, start = offset, end = offset).firstOrNull()
                     ?.let {
-                        navController.navigate(Route.RulesAndPoliticScreen.withArgs("rules"))
+                        navController.navigate(Route.RulesAndPoliticScreen.withArgs(RULES))
                     }
-                text.getStringAnnotations(tag = "politic", start = offset, end = offset)
+                text.getStringAnnotations(tag = POLITIC, start = offset, end = offset)
                     .firstOrNull()
                     ?.let {
-                        navController.navigate(Route.RulesAndPoliticScreen.withArgs("politic"))
+                        navController.navigate(Route.RulesAndPoliticScreen.withArgs(POLITIC))
                     }
             })
     }
