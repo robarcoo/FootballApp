@@ -111,8 +111,7 @@ fun NewsScreen() {
 //                }
 //            }
         }
-        CommonBottomBar(
-        )
+        CommonBottomBar()
     }
 }
 

@@ -32,6 +32,8 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.ManagingParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchParticipantsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
@@ -135,6 +137,14 @@ fun MainNavigationController(
                 CreateFieldScreen()
             }
 
+            composable(route = Route.MatchParticipantsScreen.path){
+                MatchParticipantsScreen()
+            }
+
+            composable(route = Route.ManagingParticipantsScreen.path){
+                ManagingParticipantsScreen()
+            }
+            
             composable(
                 route = Route.RulesAndPoliticScreen.path + "/{type}",
                 arguments = listOf(navArgument("type") {
@@ -148,7 +158,8 @@ fun MainNavigationController(
                         RulesAndPoliticScreen(header = type)
                     }
                 }
-
+            }
+            
             composable(route = Route.ForgotPasswordScreen.path) {
                 ForgotPasswordScreen()
             }
