@@ -66,6 +66,7 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                             text = "$money ${stringResource(id = R.string.currency)}",
                             style = MaterialTheme.typography.titleMedium
                                 .copy(fontWeight = FontWeight.W600),
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
 
@@ -76,7 +77,8 @@ fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
                         onClick = { /*TODO*/ }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_24),
-                            contentDescription = "Arrows"
+                            contentDescription = "Arrows",
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }
