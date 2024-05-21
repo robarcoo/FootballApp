@@ -1,4 +1,6 @@
 package com.example.footballplayassistant.presentation.constants
 
-const val RULES = "rules"
-const val POLITIC = "politic"
+object RulesPolitic {
+    const val RULES = "rules"
+    const val POLITIC = "politic"
+}

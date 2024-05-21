@@ -12,7 +12,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.footballplayassistant.presentation.constants.RULES
+import com.example.footballplayassistant.presentation.constants.RulesPolitic
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
@@ -123,7 +123,7 @@ fun MainNavigationController(
                 route = Route.RulesAndPoliticScreen.path + "/{type}",
                 arguments = listOf(navArgument("type") {
                     type = NavType.StringType
-                    defaultValue = RULES
+                    defaultValue = RulesPolitic.RULES
                     nullable = false
                 })
             ) { entry ->
