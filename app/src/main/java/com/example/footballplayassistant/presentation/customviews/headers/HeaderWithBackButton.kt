@@ -58,7 +58,7 @@ fun HeaderWithBackButton(
             text = text,
             style = styleText,
             color = colorText,
-            maxLines = 1,
+            maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
             modifier = Modifier

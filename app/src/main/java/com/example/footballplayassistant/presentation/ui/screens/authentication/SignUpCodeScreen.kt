@@ -31,7 +31,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
@@ -42,8 +41,7 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-@Preview
-fun SignUpCodeScreen() {
+fun SignUpCodeScreen(sendCode: String) {
     val navController = LocalNavController.current!!
     val (item1, item2, item3, item4) =
         remember { FocusRequester.createRefs() }
@@ -51,17 +49,28 @@ fun SignUpCodeScreen() {
     val OK = remember { mutableStateOf(false) }
 
     if (OK.value)
-        navController.navigate(Route.SignUpStepOneScreen.path)
+        if (sendCode == stringResource(id = R.string.Phone))
+            navController.navigate(Route.SignUpStepOneScreen.path)
+        else
+            navController.navigate(Route.RecoveryPasswordScreen.path)
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onPrimary)
     ) {
-        HeaderAuthentication { HeaderSignUpCode() }
+        HeaderAuthentication {
+            if (sendCode == stringResource(id = R.string.Phone))
+                HeaderSignUpCode(textResource = R.string.enterCode)
+            else
+                HeaderSignUpCode(textResource = R.string.enterCodeFromEmail)
+        }
 
         Text(
-            text = stringResource(R.string.phoneCode),
+            text = stringResource(
+                if (sendCode == stringResource(id = R.string.Phone)) R.string.phoneCode
+                else R.string.emailCode),
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondaryContainer,

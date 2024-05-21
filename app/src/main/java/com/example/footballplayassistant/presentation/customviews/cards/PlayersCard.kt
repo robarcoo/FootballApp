@@ -41,6 +41,7 @@ fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<
             Text(
                 text = stringResource(id = R.string.players),
                 style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 16.dp),
             )
 
@@ -84,6 +85,7 @@ fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<
                                 .copy(fontWeight = FontWeight.W600),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.primary
                         )
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
@@ -123,18 +125,20 @@ fun PlayersCard(modifier: Modifier = Modifier, name: String, participants: List<
                                 .copy(fontWeight = FontWeight.W400),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.primary
                         )
                         IconButton(
                             onClick = { /*TODO*/ },
                             colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.secondary
+                                containerColor = MaterialTheme.colorScheme.primary
                             ),
                             modifier = Modifier.align(Alignment.Bottom)
                         ) {
                             Icon(
                                 imageVector = ImageVector.vectorResource
                                     (R.drawable.ic_arrows_24),
-                                contentDescription = "Arrows"
+                                contentDescription = "Arrows",
+                                tint = MaterialTheme.colorScheme.onPrimary
                             )
                         }
                     }

@@ -247,10 +247,12 @@ private fun BalanceCard(price: String) {
                 Text(
                     text = price,
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.W600),
+                    color = MaterialTheme.colorScheme.primary,
                 )
                 Text(
                     text = stringResource(id = R.string.currency),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W400),
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.Bottom)
                         .padding(start = 8.dp)
@@ -262,6 +264,7 @@ private fun BalanceCard(price: String) {
                 style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.align(Alignment.Bottom)
             )
         }

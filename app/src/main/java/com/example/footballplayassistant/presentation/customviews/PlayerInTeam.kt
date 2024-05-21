@@ -25,6 +25,7 @@ fun PlayerInTeam(userTag: String, position: String, foto: Int) {
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W500),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
         )
         Text(
