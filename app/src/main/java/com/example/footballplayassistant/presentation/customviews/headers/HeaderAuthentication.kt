@@ -145,18 +145,15 @@ fun HeaderSignUp() {
 }
 
 @Composable
-@Preview
-fun HeaderSignUpCode() {
+fun HeaderSignUpCode(textResource: Int) {
     Text(
-        text = stringResource(id = R.string.enterCode),
+        text = stringResource(id = textResource),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
         color = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp)
-            .padding(horizontal = MaterialTheme.spacing.horizontal)
-    )
+            .padding(top = 20.dp, start = 16.dp, end = 16.dp))
 }
 
 @Composable
@@ -167,18 +164,33 @@ fun HeaderSignUpStep(numStep: Int, onClick: () -> Unit = {}) {
             styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
             colorText = MaterialTheme.colorScheme.onPrimary,
             onClickBack = onClick,
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 35.dp)
-                .padding(horizontal = 16.dp)
-        )
+            modifier = Modifier.padding(top = 20.dp, bottom = 35.dp, start = 16.dp, end = 16.dp))
 
         Text(
             text = stringResource(id = R.string.step, numStep),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
+            modifier = Modifier.fillMaxWidth())
     }
+}
+
+@Composable
+fun HeaderForgotPassword(onClick: () -> Unit = {}) {
+    HeaderWithBackButton(
+        text = stringResource(id = R.string.forgotPassword), tint = MaterialTheme.colorScheme.onPrimary,
+        styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
+        colorText = MaterialTheme.colorScheme.onPrimary,
+        onClickBack = onClick,
+        modifier = Modifier.padding(top = 20.dp, start = 16.dp, end = 16.dp))
+}
+
+@Composable
+fun HeaderRecoveryPassword(onClick: () -> Unit = {}) {
+    HeaderWithBackButton(
+        text = stringResource(id = R.string.recoveryPassword), tint = MaterialTheme.colorScheme.onPrimary,
+        styleText = MaterialTheme.typography.displayLarge.copy(fontWeight = FontWeight.W500),
+        colorText = MaterialTheme.colorScheme.onPrimary,
+        onClickBack = onClick,
+        modifier = Modifier.padding(top = 20.dp, start = 16.dp, end = 16.dp))
 }

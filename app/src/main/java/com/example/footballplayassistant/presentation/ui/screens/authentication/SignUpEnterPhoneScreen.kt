@@ -65,9 +65,7 @@ fun SignUpEnterPhoneScreen() {
             )
             CommonButton(
                 text = stringResource(R.string.sendCode),
-                onClick = {
-                    navController.navigate(Route.SignUpCodeScreen.path)
-                },
+                onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs("phone")) },
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )

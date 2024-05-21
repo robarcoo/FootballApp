@@ -112,6 +112,7 @@ fun CommonOtherInfoCard(modifier: Modifier = Modifier, onClick: () -> Unit = {})
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(8.dp)
                     .align(Alignment.CenterVertically)

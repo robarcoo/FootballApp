@@ -115,7 +115,8 @@ fun SignInScreen() {
                 ForgotPassword(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 20.dp, top = 12.dp, end = 16.dp)
+                        .padding(bottom = 20.dp, top = 12.dp, end = 16.dp),
+                    onClick = { navController.navigate(Route.ForgotPasswordScreen.path) }
                 )
             }
 
