@@ -1,16 +1,25 @@
 package com.example.footballplayassistant.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RulesAndPoliticScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RecoveryPasswordScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
@@ -23,17 +32,21 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.ManagingParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchParticipantsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
+import com.example.footballplayassistant.R
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainNavigationController(
     navController: NavHostController,
-){
+) {
     CompositionLocalProvider(
         LocalNavController provides navController
     ) {
@@ -55,8 +68,20 @@ fun MainNavigationController(
                 SignUpEnterPhoneScreen()
             }
 
-            composable(route = Route.SignUpCodeScreen.path) {
-                SignUpCodeScreen()
+            composable(
+                route = Route.SignUpCodeScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.StringType
+                    defaultValue = "phone"
+                    nullable = false
+                })
+            ) {entry ->
+                entry.arguments?.getString("type").let{type ->
+                    if(type!=null){
+                        SignUpCodeScreen(sendCode = type)
+                    }
+                }
+
             }
 
             composable(route = Route.SignUpStepOneScreen.path) {
@@ -125,6 +150,37 @@ fun MainNavigationController(
 
             composable(route = Route.ComingEventsScreen.path) {
                 ComingEventsScreen()
+            }
+
+            composable(route = Route.MatchParticipantsScreen.path){
+                MatchParticipantsScreen()
+            }
+
+            composable(route = Route.ManagingParticipantsScreen.path){
+                ManagingParticipantsScreen()
+            }
+
+            composable(
+                route = Route.RulesAndPoliticScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.StringType
+                    defaultValue = RulesPolitic.RULES
+                    nullable = false
+                })
+            ) { entry ->
+                entry.arguments?.getString("type").let { type ->
+                    if (type != null) {
+                        RulesAndPoliticScreen(header = type)
+                    }
+                }
+            }
+
+            composable(route = Route.ForgotPasswordScreen.path) {
+                ForgotPasswordScreen()
+            }
+
+            composable(route = Route.RecoveryPasswordScreen.path) {
+                RecoveryPasswordScreen()
             }
         }
     }
