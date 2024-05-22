@@ -318,4 +318,12 @@
     <string name="gamePlayerAmountInfo">Кол-во игроков</string>
     <string name="fieldInfoIconDescription">Информация о поле</string>
     <string name="comingEventsScreenTitle">События площадки</string>
+    <string name="fieldSizeValue">45х30</string>
+    <string name="fieldTypeValue">Открытая</string>
+    <string name="fieldCoveringValue">Искусственная трава</string>
+    <string name="fieldShoweringValue">Да</string>
+    <string name="fieldLightValue">Искусственное</string>
+    <string name="fieldChangingRoomValue">Закрытые</string>
+    <string name="fieldTribuneValue">40 мест</string>
+    <string name="gamePlayerAmountValue">До 20</string>
 </resources>

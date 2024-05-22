@@ -54,14 +54,14 @@ fun AdditionalFieldInfoScreen() {
         Column(modifier = Modifier
             .background(color = MaterialTheme.colorScheme.primaryContainer)
             .padding(MaterialTheme.spacing.medium)) { // Данные - заглушка
-            FieldInfoDetail(icon = R.drawable.ic_ruler, title = stringResource(R.string.fieldSizeInfo), value = "45х30")
-            FieldInfoDetail(icon = R.drawable.ic_field, title = stringResource(R.string.fieldTypeInfo), value = "Открытая")
-            FieldInfoDetail(icon = R.drawable.ic_covering, title = stringResource(R.string.fieldCoveringInfo), value = "Искусственная трава")
-            FieldInfoDetail(icon = R.drawable.ic_shower, title = stringResource(R.string.fieldShoweringInfo), value = "Да")
-            FieldInfoDetail(icon = R.drawable.ic_lightbulb, title = stringResource(R.string.fieldLightInfo), value = "Искусственное")
-            FieldInfoDetail(icon = R.drawable.ic_changing_room, title = stringResource(R.string.fieldChangingRoomInfo), value = "Закрытые")
-            FieldInfoDetail(icon = R.drawable.ic_tribune, title = stringResource(R.string.fieldTribuneInfo), value = "40 мест")
-            FieldInfoDetail(icon = R.drawable.ic_people_24, title = stringResource(R.string.gamePlayerAmountInfo), value = "До 20")
+            FieldInfoDetail(icon = R.drawable.ic_ruler, title = stringResource(R.string.fieldSizeInfo), value = stringResource(R.string.fieldSizeValue))
+            FieldInfoDetail(icon = R.drawable.ic_field, title = stringResource(R.string.fieldTypeInfo), value = stringResource(R.string.fieldTypeValue))
+            FieldInfoDetail(icon = R.drawable.ic_covering, title = stringResource(R.string.fieldCoveringInfo), value = stringResource(R.string.fieldCoveringValue))
+            FieldInfoDetail(icon = R.drawable.ic_shower, title = stringResource(R.string.fieldShoweringInfo), value = stringResource(R.string.fieldShoweringValue))
+            FieldInfoDetail(icon = R.drawable.ic_lightbulb, title = stringResource(R.string.fieldLightInfo), value = stringResource(R.string.fieldLightValue))
+            FieldInfoDetail(icon = R.drawable.ic_changing_room, title = stringResource(R.string.fieldChangingRoomInfo), value = stringResource(R.string.fieldChangingRoomValue))
+            FieldInfoDetail(icon = R.drawable.ic_tribune, title = stringResource(R.string.fieldTribuneInfo), value = stringResource(R.string.fieldTribuneValue))
+            FieldInfoDetail(icon = R.drawable.ic_people_24, title = stringResource(R.string.gamePlayerAmountInfo), value = stringResource(R.string.gamePlayerAmountValue))
 
         }
 
