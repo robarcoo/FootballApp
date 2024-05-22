@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
@@ -31,9 +32,9 @@ fun AdditionalFieldInfoScreen() {
         .fillMaxSize()
         .verticalScroll(rememberScrollState())) {
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-            HeaderWithBackButton(text = "Информация о поле")
+            HeaderWithBackButton(text = stringResource(R.string.additionalInfoScreenTitle))
             Text(
-                "Футбольный манеж 38х16 «Спорт Ангар» Теплый стан ",
+                stringResource(R.string.fieldNameTitle),
                 style = MaterialTheme.typography.displayMedium.copy(
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.W600
@@ -42,7 +43,7 @@ fun AdditionalFieldInfoScreen() {
                     top = MaterialTheme.spacing.small)
             )
             Text(
-                "Крутое поле на базе Крылатское. Удобное расположение и транспортная развязка для удобства. Есть аренда инвентаря для всех видов спорта. Крутое поле на базе Крылатское. Удобное расположение и транспортная развязка для удобства. Есть аренда инвентаря для всех видов спорта.",
+                stringResource(R.string.fieldInfoDescription),
                 style = MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.W400
@@ -52,15 +53,15 @@ fun AdditionalFieldInfoScreen() {
         }
         Column(modifier = Modifier
             .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .padding(MaterialTheme.spacing.medium)) {
-            FieldInfoDetail(icon = R.drawable.ic_ruler, title = "Размеры поля", value = "45х30")
-            FieldInfoDetail(icon = R.drawable.ic_field, title = "Площадка", value = "Открытая")
-            FieldInfoDetail(icon = R.drawable.ic_covering, title = "Покрытие", value = "Искусственная трава")
-            FieldInfoDetail(icon = R.drawable.ic_shower, title = "Душ", value = "Да")
-            FieldInfoDetail(icon = R.drawable.ic_lightbulb, title = "Освещение", value = "Искусственное")
-            FieldInfoDetail(icon = R.drawable.ic_changing_room, title = "Раздевалки", value = "Закрытые")
-            FieldInfoDetail(icon = R.drawable.ic_tribune, title = "Трибуны", value = "40 мест")
-            FieldInfoDetail(icon = R.drawable.ic_people_24, title = "Кол-во игроков", value = "До 20")
+            .padding(MaterialTheme.spacing.medium)) { // Данные - заглушка
+            FieldInfoDetail(icon = R.drawable.ic_ruler, title = stringResource(R.string.fieldSizeInfo), value = "45х30")
+            FieldInfoDetail(icon = R.drawable.ic_field, title = stringResource(R.string.fieldTypeInfo), value = "Открытая")
+            FieldInfoDetail(icon = R.drawable.ic_covering, title = stringResource(R.string.fieldCoveringInfo), value = "Искусственная трава")
+            FieldInfoDetail(icon = R.drawable.ic_shower, title = stringResource(R.string.fieldShoweringInfo), value = "Да")
+            FieldInfoDetail(icon = R.drawable.ic_lightbulb, title = stringResource(R.string.fieldLightInfo), value = "Искусственное")
+            FieldInfoDetail(icon = R.drawable.ic_changing_room, title = stringResource(R.string.fieldChangingRoomInfo), value = "Закрытые")
+            FieldInfoDetail(icon = R.drawable.ic_tribune, title = stringResource(R.string.fieldTribuneInfo), value = "40 мест")
+            FieldInfoDetail(icon = R.drawable.ic_people_24, title = stringResource(R.string.gamePlayerAmountInfo), value = "До 20")
 
         }
 
@@ -78,7 +79,7 @@ fun FieldInfoDetail(icon : Int, title : String, value : String) {
             Row(modifier = Modifier.weight(1f, fill = false).align(Alignment.CenterVertically),
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 verticalAlignment = Alignment.CenterVertically) {
-                Icon(painterResource(id = icon), contentDescription = null,
+                Icon(painterResource(id = icon), contentDescription = stringResource(R.string.fieldInfoIconDescription),
                     tint = MaterialTheme.colorScheme.secondary)
                 Text(title, style = MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
