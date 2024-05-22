@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,10 +19,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
@@ -55,14 +58,19 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Preview
 @Composable
 fun FieldInfoScreen() {
+    val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxWidth()
         .verticalScroll(rememberScrollState())) {
@@ -79,33 +87,17 @@ fun FieldInfoScreen() {
                     .fillMaxWidth(),
                 contentAlignment = Alignment.BottomEnd
             ) {
-                Image(
-                    painter = painterResource(R.drawable.field_example_photo),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(RoundedCornerShape(12.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(
-                            vertical = MaterialTheme.spacing.medium,
-                            horizontal = MaterialTheme.spacing.medium
-                        )
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(color = Color.Black.copy(alpha = 0.6f))
-                ) {
-                    Text(
-                        "1\\10", style = MaterialTheme.typography.bodyMedium.copy(
-                            color = MaterialTheme.colorScheme.onPrimary, lineHeight = 20.sp
-                        ),
-                        modifier = Modifier.padding(
-                            vertical = MaterialTheme.spacing.small,
-                            horizontal = MaterialTheme.spacing.small
-                        )
-                    )
-                }
+//                Image(
+//                    painter = painterResource(R.drawable.field_example_photo),
+//                    contentDescription = "",
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .clip(RoundedCornerShape(12.dp)),
+//                    contentScale = ContentScale.Crop
+//                )
+                NoImage()
+                ImageCounter(currentCount = 1, maxCount = 10)
+
             }
             Row(
                 modifier = Modifier.padding(vertical = MaterialTheme.spacing.small),
@@ -156,6 +148,7 @@ fun FieldInfoScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = MaterialTheme.spacing.small)
+                    .height(IntrinsicSize.Min)
             ) {
                 InfoCard(
                     icon = R.drawable.ic_location, text = "Поречная улица, дом 3, к.1 строение 2",
@@ -170,7 +163,9 @@ fun FieldInfoScreen() {
                 )
 
             }
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)) {
                 InfoCard(
                     icon = R.drawable.ic_time_black_24, text = "08:00 - 24:00",
                     Modifier
@@ -180,7 +175,9 @@ fun FieldInfoScreen() {
                 AdditionalInfo(
                     Modifier
                         .fillMaxWidth()
-                )
+                ) {
+                    navController.navigate(Route.AdditionalFieldInfoScreen.path)
+                }
             }
             Row(
                 modifier = Modifier
@@ -221,7 +218,8 @@ fun FieldInfoScreen() {
                 500
             )
             val eventList = listOf(event, event, event)
-            HorizontalPager(state = pagerState, modifier = Modifier.fillMaxWidth()) { page ->
+            HorizontalPager(state = pagerState, modifier = Modifier.fillMaxWidth(),
+                pageSpacing = MaterialTheme.spacing.small) { page ->
                 EventCard(eventList[page])
             }
             Row(
@@ -251,19 +249,172 @@ fun FieldInfoScreen() {
         }
 
         Column(
-            modifier = Modifier.clip(RoundedCornerShape(32.dp)).fillMaxWidth().background(
-                color = MaterialTheme.colorScheme.primaryContainer
-            ).padding(MaterialTheme.spacing.medium)
+            modifier = Modifier
+                .clip(RoundedCornerShape(32.dp))
+                .fillMaxWidth()
+                .background(
+                    color = MaterialTheme.colorScheme.primaryContainer
+                )
+                .padding(MaterialTheme.spacing.medium)
         ) {
-            Text("")
-            FeedbackCard("", 0, 0, "", "")
-            Button(onClick = {}) {
+            Text("Отзывы", style =
+            MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.W600,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            ))
+            //NoFeedback()
+            FeedbackList(feedbackCount = 4)
+        }
+Row(modifier = Modifier
+    .fillMaxWidth()
+    .padding(
+        top = MaterialTheme.spacing.large, bottom = MaterialTheme.spacing.small,
+        start = MaterialTheme.spacing.medium, end = MaterialTheme.spacing.medium
+    )) {
+    CommonButton(text = "Выбрать поле")
+}
+    }
+}
 
+@Composable
+fun FeedbackList(feedbackCount : Int) {
+    repeat(if (feedbackCount > 3) { 3 } else { feedbackCount }) {
+        FeedbackCard(
+            "Дмитрий Дмитриев", R.drawable.player_avatar, 4, "14 декабря 2022",
+            "13 января в 15-30 приехал с друзьями, все норм, но особенно понравилось отношение администратора, приятный вежливый парень, спасибо большое. 13 января в 15-30 приехал с друзьями, все норм"
+        )
+    }
+    if (feedbackCount > 3) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Button(
+                onClick = {},
+                modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.outlineVariant
+                )
+            ) {
+                Text(
+                    "Показать еще", style = MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        fontWeight = FontWeight.W600,
+
+                        ), modifier = Modifier.padding(end = MaterialTheme.spacing.extraSmall)
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrows_down_24),
+                    contentDescription = null, tint = MaterialTheme.colorScheme.secondary
+                )
             }
         }
+    }
+}
 
-        Button(onClick = {}) {
+@Composable
+fun ImageCounter(currentCount: Int, maxCount : Int) {
+    Row(
+        modifier = Modifier
+            .padding(
+                vertical = MaterialTheme.spacing.medium,
+                horizontal = MaterialTheme.spacing.medium
+            )
+            .clip(RoundedCornerShape(8.dp))
+            .background(color = Color.Black.copy(alpha = 0.6f))
+    ) {
+        Text(
+            "$currentCount\\$maxCount", style = MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.onPrimary, lineHeight = 20.sp
+            ),
+            modifier = Modifier.padding(
+                vertical = MaterialTheme.spacing.small,
+                horizontal = MaterialTheme.spacing.small
+            )
+        )
+    }
+}
+@Composable
+fun NoImage() {
+    Row(modifier = Modifier
+        .clip(RoundedCornerShape(12.dp))
+        .height(190.dp)
+        .fillMaxWidth()
+        .background(MaterialTheme.colorScheme.primaryContainer),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically) {
+        Icon(painterResource(id = R.drawable.ic_no_image), contentDescription = null,
+            tint = MaterialTheme.colorScheme.tertiaryContainer)
 
+    }
+}
+
+@Composable
+fun NoFeedback() {
+    Row(modifier = Modifier
+        .height(263.dp)
+        .fillMaxWidth(), horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically) {
+        Text("Отзывы по матчам данной площадки \n" +
+                "отсутствуют",
+            style = MaterialTheme.typography.labelMedium.copy(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                textAlign = TextAlign.Center,
+                lineHeight = 20.sp
+            ))
+    }
+}
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun FeedbackCard(name : String, photo : Int, rating : Int, date : String, feedback: String) {
+    Card(shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = MaterialTheme.spacing.small),
+        ) {
+        Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+            Row(modifier = Modifier
+                .padding(bottom = MaterialTheme.spacing.medium)
+                .height(IntrinsicSize.Min),
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                ) {
+                Image(painterResource(photo), contentDescription = "", contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                    )
+                Column(modifier = Modifier.heightIn(min = 44.dp).fillMaxHeight()) {
+                    Text(name, style = MaterialTheme.typography.displayMedium.copy(color =
+                    MaterialTheme.colorScheme.onPrimaryContainer))
+                    Spacer(modifier = Modifier.weight(1f))
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+                        RatingStars(rating, Modifier.align(Alignment.CenterVertically))
+                        Text(date, style = MaterialTheme.typography.displaySmall.copy(color =
+                        MaterialTheme.colorScheme.onSecondaryContainer))
+                    }
+                }
+
+            }
+            Text(feedback, style = MaterialTheme.typography.labelMedium.copy(fontWeight =
+            FontWeight.W400, color = MaterialTheme.colorScheme.onPrimaryContainer,
+                lineHeight = 20.sp))
+        }
+
+    }
+}
+
+@Composable
+fun RatingStars(rating : Int, @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
+    Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier) {
+        repeat(rating) {
+            Icon(painter = painterResource(id = R.drawable.ic_star), contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.size(16.dp))
+        }
+        repeat (5 - rating) {
+            Icon(painter = painterResource(id = R.drawable.ic_star), contentDescription = null,
+                tint = MaterialTheme.colorScheme.tertiaryContainer,
+                modifier = Modifier.size(16.dp))
         }
     }
 }
@@ -281,6 +432,8 @@ data class Event(
     val time: String,
     val price: Int
 )
+
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EventCard(event : Event) {
@@ -311,7 +464,8 @@ fun EventCard(event : Event) {
                     }
                 }
 
-                FlowRow(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                FlowRow(modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.small)
                     .weight(1f)) {
                     ListNames(event)
                 }
@@ -344,15 +498,14 @@ fun EventCard(event : Event) {
     }
 }
 
-@Composable
-fun FeedbackCard(name : String, photo : Int, rating : Int, date : String, text: String) {
 
-}
 
 @Composable
 fun EventDetails(event : Event) {
     Row(
-        modifier = Modifier.padding(top = MaterialTheme.spacing.medium).fillMaxWidth(),
+        modifier = Modifier
+            .padding(top = MaterialTheme.spacing.medium)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -398,11 +551,12 @@ fun EventDetails(event : Event) {
 fun PhotoGrid(event : Event, index : Int) {
     if (event.participants.size > 4 && index == 3) {
         Row(
-            modifier = Modifier.border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                shape = RoundedCornerShape(8.dp)
-            )
+            modifier = Modifier
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .size(26.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
@@ -434,15 +588,20 @@ fun ListNames(event : Event) {
             "${event.participants[i].name} ",
             style = MaterialTheme.typography.bodySmall.copy(
                 fontWeight = FontWeight.W600,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+
+            ),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Text(
             "${event.participants[i].surname}, ",
             style = MaterialTheme.typography.bodySmall.copy(
                 fontWeight = FontWeight.W600,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+            ),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
     if (event.participants.size == 5) {
@@ -472,8 +631,8 @@ fun ListNames(event : Event) {
 }
 
 @Composable
-fun AdditionalInfo(@SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
-    Button(onClick = {}, modifier = modifier.height(80.dp),
+fun AdditionalInfo(@SuppressLint("ModifierParameter") modifier: Modifier = Modifier, onClick : () -> Unit) {
+    Button(onClick = onClick, modifier = modifier.fillMaxHeight(),
         shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(MaterialTheme.spacing.small),
         colors = ButtonDefaults.buttonColors(
@@ -483,7 +642,9 @@ fun AdditionalInfo(@SuppressLint("ModifierParameter") modifier: Modifier = Modif
     ) {
             Text("Дополнительная информация",
                 style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
-                modifier = Modifier.weight(1f, fill = false))
+                modifier = Modifier.weight(1f, fill = false),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis)
             Icon(
                 painterResource(id = R.drawable.ic_white_arrows_18), contentDescription = null,
                 modifier = Modifier
@@ -497,17 +658,19 @@ fun AdditionalInfo(@SuppressLint("ModifierParameter") modifier: Modifier = Modif
     }
 
 }
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TagField(text : String, amount : Int) {
-    Row(modifier = Modifier
+    FlowRow(modifier = Modifier
         .padding(bottom = MaterialTheme.spacing.small, end = MaterialTheme.spacing.small)
         .border(1.dp, MaterialTheme.colorScheme.onSecondaryContainer, RoundedCornerShape(68.dp))
-        .padding(MaterialTheme.spacing.small),
-        verticalAlignment = Alignment.CenterVertically) {
+        .padding(MaterialTheme.spacing.small)) {
         Text(text, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
         Icon(painterResource(id = R.drawable.ic_indicator_6), contentDescription = null,
             tint = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small))
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.small)
+                .align(Alignment.CenterVertically))
         Text(amount.toString(), style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
     }
 }
@@ -516,7 +679,7 @@ fun TagField(text : String, amount : Int) {
 fun InfoCard(icon : Int, text: String,
              @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.height(80.dp),
+        modifier = modifier.heightIn(min = 80.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
