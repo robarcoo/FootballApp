@@ -38,6 +38,12 @@ sealed class Route(val path: String) {
 
     data object CreateFieldScreen : Route(path = "create_field_screen")
 
+    data object FieldInfoScreen : Route(path = "field_info_screen")
+
+    data object AdditionalFieldInfoScreen : Route(path = "additional_field_info_screen")
+
+    data object ComingEventsScreen : Route(path = "coming_events_screen")
+
     data object MatchParticipantsScreen : Route(path = "match_participants_screen")
 
     data object ManagingParticipantsScreen : Route(path = "managing_participants_screen")
