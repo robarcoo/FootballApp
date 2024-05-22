@@ -39,6 +39,7 @@ fun DialogScreen(
     greenButton: String = "",
     whiteButton: String = "",
     bottomButton: String = "",
+    arrowsIcon: Boolean = true,
     onClickGreen: () -> Unit = {},
     onClickWhite: () -> Unit = {},
     onClickBottom: () -> Unit = {},
@@ -136,10 +137,11 @@ fun DialogScreen(
                                     overflow = TextOverflow.Ellipsis,
                                     modifier = Modifier.padding(end = 4.dp)
                                 )
-                                Image(
-                                    imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
-                                    contentDescription = "Arrows"
-                                )
+                                if (arrowsIcon)
+                                    Image(
+                                        imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
+                                        contentDescription = "Arrows"
+                                    )
                             }
                     }
                 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderForgotPassword
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -55,7 +56,7 @@ fun ForgotPasswordScreen() {
             item {
                 CommonButton(
                     text = stringResource(id = R.string.sendCode),
-                    onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs("email")) },
+                    onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs(PhoneEmail.EMAIL)) },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
             }

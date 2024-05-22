@@ -48,6 +48,8 @@ sealed class Route(val path: String) {
 
     data object RecoveryPasswordScreen : Route(path = "recovery_password_screen")
 
+    data object EditGameScreen : Route(path = "edit_game_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

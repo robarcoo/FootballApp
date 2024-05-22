@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.buttons.SignInWithAccounts
@@ -65,7 +66,7 @@ fun SignUpEnterPhoneScreen() {
             )
             CommonButton(
                 text = stringResource(R.string.sendCode),
-                onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs("phone")) },
+                onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs(PhoneEmail.PHONE)) },
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
