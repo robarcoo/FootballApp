@@ -30,7 +30,7 @@ fun SelectionButtons(
 ) {
     val animatedButtonColor: Color by animateColorAsState(
         targetValue = if (selectedItemIndex == 0) MaterialTheme.colorScheme.secondary
-        else MaterialTheme.colorScheme.onPrimary,
+        else MaterialTheme.colorScheme.outlineVariant,
         animationSpec = tween(500, 0, LinearEasing)
     )
     val animatedBorderColor: Color by animateColorAsState(
@@ -40,7 +40,7 @@ fun SelectionButtons(
     )
     val animatedButtonColor2: Color by animateColorAsState(
         targetValue = if (selectedItemIndex == 1) MaterialTheme.colorScheme.secondary
-        else MaterialTheme.colorScheme.onPrimary,
+        else MaterialTheme.colorScheme.outlineVariant,
         animationSpec = tween(500, 0, LinearEasing)
     )
     val animatedBorderColor2: Color by animateColorAsState(

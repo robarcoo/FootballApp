@@ -226,13 +226,13 @@
     <string name="halfback">Полузащитник</string>
     <string name="forward">Нападающий</string>
     <string name="noPosition">Нет предпочитаемой позиции</string>
-<!--    <string-array name="positions_array">-->
-<!--        <item>Вратарь</item>-->
-<!--        <item>Защитник</item>-->
-<!--        <item>Полузащитник</item>-->
-<!--        <item>Нападающий</item>-->
-<!--        <item>Нет предпочитаемой позиции</item>-->
-<!--    </string-array>-->
+
+    <string name="current">Текущие</string>
+    <string name="archive">Архив</string>
+    <string name="results">Подвести итоги</string>
+    <string name="history">История</string>
+    <string name="noGamesYet">У вас еще не было игр</string>
+    <string name="youHaventAnyGames">У вас еще не было игр в которых вы участвовали или создавали</string>
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>

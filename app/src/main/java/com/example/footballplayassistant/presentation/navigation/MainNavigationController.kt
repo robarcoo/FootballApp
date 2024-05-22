@@ -38,6 +38,7 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -166,6 +167,10 @@ fun MainNavigationController(
 
             composable(route = Route.RecoveryPasswordScreen.path) {
                 RecoveryPasswordScreen()
+            }
+
+            composable(route = Route.MyGamesScreen.path){
+                MyGamesScreen()
             }
         }
     }
