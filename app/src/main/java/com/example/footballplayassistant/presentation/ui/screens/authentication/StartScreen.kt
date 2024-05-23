@@ -105,7 +105,7 @@ fun StartScreen() {
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W400),
-                        modifier = Modifier.padding(bottom = 30.dp/*, top = 120.dp*/)
+                        modifier = Modifier.padding(bottom = 30.dp, start = 16.dp, end = 16.dp)
                     )
 
                     CommonButton(
