@@ -1,11 +1,14 @@
 package com.example.footballplayassistant.presentation.ui.screens.search_tab
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -13,15 +16,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,9 +54,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -65,6 +74,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogWindowProvider
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
@@ -75,104 +86,202 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Composable
 @Preview
 fun CreateFieldScreen() {
-    Column(modifier = Modifier
-        .background(MaterialTheme.colorScheme.primaryContainer)
-        .fillMaxSize()
-        .padding(16.dp)
-        .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.SpaceBetween) {
-        HeaderWithBackButton(stringResource(id = R.string.addField), onClickBack = { TODO() })
-        Text(text = stringResource(id = R.string.fieldInfoTitle),
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
-            style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
-        NecessaryTextField(label = stringResource(id = R.string.fieldName), true, leadingIcon = R.drawable.ic_field)
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        DropDownMenu(placeholder = stringResource(R.string.inputCity), values = listOf())
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = stringResource(id = R.string.inputAddress), true, leadingIcon = R.drawable.ic_location)
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically) {
-            NecessaryTextField(label = stringResource(id = R.string.openTime), true, trailingIcon = R.drawable.ic_time_black_24, modifier = Modifier
-                .fillMaxWidth(0.5f)
-                .padding(end = MaterialTheme.spacing.extraSmall))
-            NecessaryTextField(label = stringResource(id = R.string.closingTime), true, trailingIcon = R.drawable.ic_time_black_24,  modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall))
-        }
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = stringResource(id = R.string.inputContacts), isNecessary = true, leadingIcon = R.drawable.ic_call)
-        DropDownMenu(placeholder = stringResource(id = R.string.closeMetro), values = listOf(), imStart = R.drawable.ic_metro)
-        NecessaryTextField(label = stringResource(id = R.string.inputSite), leadingIcon = R.drawable.ic_world)
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-        NecessaryTextField(label = stringResource(id = R.string.inputDescription), modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
-            isSingleLine = false, shape = RoundedCornerShape(20.dp), toCountWords = true)
-
-        Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-            AddAsterisk(text = stringResource(id = R.string.howManyPeopleInGame), style = MaterialTheme.typography.displayMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontWeight = FontWeight.W400,
-                isNecessary = true,
-                modifier = Modifier
-                    .padding(end = MaterialTheme.spacing.small)
-                    .weight(1f, fill = false))
-            DropDownMenu(placeholder = stringResource(id = R.string.personInput), values = listOf(),
-                modifier = Modifier.width(120.dp))
-        }
-        LoadImageField()
-        FinishedLoadingPhoto(image = R.drawable.loadexample, fileName = "football.jpeg", size = "260 Кбайт")
-        InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
-        InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
-        ErrorText(errorType = LoadError.FileTooBig.ordinal)
-        ErrorText(errorType = LoadError.FormatUnsupported.ordinal)
-        ErrorText(errorType = LoadError.LimitExceeded.ordinal)
-
-
-        Column(modifier = Modifier.padding(top = MaterialTheme.spacing.medium, bottom = MaterialTheme.spacing.large)) {
+    var showImageBoolean by remember { mutableStateOf(false) }
+    Box (modifier = Modifier.fillMaxSize().then(if (showImageBoolean) Modifier.blur(16.dp) else Modifier )) {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            HeaderWithBackButton(stringResource(id = R.string.addField), onClickBack = { TODO() })
             Text(
-                text = stringResource(id = R.string.fieldSize),
+                text = stringResource(id = R.string.fieldInfoTitle),
+                modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
                 style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
             )
-            Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
-            FilterRangeSlider(
-                text = stringResource(id = R.string.lengthInput),
-                MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontWeight = FontWeight.W400
-                ),
-                activeRangeStart = 0f,
-                activeRangeEnd = 1000.0f
+            NecessaryTextField(
+                label = stringResource(id = R.string.fieldName),
+                true,
+                leadingIcon = R.drawable.ic_field
             )
-            FilterRangeSlider(
-                text = stringResource(id = R.string.widthInput),
-                MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontWeight = FontWeight.W400
-                ),
-                activeRangeStart = 0f,
-                activeRangeEnd = 1000.0f
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            DropDownMenu(placeholder = stringResource(R.string.inputCity), values = listOf())
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            NecessaryTextField(
+                label = stringResource(id = R.string.inputAddress),
+                true,
+                leadingIcon = R.drawable.ic_location
             )
-        }
-        CustomRadioButtons(stringResource(id = R.string.typesOfArena), true, stringArrayResource(id = R.array.typesOfArenaArray))
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons(stringResource(id = R.string.lightningType), true, stringArrayResource(id = R.array.lightningTypeArray))
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons(stringResource(id = R.string.showering), false, stringArrayResource(id = R.array.hasOrNo))
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), thickness = 1.dp, color = MaterialTheme.colorScheme.tertiaryContainer)
-        CustomRadioButtons(stringResource(id = R.string.changingRoom), false, stringArrayResource(id = R.array.hasOrNo))
-        Column(modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            CommonButton(stringResource(id = R.string.addField))
-            Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
-            ClickableText(text = buildAnnotatedString {
-                withStyle(style = SpanStyle(fontWeight = FontWeight.W600, color = MaterialTheme.colorScheme.onSecondaryContainer)) {
-                    append(stringResource(id = R.string.cancel))
-                }
-            },
-                style = MaterialTheme.typography.bodySmall,
-                onClick = {})
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                NecessaryTextField(
+                    label = stringResource(id = R.string.openTime),
+                    true,
+                    trailingIcon = R.drawable.ic_time_black_24,
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(end = MaterialTheme.spacing.extraSmall)
+                )
+                NecessaryTextField(
+                    label = stringResource(id = R.string.closingTime),
+                    true,
+                    trailingIcon = R.drawable.ic_time_black_24,
+                    modifier = Modifier.padding(start = MaterialTheme.spacing.extraSmall)
+                )
+            }
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            NecessaryTextField(
+                label = stringResource(id = R.string.inputContacts),
+                isNecessary = true,
+                leadingIcon = R.drawable.ic_call
+            )
+            DropDownMenu(
+                placeholder = stringResource(id = R.string.closeMetro),
+                values = listOf(),
+                imStart = R.drawable.ic_metro
+            )
+            NecessaryTextField(
+                label = stringResource(id = R.string.inputSite),
+                leadingIcon = R.drawable.ic_world
+            )
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            NecessaryTextField(
+                label = stringResource(id = R.string.inputDescription),
+                modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
+                isSingleLine = false,
+                shape = RoundedCornerShape(20.dp),
+                toCountWords = true
+            )
+
+            Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                AddAsterisk(
+                    text = stringResource(id = R.string.howManyPeopleInGame),
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.W400,
+                    isNecessary = true,
+                    modifier = Modifier
+                        .padding(end = MaterialTheme.spacing.small)
+                        .weight(1f, fill = false)
+                )
+                DropDownMenu(
+                    placeholder = stringResource(id = R.string.personInput), values = listOf(),
+                    modifier = Modifier.width(120.dp)
+                )
+            }
+
+            LoadImageField()
+            FinishedLoadingPhoto(
+                image = R.drawable.loadexample,
+                fileName = "football.jpeg",
+                size = "260 Кбайт",
+                onShowChange = { newValue -> showImageBoolean = newValue }
+            )
+            InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
+            InProcessLoadingPhoto(fileName = "football.jpeg", fileSize = "260 Кбайт")
+            ErrorText(errorType = LoadError.FileTooBig.ordinal)
+            ErrorText(errorType = LoadError.FormatUnsupported.ordinal)
+            ErrorText(errorType = LoadError.LimitExceeded.ordinal)
+
+
+            Column(
+                modifier = Modifier.padding(
+                    top = MaterialTheme.spacing.medium,
+                    bottom = MaterialTheme.spacing.large
+                )
+            ) {
+                Text(
+                    text = stringResource(id = R.string.fieldSize),
+                    style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                )
+                Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
+                FilterRangeSlider(
+                    text = stringResource(id = R.string.lengthInput),
+                    MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400
+                    ),
+                    activeRangeStart = 0f,
+                    activeRangeEnd = 1000.0f
+                )
+                FilterRangeSlider(
+                    text = stringResource(id = R.string.widthInput),
+                    MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400
+                    ),
+                    activeRangeStart = 0f,
+                    activeRangeEnd = 1000.0f
+                )
+            }
+            CustomRadioButtons(
+                stringResource(id = R.string.typesOfArena),
+                true,
+                stringArrayResource(id = R.array.typesOfArenaArray)
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.tertiaryContainer
+            )
+            CustomRadioButtons(
+                stringResource(id = R.string.lightningType),
+                true,
+                stringArrayResource(id = R.array.lightningTypeArray)
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.tertiaryContainer
+            )
+            CustomRadioButtons(
+                stringResource(id = R.string.showering),
+                false,
+                stringArrayResource(id = R.array.hasOrNo)
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                thickness = 1.dp,
+                color = MaterialTheme.colorScheme.tertiaryContainer
+            )
+            CustomRadioButtons(
+                stringResource(id = R.string.changingRoom),
+                false,
+                stringArrayResource(id = R.array.hasOrNo)
+            )
+            Column(
+                modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CommonButton(stringResource(id = R.string.addField))
+                Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
+                ClickableText(text = buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.W600,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
+                        append(stringResource(id = R.string.cancel))
+                    }
+                },
+                    style = MaterialTheme.typography.bodySmall,
+                    onClick = {})
+
+            }
 
         }
-
     }
 }
 
@@ -239,39 +348,70 @@ fun InProcessLoadingPhoto(fileName : String, fileSize : String) {
     }
 }
 @Composable
-fun FinishedLoadingPhoto(image : Int, fileName : String, size : String) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = MaterialTheme.spacing.small),
-            horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Row(modifier = Modifier.weight(1f, fill = false)) {
-                Image(painterResource(id = image), contentDescription = stringResource(R.string.loadPhoto),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(12.dp)),
-                    contentScale = ContentScale.Crop)
-                Column(modifier = Modifier.padding(start = MaterialTheme.spacing.small)) {
-                    Text(fileName, style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer))
-                    Text(
-                        size, style = MaterialTheme.typography.displaySmall.copy(
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        ), modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
+fun FinishedLoadingPhoto(image : Int, fileName : String, size : String, onShowChange : (Boolean) -> Unit) {
+    var enabled by remember { mutableStateOf(false) }
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = MaterialTheme.spacing.small),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(modifier = Modifier.weight(1f, fill = false)) {
+                    Image(
+                        painterResource(id = image),
+                        contentDescription = stringResource(R.string.loadPhoto),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable {
+                                enabled = true
+                                onShowChange(true)
+                            },
+                        contentScale = ContentScale.Crop
+                    )
+                    Column(modifier = Modifier.padding(start = MaterialTheme.spacing.small)) {
+                        Text(
+                            fileName,
+                            style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                        )
+                        Text(
+                            size, style = MaterialTheme.typography.displaySmall.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            ), modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall)
+                        )
+                    }
+                }
+
+                IconButton(onClick = {}) {
+                    Icon(
+                        painterResource(id = R.drawable.ic_close),
+                        contentDescription = stringResource(
+                            id = R.string.deletePhoto
+                        ),
+                        modifier = Modifier.size(14.dp),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
-            }
 
-            IconButton(onClick = {}) {
-                Icon(
-                    painterResource(id = R.drawable.ic_close), contentDescription = stringResource(
-                        id = R.string.deletePhoto
-                    ),
-                    modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
             }
-
+            HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.primaryContainer)
         }
-        HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.primaryContainer)
+    if (enabled) {
+        ImageDialog(image) {
+            enabled = false
+            onShowChange(false)
+        }
+    }
+}
+
+
+@Composable
+fun ImageDialog(image : Int, onDismissRequest : () -> Unit) {
+    Dialog(onDismissRequest = onDismissRequest) {
+        (LocalView.current.parent as DialogWindowProvider)?.window?.setDimAmount(0f)
+        Image(painterResource(image), contentDescription = null)
     }
 }
 @Composable
