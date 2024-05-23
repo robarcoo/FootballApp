@@ -176,6 +176,7 @@
     <string name="type">Тип</string>
     <string name="sexMatch">Пол</string>
     <string name="players">Участники:</string>
+    <string name="playersWithout">Участники</string>
     <string name="comments">Сообщения</string>
     <string name="participate">Участвовать</string>
     <string name="sendMessage">Оставить сообщение</string>
@@ -233,6 +234,17 @@
     <string name="history">История</string>
     <string name="noGamesYet">У вас еще не было игр</string>
     <string name="youHaventAnyGames">У вас еще не было игр в которых вы участвовали или создавали</string>
+
+    <string name="editGame">Редактировать игру</string>
+    <string name="manageParticipants">Управлять участниками</string>
+    <string name="costOfEntry">Стоимость входа</string>
+    <string name="dismissMatch">Распустить матч</string>
+    <string name="makeChanges">Внести изменения</string>
+    <string name="dismissMatchQuestion">Распустить матч?</string>
+    <string name="itCanBeNegative"> Это может негативно повлиять на ваш рейтинг. </string>
+    <string name="matchDismissed">Матч распущен</string>
+    <string name="returnAllMoney">Все средства вернутся к игрокам</string>
+    <string name="goToMain">Перейти на главную</string>
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
