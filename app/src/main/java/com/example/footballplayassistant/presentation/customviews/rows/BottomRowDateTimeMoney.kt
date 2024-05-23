@@ -38,6 +38,7 @@ fun BottomRowDateTimeMoney(
             Text(
                 text = date,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -53,6 +54,7 @@ fun BottomRowDateTimeMoney(
             Text(
                 text = time,
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
@@ -64,6 +66,7 @@ fun BottomRowDateTimeMoney(
         Text(
             text = price,
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.W700),
+            color = MaterialTheme.colorScheme.primary,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier

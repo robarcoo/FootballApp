@@ -72,6 +72,7 @@ fun MainScreen() {
             item {
                 AllButton(
                     text = stringResource(id = R.string.mygames),
+                    onClick = { navController.navigate(Route.MyGamesScreen.path) },
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 GameCard(
