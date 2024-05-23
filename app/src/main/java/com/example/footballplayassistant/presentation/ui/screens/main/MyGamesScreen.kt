@@ -68,16 +68,14 @@ fun MyGamesScreen() {
 @Composable
 private fun CurrentGames(currentGames: List<String>) {
     LazyColumn {
-        for (i in currentGames.indices) {
-            item {
-                GameCard(
-                    place = currentGames[i],
-                    host = currentGames[i],
-                    distance = 100,
-                    cardColor = MaterialTheme.colorScheme.onPrimary,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-            }
+        items(currentGames.size) {
+            GameCard(
+                place = currentGames[it],
+                host = currentGames[it],
+                distance = 100,
+                cardColor = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
         }
     }
 }
@@ -103,16 +101,14 @@ private fun ArchiveGames(resultGames: List<String>, oldGames: List<String>) {
                         )
                 )
             }
-            for (i in resultGames.indices) {
-                item {
-                    GameCard(
-                        place = resultGames[i],
-                        host = "",
-                        distance = 50,
-                        cardColor = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
+            items(resultGames.size) {
+                GameCard(
+                    place = resultGames[it],
+                    host = "",
+                    distance = 50,
+                    cardColor = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
         }
 
@@ -135,13 +131,11 @@ private fun ArchiveGames(resultGames: List<String>, oldGames: List<String>) {
                         )
                 )
             }
-            for (i in oldGames.indices) {
-                item {
-                    OldGameCard(
-                        place = oldGames[i],
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
+            items(oldGames.size) {
+                OldGameCard(
+                    place = oldGames[it],
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
         }
     }
