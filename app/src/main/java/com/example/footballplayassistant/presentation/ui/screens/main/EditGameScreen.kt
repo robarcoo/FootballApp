@@ -58,7 +58,6 @@ fun EditGameScreen() {
     val showDialogQuestion = remember { mutableStateOf(false) }
     val showDialogEnd = remember { mutableStateOf(false) }
 
-    if (showDialogQuestion.value)
         DialogScreen(
             header = stringResource(id = R.string.dismissMatchQuestion),
             description = stringResource(id = R.string.itCanBeNegative),
@@ -68,16 +67,17 @@ fun EditGameScreen() {
             image = R.drawable.ic_warning_93,
             onClickWhite = { showDialogEnd.value = true },
             onClickBottom = { showDialogQuestion.value = false },
-            onDismissRequest = { showDialogQuestion.value = false }
+            onDismissRequest = { showDialogQuestion.value = false },
+            showDialog = showDialogQuestion.value
         )
 
-    if (showDialogEnd.value)
         DialogScreen(
             header = stringResource(id = R.string.matchDismissed),
             description = stringResource(id = R.string.returnAllMoney),
             whiteButton = stringResource(id = R.string.goToMain),
             onClickWhite = { navController.navigate(Route.MainScreen.path) },
-            onDismissRequest = { showDialogEnd.value = false }
+            onDismissRequest = { showDialogEnd.value = false },
+            showDialog = showDialogEnd.value
         )
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
