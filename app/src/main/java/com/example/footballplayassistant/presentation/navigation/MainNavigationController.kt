@@ -36,8 +36,13 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MatchScree
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
+import com.example.footballplayassistant.R
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -137,7 +142,19 @@ fun MainNavigationController(
                 CreateFieldScreen()
             }
 
-            composable(route = Route.MatchParticipantsScreen.path) {
+            composable(route = Route.FieldInfoScreen.path) {
+                FieldInfoScreen()
+            }
+
+            composable(route = Route.AdditionalFieldInfoScreen.path) {
+                AdditionalFieldInfoScreen()
+            }
+
+            composable(route = Route.ComingEventsScreen.path) {
+                ComingEventsScreen()
+            }
+
+            composable(route = Route.MatchParticipantsScreen.path){
                 MatchParticipantsScreen()
             }
 
