@@ -65,7 +65,7 @@ fun SearchScreen() {
         .padding(MaterialTheme.spacing.medium)) {
         HeaderWithBackButton(text = stringResource(id = R.string.search),
             onClickBack = { TODO() })
-        SearchBar {
+        SearchBar (enabled = false) {
             navController.navigate(Route.FilterScreen.path)
         }
 //        LazyColumn (userScrollEnabled = true){
@@ -78,7 +78,17 @@ fun SearchScreen() {
 //                    "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", "4,2км")
 //            }
 //        }
-        NoResultsScreen()
+        // Если ничего не найдено по запросу
+//        NoResultsScreen(stringResource(R.string.areaNotFound), stringResource(R.string.tryChangeFilters),
+//            stringResource(R.string.addField)) {
+//            navController.navigate(Route.CreateFieldScreen.path)
+//        }
+        // Если отключена геолокация
+        NoResultsScreen(title = stringResource(R.string.geolocationIsTurnedOff), 
+            description = stringResource(id = R.string.geolocationIsTurnedOffDescription), 
+            buttonText = stringResource(id = R.string.turnOnGeolocation)) {
+
+        }
 
     }
 }
@@ -147,7 +157,7 @@ fun FavoriteButton() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(onClick : () -> Unit) {
+fun SearchBar(enabled : Boolean, onClick : () -> Unit) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
     Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
@@ -165,7 +175,8 @@ fun SearchBar(onClick : () -> Unit) {
         textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
         interactionSource = interactionSource,
         maxLines = 1,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        enabled = enabled
     ) { innerTextField ->
             OutlinedTextFieldDefaults.DecorationBox(
                 value = value.toString(),
@@ -178,7 +189,11 @@ fun SearchBar(onClick : () -> Unit) {
                     if (value.text.isEmpty()) {
                         Icon(
                             painterResource(id = R.drawable.ic_search_black_25),
-                            tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                            tint = if (enabled) {
+                                MaterialTheme.colorScheme.onSecondaryContainer
+                            } else {
+                                   MaterialTheme.colorScheme.tertiaryContainer
+                            },
                             contentDescription = stringResource(id = R.string.searchIconDescription),
                             modifier = Modifier
                                 .size(24.dp)
@@ -219,7 +234,7 @@ fun SearchBar(onClick : () -> Unit) {
             )
             if (value.text.isEmpty()) {
                 Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
-                    PlaceholderText(text = stringResource(R.string.typeInSearchQuery))
+                    PlaceholderText(text = stringResource(R.string.typeInSearchQuery), enabled = enabled)
                 }
             }
     }
@@ -228,17 +243,29 @@ fun SearchBar(onClick : () -> Unit) {
         OutlinedIconButton(onClick = onClick, modifier = Modifier
             .fillMaxHeight()
             .aspectRatio(1f),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)
+            border = BorderStroke(1.dp,
+                if (enabled) {
+                    MaterialTheme.colorScheme.onSecondaryContainer
+                } else {
+                    MaterialTheme.colorScheme.tertiaryContainer
+                }
+            ),
+            enabled = enabled
         ) {
             Icon(painter = painterResource(id = R.drawable.ic_icons_24),
-                contentDescription = stringResource(id = R.string.filterIconDescription), tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                contentDescription = stringResource(id = R.string.filterIconDescription),
+                tint = if (enabled) {
+                    MaterialTheme.colorScheme.onPrimaryContainer
+                } else {
+                       MaterialTheme.colorScheme.tertiaryContainer
+                },
                 modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
     }
 }
 
 @Composable
-fun PlaceholderText(text : String, needToResize : Boolean = false) {
+fun PlaceholderText(text : String, needToResize : Boolean = false, enabled : Boolean = true) {
     var multiplier by remember { mutableFloatStateOf(1f) }
     Text(
         maxLines = 1,
@@ -249,7 +276,11 @@ fun PlaceholderText(text : String, needToResize : Boolean = false) {
         ),
         style = MaterialTheme.typography.labelLarge.copy(
             fontWeight = FontWeight.W400,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = if (enabled) {
+                MaterialTheme.colorScheme.onSecondaryContainer }
+            else {
+                 MaterialTheme.colorScheme.tertiaryContainer
+            },
             fontSize = 16.sp * multiplier
         ),
         overflow = if (needToResize) { TextOverflow.Visible } else { TextOverflow.Ellipsis },

@@ -1,8 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.search_tab
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -16,19 +14,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -78,6 +73,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogWindowProvider
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -87,7 +83,12 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 @Preview
 fun CreateFieldScreen() {
     var showImageBoolean by remember { mutableStateOf(false) }
-    Box (modifier = Modifier.fillMaxSize().then(if (showImageBoolean) Modifier.blur(16.dp) else Modifier )) {
+    var showFieldCreatedDialog by remember {
+        mutableStateOf(false)
+    }
+    Box (modifier = Modifier
+        .fillMaxSize()
+        .then(if (showImageBoolean) Modifier.blur(16.dp) else Modifier)) {
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
@@ -264,7 +265,8 @@ fun CreateFieldScreen() {
                 modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CommonButton(stringResource(id = R.string.addField))
+                CommonButton(stringResource(id = R.string.addField),
+                    onClick = { showFieldCreatedDialog = true })
                 Spacer(modifier = Modifier.size(MaterialTheme.spacing.medium))
                 ClickableText(text = buildAnnotatedString {
                     withStyle(
@@ -281,6 +283,15 @@ fun CreateFieldScreen() {
 
             }
 
+        }
+    }
+    
+    if (showFieldCreatedDialog) {
+        DialogScreen(header = stringResource(R.string.requestSentTitle), description =
+        stringResource(R.string.requestSentDescription),
+            greenButton = stringResource(R.string.returnToMainPage),
+            image = R.drawable.ic_check_92) {
+            
         }
     }
 }
@@ -411,7 +422,48 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String, onShowCh
 fun ImageDialog(image : Int, onDismissRequest : () -> Unit) {
     Dialog(onDismissRequest = onDismissRequest) {
         (LocalView.current.parent as DialogWindowProvider)?.window?.setDimAmount(0f)
-        Image(painterResource(image), contentDescription = null)
+        Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    bottom = MaterialTheme.spacing.medium,
+                    top = MaterialTheme.spacing.large
+                )) {
+                Spacer(modifier = Modifier.weight(1f))
+            OutlinedButton(onClick = onDismissRequest,
+                modifier = Modifier.size(42.dp),
+                contentPadding = PaddingValues(MaterialTheme.spacing.small)
+                ) {
+                Icon(painterResource(id = R.drawable.ic_close), contentDescription =
+                    stringResource(R.string.closeImagePreview),
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
+            }
+            }
+
+                Image(
+                    painterResource(image), contentDescription = stringResource(R.string.loadedImage),
+                    modifier = Modifier.clip(RoundedCornerShape(12.dp))
+                )
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = MaterialTheme.spacing.large)) {
+                OutlinedButton(onClick = {},
+                    modifier = Modifier.size(42.dp),
+                    contentPadding = PaddingValues(MaterialTheme.spacing.small)
+                    ) {
+                    Icon(painterResource(id = R.drawable.ic_back_arrow_10_18), contentDescription = stringResource(R.string.showPreviousImage),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                OutlinedButton(onClick = {},
+                    modifier = Modifier.size(42.dp),
+                    contentPadding = PaddingValues(MaterialTheme.spacing.small)) {
+                    Icon(painterResource(id = R.drawable.ic_arrow_next_24), contentDescription = stringResource(id = R.string.showNextImage),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer)
+                }
+            }
+        }
     }
 }
 @Composable
