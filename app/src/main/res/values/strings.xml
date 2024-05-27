@@ -246,6 +246,28 @@
     <string name="returnAllMoney">Все средства вернутся к игрокам</string>
     <string name="goToMain">Перейти на главную</string>
 
+    <string name="myWallet">Мой кошелек</string>
+    <string name="summaWithdrawal">Сумма вывода:</string>
+    <string name="bringOut">Вывести</string>
+    <string name="hold">На удержании</string>
+    <string name="historyOperations">История операций</string>
+    <string name="today">Сегодня</string>
+    <string name="replenishment">Пополнение</string>
+    <string name="replenishBalance">Пополнить баланс</string>
+    <string name="balanceWallet">Баланс:</string>
+
+    <string name="youDidntRate">Вы не оценили игру</string>
+    <string name="youShouldRate">Для вывода средств необходимо оценить игру</string>
+    <string name="goToAchive">Перейти в архив</string>
+    <string name="returnToWallet">Вернуться в кошелек</string>
+
+    <plurals name="events">
+        <item quantity="one">%1$d событие</item>
+        <item quantity="two">%1$d события</item>
+        <item quantity="few">%1$d события</item>
+        <item quantity="many">%1$d событий</item>
+    </plurals>
+
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
     <string name="filterIconDescription">Открыть фильтры</string>

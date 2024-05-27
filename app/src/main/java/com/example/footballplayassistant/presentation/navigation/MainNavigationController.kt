@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.RecoveryPasswordScreen
@@ -33,16 +34,16 @@ import com.example.footballplayassistant.presentation.ui.screens.main.ManagingPa
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchParticipantsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
-import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -189,8 +190,23 @@ fun MainNavigationController(
             composable(route = Route.EditGameScreen.path) {
                 EditGameScreen()
             }
-            composable(route = Route.MyGamesScreen.path){
-                MyGamesScreen()
+
+            composable(route = Route.MyGamesScreen.path + "/{filter}",
+                arguments = listOf(navArgument("filter"){
+                    type = NavType.IntType
+                    defaultValue = FilterCurrentArchive.Current.ordinal
+                    nullable = false
+                })
+            ){entry ->
+                entry.arguments?.getInt("filter").let { filter ->
+                    if (filter != null) {
+                        MyGamesScreen(filter = filter)
+                    }
+                }
+            }
+
+            composable(route = Route.WalletScreen.path){
+                WalletScreen()
             }
         }
     }

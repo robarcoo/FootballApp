@@ -2,6 +2,7 @@ package com.example.footballplayassistant.presentation.customviews.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,18 +26,21 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 fun MoneyCard(money: Int, modifier: Modifier = Modifier) {
+    val navController = LocalNavController.current!!
     Card(
         modifier = modifier
             .fillMaxSize()
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
-                shape = RoundedCornerShape(12.dp)
-            ),
+                shape = RoundedCornerShape(12.dp))
+            .clickable { navController.navigate(Route.WalletScreen.path) },
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Row(
