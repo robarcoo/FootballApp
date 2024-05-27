@@ -24,16 +24,14 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Select
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.OldGameCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.enums.getFiltersCurrentArchive
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
-fun MyGamesScreen() {
+fun MyGamesScreen(filter: Int) {
     val navController = LocalNavController.current!!
-    val filtersList = FilterCurrentArchive.entries.toList()
-    val filterButton = remember { mutableIntStateOf(filtersList[0].ordinal) }
+    val filterButton = remember { mutableIntStateOf(filter) }
 
     Column(
         modifier = Modifier.background(color = MaterialTheme.colorScheme.primaryContainer),
