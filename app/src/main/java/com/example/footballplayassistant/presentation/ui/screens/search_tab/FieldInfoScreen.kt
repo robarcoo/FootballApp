@@ -568,7 +568,7 @@ fun EventCard(event : Event) {
 
 
 @Composable
-fun EventDetails(event : Event) {
+fun EventDetails(event : Event, isHost : Boolean = false) {
     Row(
         modifier = Modifier
             .padding(top = MaterialTheme.spacing.medium)
@@ -605,10 +605,15 @@ fun EventDetails(event : Event) {
         Text(
             buildAnnotatedString {
                 withStyle(style = SpanStyle(fontWeight = FontWeight.W700)) {
-                    append(event.price.toString())
+                    if (isHost) {
+                        append("Вывод: ${event.price * event.participants.size}")
+                    } else {
+                        append(event.price.toString())
+                    }
                 }
-
-                append(stringResource(R.string.pricePerPerson))
+                if (!isHost) {
+                    append(stringResource(R.string.pricePerPerson))
+                }
             },
             style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
         )
