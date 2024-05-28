@@ -1,0 +1,252 @@
+package com.example.footballplayassistant.presentation.ui.screens.profile
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.CommonBottomBar
+import com.example.footballplayassistant.presentation.customviews.CommonSwitch
+import com.example.footballplayassistant.presentation.customviews.cards.CommonProfileGreenCard
+import com.example.footballplayassistant.presentation.customviews.cards.PositionProfileGreenCard
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
+import com.example.footballplayassistant.presentation.navigation.LocalNavController
+
+@Composable
+fun UserProfileScreen() {
+    val navController = LocalNavController.current!!
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        HeaderUserProfile(modifier = Modifier.align(Alignment.TopCenter))
+
+        Column(
+            modifier = Modifier
+                .fillMaxHeight(0.9f)
+                .align(Alignment.TopCenter)
+                .padding(top = 30.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.profile),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                color = MaterialTheme.colorScheme.onPrimary,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 25.dp)
+            )
+
+            Box(
+                modifier = Modifier
+                    .size(108.dp)
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.unknown_user_foto),
+                    contentDescription = "User foto",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            LazyColumn(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp)) {
+                item {
+                    Text(
+                        text = "name",
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                item {
+                    Text(
+                        text = "email",
+                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp)
+                    )
+                }
+                item {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(bottom = 12.dp, top = 20.dp)
+                    ) {
+                        PositionProfileGreenCard(
+                            position = "position",
+                            modifier = Modifier.weight(0.5f)
+                        )
+                        CommonProfileGreenCard(
+                            titleText = stringResource(id = R.string.bestPlayer),
+                            icon = R.drawable.ic_medal_24,
+                            blackText = "10",
+                            greyText = "",
+                            modifier = Modifier.weight(0.5f)
+                        )
+                    }
+                }
+                item {
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        CommonProfileGreenCard(
+                            titleText = stringResource(id = R.string.ratingHost),
+                            icon = R.drawable.ic_star_24,
+                            blackText = "4.5/5",
+                            greyText = pluralStringResource(id = R.plurals.ratings, 5, 5),
+                            modifier = Modifier.weight(0.5f)
+                        )
+                        CommonProfileGreenCard(
+                            titleText = stringResource(id = R.string.attendance),
+                            icon = R.drawable.ic_user_check_24,
+                            blackText = "100%",
+                            greyText = pluralStringResource(id = R.plurals.games, 5, 5),
+                            modifier = Modifier.weight(0.5f)
+                        )
+                    }
+                }
+                item {
+                    CommonSwitch(
+                        text = stringResource(id = R.string.geolocationOn),
+                        modifier = Modifier.padding(vertical = 32.dp)
+                    )
+                }
+                item {
+                    ActionsCard(
+                        iconTextList = listOf(
+                            Pair(
+                                R.drawable.ic_profile_black_24,
+                                stringResource(id = R.string.changeProfile)),
+                            Pair(
+                                R.drawable.ic_wallet_24,
+                                stringResource(id = R.string.wallet)),
+                            Pair(
+                                R.drawable.ic_calendar_22,
+                                stringResource(id = R.string.mygames)),
+                            Pair(
+                                R.drawable.ic_subscribe_24,
+                                stringResource(id = R.string.subscriptions)),
+                            Pair(
+                                R.drawable.ic_people_add_24,
+                                stringResource(id = R.string.inviteFriendCard))),
+                        actionsList = listOf(
+                            {/*navigate*/ },
+                            {/*navigate*/ },
+                            { /*navController.navigate(Route.MyGamesScreen.path)*/ },
+                            {/*navigate*/ },
+                            {/*copy ref*/ }),
+                        modifier = Modifier.padding(bottom = 32.dp)
+                    )
+                }
+
+                item {
+                    ActionsCard(
+                        iconTextList = listOf(
+                            Pair(
+                                R.drawable.ic_document_24,
+                                stringResource(id = R.string.aboutApp)),
+                            Pair(
+                                R.drawable.ic_lock_24,
+                                stringResource(id = R.string.safety)),),
+                        actionsList = listOf({/*navigate*/ }, {/*navigate*/ }),
+                        modifier = Modifier.padding(bottom = 20.dp)
+                    )
+                }
+            }
+        }
+        CommonBottomBar(
+            modifier = Modifier
+                .fillMaxHeight(0.1f)
+                .align(Alignment.BottomCenter)
+        )
+    }
+}
+
+@Composable
+private fun ActionsCard(
+    iconTextList: List<Pair<Int, String>>,
+    actionsList: List<() -> Unit>,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        shape = RoundedCornerShape(12.dp)
+    ) {
+        for (i in iconTextList.indices) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp, horizontal = 15.5.dp)
+                    .clickable { actionsList[i] },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = iconTextList[i].first),
+                        contentDescription = "Start icon",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = iconTextList[i].second,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_next_24),
+                    contentDescription = "Arrow",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+            if (i != iconTextList.size - 1)
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.5.dp)
+                )
+        }
+    }
+}

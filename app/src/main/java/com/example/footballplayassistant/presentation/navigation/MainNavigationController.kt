@@ -43,6 +43,7 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Addi
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -189,8 +190,13 @@ fun MainNavigationController(
             composable(route = Route.EditGameScreen.path) {
                 EditGameScreen()
             }
+
             composable(route = Route.MyGamesScreen.path){
                 MyGamesScreen()
+            }
+
+            composable(route = Route.UserProfileScreen.path) {
+                UserProfileScreen()
             }
         }
     }

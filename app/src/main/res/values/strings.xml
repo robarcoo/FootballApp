@@ -235,6 +235,35 @@
     <string name="noGamesYet">У вас еще не было игр</string>
     <string name="youHaventAnyGames">У вас еще не было игр в которых вы участвовали или создавали</string>
 
+    <string name="positionCard">Позиция</string>
+    <string name="bestPlayer">Лучший игрок</string>
+    <string name="ratingHost">Рейтинг хоста</string>
+    <string name="attendance">Посещаемость</string>
+
+    <plurals name="ratings">
+        <item quantity="one">%1$d оценка</item>
+        <item quantity="two">%1$d оценки</item>
+        <item quantity="few">%1$d оценки</item>
+        <item quantity="many">%1$d оценок</item>
+        <item quantity="other">%1$d оценок</item>
+    </plurals>
+
+    <plurals name="games">
+        <item quantity="one">%1$d игра</item>
+        <item quantity="two">%1$d игры</item>
+        <item quantity="few">%1$d игры</item>
+        <item quantity="many">%1$d игр</item>
+        <item quantity="other">%1$d игр</item>
+    </plurals>
+
+    <string name="changeProfile">Изменить профиль</string>
+    <string name="wallet">Кошелек</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="inviteFriendCard">Пригласить друга</string>
+    <string name="aboutApp">О приложении</string>
+    <string name="safety">Безопасность</string>
+
+
     <string name="editGame">Редактировать игру</string>
     <string name="manageParticipants">Управлять участниками</string>
     <string name="costOfEntry">Стоимость входа</string>
