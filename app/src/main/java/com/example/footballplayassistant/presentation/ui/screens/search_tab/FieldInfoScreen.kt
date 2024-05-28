@@ -349,31 +349,35 @@ fun FeedbackList(feedbackCount : Int) {
         ) // Инфа заглушка
     }
     if (feedbackCount > 3) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.outlineVariant
-                )
-            ) {
-                Text(
-                    stringResource(R.string.showMoreFeedbackButton),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.W600,
-
-                        ), modifier = Modifier.padding(end = MaterialTheme.spacing.extraSmall)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_arrows_down_24),
-                    contentDescription = stringResource(R.string.expandIconDescription), tint = MaterialTheme.colorScheme.secondary
-                )
-            }
-        }
+        ShowMoreButton()
     }
 }
 
+@Composable
+fun ShowMoreButton() {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Button(
+            onClick = {},
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            )
+        ) {
+            Text(
+                stringResource(R.string.showMoreFeedbackButton),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.W600,
+
+                    ), modifier = Modifier.padding(end = MaterialTheme.spacing.extraSmall)
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrows_down_24),
+                contentDescription = stringResource(R.string.expandIconDescription), tint = MaterialTheme.colorScheme.secondary
+            )
+        }
+    }
+}
 @Composable
 fun ImageCounter(currentCount: Int, maxCount : Int) {
     Row(

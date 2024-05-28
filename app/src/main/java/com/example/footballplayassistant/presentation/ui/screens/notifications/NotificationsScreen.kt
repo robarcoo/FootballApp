@@ -23,35 +23,43 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.Event
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.EventDetails
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.Player
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.ShowMoreButton
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 import kotlin.math.roundToInt
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotificationsScreen() {
     val event = Event(
@@ -70,13 +78,64 @@ fun NotificationsScreen() {
         500
     )  // Заглушка
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.primaryContainer)) {
-        HeaderWithBackButton(text = "Уведомления")
-        NotificationCard {
-            EventFinishedNotification(isHost = true, event = event, time = "1ч 50 мин", isUnread = true)
+        HeaderWithBackButton(text = "Уведомления", modifier = Modifier.padding(
+            start = MaterialTheme.spacing.medium,
+            end = MaterialTheme.spacing.medium,
+            top = MaterialTheme.spacing.medium,
+            bottom = MaterialTheme.spacing.small))
+
+        LazyColumn() {
+            item {
+                    Text("Новые", style = MaterialTheme.typography.displayMedium.copy(
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium))
+            }
+            items(2) {
+                NotificationCard {
+                    EventFinishedNotification(
+                        isHost = true,
+                        event = event,
+                        time = "1 ч 50 мин",
+                        isUnread = true
+                    )
+                }
+                NotificationCard {
+                    PersonSubscribedToYouNotification(
+                        image = R.drawable.player_avatar,
+                        name = "Сергей Савельев",
+                        time = "1 ч 40 мин",
+                        isUnread = true)
+                }
+            }
+            item {
+                    Text("Просмотренные", style = MaterialTheme.typography.displayMedium.copy(
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            ),
+                modifier = Modifier.padding(MaterialTheme.spacing.medium))
+            }
+            items(2) {
+                NotificationCard {
+                    EventFinishedNotification(
+                        isHost = true,
+                        event = event,
+                        time = "1 ч 50 мин",
+                        isUnread = false
+                    )
+                }
+                NotificationCard {
+                    PersonSubscribedToYouNotification(
+                        image = R.drawable.player_avatar,
+                        name = "Сергей Савельев",
+                        time = "1 ч 40 мин",
+                        isUnread = false)
+                }
+            }
+            item {
+                ShowMoreButton()
+            }
         }
-        NotificationCard {
-            EventFinishedNotification(isHost = true, event = event, time = "1ч 50 мин", isUnread = true)
-        }
+
     }
 
 }
@@ -105,10 +164,15 @@ fun NotificationCard(content: @Composable () -> Unit) {
             animationSpec = tween(),
         )
     }
-    Box(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max), contentAlignment = Alignment.CenterEnd) {
+    Box(modifier = Modifier
+        .padding(
+            horizontal = MaterialTheme.spacing.medium,
+            vertical = MaterialTheme.spacing.extraSmall
+        )
+        .fillMaxWidth()
+        .height(IntrinsicSize.Max), contentAlignment = Alignment.CenterEnd) {
         IconButton(
             onClick = {}, modifier = Modifier
-                .padding(end = MaterialTheme.spacing.medium)
                 .width(44.dp)
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(12.dp))
@@ -143,16 +207,15 @@ fun NotificationCard(content: @Composable () -> Unit) {
 fun EventFinishedNotification(isHost : Boolean, event : Event, time: String, isUnread : Boolean) {
 
     Column(modifier = Modifier
-        .padding(horizontal = MaterialTheme.spacing.medium)
         .fillMaxWidth()
-        .background(color = MaterialTheme.colorScheme.onPrimary)
         .clip(RoundedCornerShape(12.dp))
+        .background(color = MaterialTheme.colorScheme.onPrimary)
         .padding(MaterialTheme.spacing.medium)) {
-        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(horizontalArrangement = Arrangement.SpaceBetween,) {
                 Text(if (isHost) {
-                    "Матч в котором вы были хостом завершен."
+                    "Матч в котором вы были хостом завершен"
                 } else {
-                    "Матч в котором вы принимали участие завершен."
+                    "Матч в котором вы принимали участие завершен"
                        },
                     style = MaterialTheme.typography.labelMedium.copy(
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -161,7 +224,11 @@ fun EventFinishedNotification(isHost : Boolean, event : Event, time: String, isU
                     modifier = Modifier.weight(1f, fill = false))
             TimeAndIsUnread(time = time, isUnread = isUnread)
         }
-        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically) {
             Text(
                 if (isHost) {
                     "Подведите итоги, отметьте участников"
@@ -174,19 +241,26 @@ fun EventFinishedNotification(isHost : Boolean, event : Event, time: String, isU
                 ),
                 modifier = Modifier.weight(1f, fill = false))
             IconButton(onClick = {}, modifier = Modifier
-                .size(24.dp)
-                .padding(
-                    horizontal = MaterialTheme.spacing.small,
-                    vertical = MaterialTheme.spacing.extraSmall
-                )) {
-                Icon(painterResource(id = R.drawable.ic_arrow_next_24), contentDescription = null)
+                .size(24.dp)) {
+                Icon(painterResource(id = R.drawable.ic_arrow_next_24), contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
             }
         }
-        Card(shape = RoundedCornerShape(12.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimaryContainer),
+        Card(shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimaryContainer),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            )
         ) {
             Column (modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-                Text(event.name)
-                HorizontalDivider(thickness = 1.dp, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                Text(event.name, style = MaterialTheme.typography.displayMedium.copy(
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis)
+                HorizontalDivider(thickness = 1.dp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    modifier = Modifier.padding(top = MaterialTheme.spacing.medium))
                 EventDetails(event = event, isHost = isHost)
             }
         }
@@ -195,7 +269,8 @@ fun EventFinishedNotification(isHost : Boolean, event : Event, time: String, isU
 
 @Composable
 fun TimeAndIsUnread(time : String, isUnread: Boolean) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
         if (isUnread) {
             Box(
                 modifier = Modifier
@@ -215,16 +290,22 @@ fun TimeAndIsUnread(time : String, isUnread: Boolean) {
 
 @Composable
 fun PersonSubscribedToYouNotification(image : Int, name : String, time: String, isUnread: Boolean) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(12.dp)),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)) {
+        Row(modifier = Modifier.padding(MaterialTheme.spacing.medium),
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             Image(
                 painterResource(id = image), contentDescription = null,
                 modifier = Modifier
                     .size(56.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop
             )
-            Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(name, modifier = Modifier.weight(1f, fill = false),
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.W600,
@@ -232,15 +313,22 @@ fun PersonSubscribedToYouNotification(image : Int, name : String, time: String, 
                     TimeAndIsUnread(time = time, isUnread = isUnread)
 
                 }
-                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Bottom) {
                     Text(
                         "Подписался на ваши уведомления",
-                        modifier = Modifier.weight(1f, fill = false),
+                        modifier = Modifier
+                            .padding(end = MaterialTheme.spacing.large)
+                            .weight(1f, fill = false),
                         style = MaterialTheme.typography.displaySmall.copy(
                             color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
+                        ),
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { /*TODO*/ },
+                        modifier = Modifier.size(24.dp)) {
                         Icon(
                             painterResource(id = R.drawable.ic_profile_add),
                             contentDescription = null,
