@@ -249,6 +249,7 @@
     </plurals>
 
     <plurals name="games">
+        <item quantity="zero">%1$d игр</item>
         <item quantity="one">%1$d игра</item>
         <item quantity="two">%1$d игры</item>
         <item quantity="few">%1$d игры</item>

@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.profile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonBottomBar
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
+import com.example.footballplayassistant.presentation.customviews.cards.ActionsCard
 import com.example.footballplayassistant.presentation.customviews.cards.CommonProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.cards.PositionProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
@@ -196,57 +199,3 @@ fun UserProfileScreen() {
     }
 }
 
-@Composable
-private fun ActionsCard(
-    iconTextList: List<Pair<Int, String>>,
-    actionsList: List<() -> Unit>,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        shape = RoundedCornerShape(12.dp)
-    ) {
-        for (i in iconTextList.indices) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp, horizontal = 15.5.dp)
-                    .clickable { actionsList[i] },
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = iconTextList[i].first),
-                        contentDescription = "Start icon",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        text = iconTextList[i].second,
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-                        color = MaterialTheme.colorScheme.primary,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_next_24),
-                    contentDescription = "Arrow",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-            if (i != iconTextList.size - 1)
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = MaterialTheme.colorScheme.tertiaryContainer,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 15.5.dp)
-                )
-        }
-    }
-}
