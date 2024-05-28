@@ -1,5 +1,8 @@
 package com.example.footballplayassistant.presentation.ui.screens.search_tab
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -160,6 +164,15 @@ fun FavoriteButton() {
 fun SearchBar(enabled : Boolean, onClick : () -> Unit) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
+
+    val animatedIconColor: Color by animateColorAsState(
+        targetValue = if (enabled) MaterialTheme.colorScheme.onSecondaryContainer
+        else MaterialTheme.colorScheme.tertiaryContainer,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+
+
+
     Row (verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
@@ -189,11 +202,7 @@ fun SearchBar(enabled : Boolean, onClick : () -> Unit) {
                     if (value.text.isEmpty()) {
                         Icon(
                             painterResource(id = R.drawable.ic_search_black_25),
-                            tint = if (enabled) {
-                                MaterialTheme.colorScheme.onSecondaryContainer
-                            } else {
-                                   MaterialTheme.colorScheme.tertiaryContainer
-                            },
+                            tint = animatedIconColor,
                             contentDescription = stringResource(id = R.string.searchIconDescription),
                             modifier = Modifier
                                 .size(24.dp)
@@ -234,7 +243,7 @@ fun SearchBar(enabled : Boolean, onClick : () -> Unit) {
             )
             if (value.text.isEmpty()) {
                 Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
-                    PlaceholderText(text = stringResource(R.string.typeInSearchQuery), enabled = enabled)
+                    PlaceholderText(text = stringResource(R.string.typeInSearchQuery), color = animatedIconColor)
                 }
             }
     }
@@ -244,28 +253,20 @@ fun SearchBar(enabled : Boolean, onClick : () -> Unit) {
             .fillMaxHeight()
             .aspectRatio(1f),
             border = BorderStroke(1.dp,
-                if (enabled) {
-                    MaterialTheme.colorScheme.onSecondaryContainer
-                } else {
-                    MaterialTheme.colorScheme.tertiaryContainer
-                }
+                animatedIconColor
             ),
             enabled = enabled
         ) {
             Icon(painter = painterResource(id = R.drawable.ic_icons_24),
                 contentDescription = stringResource(id = R.string.filterIconDescription),
-                tint = if (enabled) {
-                    MaterialTheme.colorScheme.onPrimaryContainer
-                } else {
-                       MaterialTheme.colorScheme.tertiaryContainer
-                },
+                tint = animatedIconColor,
                 modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
     }
 }
 
 @Composable
-fun PlaceholderText(text : String, needToResize : Boolean = false, enabled : Boolean = true) {
+fun PlaceholderText(text : String, needToResize : Boolean = false, color : Color) {
     var multiplier by remember { mutableFloatStateOf(1f) }
     Text(
         maxLines = 1,
@@ -276,11 +277,7 @@ fun PlaceholderText(text : String, needToResize : Boolean = false, enabled : Boo
         ),
         style = MaterialTheme.typography.labelLarge.copy(
             fontWeight = FontWeight.W400,
-            color = if (enabled) {
-                MaterialTheme.colorScheme.onSecondaryContainer }
-            else {
-                 MaterialTheme.colorScheme.tertiaryContainer
-            },
+            color = color,
             fontSize = 16.sp * multiplier
         ),
         overflow = if (needToResize) { TextOverflow.Visible } else { TextOverflow.Ellipsis },
