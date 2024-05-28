@@ -78,7 +78,7 @@ fun HeaderWithBackButton(
                 Icon(
                     imageVector = ImageVector.vectorResource(imageButton),
                     contentDescription = "Image",
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = tint
                 )
                 actionsMenu()
             }

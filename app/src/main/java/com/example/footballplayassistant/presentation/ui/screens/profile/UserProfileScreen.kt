@@ -41,10 +41,11 @@ import com.example.footballplayassistant.presentation.customviews.cards.ActionsC
 import com.example.footballplayassistant.presentation.customviews.cards.CommonProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.cards.PositionProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
+import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 
 @Composable
-fun UserProfileScreen() {
+fun UserProfileScreen(isBackButton: Boolean = false) {
     val navController = LocalNavController.current!!
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -56,17 +57,24 @@ fun UserProfileScreen() {
                 .align(Alignment.TopCenter)
                 .padding(top = 30.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.profile),
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
-                color = MaterialTheme.colorScheme.onPrimary,
-                textAlign = TextAlign.Center,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 25.dp)
-            )
+            if (isBackButton)
+                HeaderWithBackButton(text = stringResource(id = R.string.profile),
+                    colorText = MaterialTheme.colorScheme.onPrimary,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    onClickBack = {},
+                    modifier = Modifier.padding(horizontal = 16.dp))
+            else
+                Text(
+                    text = stringResource(id = R.string.profile),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    textAlign = TextAlign.Center,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 25.dp)
+                )
 
             Box(
                 modifier = Modifier
@@ -153,19 +161,25 @@ fun UserProfileScreen() {
                         iconTextList = listOf(
                             Pair(
                                 R.drawable.ic_profile_black_24,
-                                stringResource(id = R.string.changeProfile)),
+                                stringResource(id = R.string.changeProfile)
+                            ),
                             Pair(
                                 R.drawable.ic_wallet_24,
-                                stringResource(id = R.string.wallet)),
+                                stringResource(id = R.string.wallet)
+                            ),
                             Pair(
                                 R.drawable.ic_calendar_22,
-                                stringResource(id = R.string.mygames)),
+                                stringResource(id = R.string.mygames)
+                            ),
                             Pair(
                                 R.drawable.ic_subscribe_24,
-                                stringResource(id = R.string.subscriptions)),
+                                stringResource(id = R.string.subscriptions)
+                            ),
                             Pair(
                                 R.drawable.ic_people_add_24,
-                                stringResource(id = R.string.inviteFriendCard))),
+                                stringResource(id = R.string.inviteFriendCard)
+                            )
+                        ),
                         actionsList = listOf(
                             {/*navigate*/ },
                             {/*navigate*/ },
@@ -181,10 +195,13 @@ fun UserProfileScreen() {
                         iconTextList = listOf(
                             Pair(
                                 R.drawable.ic_document_24,
-                                stringResource(id = R.string.aboutApp)),
+                                stringResource(id = R.string.aboutApp)
+                            ),
                             Pair(
                                 R.drawable.ic_lock_24,
-                                stringResource(id = R.string.safety)),),
+                                stringResource(id = R.string.safety)
+                            ),
+                        ),
                         actionsList = listOf({/*navigate*/ }, {/*navigate*/ }),
                         modifier = Modifier.padding(bottom = 20.dp)
                     )

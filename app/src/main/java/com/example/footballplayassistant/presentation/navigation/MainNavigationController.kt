@@ -195,8 +195,17 @@ fun MainNavigationController(
                 MyGamesScreen()
             }
 
-            composable(route = Route.UserProfileScreen.path) {
-                UserProfileScreen()
+            composable(route = Route.UserProfileScreen.path + "/{button}",
+                arguments = listOf(navArgument("button") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                    nullable = false
+                })) { entry ->
+                entry.arguments?.getBoolean("button").let { button ->
+                    if (button != null) {
+                        UserProfileScreen(isBackButton = button)
+                    }
+                }
             }
         }
     }
