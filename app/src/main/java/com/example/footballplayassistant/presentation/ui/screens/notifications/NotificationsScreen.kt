@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -45,6 +46,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -78,68 +80,101 @@ fun NotificationsScreen() {
         500
     )  // Заглушка
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.primaryContainer)) {
-        HeaderWithBackButton(text = "Уведомления", modifier = Modifier.padding(
-            start = MaterialTheme.spacing.medium,
-            end = MaterialTheme.spacing.medium,
-            top = MaterialTheme.spacing.medium,
-            bottom = MaterialTheme.spacing.small))
-
-        LazyColumn() {
-            item {
-                    Text("Новые", style = MaterialTheme.typography.displayMedium.copy(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    ),
-                        modifier = Modifier.padding(MaterialTheme.spacing.medium))
-            }
-            items(2) {
-                NotificationCard {
-                    EventFinishedNotification(
-                        isHost = true,
-                        event = event,
-                        time = "1 ч 50 мин",
-                        isUnread = true
-                    )
-                }
-                NotificationCard {
-                    PersonSubscribedToYouNotification(
-                        image = R.drawable.player_avatar,
-                        name = "Сергей Савельев",
-                        time = "1 ч 40 мин",
-                        isUnread = true)
-                }
-            }
-            item {
-                    Text("Просмотренные", style = MaterialTheme.typography.displayMedium.copy(
+        HeaderWithBackButton(
+            text = "Уведомления", modifier = Modifier.padding(
+                start = MaterialTheme.spacing.medium,
+                end = MaterialTheme.spacing.medium,
+                top = MaterialTheme.spacing.medium,
+                bottom = MaterialTheme.spacing.small
+            )
+        )
+        val hasNotifications = true
+        if (hasNotifications) {
+            LazyColumn() {
+                item {
+                    Text(
+                        "Новые", style = MaterialTheme.typography.displayMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer
-                            ),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium))
-            }
-            items(2) {
-                NotificationCard {
-                    EventFinishedNotification(
-                        isHost = true,
-                        event = event,
-                        time = "1 ч 50 мин",
-                        isUnread = false
+                        ),
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
                     )
                 }
-                NotificationCard {
-                    PersonSubscribedToYouNotification(
-                        image = R.drawable.player_avatar,
-                        name = "Сергей Савельев",
-                        time = "1 ч 40 мин",
-                        isUnread = false)
+                items(2) {
+                    NotificationCard {
+                        EventFinishedNotification(
+                            isHost = true,
+                            event = event,
+                            time = "1 ч 50 мин",
+                            isUnread = true
+                        )
+                    }
+                    NotificationCard {
+                        PersonSubscribedToYouNotification(
+                            image = R.drawable.player_avatar,
+                            name = "Сергей Савельев",
+                            time = "1 ч 40 мин",
+                            isUnread = true
+                        )
+                    }
+                }
+                item {
+                    Text(
+                        "Просмотренные", style = MaterialTheme.typography.displayMedium.copy(
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    )
+                }
+                items(2) {
+                    NotificationCard {
+                        EventFinishedNotification(
+                            isHost = false,
+                            event = event,
+                            time = "1 ч 50 мин",
+                            isUnread = false
+                        )
+                    }
+                    NotificationCard {
+                        PersonSubscribedToYouNotification(
+                            image = R.drawable.player_avatar,
+                            name = "Сергей Савельев",
+                            time = "1 ч 40 мин",
+                            isUnread = false
+                        )
+                    }
+                }
+                item {
+                    ShowMoreButton()
                 }
             }
-            item {
-                ShowMoreButton()
-            }
+
+        } else {
+            NoNotifications()
         }
 
-    }
 
+    }
 }
 
+@Composable
+fun NoNotifications() {
+    Column(modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        Text("Уведомлений нет", style = MaterialTheme.typography.titleMedium.copy(
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            fontWeight = FontWeight.W600
+        ))
+        Text("На данный момент у вас нет\nуведомлений", style = MaterialTheme.typography.labelMedium.copy(
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            fontWeight = FontWeight.W400
+        ),
+             modifier = Modifier.padding(vertical = MaterialTheme.spacing.small),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center)
+    }
+}
 enum class DragAnchors {
     Center,
     End,
