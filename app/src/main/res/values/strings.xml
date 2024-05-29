@@ -358,7 +358,7 @@
     <string name="feedbackSectionTitle">Отзывы</string>
     <string name="comingEventsSectionTitle">Ближайшие события</string>
     <string name="basicInfoFieldLocation">Поречная улица, дом 3, к.1 строение 2</string>
-    <string name="basicInfoFieldPhoneNumber">+7 (495) 970– 31-29</string>
+    <string name="basicInfoFieldPhoneNumber">+7 (495) 970– 31–29</string>
     <string name="basicInfoFieldWorkHours">08:00 – 24:00</string>
     <string name="showMoreFeedbackButton">Показать еще</string>
     <string name="expandIconDescription">Раскрыть список отзывов</string>
@@ -398,4 +398,14 @@
     <string name="fieldChangingRoomValue">Закрытые</string>
     <string name="fieldTribuneValue">40 мест</string>
     <string name="gamePlayerAmountValue">До 20</string>
+    
+    <string name="requestSentTitle">Заявка отправлена</string>
+    <string name="requestSentDescription">После прохождения модерации вашей заявки, вам придет уведомление о результате рассмотрения</string>
+    <string name="returnToMainPage">Вернуться на главную</string>
+    <string name="closeImagePreview">Закрыть превью изображения</string>
+    <string name="showNextImage">Показать следующее изображение</string>
+    <string name="showPreviousImage">Показать предыдущее изображение</string>
+    <string name="geolocationIsTurnedOff">Геолокация отключена</string>
+    <string name="geolocationIsTurnedOffDescription">Выдача ближайших к вам полей будет недоступна по причине отключенной геолокации, для продолжения поиска полей включите геолокацию в профиле</string>
+    <string name="turnOnGeolocation">Включить геолокацию</string>
 </resources>
