@@ -58,7 +58,10 @@ sealed class Route(val path: String) {
 
     data object MyGamesScreen : Route(path = "my_games_screen")
 
+    data object UserProfileScreen : Route(path = "user_profile_screen")
+
     data object WalletScreen : Route(path = "wallet_screen")
+
 
 
     fun withArgs(vararg args: String): String {

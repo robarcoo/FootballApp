@@ -44,6 +44,12 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
+import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -207,6 +213,19 @@ fun MainNavigationController(
 
             composable(route = Route.WalletScreen.path){
                 WalletScreen()
+            }
+
+            composable(route = Route.UserProfileScreen.path + "/{button}",
+                arguments = listOf(navArgument("button") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                    nullable = false
+                })) { entry ->
+                entry.arguments?.getBoolean("button").let { button ->
+                    if (button != null) {
+                        UserProfileScreen(isBackButton = button)
+                    }
+                }
             }
         }
     }
