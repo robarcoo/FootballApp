@@ -38,6 +38,7 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScr
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
@@ -215,6 +216,10 @@ fun MainNavigationController(
                 WalletScreen()
             }
 
+            composable(route = Route.SafetyScreen.path){
+                SafetyScreen()
+            }
+            
             composable(route = Route.UserProfileScreen.path + "/{button}",
                 arguments = listOf(navArgument("button") {
                     type = NavType.BoolType

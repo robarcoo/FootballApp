@@ -298,6 +298,19 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
+    <string name="safety">Безопасность</string>
+    <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
+    <string name="currentPassword">Текущий пароль</string>
+    <string name="newPassword">Новый пароль</string>
+    <string name="newPasswordOneMore">Новый пароль ещё раз</string>
+    <string name="enterNewPasswordOneMore">Введите новый пароль ещё раз</string>
+    <string name="changePassword">Изменить пароль</string>
+    <string name="changedPasswordSuccess">Пароль успешно изменен</string>
+    <string name="needAutorization">Необходимо заново пройти авторизацию с использованием нового пароля на всех устройствах</string>
+    <string name="loginAgain">Войти заново</string>
+    <string name="passwordsDifferent">Введенные вами пароли не совпадают</string>
+    <string name="symbolsNumbers">8 символов, латинские буквы и цифры, 1 заглавная буква</string>
+
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
     <string name="filterIconDescription">Открыть фильтры</string>
