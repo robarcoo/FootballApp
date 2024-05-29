@@ -45,15 +45,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.ShowMore
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.Event
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.EventAddressInfo
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.EventCard
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.EventDetails
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.Player
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ShowMoreButton
@@ -158,26 +163,206 @@ fun NotificationsScreen() {
 
 @Composable
 fun NoNotifications() {
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
-        Text("Уведомлений нет", style = MaterialTheme.typography.titleMedium.copy(
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            fontWeight = FontWeight.W600
-        ))
-        Text("На данный момент у вас нет\nуведомлений", style = MaterialTheme.typography.labelMedium.copy(
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            fontWeight = FontWeight.W400
-        ),
-             modifier = Modifier.padding(vertical = MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            "Уведомлений нет", style = MaterialTheme.typography.titleMedium.copy(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontWeight = FontWeight.W600
+            )
+        )
+        Text(
+            "На данный момент у вас нет\nуведомлений",
+            style = MaterialTheme.typography.labelMedium.copy(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontWeight = FontWeight.W400
+            ),
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.small),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Center)
+            textAlign = TextAlign.Center
+        )
     }
 }
+
 enum class DragAnchors {
     Center,
     End,
+}
+
+@Composable
+fun MatchNotification(
+    image: Int, name: String, time: String, isUnread: Boolean, event: Event,
+    hasInvitedYou: Boolean, sentNewMessage: Boolean
+) {
+    Row(
+        modifier = Modifier.padding(MaterialTheme.spacing.medium),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+    ) {
+        NotificationAvatar(image = image)
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    name, modifier = Modifier.weight(1f, fill = false),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.W600,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                TimeAndIsUnread(time = time, isUnread = isUnread)
+
+            }
+            Text(
+                if (hasInvitedYou) {
+                    "Приглашает вас на матч"
+                } else if (sentNewMessage) {
+                    "Прислал новое сообщение в игре"
+                } else {
+                    ""
+                }, modifier = Modifier
+                    .padding(end = MaterialTheme.spacing.large)
+                    .weight(1f, fill = false),
+                style = MaterialTheme.typography.displaySmall.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                ),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+    GoToEventButton(
+        if (hasInvitedYou) {
+            "Участвовать в матче"
+        } else if (sentNewMessage) {
+            "Перейти к сообщению"
+        } else {
+            ""
+        }
+    )
+    EventCard(event = event)
+
+}
+
+@Composable
+fun FieldCreationNotification(
+    isSuccessful: Boolean,
+    reason: String = "",
+    isUnread: Boolean,
+    time: String,
+    event: Event
+) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        if (isSuccessful) {
+            Text(
+                "Ваше поле создано",
+                style = MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400
+                ),
+                modifier = Modifier.weight(1f, fill = false)
+            )
+        } else {
+            Column(modifier = Modifier.weight(1f, fill = false)) {
+                Text(
+                    "Ваше поле отклонено",
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400
+                    )
+                )
+                Text(
+                    buildAnnotatedString {
+                        withStyle(SpanStyle()) {
+                            append("Причина: ")
+                        }
+                        append(reason)
+                    }
+                )
+            }
+        }
+        TimeAndIsUnread(time = time, isUnread = isUnread)
+    }
+    GoToEventButton(
+        text =
+        if (isSuccessful) {
+            "Перейти на страницу поля"
+        } else {
+            "Создать поле заново"
+        }
+    )
+    ShortInfoCard(event = event, isHost = true, showAddress = true, address = "", distance = "")
+
+}
+
+@Composable
+fun EventFinishedUnsuccessfullyNotification(
+    event: Event,
+    name: String,
+    image: Int = 0,
+    isHost: Boolean,
+    time: String,
+    isUnread: Boolean
+) {
+    if (isHost) {
+        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(
+                "Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию.",
+                style = MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400
+                ),
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            TimeAndIsUnread(time = time, isUnread = isUnread)
+        }
+    } else {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            NotificationAvatar(image = image)
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.weight(1f, fill = false)) {
+                    Text(
+                        "Хост",
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            fontWeight = FontWeight.W400
+                        ),
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    Text(name)
+                    Text(
+                        "Распустил матч",
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            fontWeight = FontWeight.W400
+                        ),
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+
+                }
+                TimeAndIsUnread(time = time, isUnread = isUnread)
+            }
+        }
+    }
+    ShortInfoCard(event = event, isHost = isHost)
+}
+
+@Composable
+fun NotificationAvatar(image: Int) {
+    Image(
+        painterResource(id = image), contentDescription = null,
+        modifier = Modifier
+            .size(56.dp)
+            .clip(RoundedCornerShape(12.dp)),
+        contentScale = ContentScale.Crop
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -199,13 +384,15 @@ fun NotificationCard(content: @Composable () -> Unit) {
             animationSpec = tween(),
         )
     }
-    Box(modifier = Modifier
-        .padding(
-            horizontal = MaterialTheme.spacing.medium,
-            vertical = MaterialTheme.spacing.extraSmall
-        )
-        .fillMaxWidth()
-        .height(IntrinsicSize.Max), contentAlignment = Alignment.CenterEnd) {
+    Box(
+        modifier = Modifier
+            .padding(
+                horizontal = MaterialTheme.spacing.medium,
+                vertical = MaterialTheme.spacing.extraSmall
+            )
+            .fillMaxWidth()
+            .height(IntrinsicSize.Max), contentAlignment = Alignment.CenterEnd
+    ) {
         IconButton(
             onClick = {}, modifier = Modifier
                 .width(44.dp)
@@ -219,93 +406,142 @@ fun NotificationCard(content: @Composable () -> Unit) {
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
-        Row(modifier = Modifier
-            .offset {
-                IntOffset(
-                    x = -state
-                        .requireOffset()
-                        .roundToInt(),
-                    y = 0,
-                )
-            }
-            .anchoredDraggable(state, Orientation.Horizontal, reverseDirection = true),
+        Row(
+            modifier = Modifier
+                .offset {
+                    IntOffset(
+                        x = -state
+                            .requireOffset()
+                            .roundToInt(),
+                        y = 0,
+                    )
+                }
+                .anchoredDraggable(state, Orientation.Horizontal, reverseDirection = true),
         ) {
-            content()
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(color = MaterialTheme.colorScheme.onPrimary)
+                    .padding(MaterialTheme.spacing.medium)
+            ) {
+                content()
+            }
         }
     }
 }
 
 
-
+@Composable
+fun EventFinishedNotification(
+    isHost: Boolean,
+    event: Event,
+    time: String,
+    isUnread: Boolean,
+    isFinishedSuccessfully: Boolean = true
+) {
+    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(
+            if (isHost && isFinishedSuccessfully) {
+                "Матч в котором вы были хостом завершен"
+            } else if (isHost) {
+                "Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию."
+            } else {
+                "Матч в котором вы принимали участие завершен"
+            },
+            style = MaterialTheme.typography.labelMedium.copy(
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                fontWeight = FontWeight.W400
+            ),
+            modifier = Modifier.weight(1f, fill = false)
+        )
+        TimeAndIsUnread(time = time, isUnread = isUnread)
+    }
+    if (isFinishedSuccessfully) {
+        GoToEventButton(
+            if (isHost) {
+                "Подведите итоги, отметьте участников"
+            } else {
+                "Оцените как прошло ваше событие"
+            }
+        )
+    }
+    Card(
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimaryContainer),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.outlineVariant
+        )
+    ) {
+        ShortInfoCard(event, isHost)
+    }
+}
 
 @Composable
-fun EventFinishedNotification(isHost : Boolean, event : Event, time: String, isUnread : Boolean) {
-
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(12.dp))
-        .background(color = MaterialTheme.colorScheme.onPrimary)
-        .padding(MaterialTheme.spacing.medium)) {
-        Row(horizontalArrangement = Arrangement.SpaceBetween,) {
-                Text(if (isHost) {
-                    "Матч в котором вы были хостом завершен"
-                } else {
-                    "Матч в котором вы принимали участие завершен"
-                       },
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        fontWeight = FontWeight.W400
-                    ),
-                    modifier = Modifier.weight(1f, fill = false))
-            TimeAndIsUnread(time = time, isUnread = isUnread)
-        }
-        Row(modifier = Modifier
+fun GoToEventButton(text: String) {
+    Row(
+        modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = MaterialTheme.spacing.small),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                if (isHost) {
-                    "Подведите итоги, отметьте участников"
-                } else {
-                    "Оцените как прошло ваше событие"
-                       },
-                style = MaterialTheme.typography.bodySmall.copy(
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    fontWeight = FontWeight.W600
-                ),
-                modifier = Modifier.weight(1f, fill = false))
-            IconButton(onClick = {}, modifier = Modifier
-                .size(24.dp)) {
-                Icon(painterResource(id = R.drawable.ic_arrow_next_24), contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer)
-            }
-        }
-        Card(shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimaryContainer),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.outlineVariant
-            )
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text,
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontWeight = FontWeight.W600
+            ),
+            modifier = Modifier.weight(1f, fill = false)
+        )
+        IconButton(
+            onClick = {}, modifier = Modifier
+                .size(24.dp)
         ) {
-            Column (modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-                Text(event.name, style = MaterialTheme.typography.displayMedium.copy(
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                ),
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis)
-                HorizontalDivider(thickness = 1.dp,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    modifier = Modifier.padding(top = MaterialTheme.spacing.medium))
-                EventDetails(event = event, isHost = isHost)
-            }
+            Icon(
+                painterResource(id = R.drawable.ic_arrow_next_24),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         }
     }
 }
 
 @Composable
-fun TimeAndIsUnread(time : String, isUnread: Boolean) {
-    Row(verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
+fun ShortInfoCard(
+    event: Event,
+    isHost: Boolean,
+    showAddress: Boolean = false,
+    address: String = "",
+    distance: String = ""
+) {
+    Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+        Text(
+            event.name, style = MaterialTheme.typography.displayMedium.copy(
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            modifier = Modifier.padding(top = MaterialTheme.spacing.medium)
+        )
+        if (showAddress) {
+            EventAddressInfo(address = address, distance = distance)
+        } else {
+            EventDetails(event = event, isHost = isHost)
+        }
+    }
+}
+
+@Composable
+fun TimeAndIsUnread(time: String, isUnread: Boolean) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)
+    ) {
         if (isUnread) {
             Box(
                 modifier = Modifier
@@ -324,58 +560,57 @@ fun TimeAndIsUnread(time : String, isUnread: Boolean) {
 }
 
 @Composable
-fun PersonSubscribedToYouNotification(image : Int, name : String, time: String, isUnread: Boolean) {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)) {
-        Row(modifier = Modifier.padding(MaterialTheme.spacing.medium),
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
-            Image(
-                painterResource(id = image), contentDescription = null,
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(RoundedCornerShape(12.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(name, modifier = Modifier.weight(1f, fill = false),
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = FontWeight.W600,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer)
-                    TimeAndIsUnread(time = time, isUnread = isUnread)
+fun PersonSubscribedToYouNotification(image: Int, name: String, time: String, isUnread: Boolean) {
+    Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+        NotificationAvatar(image = image)
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    name, modifier = Modifier.weight(1f, fill = false),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.W600,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+                TimeAndIsUnread(time = time, isUnread = isUnread)
 
-                }
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.Bottom) {
-                    Text(
-                        "Подписался на ваши уведомления",
-                        modifier = Modifier
-                            .padding(end = MaterialTheme.spacing.large)
-                            .weight(1f, fill = false),
-                        style = MaterialTheme.typography.displaySmall.copy(
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        ),
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    IconButton(onClick = { /*TODO*/ },
-                        modifier = Modifier.size(24.dp)) {
-                        Icon(
-                            painterResource(id = R.drawable.ic_profile_add),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.secondary
-                        )
-
-                    }
-
-                }
             }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Text(
+                    "Подписался на ваши уведомления",
+                    modifier = Modifier
+                        .padding(end = MaterialTheme.spacing.large)
+                        .weight(1f, fill = false),
+                    style = MaterialTheme.typography.displaySmall.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                IconButton(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.size(24.dp)
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.ic_profile_add),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
 
+                }
+
+            }
         }
+
     }
 
 }

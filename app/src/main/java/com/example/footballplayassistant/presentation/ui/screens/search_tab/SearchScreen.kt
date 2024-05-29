@@ -104,27 +104,33 @@ fun SearchCard(title : String, address : String, distance : String) {
                 FavoriteButton()
             }
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
-            val index = (address.indexOfFirst { it == ',' })
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(
-                    buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.W700)) {
-                                         append(address.slice(0 until index))
-                        }
-                        append(address.slice(index until address.length))
-                    }, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
-                        lineHeight = 12.sp), maxLines = 2, overflow = TextOverflow.Ellipsis, lineHeight = 16.sp,
-                    modifier = Modifier.weight(1f, fill = false)
-                )
-                Spacer(modifier = Modifier
-                    .size(MaterialTheme.spacing.large))
-                Text(
-                    text = distance, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
-                        lineHeight = 12.sp)
-                )
-            }
+            EventAddressInfo(address = address, distance = distance)
+
         }
 
+    }
+}
+
+@Composable
+fun EventAddressInfo(address: String, distance: String) {
+    val index = (address.indexOfFirst { it == ',' })
+    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween) {
+        Text(
+            buildAnnotatedString {
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W700)) {
+                    append(address.slice(0 until index))
+                }
+                append(address.slice(index until address.length))
+            }, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                lineHeight = 12.sp), maxLines = 2, overflow = TextOverflow.Ellipsis, lineHeight = 16.sp,
+            modifier = Modifier.weight(1f, fill = false)
+        )
+        Spacer(modifier = Modifier
+            .size(MaterialTheme.spacing.large))
+        Text(
+            text = distance, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.displaySmall.copy(fontSize = 12.sp,
+                lineHeight = 12.sp)
+        )
     }
 }
 
