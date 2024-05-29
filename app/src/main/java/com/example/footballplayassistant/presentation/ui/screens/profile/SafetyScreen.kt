@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -210,11 +211,15 @@ fun SafetyScreen() {
             }
         }
 
-        if (newPasswordFirst.value == newPasswordSecond.value && newPasswordFirst.value.isNotEmpty()
-            && currentPassword.value.isNotEmpty())
-            buttonEnable.value = true
-        else
-            buttonEnable.value = false
+        LaunchedEffect(key1 = newPasswordFirst.value, key2 = newPasswordSecond.value,
+            key3 = currentPassword.value){
+            if (newPasswordFirst.value == newPasswordSecond.value && newPasswordFirst.value.isNotEmpty()
+                && currentPassword.value.isNotEmpty())
+                buttonEnable.value = true
+            else
+                buttonEnable.value = false
+        }
+
 
         val animatedContainerColor: Color by animateColorAsState(
             targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
