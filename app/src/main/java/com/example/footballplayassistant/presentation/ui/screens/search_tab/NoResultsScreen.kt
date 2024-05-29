@@ -26,8 +26,7 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
-@Preview
-fun NoResultsScreen() {
+fun NoResultsScreen(title : String, description : String, buttonText: String, onClick : () -> Unit) {
     val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxSize()
@@ -38,7 +37,7 @@ fun NoResultsScreen() {
                 .weight(1f),
             verticalArrangement = Arrangement.Center) {
             Text(
-                text = stringResource(R.string.areaNotFound), style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
+                text = title, style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer),
                 fontWeight = FontWeight.W600,
                 textAlign = TextAlign.Center,
             )
@@ -47,14 +46,14 @@ fun NoResultsScreen() {
                 overflow = TextOverflow.Ellipsis,
                 lineHeight = 20.sp,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
-                text = stringResource(id = R.string.tryChangeFilters),
+                text = description,
                 textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
             )
         }
-        CommonButton(text = stringResource(id = R.string.addField),
+        CommonButton(text = buttonText,
             containerColor = MaterialTheme.colorScheme.secondary,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            onClick = { navController.navigate(Route.CreateFieldScreen.path)} )
+            onClick = onClick)
 
     }
 }

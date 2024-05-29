@@ -235,6 +235,36 @@
     <string name="noGamesYet">У вас еще не было игр</string>
     <string name="youHaventAnyGames">У вас еще не было игр в которых вы участвовали или создавали</string>
 
+    <string name="positionCard">Позиция</string>
+    <string name="bestPlayer">Лучший игрок</string>
+    <string name="ratingHost">Рейтинг хоста</string>
+    <string name="attendance">Посещаемость</string>
+
+    <plurals name="ratings">
+        <item quantity="one">%1$d оценка</item>
+        <item quantity="two">%1$d оценки</item>
+        <item quantity="few">%1$d оценки</item>
+        <item quantity="many">%1$d оценок</item>
+        <item quantity="other">%1$d оценок</item>
+    </plurals>
+
+    <plurals name="games">
+        <item quantity="zero">%1$d игр</item>
+        <item quantity="one">%1$d игра</item>
+        <item quantity="two">%1$d игры</item>
+        <item quantity="few">%1$d игры</item>
+        <item quantity="many">%1$d игр</item>
+        <item quantity="other">%1$d игр</item>
+    </plurals>
+
+    <string name="changeProfile">Изменить профиль</string>
+    <string name="wallet">Кошелек</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="inviteFriendCard">Пригласить друга</string>
+    <string name="aboutApp">О приложении</string>
+    <string name="safety">Безопасность</string>
+
+
     <string name="editGame">Редактировать игру</string>
     <string name="manageParticipants">Управлять участниками</string>
     <string name="costOfEntry">Стоимость входа</string>
@@ -371,7 +401,7 @@
     <string name="feedbackSectionTitle">Отзывы</string>
     <string name="comingEventsSectionTitle">Ближайшие события</string>
     <string name="basicInfoFieldLocation">Поречная улица, дом 3, к.1 строение 2</string>
-    <string name="basicInfoFieldPhoneNumber">+7 (495) 970– 31-29</string>
+    <string name="basicInfoFieldPhoneNumber">+7 (495) 970– 31–29</string>
     <string name="basicInfoFieldWorkHours">08:00 – 24:00</string>
     <string name="showMoreFeedbackButton">Показать еще</string>
     <string name="expandIconDescription">Раскрыть список отзывов</string>
@@ -411,4 +441,14 @@
     <string name="fieldChangingRoomValue">Закрытые</string>
     <string name="fieldTribuneValue">40 мест</string>
     <string name="gamePlayerAmountValue">До 20</string>
+    
+    <string name="requestSentTitle">Заявка отправлена</string>
+    <string name="requestSentDescription">После прохождения модерации вашей заявки, вам придет уведомление о результате рассмотрения</string>
+    <string name="returnToMainPage">Вернуться на главную</string>
+    <string name="closeImagePreview">Закрыть превью изображения</string>
+    <string name="showNextImage">Показать следующее изображение</string>
+    <string name="showPreviousImage">Показать предыдущее изображение</string>
+    <string name="geolocationIsTurnedOff">Геолокация отключена</string>
+    <string name="geolocationIsTurnedOffDescription">Выдача ближайших к вам полей будет недоступна по причине отключенной геолокации, для продолжения поиска полей включите геолокацию в профиле</string>
+    <string name="turnOnGeolocation">Включить геолокацию</string>
 </resources>
