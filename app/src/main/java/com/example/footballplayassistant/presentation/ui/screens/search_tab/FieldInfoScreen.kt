@@ -523,17 +523,7 @@ fun EventCard(event : Event) {
                 modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
             )
             Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)) {
-                LazyVerticalGrid(
-                    modifier = Modifier.size(62.dp),
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(MaterialTheme.spacing.extraSmall),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    items(if (event.participants.size > 4) 4 else event.participants.size) { index ->
-                        PhotoGrid(event, index)
-                    }
-                }
+                PhotoGrid(event)
 
                 FlowRow(modifier = Modifier
                     .padding(horizontal = MaterialTheme.spacing.small)
@@ -630,37 +620,58 @@ fun EventDetails(event : Event, isHost : Boolean = false, isSuccessful : Boolean
     }
 }
 @Composable
-fun PhotoGrid(event : Event, index : Int) {
-    if (event.participants.size > 4 && index == 3) {
-        Row(
-            modifier = Modifier
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .size(26.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "+${event.participants.size - 3}",
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontWeight = FontWeight.W400,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            )
-        }
-    } else {
-        Image(
-            painterResource(id = event.participants[index].photo),
-            contentDescription = stringResource(R.string.eventParticipantAvatarImageDescription),
-            modifier = Modifier
-                .size(26.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
+fun PhotoGrid(event : Event, addBorder : Boolean = false) {
+    LazyVerticalGrid(
+        modifier = Modifier.size(62.dp),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(MaterialTheme.spacing.extraSmall),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        items(if (event.participants.size > 4) 4 else event.participants.size) {
+            index ->
+            if (event.participants.size > 4 && index == 3) {
+                Row(
+                    modifier = Modifier
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .size(26.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "+${event.participants.size - 3}",
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.W400,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                }
+            } else {
+                Image(
+                    painterResource(id = event.participants[index].photo),
+                    contentDescription = stringResource(R.string.eventParticipantAvatarImageDescription),
+                    modifier = Modifier
+                        .size(26.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                            .then(if
+                                    (addBorder) {
+                                Modifier.border(width = 1.dp,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    shape = RoundedCornerShape(8.dp))
+                            }
+                            else {
+                                Modifier
+                            }
+                            ),
+                    contentScale = ContentScale.Crop
 
-        )
+                )
+            }
+        }
     }
 }
 @Composable

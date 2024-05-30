@@ -88,10 +88,12 @@ fun FilterScreen() {
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
             FilterRangeSlider(stringResource(id = R.string.awayFromUser), activeRangeStart = 0f, activeRangeEnd = 50f, needTwoThumbs = true)
             FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), activeRangeStart = 12f, activeRangeEnd = 48f, needTwoThumbs = true)
+
             ToggleButton(
                 stringResource(R.string.typesOfArena),
                 stringArrayResource(id = R.array.typesOfArenaArray)
             )
+            Spacer(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large))
             ToggleButton(
                 stringResource(id = R.string.coveringType),
                 stringArrayResource(id = R.array.coveringTypeArray)
@@ -142,13 +144,22 @@ fun FilterButton(text : String, horizontalPadding : Dp, containerColor : Color, 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ToggleButton(title: String, items: Array<String>) {
-    val selectedIndex = remember { items.indices.toList().toMutableStateList() }
-    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large)) {
-        Text(
-            title, style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
-        )
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+fun ToggleButton(title: String = "", items: Array<String>, selectAll : Boolean = true) {
+    val selectedIndex = remember {
+        if (selectAll) {
+        items.indices.toList().toMutableStateList()
+    } else {
+        mutableStateListOf()
+    }
+    }
+    Column() {
+        if (title.isNotEmpty()) {
+            Text(
+                title,
+                style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+            )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             items.forEachIndexed { index, item ->
@@ -157,7 +168,7 @@ fun ToggleButton(title: String, items: Array<String>) {
                         vertical = MaterialTheme.spacing.small,
                         horizontal = MaterialTheme.spacing.small
                     ),
-                    onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index)) },
+                    onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index, selectAll)) },
                     shape = RoundedCornerShape(8.dp),
                     border = if (index in selectedIndex) {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.secondary)
@@ -183,9 +194,9 @@ private fun <T> SnapshotStateList<T>.swap(list: List<T>) {
     this.addAll(list)
 }
 
-fun toggleLogic(list : List<Int>, element : Int) : List<Int> {
+fun toggleLogic(list : List<Int>, element : Int, selectAll: Boolean) : List<Int> {
     val newList = list.toMutableList()
-    if (newList.contains(element) && newList.size > 1) {
+    if (newList.contains(element) && (newList.size > 1 || !selectAll)) {
         newList.remove(element)
     } else if (!newList.contains(element)) {
         newList.add(element)
