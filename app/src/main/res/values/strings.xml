@@ -298,7 +298,7 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
-    <string name="safety">Безопасность</string>
+
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
@@ -310,6 +310,32 @@
     <string name="loginAgain">Войти заново</string>
     <string name="passwordsDifferent">Введенные вами пароли не совпадают</string>
     <string name="symbolsNumbers">8 символов, латинские буквы и цифры, 1 заглавная буква</string>
+
+
+    <string name="versionApp">Версия приложения</string>
+    <string name="versionOS">Версия операционной системы</string>
+    <string name="domain">Домен</string>
+    <string name="connection">Подключение</string>
+    <string name="region">Регион</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="confidentiality">Конфиденциальность</string>
+    <string name="faq">FAQ</string>
+    <string name="exit">Выйти</string>
+    <string name="deleteAcc">Удалить аккаунт</string>
+    <string name="exitQuestion">Вы действительно хотите выйти?</string>
+    <string name="enterDataAfterExit">После выхода из приложения данные авторизации необходимо будет ввести заново</string>
+    <string name="deleteQuestion">Вы действительно хотите удалить аккаунт?</string>
+    <string name="lostDataAfterDelete">После удаления аккаунта все данные будут утеряны</string>
+    <string name="delete">Удалить</string>
+
+    <string name="suggestionOrProblem">Предложение или проблема</string>
+    <string name="describeYourProblems">Опишите ваши предложения или проблемы</string>
+    <string name="EmailBigE">E-mail</string>
+    <string name="EmailEnter">Введите E-mail</string>
+    <string name="send">Отправить</string>
+    <string name="sendRequestSuccessfully">Обращение отправлено успешно</string>
+    <string name="youWillBeContacted">После рассмотрения вашего обращения с вами свяжутся</string>
+    <string name="returnToMain">Вернуться на главную страницу</string>
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>

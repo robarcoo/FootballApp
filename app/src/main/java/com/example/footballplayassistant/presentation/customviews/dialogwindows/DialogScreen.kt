@@ -70,7 +70,7 @@ fun DialogScreen(
     if (showAnimatedDialog)
         BasicAlertDialog(
             onDismissRequest = onDismissRequest,
-            modifier = Modifier.size(350.dp, 500.dp),
+            modifier = Modifier.size(370.dp, 500.dp),
             properties = DialogProperties(usePlatformDefaultWidth = false)
         ) {
             //нужно, чтобы анимация началась после того, как отобразилось диалоговое окно

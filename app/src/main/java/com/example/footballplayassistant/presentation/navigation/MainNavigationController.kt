@@ -49,6 +49,9 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Addi
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 
 
@@ -63,7 +66,7 @@ fun MainNavigationController(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Route.StartScreen.path,
+            startDestination = Route.AboutAppScreen.path,
             enterTransition = { fadeIn(animationSpec = tween(350)) },
             exitTransition = { fadeOut(animationSpec = tween(350)) },
         ) {
@@ -219,7 +222,7 @@ fun MainNavigationController(
             composable(route = Route.SafetyScreen.path){
                 SafetyScreen()
             }
-            
+
             composable(route = Route.UserProfileScreen.path + "/{button}",
                 arguments = listOf(navArgument("button") {
                     type = NavType.BoolType
@@ -231,6 +234,18 @@ fun MainNavigationController(
                         UserProfileScreen(isBackButton = button)
                     }
                 }
+            }
+
+            composable(route = Route.AboutAppScreen.path){
+                AboutAppScreen()
+            }
+
+            composable(route = Route.FeedbackScreen.path){
+                FeedbackScreen()
+            }
+
+            composable(route = Route.FAQScreen.path){
+                FAQScreen()
             }
         }
     }
