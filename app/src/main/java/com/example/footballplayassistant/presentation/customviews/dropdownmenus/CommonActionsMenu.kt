@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -45,7 +46,10 @@ fun CommonActionsMenu(
                             text = stringResource(id = actions[i]),
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontWeight = FontWeight.W400,
-                                color = color))
+                                color = color),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     },
                     trailingIcon = {
                         if (icons.isNotEmpty()) Icon(
