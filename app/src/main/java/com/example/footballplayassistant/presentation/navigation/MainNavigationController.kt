@@ -38,6 +38,7 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScr
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.BlockedUsersScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SubscriptionsScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
@@ -231,6 +232,10 @@ fun MainNavigationController(
 
             composable(route = Route.SubscriptionsScreen.path){
                 SubscriptionsScreen()
+            }
+
+            composable(route = Route.BlockedUsersScreen.path){
+                BlockedUsersScreen()
             }
         }
     }

@@ -66,6 +66,8 @@ sealed class Route(val path: String) {
 
     data object SubscriptionsScreen : Route(path = "subscriptions_screen")
 
+    data object BlockedUsersScreen : Route(path = "blocked_users_screen")
+
 
 
     fun withArgs(vararg args: String): String {

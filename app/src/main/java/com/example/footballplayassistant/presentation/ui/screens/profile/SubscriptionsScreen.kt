@@ -36,10 +36,8 @@ import com.example.footballplayassistant.presentation.navigation.Route
 @Composable
 fun SubscriptionsScreen() {
     val navController = LocalNavController.current!!
-
     val filtersList = FilterSubscribers.entries.toList()
     val filterSubscribers = remember { mutableIntStateOf(filtersList[0].ordinal) }
-
     val expanded = remember { mutableStateOf(false) }
 
     Column(
@@ -57,7 +55,7 @@ fun SubscriptionsScreen() {
                     expand = expanded,
                     icons = listOf(R.drawable.ic_blocked_24),
                     actions = listOf(R.string.blocked),
-                    onClicks = listOf({ /*navigate to blocked users screen*/ })
+                    onClicks = listOf { navController.navigate(Route.BlockedUsersScreen.path) }
                 )
             },
             modifier = Modifier.padding(top = 12.dp, bottom = 16.dp)
@@ -71,56 +69,55 @@ fun SubscriptionsScreen() {
         )
 
         //нет подписок
-//        if(filterSubscribers.intValue==FilterSubscribers.Subscribers.ordinal)
-//            NoSubscribers()
-//        else
-//            NoSubscriptions()
+        if(filterSubscribers.intValue==FilterSubscribers.Subscribers.ordinal)
+            NoSubscribers()
+        else
+            NoSubscriptions()
 
         //есть подписки
-        LazyColumn {
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(
-                            id =
-                            if (filterSubscribers.intValue == FilterSubscribers.Subscribers.ordinal)
-                                R.string.subscribers
-                            else R.string.subscriptions
-                        ),
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
-                        color = MaterialTheme.colorScheme.primary,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_green_rectangle_6),
-                        contentDescription = "Dot",
-                        tint = MaterialTheme.colorScheme.secondary,
-                        modifier = Modifier.padding(horizontal = 9.dp)
-                    )
-                    Text(
-                        text = "5",
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
-                        color = MaterialTheme.colorScheme.primary,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            }
-            items(5) {
-                SubscriberRow(
-                    text = "qq",
-                    name = "qqq",
-                    foto = R.drawable.user_foto,
-                    onClick = {/*go to user profile*/ })
-            }
-        }
+//        LazyColumn {
+//            item {
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(bottom = 16.dp),
+//                    verticalAlignment = Alignment.CenterVertically
+//                ) {
+//                    Text(
+//                        text = stringResource(id =
+//                            if (filterSubscribers.intValue == FilterSubscribers.Subscribers.ordinal)
+//                                R.string.subscribers
+//                            else R.string.subscriptions
+//                        ),
+//                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+//                        color = MaterialTheme.colorScheme.primary,
+//                        maxLines = 1,
+//                        overflow = TextOverflow.Ellipsis,
+//                    )
+//
+//                    Icon(
+//                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_green_rectangle_6),
+//                        contentDescription = "Dot",
+//                        tint = MaterialTheme.colorScheme.secondary,
+//                        modifier = Modifier.padding(horizontal = 9.dp)
+//                    )
+//                    Text(
+//                        text = "5",
+//                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
+//                        color = MaterialTheme.colorScheme.primary,
+//                        maxLines = 1,
+//                        overflow = TextOverflow.Ellipsis
+//                    )
+//                }
+//            }
+//            items(5) {
+//                SubscriberRow(
+//                    text = "name",
+//                    name = "@name",
+//                    foto = R.drawable.user_foto,
+//                    onClick = {/*go to user profile*/ })
+//            }
+//        }
     }
 }
 
