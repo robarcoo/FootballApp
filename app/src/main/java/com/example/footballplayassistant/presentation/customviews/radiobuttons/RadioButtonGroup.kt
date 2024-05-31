@@ -16,14 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.enums.GenderPlayers
 
 @Composable
-@Preview
-fun RadioButtonGroup() {
+fun RadioButtonGroup(enabled: Boolean = true) {
     val state = remember { mutableStateOf(GenderPlayers.Men) }
     Row(
         modifier = Modifier
@@ -35,9 +33,12 @@ fun RadioButtonGroup() {
             RadioButton(
                 selected = state.value == GenderPlayers.Men,
                 onClick = { state.value = GenderPlayers.Men },
+                enabled = enabled,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
-                    unselectedColor = MaterialTheme.colorScheme.secondary
+                    unselectedColor = MaterialTheme.colorScheme.secondary,
+                    disabledSelectedColor = MaterialTheme.colorScheme.tertiary,
+                    disabledUnselectedColor = MaterialTheme.colorScheme.tertiary
                 )
             )
             Text(
@@ -53,9 +54,12 @@ fun RadioButtonGroup() {
             RadioButton(
                 selected = state.value == GenderPlayers.Women,
                 onClick = { state.value = GenderPlayers.Women },
+                enabled = enabled,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
-                    unselectedColor = MaterialTheme.colorScheme.secondary
+                    unselectedColor = MaterialTheme.colorScheme.secondary,
+                    disabledSelectedColor = MaterialTheme.colorScheme.tertiary,
+                    disabledUnselectedColor = MaterialTheme.colorScheme.tertiary
                 )
             )
             Text(
@@ -71,9 +75,12 @@ fun RadioButtonGroup() {
             RadioButton(
                 selected = state.value == GenderPlayers.Both,
                 onClick = { state.value = GenderPlayers.Both },
+                enabled = enabled,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.secondary,
-                    unselectedColor = MaterialTheme.colorScheme.secondary
+                    unselectedColor = MaterialTheme.colorScheme.secondary,
+                    disabledSelectedColor = MaterialTheme.colorScheme.tertiary,
+                    disabledUnselectedColor = MaterialTheme.colorScheme.tertiary
                 )
             )
             Text(

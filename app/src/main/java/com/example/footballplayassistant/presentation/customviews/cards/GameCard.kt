@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -34,6 +35,7 @@ fun GameCard(
     host: String,
     address: String = "",
     distance: Int = 0,
+    cardColor: Color = MaterialTheme.colorScheme.primaryContainer,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     val navController = LocalNavController.current!!
@@ -42,13 +44,14 @@ fun GameCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = MaterialTheme.spacing.small),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+        colors = CardDefaults.cardColors(containerColor = cardColor)
     ) {
         Column(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)) {
             if (host.isEmpty()) {
                 Text(
                     text = stringResource(id = R.string.youhost),
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W600),
+                    color = MaterialTheme.colorScheme.primary,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
@@ -58,6 +61,7 @@ fun GameCard(
                         text = place,
                         style = MaterialTheme.typography.labelLarge
                             .copy(fontWeight = FontWeight.W500),
+                        color = MaterialTheme.colorScheme.primary,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
@@ -88,6 +92,7 @@ fun GameCard(
                             text = place,
                             style = MaterialTheme.typography.displayMedium
                                 .copy(fontWeight = FontWeight.W500),
+                            color = MaterialTheme.colorScheme.primary,
                             maxLines = 2,
                             modifier = Modifier.weight(0.75f)
                         )

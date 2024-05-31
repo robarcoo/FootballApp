@@ -54,6 +54,17 @@ sealed class Route(val path: String) {
 
     data object RecoveryPasswordScreen : Route(path = "recovery_password_screen")
 
+    data object EditGameScreen : Route(path = "edit_game_screen")
+
+    data object MyGamesScreen : Route(path = "my_games_screen")
+
+    data object UserProfileScreen : Route(path = "user_profile_screen")
+
+    data object WalletScreen : Route(path = "wallet_screen")
+
+    data object SafetyScreen : Route(path = "safety_screen")
+
+
     data object MarkParticipantsScreen : Route(path = "mark_participants_screen")
 
     data object NotificationScreen : Route(path = "notification_screen")

@@ -40,6 +40,7 @@ fun FotoAndNameForCard(text: String, name: String, foto: Int, modifier: Modifier
                 style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

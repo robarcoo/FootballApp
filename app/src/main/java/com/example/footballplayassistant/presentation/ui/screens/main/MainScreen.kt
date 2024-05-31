@@ -32,6 +32,7 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
+import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -72,6 +73,8 @@ fun MainScreen() {
             item {
                 AllButton(
                     text = stringResource(id = R.string.mygames),
+                    onClick = { navController.navigate(Route.MyGamesScreen.withArgs(
+                        FilterCurrentArchive.Current.ordinal.toString())) },
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 GameCard(

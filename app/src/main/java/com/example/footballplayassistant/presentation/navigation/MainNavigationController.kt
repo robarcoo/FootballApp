@@ -12,33 +12,46 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.constants.RulesPolitic
-import com.example.footballplayassistant.presentation.ui.screens.authentication.RulesAndPoliticScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
+import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.RecoveryPasswordScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.MatchScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
-import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
+import com.example.footballplayassistant.presentation.ui.screens.authentication.RulesAndPoliticScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignInScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpCodeScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpEnterPhoneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.EditGameScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.InviteFriendsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MainScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.ManagingParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MatchParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MatchScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
+import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+
+
 import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
@@ -74,12 +87,12 @@ fun MainNavigationController(
                 route = Route.SignUpCodeScreen.path + "/{type}",
                 arguments = listOf(navArgument("type") {
                     type = NavType.StringType
-                    defaultValue = "phone"
+                    defaultValue = PhoneEmail.PHONE
                     nullable = false
                 })
-            ) {entry ->
-                entry.arguments?.getString("type").let{type ->
-                    if(type!=null){
+            ) { entry ->
+                entry.arguments?.getString("type").let { type ->
+                    if (type != null) {
                         SignUpCodeScreen(sendCode = type)
                     }
                 }
@@ -158,7 +171,7 @@ fun MainNavigationController(
                 MatchParticipantsScreen()
             }
 
-            composable(route = Route.ManagingParticipantsScreen.path){
+            composable(route = Route.ManagingParticipantsScreen.path) {
                 ManagingParticipantsScreen()
             }
 
@@ -183,6 +196,45 @@ fun MainNavigationController(
 
             composable(route = Route.RecoveryPasswordScreen.path) {
                 RecoveryPasswordScreen()
+            }
+
+            composable(route = Route.EditGameScreen.path) {
+                EditGameScreen()
+            }
+
+            composable(route = Route.MyGamesScreen.path + "/{filter}",
+                arguments = listOf(navArgument("filter"){
+                    type = NavType.IntType
+                    defaultValue = FilterCurrentArchive.Current.ordinal
+                    nullable = false
+                })
+            ){entry ->
+                entry.arguments?.getInt("filter").let { filter ->
+                    if (filter != null) {
+                        MyGamesScreen(filter = filter)
+                    }
+                }
+            }
+
+            composable(route = Route.WalletScreen.path){
+                WalletScreen()
+            }
+
+            composable(route = Route.SafetyScreen.path){
+                SafetyScreen()
+            }
+
+            composable(route = Route.UserProfileScreen.path + "/{button}",
+                arguments = listOf(navArgument("button") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                    nullable = false
+                })) { entry ->
+                entry.arguments?.getBoolean("button").let { button ->
+                    if (button != null) {
+                        UserProfileScreen(isBackButton = button)
+                    }
+                }
             }
 
             composable(route = Route.MarkParticipantsScreen.path) {
