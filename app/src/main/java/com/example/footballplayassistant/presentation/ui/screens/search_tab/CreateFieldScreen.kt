@@ -157,7 +157,7 @@ fun CreateFieldScreen() {
                 modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
                 isSingleLine = false,
                 shape = RoundedCornerShape(20.dp),
-                toCountWords = true
+                toCountWords = 255
             )
 
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
@@ -290,9 +290,8 @@ fun CreateFieldScreen() {
         DialogScreen(header = stringResource(R.string.requestSentTitle), description =
         stringResource(R.string.requestSentDescription),
             greenButton = stringResource(R.string.returnToMainPage),
-            image = R.drawable.ic_check_92) {
-
-        }
+            image = R.drawable.ic_check_92,
+            onDismissRequest = {})
     }
 }
 
@@ -421,7 +420,7 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String, onShowCh
 @Composable
 fun ImageDialog(image : Int, onDismissRequest : () -> Unit) {
     Dialog(onDismissRequest = onDismissRequest) {
-        (LocalView.current.parent as DialogWindowProvider)?.window?.setDimAmount(0f)
+        (LocalView.current.parent as DialogWindowProvider).window.setDimAmount(0f)
         Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
             Row(modifier = Modifier
                 .fillMaxWidth()

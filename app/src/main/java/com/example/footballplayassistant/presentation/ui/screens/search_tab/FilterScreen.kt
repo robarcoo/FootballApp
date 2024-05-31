@@ -27,17 +27,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RangeSlider
-import androidx.compose.material3.RangeSliderState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.SliderPositions
-import androidx.compose.material3.SliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,15 +48,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
@@ -266,7 +258,7 @@ fun FilterRangeSlider(text: String, style : TextStyle = MaterialTheme.typography
                 endThumb = { ThumbKnob() },
                 track = { SliderDefaults.Track(
                     modifier = Modifier.height(2.dp),
-                    colors = SliderTrackColors(),
+                    colors = sliderTrackColors(),
                     rangeSliderState = it
                     )
                 }
@@ -281,7 +273,7 @@ fun FilterRangeSlider(text: String, style : TextStyle = MaterialTheme.typography
                 track = { SliderDefaults.Track(
                     sliderState = it,
                     modifier = Modifier.height(2.dp),
-                    colors = SliderTrackColors(),
+                    colors = sliderTrackColors(),
                     )
                 }
             )
@@ -300,7 +292,7 @@ fun ThumbKnob() {
 
 
 @Composable
-fun SliderTrackColors(): SliderColors {
+fun sliderTrackColors(): SliderColors {
     return SliderDefaults.colors(
         activeTrackColor = MaterialTheme.colorScheme.secondary,
         inactiveTrackColor = MaterialTheme.colorScheme.tertiaryContainer,
