@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -40,10 +39,10 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Filt
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
-import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.NotificationScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

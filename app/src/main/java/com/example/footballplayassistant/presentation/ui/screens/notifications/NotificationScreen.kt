@@ -64,7 +64,7 @@ import kotlin.math.roundToInt
 
 
 @Composable
-fun NotificationsScreen() {
+fun NotificationScreen() {
     val event = Event(
         "Арена Новый Футбол поле  Крылатское",
         listOf(
