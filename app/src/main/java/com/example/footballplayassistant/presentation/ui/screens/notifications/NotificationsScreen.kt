@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -62,7 +63,6 @@ import com.example.footballplayassistant.presentation.ui.theme.spacing
 import kotlin.math.roundToInt
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotificationsScreen() {
     val event = Event(
@@ -82,7 +82,7 @@ fun NotificationsScreen() {
     )  // Заглушка
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.primaryContainer)) {
         HeaderWithBackButton(
-            text = "Уведомления", modifier = Modifier.padding(
+            text = stringResource(R.string.notificationsHeader), modifier = Modifier.padding(
                 start = MaterialTheme.spacing.medium,
                 end = MaterialTheme.spacing.medium,
                 top = MaterialTheme.spacing.medium,
@@ -91,10 +91,10 @@ fun NotificationsScreen() {
         )
         val hasNotifications = true
         if (hasNotifications) {
-            LazyColumn() {
+            LazyColumn {
                 item {
                     Text(
-                        "Новые", style = MaterialTheme.typography.displayMedium.copy(
+                        stringResource(R.string.newNotifications), style = MaterialTheme.typography.displayMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         ),
                         modifier = Modifier.padding(MaterialTheme.spacing.medium)
@@ -199,7 +199,7 @@ fun NotificationsScreen() {
                 }
                 item {
                     Text(
-                        "Просмотренные", style = MaterialTheme.typography.displayMedium.copy(
+                        stringResource(R.string.seenNotifications), style = MaterialTheme.typography.displayMedium.copy(
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         ),
                         modifier = Modifier.padding(MaterialTheme.spacing.medium)
@@ -244,13 +244,13 @@ fun NoNotifications() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            "Уведомлений нет", style = MaterialTheme.typography.titleMedium.copy(
+            stringResource(R.string.noNotificationsTitle), style = MaterialTheme.typography.titleMedium.copy(
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.W600
             )
         )
         Text(
-            "На данный момент у вас нет\nуведомлений",
+            stringResource(R.string.noNotificationsDescription),
             style = MaterialTheme.typography.labelMedium.copy(
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.W400
@@ -286,7 +286,8 @@ fun MatchNotification(
             ) {
                 Column(modifier = Modifier.weight(1f, fill = false)) {
                     if (newChanges) {
-                        Text("Хост",
+                        Text(
+                            stringResource(R.string.hostTitle),
                             style = MaterialTheme.typography.displaySmall.copy(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer
                             ),
@@ -304,11 +305,11 @@ fun MatchNotification(
             }
             Text(
                 if (hasInvitedYou) {
-                    "Приглашает вас на матч"
+                    stringResource(R.string.hasInvitedYouNotification)
                 } else if (sentNewMessage) {
-                    "Прислал новое сообщение в игре"
+                    stringResource(R.string.sentYouNewMessageNotification)
                 } else if (newChanges) {
-                    "Внес изменения в игру"
+                    stringResource(R.string.hostChangedGameNotification)
                 } else {
                     ""
                 }, modifier = Modifier
@@ -324,11 +325,11 @@ fun MatchNotification(
     }
     GoToEventButton(
         if (hasInvitedYou) {
-            "Участвовать в матче"
+            stringResource(R.string.participateInMatchAction)
         } else if (sentNewMessage) {
-            "Перейти к сообщению"
+            stringResource(R.string.goToMessageAction)
         } else if (newChanges) {
-            "Посмотреть изменения"
+            stringResource(R.string.seeChangesAction)
         } else {
             ""
         }
@@ -348,7 +349,7 @@ fun FieldCreationNotification(
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         if (isSuccessful) {
             Text(
-                "Ваше поле создано",
+                stringResource(R.string.fieldCreationSuccessNotification),
                 style = MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400
@@ -359,7 +360,7 @@ fun FieldCreationNotification(
             Column(modifier = Modifier.weight(1f, fill = false),
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)) {
                 Text(
-                    "Ваше поле отклонено",
+                    stringResource(R.string.fieldWasRejectedNotification),
                     style = MaterialTheme.typography.labelMedium.copy(
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         fontWeight = FontWeight.W400
@@ -368,7 +369,7 @@ fun FieldCreationNotification(
                 Text(
                     buildAnnotatedString {
                         withStyle(SpanStyle(fontWeight = FontWeight.W600)) {
-                            append("Причина: ")
+                            append(stringResource(R.string.rejectionReason))
                         }
                         withStyle(SpanStyle(fontWeight = FontWeight.W400)) {
                             append(reason)
@@ -386,9 +387,9 @@ fun FieldCreationNotification(
     GoToEventButton(
         text =
         if (isSuccessful) {
-            "Перейти на страницу поля"
+            stringResource(R.string.goToFieldScreenAction)
         } else {
-            "Создать поле заново"
+            stringResource(R.string.createFieldAgainAction)
         }
     )
     ShortInfoCard(event = event, isHost = true, showAddress = true, address = "г. Москва, ул. Ломоносовский проспект, строение 3, корпус 20, строение 3, корпус 20", distance = "2,5км")
@@ -408,7 +409,7 @@ fun EventFinishedUnsuccessfullyNotification(
     if (isHost) {
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                "Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию.",
+                stringResource(R.string.playersHaventJoinedMatch),
                 style = MaterialTheme.typography.labelMedium.copy(
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontWeight = FontWeight.W400
@@ -418,10 +419,10 @@ fun EventFinishedUnsuccessfullyNotification(
             TimeAndIsUnread(time = time, isUnread = isUnread)
         }
     } else if (wasRemoved) {
-        Column() {
+        Column {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(
-                    "Хост удалил вас из игры",
+                    stringResource(R.string.hostRemovedYouNotification),
                     style = MaterialTheme.typography.labelMedium.copy(
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         fontWeight = FontWeight.W400
@@ -430,7 +431,7 @@ fun EventFinishedUnsuccessfullyNotification(
                 )
                 TimeAndIsUnread(time = time, isUnread = isUnread)
             }
-            GoToEventButton(text = "Перейти на страницу игры")
+            GoToEventButton(text = stringResource(R.string.goToGameScreenAction))
         }
     }
     else {
@@ -440,7 +441,7 @@ fun EventFinishedUnsuccessfullyNotification(
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Column(modifier = Modifier.weight(1f, fill = false)) {
                     Text(
-                        "Хост",
+                        stringResource(R.string.hostTitle),
                         style = MaterialTheme.typography.labelMedium.copy(
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
                             fontWeight = FontWeight.W400
@@ -453,7 +454,7 @@ fun EventFinishedUnsuccessfullyNotification(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Text(
-                        "Распустил матч",
+                        stringResource(R.string.matchWasDisbandedNotification),
                         style = MaterialTheme.typography.labelMedium.copy(
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
                             fontWeight = FontWeight.W400
@@ -473,7 +474,7 @@ fun EventFinishedUnsuccessfullyNotification(
 @Composable
 fun NotificationAvatar(image: Int) {
     Image(
-        painterResource(id = image), contentDescription = null,
+        painterResource(id = image), contentDescription = stringResource(R.string.userAvatarInNotificationDescription),
         modifier = Modifier
             .size(56.dp)
             .clip(RoundedCornerShape(12.dp)),
@@ -518,7 +519,7 @@ fun NotificationCard(content: @Composable () -> Unit) {
 
         ) {
             Icon(
-                painterResource(R.drawable.ic_delete), contentDescription = null,
+                painterResource(R.drawable.ic_delete), contentDescription = stringResource(R.string.deleteNotification),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
@@ -554,18 +555,13 @@ fun EventFinishedNotification(
     event: Event,
     time: String,
     isUnread: Boolean,
-    finishedCompletely: Boolean = true
 ) {
     Row(horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
-            if (isHost && finishedCompletely) {
-                "Матч в котором вы были хостом завершен"
-            } else if (isHost) {
-                "Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию"
-            } else if (!finishedCompletely) {
-                "Хост удалил вас из игры"
+            if (isHost) {
+                stringResource(R.string.hostMatchFinishedNotification)
             } else {
-                "Матч в котором вы принимали участие завершен"
+                stringResource(R.string.participantMatchFinishedNotification)
             },
             style = MaterialTheme.typography.labelMedium.copy(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -575,17 +571,14 @@ fun EventFinishedNotification(
         )
         TimeAndIsUnread(time = time, isUnread = isUnread)
     }
-    if (finishedCompletely) {
-        GoToEventButton(
+    GoToEventButton(
             if (isHost) {
-                "Подведите итоги, отметьте участников"
+                stringResource(R.string.markParticipantsAction)
             } else {
-                "Оцените как прошло ваше событие"
+                stringResource(R.string.evaluateEventAction)
             }
-        )
-    } else if (!isHost) {
-        GoToEventButton("Перейти на страницу игры")
-    }
+    )
+
 
     ShortInfoCard(event, isHost)
 
@@ -614,7 +607,7 @@ fun GoToEventButton(text: String) {
         ) {
             Icon(
                 painterResource(id = R.drawable.ic_arrow_next_24),
-                contentDescription = null,
+                contentDescription = stringResource(R.string.eventButtonIconDescription),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
@@ -710,7 +703,7 @@ fun PersonSubscribedToYouNotification(image: Int, name: String, time: String, is
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
-                    "Подписался на ваши\nобновления",
+                    stringResource(R.string.subscribedToYourUpdatesNotification),
                     modifier = Modifier
                         .weight(1f, fill = false),
                     style = MaterialTheme.typography.displaySmall.copy(
@@ -728,7 +721,7 @@ fun PersonSubscribedToYouNotification(image: Int, name: String, time: String, is
                 ) {
                     Icon(
                         painterResource(id = R.drawable.ic_profile_add),
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.addUserToFriendsDescription),
                         tint = MaterialTheme.colorScheme.secondary
                     )
 

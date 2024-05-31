@@ -104,7 +104,7 @@ fun CreateFieldScreen() {
         NecessaryTextField(label = stringResource(id = R.string.inputSite), leadingIcon = R.drawable.ic_world)
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
         NecessaryTextField(label = stringResource(id = R.string.inputDescription), modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
-            isSingleLine = false, shape = RoundedCornerShape(20.dp), toCountWords = true)
+            isSingleLine = false, shape = RoundedCornerShape(20.dp), toCountWords = 255)
 
         Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
@@ -356,23 +356,28 @@ fun NecessaryTextField(label : String,
                        leadingIcon : Int = 0,
                        isSingleLine : Boolean = true,
                        shape : RoundedCornerShape = RoundedCornerShape(60.dp),
-                       toCountWords : Boolean = false,
+                       toCountWords : Int = 0,
+                       removeLabelAbove : Boolean = false,
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
     Column {
-        AnimatedVisibility(
-            visible = visible,
-            enter = expandVertically(),
-            exit = shrinkVertically()
-        ) {
-            AddAsterisk(text = label, style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                fontWeight = FontWeight.W400,
-                isNecessary = isNecessary,
-                modifier = Modifier.padding(MaterialTheme.spacing.small))
+        if (!removeLabelAbove) {
+            AnimatedVisibility(
+                visible = visible,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                AddAsterisk(
+                    text = label, style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400,
+                    isNecessary = isNecessary,
+                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                )
+            }
         }
         Box(contentAlignment = Alignment.BottomEnd) {
             BasicTextField(
@@ -428,7 +433,7 @@ fun NecessaryTextField(label : String,
                 }
 
             }
-            if (toCountWords) {
+            if (toCountWords > 0) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_rezible_10),
                     contentDescription = "",
@@ -440,9 +445,9 @@ fun NecessaryTextField(label : String,
                 )
             }
         }
-        if (value.text.isNotEmpty() && toCountWords) {
+        if (value.text.isNotEmpty() && toCountWords > 0) {
             Text(
-                text = "${value.text.count()}/255",
+                text = "${value.text.count()}/$toCountWords",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = MaterialTheme.spacing.extraSmall),

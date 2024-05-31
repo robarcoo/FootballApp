@@ -364,4 +364,66 @@
     <string name="fieldChangingRoomValue">Закрытые</string>
     <string name="fieldTribuneValue">40 мест</string>
     <string name="gamePlayerAmountValue">До 20</string>
+    <string name="notificationsHeader">Уведомления</string>
+    <string name="newNotifications">Новые</string>
+    <string name="seenNotifications">Просмотренные</string>
+    <string name="noNotificationsTitle">Уведомлений нет</string>
+    <string name="noNotificationsDescription">На данный момент у вас нет\nуведомлений</string>
+    <string name="hostTitle">Хост</string>
+    <string name="hasInvitedYouNotification">Приглашает вас на матч</string>
+    <string name="sentYouNewMessageNotification">Прислал новое сообщение в игре</string>
+    <string name="hostChangedGameNotification">Внес изменения в игру</string>
+    <string name="participateInMatchAction">Участвовать в матче</string>
+    <string name="goToMessageAction">Перейти к сообщению</string>
+    <string name="seeChangesAction">Посмотреть изменения</string>
+    <string name="fieldCreationSuccessNotification">Ваше поле создано</string>
+    <string name="fieldWasRejectedNotification">Ваше поле отклонено</string>
+    <string name="rejectionReason">"Причина: "</string>
+    <string name="goToFieldScreenAction">Перейти на страницу поля</string>
+    <string name="createFieldAgainAction">Создать поле заново</string>
+    <string name="playersHaventJoinedMatch">Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию.</string>
+    <string name="hostRemovedYouNotification">Хост удалил вас из игры</string>
+    <string name="goToGameScreenAction">Перейти на страницу игры</string>
+    <string name="matchWasDisbandedNotification">Распустил матч</string>
+    <string name="hostMatchFinishedNotification">Матч в котором вы были хостом завершен</string>
+    <string name="participantMatchFinishedNotification">Матч в котором вы принимали участие завершен</string>
+    <string name="markParticipantsAction">Подведите итоги, отметьте участников</string>
+    <string name="evaluateEventAction">Оцените как прошло ваше событие</string>
+    <string name="subscribedToYourUpdatesNotification">Подписался на ваши\nобновления</string>
+    <string name="addUserToFriendsDescription">Добавить пользователя в друзья</string>
+    <string name="eventButtonIconDescription">Перейти на страницу</string>
+    <string name="deleteNotification">Удалить уведомление</string>
+    <string name="userAvatarInNotificationDescription">Аватар пользователя в уведомлении</string>
+    <string name="markParticipantsDateHeader">Участники %1$s</string>
+    <string name="markAllParticipantsDescription">Отметить всех участников</string>
+    <string name="markEveryoneCheckbox">Отметить всех</string>
+    <string name="finishMarkingButtonText">Отметить</string>
+    <string name="cancelMarkingButtonText">Отмена</string>
+    <string name="markPlayerAvatar">Аватар игрока</string>
+    <string name="evaluateEventHeader">Оцените событие</string>
+    <string name="evaluateEventDescription">Ваш отзыв поможет сервису улучшить качество услуг, а другим игрокам получить позитивные эмоции от событий</string>
+    <string name="rateHostTitle">Оцените хоста</string>
+    <string name="commentLabelField">Комментарий</string>
+    <string name="sendFeedbackButtonText">Отправить отзыв</string>
+    <string name="skipButtonText">Пропустить</string>
+    <string name="bestPlayerAvatarDescription">Аватар лучшего игрока</string>
+    <string name="bestPlayerTitle">Лучший игрок</string>
+    <string name="chooseBestPlayer">Выбрать лучшего игрока</string>
+    <string name="goodRating">Хорошо</string>
+    <string name="terribleRating">Ужасно</string>
+    <string name="BestPlayerScreenHeader">Лучший игрок</string>
+    <string name="confirmButtonText">Подтвердить</string>
+    <string-array name="terribleHostTags">
+        <item>Опоздание хоста</item>
+        <item>Невежливый</item>
+        <item>Хамит</item>
+        <item>Недействительная информация</item>
+    </string-array>
+    <string-array name="fieldTags">
+        <item>Расположение поля</item>
+        <item>Состояние поля</item>
+        <item>Часы работы</item>
+        <item>Освещение</item>
+        <item>Доп услуги</item>
+    </string-array>
 </resources>

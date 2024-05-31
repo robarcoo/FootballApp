@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -20,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,41 +29,55 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.customviews.checkboxes.CheckBoxFriend
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
-import com.example.footballplayassistant.presentation.customviews.rows.UserFotoForList
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.Player
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
-fun MarkParticipantsScreen(players: List<Player>, date : String) {
+fun MarkParticipantsScreen() {
+    val players = listOf(
+        Player("Игорь", "Султанов", R.drawable.loadexample),
+        Player("Егор", "Дружин", R.drawable.player_example),
+        Player("Серявгей", "Сергеев", R.drawable.player_example_1),
+        Player("Игорь", "Султанов", R.drawable.loadexample),
+        Player("Игорь", "Султанов", R.drawable.loadexample),
+        Player("Игорь", "Султанов", R.drawable.loadexample),
+        Player("Игорь", "Султанов", R.drawable.loadexample),
+    )
+    val date = "23.05.2023"
     val stateList = remember { List(players.size) { false }.toMutableStateList() }
     var markAll by remember { mutableStateOf(false) }
     Column {
-        HeaderWithBackButton(text = "Участники $date",
+        HeaderWithBackButton(text = stringResource(R.string.markParticipantsDateHeader, date),
             modifier = Modifier.padding(MaterialTheme.spacing.horizontal))
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-            modifier = Modifier.fillMaxWidth().padding(vertical = MaterialTheme.spacing.small,
-                horizontal = MaterialTheme.spacing.horizontal)) {
-            Icon(painterResource(R.drawable.ic_people_24), contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    vertical = MaterialTheme.spacing.small,
+                    horizontal = MaterialTheme.spacing.horizontal
+                )) {
+            Icon(painterResource(R.drawable.ic_people_24), contentDescription = stringResource(R.string.markAllParticipantsDescription),
                 tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier
                     .size(50.dp)
                     .clip(
-                        RoundedCornerShape(12.dp))
+                        RoundedCornerShape(12.dp)
+                    )
                     .background(Color.Black)
                     .padding(MaterialTheme.spacing.small)
                 )
             Row(verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()) {
-                Text("Отметить всех",
+                Text(
+                    stringResource(R.string.markEveryoneCheckbox),
                     modifier = Modifier.weight(1f, fill = false),
                     style = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -92,16 +104,19 @@ fun MarkParticipantsScreen(players: List<Player>, date : String) {
             items(players.size) { i ->
                 Row (horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                    .padding(horizontal = MaterialTheme.spacing.horizontal,
-                        vertical = MaterialTheme.spacing.small)) {
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = MaterialTheme.spacing.horizontal,
+                            vertical = MaterialTheme.spacing.small
+                        )) {
                     PlayerWithCheckboxTagCard(tag = "@tag",
                         name = "${players[i].name} ${players[i].surname}",
                         image = players[i].photo,
                         modifier = Modifier.weight(1f, fill = false))
                     Checkbox(
                         checked = stateList[i],
-                        onCheckedChange = {
+                        onCheckedChange = { it ->
                             stateList[i] = it
                             markAll = stateList.count { it } == players.size
                         },
@@ -119,8 +134,9 @@ fun MarkParticipantsScreen(players: List<Player>, date : String) {
         Column(horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-            CommonButton("Отметить", enable = stateList.count { it } != 0)
-            Text("Отмена", style = MaterialTheme.typography.bodySmall.copy(
+            CommonButton(stringResource(R.string.finishMarkingButtonText), enable = stateList.count { it } != 0)
+            Text(
+                stringResource(R.string.cancelMarkingButtonText), style = MaterialTheme.typography.bodySmall.copy(
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontWeight = FontWeight.W600
             ))
@@ -134,8 +150,10 @@ fun PlayerWithCheckboxTagCard(image : Int, name : String, tag : String,
                               modifier : Modifier) {
     Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
         Image(
-            painter = painterResource(id = image), contentDescription = "User foto",
-            modifier = Modifier.size(50.dp).clip(RoundedCornerShape(12.dp)),
+            painter = painterResource(id = image), contentDescription = stringResource(R.string.markPlayerAvatar),
+            modifier = Modifier
+                .size(50.dp)
+                .clip(RoundedCornerShape(12.dp)),
             contentScale = ContentScale.Crop
         )
         Column(

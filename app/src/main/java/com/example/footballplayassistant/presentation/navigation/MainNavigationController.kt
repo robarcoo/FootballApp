@@ -41,6 +41,9 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Sear
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -181,6 +184,22 @@ fun MainNavigationController(
 
             composable(route = Route.RecoveryPasswordScreen.path) {
                 RecoveryPasswordScreen()
+            }
+
+            composable(route = Route.MarkParticipantsScreen.path) {
+                MarkParticipantsScreen()
+            }
+
+            composable(route = Route.EvaluateEventScreen.path) {
+                EvaluateEventScreen()
+            }
+
+            composable(route = Route.BestPlayerScreen.path) {
+                BestPlayerScreen()
+            }
+
+            composable(route = Route.NotificationScreen.path) {
+                NotificationScreen()
             }
         }
     }

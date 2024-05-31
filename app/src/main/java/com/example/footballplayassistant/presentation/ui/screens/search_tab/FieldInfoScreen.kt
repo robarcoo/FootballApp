@@ -630,7 +630,7 @@ fun PhotoGrid(event : Event, addBorder : Boolean = false) {
     ) {
         items(if (event.participants.size > 4) 4 else event.participants.size) {
             index ->
-            if (event.participants.size > 4 && index == 3) {
+            if (event.participants.size > 4 && index == 3 && !addBorder) {
                 Row(
                     modifier = Modifier
                         .border(
