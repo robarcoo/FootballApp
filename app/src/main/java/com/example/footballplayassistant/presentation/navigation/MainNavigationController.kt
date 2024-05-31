@@ -38,19 +38,15 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScr
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.PlayerProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
-import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
-
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -231,6 +227,10 @@ fun MainNavigationController(
                         UserProfileScreen(isBackButton = button)
                     }
                 }
+            }
+
+            composable(route = Route.PlayerProfileScreen.path){
+                PlayerProfileScreen()
             }
         }
     }
