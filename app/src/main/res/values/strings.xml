@@ -315,6 +315,7 @@
     <string name="subscribe">Подписаться</string>
     <string name="unsubscribe">Отписаться</string>
     <string name="inviteProfile">Пригласить</string>
+    <string name="organizeGames">Организовывайте игры, чтобы получить рейтинг</string>
 
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>

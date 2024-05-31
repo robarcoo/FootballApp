@@ -44,6 +44,7 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.cards.CommonProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownHint
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -53,6 +54,7 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun PlayerProfileScreen() {
     val navController = LocalNavController.current!!
     val buttonEnable = remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         HeaderUserProfile(modifier = Modifier.align(Alignment.TopCenter))
@@ -67,16 +69,13 @@ fun PlayerProfileScreen() {
                 text = "",
                 colorText = MaterialTheme.colorScheme.onPrimary,
                 tint = MaterialTheme.colorScheme.onPrimary,
-                imageButton = 0,
-                onClickBack = {navController.navigate(Route.MainScreen.path)},
+                imageButton = 0,//после слияния вставить из ресурсов
+                onClickBack = { navController.navigate(Route.MainScreen.path) },
+                onClickOther = {},//после слияния добавить меню
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth()
-            ) {
+            Box(modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()) {
                 Image(
                     painter = painterResource(id = R.drawable.unknown_user_foto),
                     contentDescription = "User foto",
@@ -90,7 +89,7 @@ fun PlayerProfileScreen() {
                         .align(Alignment.BottomStart)
                         .padding(start = 13.dp)
                         .fillMaxWidth(0.3f),
-                    text = "Подписчики",
+                    text = "Подписчики",//после слияния вставить из ресурсов
                     count = 150
                 )
                 SubscribersCard(
@@ -98,12 +97,12 @@ fun PlayerProfileScreen() {
                         .align(Alignment.BottomEnd)
                         .padding(end = 13.dp)
                         .fillMaxWidth(0.3f),
-                    text = "Подписки",
+                    text = "Подписки",//после слияния вставить из ресурсов
                     count = 25
                 )
             }
 
-            LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
+            LazyColumn(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
                 item {
                     Row(
                         modifier = Modifier
@@ -122,11 +121,13 @@ fun PlayerProfileScreen() {
                         Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             Icon(
                                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_star),
-                                contentDescription = "Star"
+                                contentDescription = "Star",
+                                tint = MaterialTheme.colorScheme.onBackground
                             )
                             Text(
                                 text = "rating",
-                                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                                style = MaterialTheme.typography.displaySmall.copy(
+                                    fontWeight = FontWeight.W500),
                                 color = MaterialTheme.colorScheme.primary,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
@@ -135,9 +136,12 @@ fun PlayerProfileScreen() {
                             Icon(
                                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_warning_12),
                                 contentDescription = "Warning",
-                                modifier = Modifier.clickable { /*подсказка*/ }
+                                modifier = Modifier.clickable { expanded.value = true }
                             )
-
+                            DropDownHint(
+                                expand = expanded,
+                                text = stringResource(id = R.string.organizeGames)
+                            )
                         }
                     }
                 }
@@ -189,7 +193,7 @@ fun PlayerProfileScreen() {
                 item {
                     Quality(
                         modifier = Modifier.padding(top = 16.dp),
-                        quality = "Хороший наставник",
+                        quality = "Хороший наставник",//вопрос у менеджера
                         count = 15
                     )
                 }
@@ -233,7 +237,6 @@ fun PlayerProfileScreen() {
                 else MaterialTheme.colorScheme.onSecondaryContainer,
                 animationSpec = tween(500, 0, LinearEasing)
             )
-
             val animatedContainerColor2: Color by animateColorAsState(
                 targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.onPrimary
                 else MaterialTheme.colorScheme.secondary,
@@ -241,7 +244,8 @@ fun PlayerProfileScreen() {
             )
 
             CommonButton(
-                text = stringResource(id = if (buttonEnable.value) R.string.unsubscribe else R.string.subscribe),
+                text = stringResource(id = if (buttonEnable.value) R.string.unsubscribe
+                else R.string.subscribe),
                 containerColor = animatedContainerColor2,
                 onClick = { buttonEnable.value = !buttonEnable.value },
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
@@ -331,5 +335,4 @@ private fun Quality(modifier: Modifier = Modifier, quality: String, count: Int) 
             modifier = Modifier.padding(end = 8.dp)
         )
     }
-
 }
