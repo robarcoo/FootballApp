@@ -298,7 +298,7 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
-    <string name="safety">Безопасность</string>
+
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
