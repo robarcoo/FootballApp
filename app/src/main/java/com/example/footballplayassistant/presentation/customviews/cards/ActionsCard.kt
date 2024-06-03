@@ -40,7 +40,7 @@ fun ActionsCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 12.dp, horizontal = 15.5.dp)
-                    .clickable { actionsList[i] },
+                    .clickable { actionsList[i]() },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {

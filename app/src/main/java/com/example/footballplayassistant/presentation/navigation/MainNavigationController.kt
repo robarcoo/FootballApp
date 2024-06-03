@@ -48,6 +48,12 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
+import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
+
+
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -216,7 +222,7 @@ fun MainNavigationController(
             composable(route = Route.SafetyScreen.path){
                 SafetyScreen()
             }
-            
+
             composable(route = Route.UserProfileScreen.path + "/{button}",
                 arguments = listOf(navArgument("button") {
                     type = NavType.BoolType
@@ -230,6 +236,18 @@ fun MainNavigationController(
                 }
             }
 
+            composable(route = Route.AboutAppScreen.path){
+                AboutAppScreen()
+            }
+
+            composable(route = Route.FeedbackScreen.path){
+                FeedbackScreen()
+            }
+
+            composable(route = Route.FAQScreen.path){
+                FAQScreen()
+            }
+            
             composable(route = Route.SubscriptionsScreen.path){
                 SubscriptionsScreen()
             }
