@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.footballplayassistant.BuildConfig
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.cards.ActionsCard
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
@@ -88,14 +89,13 @@ fun AboutAppScreen() {
             }
             item {
                 Texts(
-                    greyText = stringResource(id = R.string.versionApp), blackText = VERSION.RELEASE
+                    greyText = stringResource(id = R.string.versionApp),
+                    blackText = BuildConfig.VERSION_CODE.toString()
                 )
             }
             item {
-                System.getProperty("os.version")
-                    ?.let {
-                        Texts(greyText = stringResource(id = R.string.versionOS), blackText = it)
-                    }
+                Texts(greyText = stringResource(id = R.string.versionOS),
+                    blackText = VERSION.RELEASE)
             }
             item {
                 Texts(greyText = stringResource(id = R.string.region), blackText = "rus")
