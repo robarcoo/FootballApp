@@ -298,7 +298,7 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
-    <string name="safety">Безопасность</string>
+
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
@@ -310,6 +310,21 @@
     <string name="loginAgain">Войти заново</string>
     <string name="passwordsDifferent">Введенные вами пароли не совпадают</string>
     <string name="symbolsNumbers">8 символов, латинские буквы и цифры, 1 заглавная буква</string>
+
+    <string name="myAccount">Мой Аккаунт</string>
+    <string name="chooseFromLibrary">Выбрать из библиотеки</string>
+    <string name="takeFoto">Сделать фото</string>
+    <string name="deleteCurrent">Удалить текущее</string>
+    <string name="bigEmail">Email</string>
+    <string name="enterBigEmail">Введите Email</string>
+    <string name="cityProfile">Город</string>
+    <string name="levelPlayProfile">Уровень игры</string>
+    <string name="preferredPosition">Предпочитаемая позиция</string>
+    <string name="infoYourself">Информация о себе</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="changesSavedSuccess">Изменения в ваших данных \nуспешно сохранены</string>
+    <string name="returnToProfile">Вернуться в профиль</string>
+    <string name="toMain">На главную</string>
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>

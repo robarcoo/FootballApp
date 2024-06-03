@@ -290,9 +290,8 @@ fun CreateFieldScreen() {
         DialogScreen(header = stringResource(R.string.requestSentTitle), description =
         stringResource(R.string.requestSentDescription),
             greenButton = stringResource(R.string.returnToMainPage),
-            image = R.drawable.ic_check_92) {
-            
-        }
+            image = R.drawable.ic_check_92,
+            onDismissRequest = {})
     }
 }
 

@@ -40,7 +40,6 @@ import com.example.footballplayassistant.presentation.customviews.dropdownmenus.
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
 import com.example.footballplayassistant.presentation.customviews.radiobuttons.RadioButtonGroupPositions
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
-import com.example.footballplayassistant.presentation.enums.LevelPlay
 import com.example.footballplayassistant.presentation.enums.getGenders
 import com.example.footballplayassistant.presentation.enums.getLevels
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
@@ -204,7 +203,7 @@ fun EnterInfoScreen() {
     }
 }
 
-private fun openCalendar(context: Context, date: MutableState<String>) {
+fun openCalendar(context: Context, date: MutableState<String>) {
     val m_context = context
 
     val year: Int
