@@ -38,21 +38,21 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScr
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.BlockedUsersScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.SubscriptionsScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
-import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+
 
 
 
@@ -246,6 +246,14 @@ fun MainNavigationController(
 
             composable(route = Route.FAQScreen.path){
                 FAQScreen()
+            }
+            
+            composable(route = Route.SubscriptionsScreen.path){
+                SubscriptionsScreen()
+            }
+
+            composable(route = Route.BlockedUsersScreen.path){
+                BlockedUsersScreen()
             }
         }
     }

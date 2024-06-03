@@ -341,6 +341,21 @@
     <string name="question2">Что такое матч?</string>
     <string name="answer1">Если вы не сможете присутствовать на матче, вам следует заблаговременно отменить участие игры на странице события, чтобы не испортить впечатления от игры другим участникам. Если при этом вы являетесь хостом события, оно будет распущено, а все средства вернутся игрокам.</string>
 
+    <string name="subscribers">Подписчики</string>
+    <string name="blocked">Заблокированные</string>
+    <string name="noSubscribers">У вас нет подписчиков</string>
+    <string name="noSubscribersDescription">На данный момент у вас отсутствуют пользователи подписанные на вас</string>
+    <string name="noSubscriptions">У вас нет подписок</string>
+    <string name="noSubscriptionsDescription">На данный момент вы ни на кого не подписаны</string>
+    <string name="blockedUsers">Заблокированные пользователи</string>
+    <string name="unlock">Разблокировать</string>
+    <string name="noBlockedUsers">Нет заблокированных пользователей</string>
+    <string name="noBlockedUsersDescription">На данный момент у вас отсутствуют пользователи добавленные в блок</string>
+    <string name="successUnlock">Пользователи успешно разблокированы</string>
+    <string name="goToSubscriptions">На страницу подписок</string>
+    <string name="goToProfile">В профиль</string>
+
+
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
     <string name="filterIconDescription">Открыть фильтры</string>
