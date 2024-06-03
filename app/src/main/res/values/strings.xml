@@ -298,7 +298,6 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
-    <string name="safety">Безопасность</string>
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
@@ -310,6 +309,21 @@
     <string name="loginAgain">Войти заново</string>
     <string name="passwordsDifferent">Введенные вами пароли не совпадают</string>
     <string name="symbolsNumbers">8 символов, латинские буквы и цифры, 1 заглавная буква</string>
+
+
+    <string name="subscribers">Подписчики</string>
+    <string name="blocked">Заблокированные</string>
+    <string name="noSubscribers">У вас нет подписчиков</string>
+    <string name="noSubscribersDescription">На данный момент у вас отсутствуют пользователи подписанные на вас</string>
+    <string name="noSubscriptions">У вас нет подписок</string>
+    <string name="noSubscriptionsDescription">На данный момент вы ни на кого не подписаны</string>
+    <string name="blockedUsers">Заблокированные пользователи</string>
+    <string name="unlock">Разблокировать</string>
+    <string name="noBlockedUsers">Нет заблокированных пользователей</string>
+    <string name="noBlockedUsersDescription">На данный момент у вас отсутствуют пользователи добавленные в блок</string>
+    <string name="successUnlock">Пользователи успешно разблокированы</string>
+    <string name="goToSubscriptions">На страницу подписок</string>
+    <string name="goToProfile">В профиль</string>
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
