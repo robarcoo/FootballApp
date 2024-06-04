@@ -361,6 +361,11 @@
     <string name="unsubscribe">Отписаться</string>
     <string name="inviteProfile">Пригласить</string>
     <string name="organizeGames">Организовывайте игры, чтобы получить рейтинг</string>
+    <string name="block">Заблокировать</string>
+    <string name="userBlockedSuccess">Пользователь успешно заблокирован</string>
+    <string name="toMain">На главную</string>
+    <string name="toSubscriptions">В подписки</string>
+    <string name="goodMentor">Хороший наставник</string>
 
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>

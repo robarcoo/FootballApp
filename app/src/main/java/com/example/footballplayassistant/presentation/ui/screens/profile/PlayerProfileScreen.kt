@@ -44,6 +44,8 @@ import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.cards.CommonProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.cards.GameCard
+import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.CommonActionsMenu
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownHint
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
@@ -54,7 +56,20 @@ import com.example.footballplayassistant.presentation.navigation.Route
 fun PlayerProfileScreen() {
     val navController = LocalNavController.current!!
     val buttonEnable = remember { mutableStateOf(false) }
-    val expanded = remember { mutableStateOf(false) }
+    val expandedHint = remember { mutableStateOf(false) }
+    val expandedMenu = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
+
+    DialogScreen(
+        header = stringResource(id = R.string.doneWithPoint),
+        description = stringResource(id = R.string.userBlockedSuccess),
+        greenButton = stringResource(id = R.string.toMain),
+        whiteButton = stringResource(id = R.string.toSubscriptions),
+        onClickGreen = { navController.navigate(Route.MainScreen.path) },
+        onClickWhite = { navController.navigate(Route.SubscriptionsScreen.path) },
+        onDismissRequest = { showDialog.value = false },
+        showDialog = showDialog.value
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         HeaderUserProfile(modifier = Modifier.align(Alignment.TopCenter))
@@ -69,13 +84,24 @@ fun PlayerProfileScreen() {
                 text = "",
                 colorText = MaterialTheme.colorScheme.onPrimary,
                 tint = MaterialTheme.colorScheme.onPrimary,
-                imageButton = 0,//после слияния вставить из ресурсов
+                imageButton = R.drawable.ic_three_dots_22,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
-                onClickOther = {},//после слияния добавить меню
+                onClickOther = { expandedMenu.value = true },
+                actionsMenu = {
+                    CommonActionsMenu(
+                        expand = expandedMenu,
+                        actions = listOf(R.string.block),
+                        icons = listOf(R.drawable.ic_blocked_24),
+                        onClicks = listOf { showDialog.value = true }
+                    )
+                },
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Box(modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth()) {
+            Box(modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.unknown_user_foto),
                     contentDescription = "User foto",
@@ -89,7 +115,7 @@ fun PlayerProfileScreen() {
                         .align(Alignment.BottomStart)
                         .padding(start = 13.dp)
                         .fillMaxWidth(0.3f),
-                    text = "Подписчики",//после слияния вставить из ресурсов
+                    text = stringResource(id = R.string.subscribers),
                     count = 150
                 )
                 SubscribersCard(
@@ -97,7 +123,7 @@ fun PlayerProfileScreen() {
                         .align(Alignment.BottomEnd)
                         .padding(end = 13.dp)
                         .fillMaxWidth(0.3f),
-                    text = "Подписки",//после слияния вставить из ресурсов
+                    text = stringResource(id = R.string.subscriptions),
                     count = 25
                 )
             }
@@ -136,10 +162,10 @@ fun PlayerProfileScreen() {
                             Icon(
                                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_warning_12),
                                 contentDescription = "Warning",
-                                modifier = Modifier.clickable { expanded.value = true }
+                                modifier = Modifier.clickable { expandedHint.value = true }
                             )
                             DropDownHint(
-                                expand = expanded,
+                                expand = expandedHint,
                                 text = stringResource(id = R.string.organizeGames)
                             )
                         }
@@ -190,10 +216,10 @@ fun PlayerProfileScreen() {
                     }
                 }
 
-                item {
+                item {//будет только для организатора игр
                     Quality(
                         modifier = Modifier.padding(top = 16.dp),
-                        quality = "Хороший наставник",//вопрос у менеджера
+                        quality = stringResource(id = R.string.goodMentor),//вопрос у менеджера
                         count = 15
                     )
                 }
@@ -245,7 +271,7 @@ fun PlayerProfileScreen() {
 
             CommonButton(
                 text = stringResource(id = if (buttonEnable.value) R.string.unsubscribe
-                else R.string.subscribe),
+                    else R.string.subscribe),
                 containerColor = animatedContainerColor2,
                 onClick = { buttonEnable.value = !buttonEnable.value },
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W500),
@@ -310,8 +336,7 @@ private fun Quality(modifier: Modifier = Modifier, quality: String, count: Int) 
         modifier = modifier.border(
             width = 1.dp,
             shape = RoundedCornerShape(68.dp),
-            color = MaterialTheme.colorScheme.onSecondaryContainer
-        )
+            color = MaterialTheme.colorScheme.onSecondaryContainer)
     ) {
         Text(
             text = quality,
