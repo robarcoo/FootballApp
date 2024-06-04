@@ -3,6 +3,7 @@ package com.example.footballplayassistant.presentation.ui.screens.calendar_tab
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -35,21 +36,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
-import com.example.footballplayassistant.presentation.customviews.cards.GameCard
-import com.example.footballplayassistant.presentation.ui.theme.spacing
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -69,12 +73,12 @@ fun CalendarScreen() {
         Box(contentAlignment  = Alignment.CenterStart) {
             Row(
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.medium)
+                    .padding(16.dp)
                     .wrapContentWidth(
                         align = Alignment.Start,
                         unbounded = true
                     )
-                    .width(400.dp)
+                    .width(600.dp)
                     .height(60.dp)
                     .border
                         (
@@ -123,14 +127,21 @@ fun CalendarPager() {
     }
 
     val state = rememberLazyListState()
-    LazyRow(state = state, modifier = Modifier.padding(start = 36.dp)) {
-        items(dayList.size) {
-            HorizontalCalendarItem(
-                index = it,
-                date = dayList[it],
-                selectedDate = selectedDate,
-                state = state,
-            )
+    CompositionLocalProvider(
+        LocalOverscrollConfiguration provides null
+    ) {
+        LazyRow(
+            state = state, modifier = Modifier.padding(start = 36.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            items(dayList.size) {
+                HorizontalCalendarItem(
+                    index = it,
+                    date = dayList[it],
+                    selectedDate = selectedDate,
+                    state = state,
+                )
+            }
         }
     }
 }
@@ -151,46 +162,62 @@ fun LazyListState.animateScrollAndCentralizeItem(index: Int, scope: CoroutineSco
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HorizontalCalendarItem(index : Int, date: LocalDate, selectedDate: LocalDate, state : LazyListState) {
+    var paddingElementSize by remember { mutableIntStateOf(15) }
     val boxColor by remember {
         derivedStateOf {
 
             val layoutInfo = state.layoutInfo
             val visibleItemsInfo = layoutInfo.visibleItemsInfo
             val itemInfo = visibleItemsInfo.firstOrNull { it.index == index}
-
-            itemInfo?.let {
-                val delta = it.size/2 //use your custom logic
-                val center = state.layoutInfo.viewportEndOffset / 2
-                val childCenter = it.offset + it.size / 2
-                val target = childCenter - center
-                if (target in -delta..delta) return@derivedStateOf Color.Green
+            if (visibleItemsInfo.size <= 7 && paddingElementSize > 4) {
+                paddingElementSize -= 2
+            } else if (visibleItemsInfo.size > 8) {
+                paddingElementSize += 2
             }
+            itemInfo?.let {
+//                val delta = it.size/2 //use your custom logic
+//                val center = state.layoutInfo.viewportEndOffset / 2
+//                val childCenter = it.offset + it.size / 2
+//                val target = childCenter - center
+                if (visibleItemsInfo.indexOf(itemInfo) == 3) return@derivedStateOf Color.Green
+            }
+
+
             Color.Transparent
         }
     }
     val coroutineScope = rememberCoroutineScope()
-    Box(modifier = Modifier.padding(end = 24.dp).width(25.dp).clickable(
+    Box(modifier = Modifier.clickable(
         onClick = {
             coroutineScope.launch {
                 state.animateScrollAndCentralizeItem(index , this)
             }
-        }
+        },
+
     ),
         contentAlignment = Alignment.Center) {
-        Box(
-            modifier = Modifier.width(54.dp).height(76.dp).clip(
-                RoundedCornerShape(94.dp)
-            ).background(boxColor).align(Alignment.Center)
-        ) {
+        if (boxColor != Color.Transparent) {
+            Box(
+                modifier = Modifier.width(54.dp).height(76.dp).clip(
+                    RoundedCornerShape(94.dp)
+                ).background(boxColor),
+            ) {
 
+            }
         }
-        Column(
-        ) {
+        val dayNumber = date.dayOfMonth.toString()
+        Column(modifier = Modifier.padding(horizontal = paddingElementSize.dp), verticalArrangement = Arrangement.Center) {
             Text(
-                date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
-                color = if (date.isEqual(selectedDate)) Color.Red else Color.Gray
+                date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
             )
-            Text(text = date.dayOfMonth.toString(), fontSize = 16.sp)
+            Text(text =
+            if (dayNumber.length == 1) {
+                "0$dayNumber" 
+            } else {
+                dayNumber
+                   },
+                fontSize = 16.sp)
         }
     }
 }
