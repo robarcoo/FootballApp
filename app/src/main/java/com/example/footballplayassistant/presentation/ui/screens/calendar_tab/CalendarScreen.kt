@@ -2,6 +2,10 @@ package com.example.footballplayassistant.presentation.ui.screens.calendar_tab
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
@@ -18,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -48,12 +53,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.theme.spacing
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
@@ -66,14 +75,22 @@ import java.util.Locale
 @Composable
 @Preview
 fun CalendarScreen() {
+    val selectedDate = LocalDate.now()
+    val startDate = selectedDate.minusDays(3)
+    val dayList = mutableListOf<LocalDate>()
+    for (i in 0..selectedDate.month.maxLength() + 4) {
+        dayList.add(startDate.plusDays(i.toLong()))
+    }
+    var chosenIndex by remember { mutableIntStateOf(3) }
+
     Column (modifier = Modifier
         .fillMaxSize()
         .background(Color.White)) {
-        CalendarHeader()
+        CalendarHeader(modifier = Modifier.padding(MaterialTheme.spacing.medium))
         Box(contentAlignment  = Alignment.CenterStart) {
             Row(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp)
                     .wrapContentWidth(
                         align = Alignment.Start,
                         unbounded = true
@@ -91,7 +108,8 @@ fun CalendarScreen() {
 
             }
 
-            CalendarPager()
+            CalendarPager(dayList, chosenDay = { newValue -> chosenIndex = if (
+                newValue == -1) { chosenIndex } else { newValue }})
 
         }
 //        LazyColumn(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
@@ -101,45 +119,32 @@ fun CalendarScreen() {
 //
 //            }
 //        }
-
+          Text("Это день номер ${dayList[chosenIndex]}", modifier = Modifier.align(Alignment.CenterHorizontally))
     }
 }
 
-
-fun getWeeksOfMonth(year: Int, month: Int, day: Int): Int {
-    val calendar = Calendar.getInstance()
-    calendar.set(year, month-1, day)
-    return calendar.get(Calendar.WEEK_OF_MONTH)
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CalendarPager() {
-    val selectedDate = LocalDate.now()
-    val startDate = selectedDate.minusDays(3)
-    val totalWeeks = getWeeksOfMonth(selectedDate.year, selectedDate.monthValue, selectedDate.month.maxLength())
-    val selectedWeeks = getWeeksOfMonth(selectedDate.year, selectedDate.monthValue, selectedDate.dayOfMonth)
-    val weekList = List<MutableList<LocalDate>>(totalWeeks + 1) { mutableListOf() }
-    val dayList = mutableListOf<LocalDate>()
-    for (i in 0..selectedDate.month.maxLength() + 3) {
-        dayList.add(startDate.plusDays(i.toLong()))
-    }
-
+fun CalendarPager(dayList : MutableList<LocalDate>, chosenDay : (Int) -> Unit) {
     val state = rememberLazyListState()
+    val configuration = LocalConfiguration.current
+    var paddingElementSize = ((configuration.screenWidthDp - 300) / 8).dp
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
     ) {
         LazyRow(
-            state = state, modifier = Modifier.padding(start = 36.dp),
+            state = state, modifier = Modifier.padding(start = MaterialTheme.spacing.large),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(paddingElementSize)
         ) {
-            items(dayList.size) {
-                HorizontalCalendarItem(
-                    index = it,
-                    date = dayList[it],
-                    selectedDate = selectedDate,
+            items(dayList.size) { index ->
+                chosenDay(HorizontalCalendarItem(
+                    index = index,
+                    date = dayList[index],
                     state = state,
+                    hasEvents = !(index < 3 || index > dayList.size - 5))
                 )
             }
         }
@@ -150,7 +155,7 @@ fun LazyListState.animateScrollAndCentralizeItem(index: Int, scope: CoroutineSco
     val itemInfo = this.layoutInfo.visibleItemsInfo.firstOrNull { it.index == index }
     scope.launch {
         if (itemInfo != null) {
-            val center = this@animateScrollAndCentralizeItem.layoutInfo.viewportEndOffset / 2
+            val center = this@animateScrollAndCentralizeItem.layoutInfo.viewportEndOffset / 2.2
             val childCenter = itemInfo.offset + itemInfo.size / 2
             this@animateScrollAndCentralizeItem.animateScrollBy((childCenter - center).toFloat())
         } else {
@@ -161,31 +166,41 @@ fun LazyListState.animateScrollAndCentralizeItem(index: Int, scope: CoroutineSco
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HorizontalCalendarItem(index : Int, date: LocalDate, selectedDate: LocalDate, state : LazyListState) {
-    var paddingElementSize by remember { mutableIntStateOf(15) }
+fun HorizontalCalendarItem(index : Int,
+                           date: LocalDate,
+                           state : LazyListState, hasEvents : Boolean = false) : Int {
+
+    val greenThumbColor = MaterialTheme.colorScheme.secondary
     val boxColor by remember {
         derivedStateOf {
 
             val layoutInfo = state.layoutInfo
             val visibleItemsInfo = layoutInfo.visibleItemsInfo
             val itemInfo = visibleItemsInfo.firstOrNull { it.index == index}
-            if (visibleItemsInfo.size <= 7 && paddingElementSize > 4) {
-                paddingElementSize -= 2
-            } else if (visibleItemsInfo.size > 8) {
-                paddingElementSize += 2
-            }
+//            if (visibleItemsInfo.size <= 7 && paddingElementSize > 4) {
+//                paddingElementSize -= 2
+//            } else if (visibleItemsInfo.size > 9) {
+//                paddingElementSize += 2
+//            }
             itemInfo?.let {
-//                val delta = it.size/2 //use your custom logic
-//                val center = state.layoutInfo.viewportEndOffset / 2
-//                val childCenter = it.offset + it.size / 2
-//                val target = childCenter - center
-                if (visibleItemsInfo.indexOf(itemInfo) == 3) return@derivedStateOf Color.Green
+                if (visibleItemsInfo.indexOf(itemInfo) == 3)
+                    return@derivedStateOf greenThumbColor
             }
 
 
             Color.Transparent
         }
     }
+    val animatedDayColor: Color by animateColorAsState(
+        targetValue = if (hasEvents) MaterialTheme.colorScheme.onPrimaryContainer
+        else MaterialTheme.colorScheme.tertiaryContainer,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
+    val animatedWeekDayColor: Color by animateColorAsState(
+        targetValue = if (hasEvents) MaterialTheme.colorScheme.onSecondaryContainer
+        else MaterialTheme.colorScheme.tertiaryContainer,
+        animationSpec = tween(500, 0, LinearEasing)
+    )
     val coroutineScope = rememberCoroutineScope()
     Box(modifier = Modifier.clickable(
         onClick = {
@@ -196,20 +211,22 @@ fun HorizontalCalendarItem(index : Int, date: LocalDate, selectedDate: LocalDate
 
     ),
         contentAlignment = Alignment.Center) {
-        if (boxColor != Color.Transparent) {
-            Box(
-                modifier = Modifier.width(54.dp).height(76.dp).clip(
-                    RoundedCornerShape(94.dp)
-                ).background(boxColor),
-            ) {
-
-            }
-        }
         val dayNumber = date.dayOfMonth.toString()
-        Column(modifier = Modifier.padding(horizontal = paddingElementSize.dp), verticalArrangement = Arrangement.Center) {
+        Column(modifier = Modifier.padding(horizontal = 0.dp).width(50.dp)
+            .then(if (boxColor != Color.Transparent) {
+                Modifier.height(76.dp).clip(
+                    RoundedCornerShape(94.dp)
+                ).background(boxColor)
+            } else { Modifier
+            }), verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
                     .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+                style = MaterialTheme.typography.displaySmall.copy(
+                    color = animatedWeekDayColor,
+                    fontWeight = FontWeight.W600,
+                )
             )
             Text(text =
             if (dayNumber.length == 1) {
@@ -217,23 +234,39 @@ fun HorizontalCalendarItem(index : Int, date: LocalDate, selectedDate: LocalDate
             } else {
                 dayNumber
                    },
-                fontSize = 16.sp)
+                style = MaterialTheme.typography.displayMedium.copy(
+                    color = animatedDayColor,
+                    fontWeight = FontWeight.W600
+                ))
         }
     }
+    return if (boxColor == Color.Transparent) { -1 } else { index }
 }
 
 @Composable
-fun CalendarHeader() {
-    Row(modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween) {
-        OutlinedIconButton(onClick = {}) {
-            Icon(painter = painterResource(id = R.drawable.ic_icons_24), contentDescription = "Фильтр событий в календаре")
+fun CalendarHeader(modifier: Modifier) {
+    Row(modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically) {
+        OutlinedIconButton(onClick = {}, modifier = Modifier.size(42.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)) {
+            Icon(painter = painterResource(id = R.drawable.ic_icons_24),
+                contentDescription = "Фильтр событий в календаре",
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+            modifier = Modifier.size(21.dp))
         }
-        Text("Календарь")
+        Text("Календарь", style = MaterialTheme.typography.titleMedium.copy(
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            fontWeight = FontWeight.W600
+        ))
 
-        OutlinedIconButton(onClick = {}) {
+        OutlinedIconButton(onClick = {}, modifier = Modifier.size(42.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)
+        ) {
             Icon(painterResource(id = R.drawable.ic_plus_24),
-                contentDescription = "Добавить событие в календаре")
+                contentDescription = "Добавить событие в календаре",
+                modifier = Modifier.size(21.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer)
 
         }
     }
