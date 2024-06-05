@@ -74,6 +74,9 @@ sealed class Route(val path: String) {
 
     data object BlockedUsersScreen : Route(path = "blocked_users_screen")
 
+    data object PlayerProfileScreen : Route(path = "player_profile_screen")
+
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

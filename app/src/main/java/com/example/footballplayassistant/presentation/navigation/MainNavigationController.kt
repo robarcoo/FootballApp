@@ -39,6 +39,7 @@ import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.BlockedUsersScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.PlayerProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SubscriptionsScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
@@ -48,7 +49,6 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
-import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
@@ -222,7 +222,7 @@ fun MainNavigationController(
             composable(route = Route.SafetyScreen.path){
                 SafetyScreen()
             }
-
+            
             composable(route = Route.UserProfileScreen.path + "/{button}",
                 arguments = listOf(navArgument("button") {
                     type = NavType.BoolType
@@ -247,13 +247,17 @@ fun MainNavigationController(
             composable(route = Route.FAQScreen.path){
                 FAQScreen()
             }
-            
+
             composable(route = Route.SubscriptionsScreen.path){
                 SubscriptionsScreen()
             }
 
             composable(route = Route.BlockedUsersScreen.path){
                 BlockedUsersScreen()
+            }
+
+            composable(route = Route.PlayerProfileScreen.path){
+                PlayerProfileScreen()
             }
         }
     }
