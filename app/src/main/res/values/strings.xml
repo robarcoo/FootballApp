@@ -296,6 +296,7 @@
         <item quantity="two">%1$d события</item>
         <item quantity="few">%1$d события</item>
         <item quantity="many">%1$d событий</item>
+        <item quantity="other">%1$d событий</item>
     </plurals>
 
 
@@ -381,10 +382,8 @@
     <string name="saveChanges">Сохранить изменения</string>
     <string name="changesSavedSuccess">Изменения в ваших данных \nуспешно сохранены</string>
     <string name="returnToProfile">Вернуться в профиль</string>
-    <string name="toMain">На главную</string>
-    <string name="deleteQuestion">Вы действительно хотите удалить текущее фото?</string>
+    <string name="deleteQuestionPhoto">Вы действительно хотите удалить текущее фото?</string>
     <string name="youWillNotHavePhoto">После удаления у вас не будет \nличной фотографии в профиле</string>
-    <string name="delete">Удалить</string>
     <string name="library">Библиотека</string>
     <string name="recent">Недавние</string>
     <string name="takePhoto">Сделать фото</string>

@@ -84,7 +84,7 @@ fun ChangeProfileScreen() {
     )
 
     DialogScreen(
-        header = stringResource(id = R.string.deleteQuestion),
+        header = stringResource(id = R.string.deleteQuestionPhoto),
         description = stringResource(id = R.string.youWillNotHavePhoto),
         greenButton = stringResource(id = R.string.delete),
         whiteButton = stringResource(id = R.string.cancel),

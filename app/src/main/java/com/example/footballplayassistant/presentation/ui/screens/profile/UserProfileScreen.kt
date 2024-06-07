@@ -42,7 +42,9 @@ import com.example.footballplayassistant.presentation.customviews.cards.CommonPr
 import com.example.footballplayassistant.presentation.customviews.cards.PositionProfileGreenCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
+import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
+import com.example.footballplayassistant.presentation.navigation.Route
 
 @Composable
 fun UserProfileScreen(isBackButton: Boolean = false) {
@@ -181,10 +183,10 @@ fun UserProfileScreen(isBackButton: Boolean = false) {
                             )
                         ),
                         actionsList = listOf(
-                            {/*navigate*/ },
-                            {/*navigate*/ },
-                            { /*navController.navigate(Route.MyGamesScreen.path)*/ },
-                            {/*navigate*/ },
+                            {navController.navigate(Route.ChangeProfileScreen.path) },
+                            {navController.navigate(Route.WalletScreen.path) },
+                            { navController.navigate(Route.MyGamesScreen.withArgs(FilterCurrentArchive.Current.ordinal.toString()))},
+                            {navController.navigate(Route.SubscriptionsScreen.path) },
                             {/*copy ref*/ }),
                         modifier = Modifier.padding(bottom = 32.dp)
                     )
@@ -202,7 +204,9 @@ fun UserProfileScreen(isBackButton: Boolean = false) {
                                 stringResource(id = R.string.safety)
                             ),
                         ),
-                        actionsList = listOf({/*navigate*/ }, {/*navigate*/ }),
+                        actionsList = listOf(
+                            {navController.navigate(Route.AboutAppScreen.path) },
+                            {navController.navigate(Route.SafetyScreen.path) }),
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
                 }
