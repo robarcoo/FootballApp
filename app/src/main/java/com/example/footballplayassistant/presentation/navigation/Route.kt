@@ -66,6 +66,8 @@ sealed class Route(val path: String) {
 
     data object ChangeProfileScreen : Route(path = "change_profile_screen")
 
+    data object ViewingPhotoScreen : Route(path = "viewing_photo_screen")
+
 
 
     fun withArgs(vararg args: String): String {

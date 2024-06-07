@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.enums.CameraGallery
 import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
@@ -41,6 +42,7 @@ import com.example.footballplayassistant.presentation.ui.screens.main.WalletScre
 import com.example.footballplayassistant.presentation.ui.screens.profile.ChangeProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.ViewingPhotoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
@@ -59,7 +61,7 @@ fun MainNavigationController(
     ) {
         NavHost(
             navController = navController,
-            startDestination = Route.ChangeProfileScreen.path,
+            startDestination = Route.StartScreen.path,
             enterTransition = { fadeIn(animationSpec = tween(350)) },
             exitTransition = { fadeOut(animationSpec = tween(350)) },
         ) {
@@ -231,6 +233,19 @@ fun MainNavigationController(
 
             composable(route = Route.ChangeProfileScreen.path){
                 ChangeProfileScreen()
+            }
+
+            composable(route = Route.ViewingPhotoScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.IntType
+                    defaultValue = CameraGallery.Gallery.ordinal
+                    nullable = false
+                })) { entry ->
+                entry.arguments?.getInt("type").let { type ->
+                    if (type != null) {
+                        ViewingPhotoScreen(type = type)
+                    }
+                }
             }
         }
     }

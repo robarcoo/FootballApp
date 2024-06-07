@@ -325,6 +325,16 @@
     <string name="changesSavedSuccess">Изменения в ваших данных \nуспешно сохранены</string>
     <string name="returnToProfile">Вернуться в профиль</string>
     <string name="toMain">На главную</string>
+    <string name="deleteQuestion">Вы действительно хотите удалить текущее фото?</string>
+    <string name="youWillNotHavePhoto">После удаления у вас не будет \nличной фотографии в профиле</string>
+    <string name="delete">Удалить</string>
+    <string name="library">Библиотека</string>
+    <string name="recent">Недавние</string>
+    <string name="takePhoto">Сделать фото</string>
+    <string name="takeOneMorePhoto">Сделать еще снимок</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>

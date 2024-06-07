@@ -1,6 +1,5 @@
 package com.example.footballplayassistant.presentation.ui.screens.profile
 
-import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -27,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,7 +42,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.footballplayassistant.BuildConfig
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.ButtonCalendar
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -52,6 +51,7 @@ import com.example.footballplayassistant.presentation.customviews.dropdownmenus.
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUserProfile
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
+import com.example.footballplayassistant.presentation.enums.CameraGallery
 import com.example.footballplayassistant.presentation.enums.getGenders
 import com.example.footballplayassistant.presentation.enums.getLevels
 import com.example.footballplayassistant.presentation.enums.getPositions
@@ -66,7 +66,10 @@ fun ChangeProfileScreen() {
     val navController = LocalNavController.current!!
     val expanded = remember { mutableStateOf(false) }
     val buttonEnable = remember { mutableStateOf(false) }
-    val showDialog = remember { mutableStateOf(false) }
+    val showDialogSave = remember { mutableStateOf(false) }
+    val showDialogDeleteFoto = remember { mutableStateOf(false) }
+    val deleteCurrentFoto = remember { mutableStateOf(false) }
+    val currentFoto = remember { mutableIntStateOf(R.drawable.user_foto) }
 
     DialogScreen(
         header = stringResource(id = R.string.doneWithPoint),
@@ -76,8 +79,23 @@ fun ChangeProfileScreen() {
         image = R.drawable.ic_check_92,
         onClickGreen = { navController.navigate(Route.UserProfileScreen.withArgs("false")) },
         onClickWhite = { navController.navigate(Route.MainScreen.path) },
-        onDismissRequest = { showDialog.value = false },
-        showDialog = showDialog.value
+        onDismissRequest = { showDialogSave.value = false },
+        showDialog = showDialogSave.value
+    )
+
+    DialogScreen(
+        header = stringResource(id = R.string.deleteQuestion),
+        description = stringResource(id = R.string.youWillNotHavePhoto),
+        greenButton = stringResource(id = R.string.delete),
+        whiteButton = stringResource(id = R.string.cancel),
+        onClickGreen = {
+            deleteCurrentFoto.value = true
+            showDialogDeleteFoto.value = false
+            currentFoto.intValue = R.drawable.unknown_user_foto
+        },
+        onClickWhite = { showDialogDeleteFoto.value = false },
+        onDismissRequest = { showDialogDeleteFoto.value = false },
+        showDialog = showDialogDeleteFoto.value
     )
 
     Box(
@@ -106,11 +124,10 @@ fun ChangeProfileScreen() {
                     .align(Alignment.CenterHorizontally)
                     .background(
                         shape = RoundedCornerShape(12.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant
-                    )
+                        color = MaterialTheme.colorScheme.outlineVariant)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.user_foto),//unknown_user_foto
+                    painter = painterResource(id = currentFoto.intValue),
                     contentDescription = "User foto",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.sizeIn(108.dp)
@@ -131,6 +148,7 @@ fun ChangeProfileScreen() {
                         contentDescription = "Pencil",
                         tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
+
                     CommonActionsMenu(
                         expand = expanded,
                         actions = listOf(
@@ -143,7 +161,12 @@ fun ChangeProfileScreen() {
                             R.drawable.ic_camera_24,
                             R.drawable.ic_delete_foto_24
                         ),
-                        onClicks = listOf({}, {}, {}),
+                        onClicks = listOf(
+                            { navController.navigate(Route.ViewingPhotoScreen.withArgs(
+                                        CameraGallery.Gallery.ordinal.toString())) },
+                            { navController.navigate(Route.ViewingPhotoScreen.withArgs(
+                                CameraGallery.Camera.ordinal.toString())) },
+                            { showDialogDeleteFoto.value = true }),
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -154,9 +177,7 @@ fun ChangeProfileScreen() {
                     Text(
                         text = addStar(id = R.string.nick),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
 
                     CommonTextField(
@@ -171,9 +192,7 @@ fun ChangeProfileScreen() {
                     Text(
                         text = addStar(id = R.string.name),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
 
                     CommonTextField(
@@ -188,9 +207,7 @@ fun ChangeProfileScreen() {
                     Text(
                         text = addStar(id = R.string.surname),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
 
                     CommonTextField(
@@ -205,9 +222,7 @@ fun ChangeProfileScreen() {
                     Text(
                         text = addStar(id = R.string.bigEmail),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
 
                     CommonTextField(
@@ -222,16 +237,13 @@ fun ChangeProfileScreen() {
                     Text(
                         text = addStar(id = R.string.cityProfile),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
 
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.city),
                         values = listOf("moskva", "spb", "ekb"),
                         textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        onClick = { },
                         onClickItem = { buttonEnable.value = true },
                         modifier = Modifier
                             .padding(bottom = 10.dp)
@@ -246,9 +258,7 @@ fun ChangeProfileScreen() {
                         text = stringResource(id = R.string.birthday),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
                     ButtonCalendar(
                         onCLick = { openCalendar(context, date) },
@@ -259,9 +269,9 @@ fun ChangeProfileScreen() {
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
                     )
-                    LaunchedEffect(key1 = date.value.isNotEmpty()) {
-                         Log.d("MyLog", BuildConfig.VERSION_CODE.toString())
-                        buttonEnable.value = true
+                    LaunchedEffect(key1 = date.value) {
+                        if (date.value.isNotEmpty())
+                            buttonEnable.value = true
                     }
                 }
                 item {
@@ -269,9 +279,7 @@ fun ChangeProfileScreen() {
                         text = stringResource(id = R.string.sexMatch),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.sex),
@@ -288,9 +296,7 @@ fun ChangeProfileScreen() {
                         text = stringResource(id = R.string.levelPlayProfile),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.levelPlay),
@@ -306,9 +312,7 @@ fun ChangeProfileScreen() {
                         text = stringResource(id = R.string.preferredPosition),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.position),
@@ -325,9 +329,7 @@ fun ChangeProfileScreen() {
                         text = stringResource(id = R.string.infoYourself),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
                     Box {
                         CommonTextField(
@@ -347,8 +349,8 @@ fun ChangeProfileScreen() {
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
                                 .padding(
-                                    end = MaterialTheme.spacing.small,
-                                    bottom = MaterialTheme.spacing.small
+                                    end = 8.dp,
+                                    bottom = 8.dp
                                 )
                         )
                     }
@@ -379,11 +381,14 @@ fun ChangeProfileScreen() {
                         containerColor = animatedContainerColor,
                         contentColor = animatedContentColor,
                         enable = buttonEnable.value,
-                        onClick = { showDialog.value = true },
+                        onClick = { showDialogSave.value = true },
                         modifier = Modifier.padding(vertical = 20.dp)
                     )
                 }
             }
         }
+    }
+    LaunchedEffect(currentFoto.intValue == R.drawable.unknown_user_foto) {
+        deleteCurrentFoto.value = false
     }
 }
