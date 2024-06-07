@@ -298,6 +298,7 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
+
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
@@ -309,6 +310,63 @@
     <string name="loginAgain">Войти заново</string>
     <string name="passwordsDifferent">Введенные вами пароли не совпадают</string>
     <string name="symbolsNumbers">8 символов, латинские буквы и цифры, 1 заглавная буква</string>
+
+
+    <string name="versionApp">Версия приложения</string>
+    <string name="versionOS">Версия операционной системы</string>
+    <string name="domain">Домен</string>
+    <string name="connection">Подключение</string>
+    <string name="region">Регион</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="confidentiality">Конфиденциальность</string>
+    <string name="faq">FAQ</string>
+    <string name="exit">Выйти</string>
+    <string name="deleteAcc">Удалить аккаунт</string>
+    <string name="exitQuestion">Вы действительно хотите выйти?</string>
+    <string name="enterDataAfterExit">После выхода из приложения данные авторизации необходимо будет ввести заново</string>
+    <string name="deleteQuestion">Вы действительно хотите удалить аккаунт?</string>
+    <string name="lostDataAfterDelete">После удаления аккаунта все данные будут утеряны</string>
+    <string name="delete">Удалить</string>
+
+    <string name="suggestionOrProblem">Предложение или проблема</string>
+    <string name="describeYourProblems">Опишите ваши предложения или проблемы</string>
+    <string name="EmailBigE">E-mail</string>
+    <string name="EmailEnter">Введите E-mail</string>
+    <string name="send">Отправить</string>
+    <string name="sendRequestSuccessfully">Обращение отправлено успешно</string>
+    <string name="youWillBeContacted">После рассмотрения вашего обращения с вами свяжутся</string>
+    <string name="returnToMain">Вернуться на главную страницу</string>
+
+    <string name="question1">Могу ли я добавить поле самостоятельно?</string>
+    <string name="question2">Что такое матч?</string>
+    <string name="answer1">Если вы не сможете присутствовать на матче, вам следует заблаговременно отменить участие игры на странице события, чтобы не испортить впечатления от игры другим участникам. Если при этом вы являетесь хостом события, оно будет распущено, а все средства вернутся игрокам.</string>
+
+    <string name="subscribers">Подписчики</string>
+    <string name="blocked">Заблокированные</string>
+    <string name="noSubscribers">У вас нет подписчиков</string>
+    <string name="noSubscribersDescription">На данный момент у вас отсутствуют пользователи подписанные на вас</string>
+    <string name="noSubscriptions">У вас нет подписок</string>
+    <string name="noSubscriptionsDescription">На данный момент вы ни на кого не подписаны</string>
+    <string name="blockedUsers">Заблокированные пользователи</string>
+    <string name="unlock">Разблокировать</string>
+    <string name="noBlockedUsers">Нет заблокированных пользователей</string>
+    <string name="noBlockedUsersDescription">На данный момент у вас отсутствуют пользователи добавленные в блок</string>
+    <string name="successUnlock">Пользователи успешно разблокированы</string>
+    <string name="goToSubscriptions">На страницу подписок</string>
+    <string name="goToProfile">В профиль</string>
+
+
+
+    <string name="subscribe">Подписаться</string>
+    <string name="unsubscribe">Отписаться</string>
+    <string name="inviteProfile">Пригласить</string>
+    <string name="organizeGames">Организовывайте игры, чтобы получить рейтинг</string>
+    <string name="block">Заблокировать</string>
+    <string name="userBlockedSuccess">Пользователь успешно заблокирован</string>
+    <string name="toMain">На главную</string>
+    <string name="toSubscriptions">В подписки</string>
+    <string name="goodMentor">Хороший наставник</string>
+
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
     <string name="searchIconDescription">Поиск</string>
