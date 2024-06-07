@@ -48,6 +48,7 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Sear
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 
@@ -231,6 +232,10 @@ fun MainNavigationController(
                         UserProfileScreen(isBackButton = button)
                     }
                 }
+            }
+
+            composable(route = Route.CalendarScreen.path){
+                CalendarScreen()
             }
         }
     }

@@ -64,6 +64,8 @@ sealed class Route(val path: String) {
 
     data object SafetyScreen : Route(path = "safety_screen")
 
+    data object CalendarScreen : Route(path = "calendar_screen")
+
 
 
     fun withArgs(vararg args: String): String {

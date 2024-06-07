@@ -15,18 +15,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
-import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
-fun NoResultsScreen(title : String, description : String, buttonText: String, onClick : () -> Unit) {
+fun NoResultsScreen(title : String, description : String, buttonText: String, isAuthorized : Boolean = true, onClick : () -> Unit) {
     val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxSize()
@@ -50,10 +48,23 @@ fun NoResultsScreen(title : String, description : String, buttonText: String, on
                 textAlign = TextAlign.Center, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
             )
         }
-        CommonButton(text = buttonText,
-            containerColor = MaterialTheme.colorScheme.secondary,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            onClick = onClick)
+        Column {
+            CommonButton(
+                text = buttonText,
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                onClick = onClick
+            )
+            if (!isAuthorized) {
+                Text(
+                    stringResource(R.string.loginToCreateGame),
+                    style = MaterialTheme.typography.displaySmall.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        textAlign = TextAlign.Center
+                    ),
+                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium).align(Alignment.CenterHorizontally))
+            }
+        }
 
     }
 }

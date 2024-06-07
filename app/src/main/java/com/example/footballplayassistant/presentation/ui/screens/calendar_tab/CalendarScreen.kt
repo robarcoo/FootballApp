@@ -15,28 +15,20 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomAppBarDefaults.ContentPadding
-import androidx.compose.material3.ButtonDefaults.ContentPadding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
@@ -45,7 +37,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -55,20 +46,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.cards.GameCard
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.NoResultsScreen
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
-import java.util.Calendar
 import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -85,7 +74,7 @@ fun CalendarScreen() {
 
     Column (modifier = Modifier
         .fillMaxSize()
-        .background(Color.White)) {
+        .background(MaterialTheme.colorScheme.primaryContainer)) {
         CalendarHeader(modifier = Modifier.padding(MaterialTheme.spacing.medium))
         Box(contentAlignment  = Alignment.CenterStart) {
             Row(
@@ -105,23 +94,41 @@ fun CalendarScreen() {
                     )
 
             ) {
-
             }
-
             CalendarPager(dayList, chosenDay = { newValue -> chosenIndex = if (
                 newValue == -1) { chosenIndex } else { newValue }})
 
         }
-//        LazyColumn(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-//            item {
-//                GameCard(host = "", place = "Арена Новый Футбол поле  Крылатское")
-//                GameCard(host = "Игорь Султанов", place = "Арена Новый Футбол поле  Крылатское")
-//
-//            }
-//        }
-          Text("Это день номер ${dayList[chosenIndex]}", modifier = Modifier.align(Alignment.CenterHorizontally))
+        val cardColor = MaterialTheme.colorScheme.onPrimary
+        val filtersOn = false // Заглушка
+        val found = true // Заглушка
+        if (found) {
+            LazyColumn(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+                item {
+                    GameCard(host = "", place = "Арена Новый Футбол поле  Крылатское",
+                        cardColor = cardColor)
+                    GameCard(host = "Игорь Султанов", place = "Арена Новый Футбол поле  Крылатское",
+                        cardColor = cardColor) // Заглушка
+
+                }
+            }
+        } else {
+            NoResultsScreen(
+                title = stringResource(R.string.calendarGameNotFoundTitle),
+                description =
+                if (filtersOn) {
+                    stringResource(R.string.calendarFilterNotFoundDescription)
+                } else {
+                    stringResource(R.string.noFiltersCalendarNotFoundDescription)
+                },
+                buttonText = stringResource(R.string.createGameButtonText)
+            ) {
+
+            }
+        }
     }
 }
+
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -130,7 +137,7 @@ fun CalendarScreen() {
 fun CalendarPager(dayList : MutableList<LocalDate>, chosenDay : (Int) -> Unit) {
     val state = rememberLazyListState()
     val configuration = LocalConfiguration.current
-    var paddingElementSize = ((configuration.screenWidthDp - 300) / 8).dp
+    val paddingElementSize = ((configuration.screenWidthDp - 300) / 8).dp
     CompositionLocalProvider(
         LocalOverscrollConfiguration provides null
     ) {
@@ -140,7 +147,7 @@ fun CalendarPager(dayList : MutableList<LocalDate>, chosenDay : (Int) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(paddingElementSize)
         ) {
             items(dayList.size) { index ->
-                chosenDay(HorizontalCalendarItem(
+                chosenDay(horizontalCalendarItem(
                     index = index,
                     date = dayList[index],
                     state = state,
@@ -166,7 +173,7 @@ fun LazyListState.animateScrollAndCentralizeItem(index: Int, scope: CoroutineSco
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HorizontalCalendarItem(index : Int,
+fun horizontalCalendarItem(index : Int,
                            date: LocalDate,
                            state : LazyListState, hasEvents : Boolean = false) : Int {
 
@@ -177,17 +184,10 @@ fun HorizontalCalendarItem(index : Int,
             val layoutInfo = state.layoutInfo
             val visibleItemsInfo = layoutInfo.visibleItemsInfo
             val itemInfo = visibleItemsInfo.firstOrNull { it.index == index}
-//            if (visibleItemsInfo.size <= 7 && paddingElementSize > 4) {
-//                paddingElementSize -= 2
-//            } else if (visibleItemsInfo.size > 9) {
-//                paddingElementSize += 2
-//            }
             itemInfo?.let {
                 if (visibleItemsInfo.indexOf(itemInfo) == 3)
                     return@derivedStateOf greenThumbColor
             }
-
-
             Color.Transparent
         }
     }
@@ -212,13 +212,21 @@ fun HorizontalCalendarItem(index : Int,
     ),
         contentAlignment = Alignment.Center) {
         val dayNumber = date.dayOfMonth.toString()
-        Column(modifier = Modifier.padding(horizontal = 0.dp).width(50.dp)
-            .then(if (boxColor != Color.Transparent) {
-                Modifier.height(76.dp).clip(
-                    RoundedCornerShape(94.dp)
-                ).background(boxColor)
-            } else { Modifier
-            }), verticalArrangement = Arrangement.Center,
+        Column(modifier = Modifier
+            .padding(horizontal = 0.dp)
+            .width(50.dp)
+            .then(
+                if (boxColor != Color.Transparent) {
+                    Modifier
+                        .height(76.dp)
+                        .clip(
+                            RoundedCornerShape(94.dp)
+                        )
+                        .background(boxColor)
+                } else {
+                    Modifier
+                }
+            ), verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
@@ -251,11 +259,12 @@ fun CalendarHeader(modifier: Modifier) {
         OutlinedIconButton(onClick = {}, modifier = Modifier.size(42.dp),
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)) {
             Icon(painter = painterResource(id = R.drawable.ic_icons_24),
-                contentDescription = "Фильтр событий в календаре",
+                contentDescription = stringResource(R.string.filterEventsCalendarIconDescription),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier.size(21.dp))
         }
-        Text("Календарь", style = MaterialTheme.typography.titleMedium.copy(
+        Text(
+            stringResource(R.string.calendarHeaderText), style = MaterialTheme.typography.titleMedium.copy(
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.W600
         ))
@@ -264,7 +273,7 @@ fun CalendarHeader(modifier: Modifier) {
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSecondaryContainer)
         ) {
             Icon(painterResource(id = R.drawable.ic_plus_24),
-                contentDescription = "Добавить событие в календаре",
+                contentDescription = stringResource(R.string.addGameToCalendarIconDescription),
                 modifier = Modifier.size(21.dp),
                 tint = MaterialTheme.colorScheme.onPrimaryContainer)
 
