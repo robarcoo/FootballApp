@@ -102,16 +102,30 @@ fun EvaluateEventScreen() {
                 }
             }
         }
+
         EvaluationCard(
             stringResource(R.string.rateHostTitle),
-            stringArrayResource(R.array.terribleHostTags)
+            arrayOf(
+                stringArrayResource(R.array.terribleHostTags),
+                stringArrayResource(R.array.badHostTags),
+                stringArrayResource(R.array.okayHostTags),
+                stringArrayResource(R.array.goodHostTags),
+                stringArrayResource(R.array.excellentHostTags),
+            )
+
         )
         EvaluationCard(
-            "Оцените поле",
-            stringArrayResource(R.array.fieldTags)
+            stringResource(R.string.evaluateField),
+            arrayOf(
+                stringArrayResource(R.array.terribleFieldTags),
+                stringArrayResource(R.array.badFieldTags),
+                stringArrayResource(R.array.okayFieldTags),
+                stringArrayResource(R.array.goodFieldTags),
+                stringArrayResource(R.array.excellentFieldTags),
+            )
         )
         Text(
-            "Оставьте комментарий о поле",
+            stringResource(R.string.leaveCommentAboutField),
             style = MaterialTheme.typography.displaySmall.copy(
                 color = MaterialTheme.colorScheme.onSecondaryContainer
             ),
@@ -199,7 +213,7 @@ fun ChooseBestPlayer(event: Event) {
 }
 
 @Composable
-fun EvaluationCard(title: String, items: Array<String>) {
+fun EvaluationCard(title: String, items: Array<Array<String>>) {
     var rating by remember { mutableIntStateOf(0) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -220,10 +234,13 @@ fun EvaluationCard(title: String, items: Array<String>) {
             enter = expandVertically(),
             exit = shrinkVertically()) {
             Text(
-                if (rating > 2) {
-                    stringResource(R.string.goodRating)
-                } else {
-                    stringResource(R.string.terribleRating)
+                when (rating) {
+                    5 -> stringResource(R.string.excellentRating)
+                    4 -> stringResource(R.string.goodRating)
+                    3 -> stringResource(R.string.okayRating)
+                    2 -> stringResource(R.string.badRating)
+                    1 -> stringResource(R.string.terribleRating)
+                    else -> ""
                 },
                 style = MaterialTheme.typography.displaySmall.copy(
                     color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -252,7 +269,7 @@ fun EvaluationCard(title: String, items: Array<String>) {
     AnimatedVisibility(visible = rating > 0,
         enter = expandVertically(),
         exit = shrinkVertically()) {
-        ToggleButton(items = items, selectAll = false)
+        ToggleButton(items = items[rating - 1], selectAll = false)
     }
 
 }

@@ -298,7 +298,6 @@
         <item quantity="many">%1$d событий</item>
     </plurals>
 
-    <string name="safety">Безопасность</string>
     <string name="exitFromAll">После изменения пароля произойдет выход из аккаунта на всех устройствах</string>
     <string name="currentPassword">Текущий пароль</string>
     <string name="newPassword">Новый пароль</string>
@@ -500,17 +499,79 @@
     <string name="terribleRating">Ужасно</string>
     <string name="BestPlayerScreenHeader">Лучший игрок</string>
     <string name="confirmButtonText">Подтвердить</string>
+    <string name="excellentRating">Отлично</string>
+    <string name="okayRating">Удовлетворительно</string>
+    <string name="badRating">Плохо</string>
+    <string name="evaluateField">Оцените поле</string>
+    <string name="leaveCommentAboutField">Оставьте комментарий о поле</string>
     <string-array name="terribleHostTags">
-        <item>Опоздание хоста</item>
-        <item>Невежливый</item>
-        <item>Хамит</item>
+        <item>Сильное опоздание</item>
+        <item>Грубый</item>
+        <item>Отсутствие инвентаря</item>
         <item>Недействительная информация</item>
+        <item>Внезапные изменения</item>
     </string-array>
-    <string-array name="fieldTags">
-        <item>Расположение поля</item>
-        <item>Состояние поля</item>
-        <item>Часы работы</item>
-        <item>Освещение</item>
-        <item>Доп услуги</item>
+    <string-array name="badHostTags">
+    <item>Опоздание</item>
+    <item>Невежливый</item>
+    <item>Плохой инвентарь</item>
+    <item>Недостаточная информация</item>
+    <item>Внезапные изменения</item>
+    </string-array>
+    <string-array name="okayHostTags">
+        <item>Задержка в игре</item>
+        <item>Изменения в игре</item>
+        <item>Некачественный инвентарь</item>
+        <item>Неполная информация</item>
+        <item>Долгие ответы</item>
+</string-array>
+    <string-array name="goodHostTags">
+        <item>Без задержек</item>
+        <item>Вежливый</item>
+        <item>Помощь игрокам</item>
+        <item>Хороший инвентарь</item>
+        <item>Оперативные ответы</item>
+    </string-array>
+    <string-array name="excellentHostTags">
+        <item>Без задержек</item>
+        <item>Превзошел ожидания</item>
+        <item>Безупречная организация</item>
+        <item>Отличный инвентарь</item>
+        <item>Быстрые ответы</item>
+    </string-array>
+    <string-array name="terribleFieldTags">
+        <item>Небезопасное покрытие</item>
+        <item>Отсутствие разметки</item>
+        <item>Нет инфраструктуры</item>
+        <item>Поврежденные ворота</item>
+        <item>Неактуальная информация</item>
+    </string-array>
+    <string-array name="badFieldTags">
+        <item>Повреждения поля</item>
+        <item>Частичные загрязнения</item>
+        <item>Плохая разметка</item>
+        <item>Поврежденные ворота</item>
+        <item>Недостаточная информация</item>
+    </string-array>
+    <string-array name="okayFieldTags">
+        <item>Базовое покрытие</item>
+        <item>Приемлемая чистота</item>
+        <item>Базовая инфраструктура</item>
+        <item>Некачественная разметка</item>
+        <item>Соответствующая информация</item>
+    </string-array>
+    <string-array name="goodFieldTags">
+        <item>Качественное покрытие</item>
+        <item>Четкая разметка</item>
+        <item>Вежливый персонал</item>
+        <item>Чистое и ухоженное</item>
+        <item>Хорошая инфраструктура</item>
+    </string-array>
+    <string-array name="excellentFieldTags">
+        <item>Высококачественное покрытие</item>
+        <item>Превосходное состояние поля</item>
+        <item>Идеальная разметка</item>
+        <item>Отличный персонал</item>
+        <item>Полная инфраструктура</item>
     </string-array>
 </resources>

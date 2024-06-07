@@ -144,7 +144,7 @@ fun ToggleButton(title: String = "", items: Array<String>, selectAll : Boolean =
         mutableStateListOf()
     }
     }
-    Column() {
+    Column(modifier = Modifier.fillMaxWidth()) {
         if (title.isNotEmpty()) {
             Text(
                 title,

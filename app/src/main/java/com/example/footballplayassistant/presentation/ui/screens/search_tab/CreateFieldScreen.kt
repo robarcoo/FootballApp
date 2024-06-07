@@ -636,17 +636,21 @@ fun NecessaryTextField(label : String,
                 )
             }
         }
-        if (value.text.isNotEmpty() && toCountWords > 0) {
+        AnimatedVisibility(
+            visible = value.text.isNotEmpty() && toCountWords > 0,
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
             Text(
-                text = "${value.text.count()}/$toCountWords",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = MaterialTheme.spacing.extraSmall),
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontWeight = FontWeight.W400
-                )
+                    text = "${value.text.count()}/$toCountWords",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = MaterialTheme.spacing.extraSmall),
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400
+                    )
             )
         }
     }
