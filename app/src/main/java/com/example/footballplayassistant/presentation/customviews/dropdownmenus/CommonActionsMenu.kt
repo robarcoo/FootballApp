@@ -2,6 +2,7 @@ package com.example.footballplayassistant.presentation.customviews.dropdownmenus
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -27,17 +29,15 @@ fun CommonActionsMenu(
     onClicks: List<() -> Unit>,
     color: Color = MaterialTheme.colorScheme.onPrimaryContainer
 ) {
-    MaterialTheme(
-        shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(20.dp))
-    ) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(20.dp))) {
         DropdownMenu(
             expanded = expand.value,
             onDismissRequest = { expand.value = false },
             modifier = Modifier
                 .background(
                     color = MaterialTheme.colorScheme.onPrimary,
-                    shape = RoundedCornerShape(20.dp)
-                )
+                    shape = RoundedCornerShape(20.dp))
+                .widthIn(min = 290.dp)
         ) {
             for (i in actions.indices) {
                 DropdownMenuItem(
@@ -46,8 +46,9 @@ fun CommonActionsMenu(
                             text = stringResource(id = actions[i]),
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontWeight = FontWeight.W400,
-                                color = color
-                            )
+                                color = color),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     },
                     trailingIcon = {
@@ -57,8 +58,7 @@ fun CommonActionsMenu(
                             tint = color
                         )
                     },
-                    modifier = Modifier
-                        .padding(horizontal = 12.dp),
+                    modifier = Modifier.padding(horizontal = 12.dp),
                     onClick = {
                         onClicks[i].invoke()
                         expand.value = false
