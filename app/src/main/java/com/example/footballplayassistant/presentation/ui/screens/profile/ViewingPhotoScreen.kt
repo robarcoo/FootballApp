@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -101,7 +103,9 @@ private fun Library(enable: MutableState<Boolean>) {
                 .fillMaxHeight(0.35f)
         ) {
             if (selectImage != null)
-                Box(modifier = Modifier.align(Alignment.Center)) {
+                Box(modifier = Modifier
+                    .align(Alignment.Center)
+                    .clip(RoundedCornerShape(12.dp))) {
                     if (Build.VERSION.RELEASE.toDouble() < 12.0)
                         Cloudy(radius = 20, key1 = glideState.value) {
                             glideState.value = false
@@ -183,7 +187,9 @@ private fun TakePhoto() {
                 .fillMaxHeight(0.35f)
         ) {
             if (bitmapFromCamera.value != null)
-                Box(modifier = Modifier.align(Alignment.Center)) {
+                Box(modifier = Modifier
+                    .align(Alignment.Center)
+                    .clip(RoundedCornerShape(12.dp))) {
                     if (Build.VERSION.RELEASE.toDouble() < 12.0)
                         Cloudy(radius = 20, key1 = glideState.value) {
                             glideState.value = false
@@ -285,7 +291,7 @@ private fun CommonImage(
         painter = rememberAsyncImagePainter(model = selectImage),
         contentDescription = "User photo",
         contentScale = contentScale,
-        modifier = modifier
+        modifier = modifier.clip(RoundedCornerShape(12.dp))
     )
 }
 
@@ -300,14 +306,14 @@ private fun BitmapImage(
             bitmap = it.asImageBitmap(),
             contentDescription = "User photo",
             contentScale = contentScale,
-            modifier = modifier
+            modifier = modifier.clip(RoundedCornerShape(12.dp))
         )
     }
 }
 
 @Composable
 private fun AvatarBox(glideState: MutableState<Boolean>) {
-    Box {
+    Box(modifier = Modifier.clip(RoundedCornerShape(12.dp))) {
         if (Build.VERSION.RELEASE.toDouble() < 12.0)
             Cloudy(radius = 20, key1 = glideState.value) {
                 Image(
@@ -329,6 +335,7 @@ private fun AvatarBox(glideState: MutableState<Boolean>) {
                     .fillMaxWidth()
                     .align(Alignment.TopCenter)
                     .blur(30.dp)
+                    .clip(RoundedCornerShape(12.dp))
             )
         Image(
             painter = painterResource(id = R.drawable.avatar),
@@ -338,6 +345,7 @@ private fun AvatarBox(glideState: MutableState<Boolean>) {
                 .align(Alignment.Center)
                 .aspectRatio(1f)
                 .fillMaxHeight()
+                .clip(RoundedCornerShape(12.dp))
         )
     }
 }
