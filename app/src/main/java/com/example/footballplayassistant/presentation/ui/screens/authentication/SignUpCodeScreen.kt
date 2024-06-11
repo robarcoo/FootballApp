@@ -17,8 +17,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -38,6 +42,8 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -47,6 +53,14 @@ fun SignUpCodeScreen(sendCode: String) {
         remember { FocusRequester.createRefs() }
     val focusManager = LocalFocusManager.current
     val OK = remember { mutableStateOf(false) }
+
+    var ticks by remember { mutableIntStateOf(60) }
+    LaunchedEffect(Unit) {
+        while(ticks!=0) {
+            delay(1.seconds)
+            ticks--
+        }
+    }
 
     if (OK.value)
         if (sendCode == stringResource(id = R.string.Phone))
@@ -75,8 +89,7 @@ fun SignUpCodeScreen(sendCode: String) {
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.horizontal)
-                .padding(top = 24.dp, bottom = MaterialTheme.spacing.medium)
+                .padding(top = 24.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
         )
 
@@ -94,13 +107,12 @@ fun SignUpCodeScreen(sendCode: String) {
         }
 
         Text(
-            text = stringResource(R.string.repeatCode),
+            text = stringResource(R.string.repeatCode, ticks),
             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.horizontal)
-                .padding(top = MaterialTheme.spacing.horizontal)
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
         )
     }
