@@ -27,6 +27,7 @@ fun DropDownMenu(
     imTrail: Int = R.drawable.ic_arrow_menu_18_10,
     values: List<String>,
     color: Color = MaterialTheme.colorScheme.onPrimary,
+    onClick: (String) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -72,6 +73,7 @@ fun DropDownMenu(
                     onClick = {
                         selectedOptionText = selectionOption
                         expanded = false
+                        onClick(selectedOptionText)
                     }
                 )
             }

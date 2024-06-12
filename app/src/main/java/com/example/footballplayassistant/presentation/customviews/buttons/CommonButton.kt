@@ -28,7 +28,9 @@ fun CommonButton(
         modifier = modifier.fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(
             contentColor = contentColor,
-            containerColor = containerColor
+            containerColor = containerColor,
+            disabledContainerColor = MaterialTheme.colorScheme.tertiary,
+            disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer
         ),
         contentPadding = PaddingValues(vertical = MaterialTheme.spacing.medium),
         enabled = enable,

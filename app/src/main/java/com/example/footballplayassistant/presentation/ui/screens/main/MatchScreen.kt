@@ -1,9 +1,7 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -31,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.MatchFotoBox
@@ -51,39 +48,74 @@ import com.example.footballplayassistant.presentation.navigation.Route
 import kotlinx.coroutines.launch
 
 @Composable
-@Preview
 fun MatchScreen() {
     val navController = LocalNavController.current!!
-    val showDialog = remember { mutableStateOf(false) }
+    val showDialogTakePart = remember { mutableStateOf(false) }
+    val showDialogCancel = remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
 
     val snackBarScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    if (showDialog.value)
-        DialogScreen(
-            header = stringResource(id = R.string.whoPlays),
-            description = stringResource(id = R.string.youGetNotify2),
-            greenButton = stringResource(id = R.string.playYourself),
-            whiteButton = stringResource(id = R.string.callFriends),
-            bottomButton = stringResource(id = R.string.cancel),
-            onClickGreen = { navController.navigate(Route.ChooseTeamScreen.path) },
-            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
-            onClickBottom = { showDialog.value = false },
-            onDismissRequest = { showDialog.value = false }
-        )
+    DialogScreen(
+        header = stringResource(id = R.string.whoPlays),
+        description = stringResource(id = R.string.youGetNotify2),
+        greenButton = stringResource(id = R.string.playYourself),
+        whiteButton = stringResource(id = R.string.callFriends),
+        bottomButton = stringResource(id = R.string.cancel),
+        onClickGreen = { navController.navigate(Route.ChooseTeamScreen.path) },
+        onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+        onClickBottom = { showDialogTakePart.value = false },
+        onDismissRequest = { showDialogTakePart.value = false },
+        showDialog = showDialogTakePart.value
+    )
+
+    DialogScreen(
+        header = stringResource(id = R.string.cancelParticipationQuestion),
+        description = stringResource(id = R.string.negativeRate),
+        whiteButton = stringResource(id = R.string.cancelParticipation),
+        bottomButton = stringResource(id = R.string.cancel),
+        image = R.drawable.ic_warning_93,
+        onClickWhite = { navController.navigate(Route.MainScreen.path) },
+        onClickBottom = { showDialogCancel.value = false },
+        onDismissRequest = { showDialogCancel.value = false },
+        showDialog = showDialogCancel.value
+    )
 
     Scaffold(containerColor = MaterialTheme.colorScheme.onPrimary,
         bottomBar = {
-//            BottomButtonsEventEnd()
-            Box(modifier = Modifier.fillMaxWidth()) {
-                CommonButton(
-                    text = stringResource(id = R.string.participate),
-                    style = MaterialTheme.typography.bodyLarge,
-                    onClick = { showDialog.value = true },
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
-                )
-            }
+            //событие закончилось
+            //R.string.returnMain
+            //R.string.rateGame
+            //R.string.markParticipants
+//            BottomButtonsEventEnd(
+//                textButton = R.string.returnMain,
+//                onClick = { navController.navigate(Route.MainScreen.path) })
+
+            //нельзя управлять игрой
+//            BottomButtonsCantManageGame()
+
+            //нельзя редактировать
+//            BottomButtonsCantEditGame()
+
+            //отменить + депозит
+//            BottomButtonsCancel(bottomText = false, autoReturn = false, onClick = {showDialogCancel.value=true})
+
+            //участвовать
+            CommonBottomButtons(
+                textButton = R.string.participate,
+                authorized = true,
+                deleted = true,
+                onClick = { showDialogTakePart.value = true })
+
+            //редактировать
+//            CommonBottomButtons(
+//                textButton = R.string.editGame,
+//                authorized = true,
+//                deleted = false,
+//                onClick = { navController.navigate(Route.EditGameScreen.path) })
+
+
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState) {
@@ -103,7 +135,7 @@ fun MatchScreen() {
                 id = R.string.refCopied
             )
             HeaderWithBackButton(
-                text = stringResource(id = R.string.match),
+                text = stringResource(id = R.string.match),//R.string.matchIsOver
                 imageButton = R.drawable.ic_arrow_share_25,
                 onClickBack = { navController.navigate(Route.MainScreen.path) },
                 onClickOther = { expanded.value = true },
@@ -216,6 +248,15 @@ fun MatchScreen() {
                                 .fillMaxHeight()
                                 .align(Alignment.CenterVertically)
                         )
+                        //для хоста
+//                        CommonWithdrawalSumCard(
+//                            summa = 1000,
+//                            onClick = {},
+//                            modifier = Modifier
+//                                .weight(1f)
+//                                .fillMaxHeight()
+//                                .align(Alignment.CenterVertically)
+//                        )
                     }
                 }
 
@@ -233,14 +274,14 @@ fun MatchScreen() {
 }
 
 @Composable
-private fun BottomButtonsCancel() {
+private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClick: () -> Unit) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(9.dp)
         ) {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary
@@ -274,29 +315,32 @@ private fun BottomButtonsCancel() {
             CommonButton(
                 text = stringResource(id = R.string.cancelParticipate),
                 containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                onClick = {onClick()}
             )
         }
-        Text(
-            text = stringResource(id = R.string.autoReturn),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontWeight = FontWeight.W500,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
+        if (bottomText)
+            Text(
+                text = stringResource(id = if (autoReturn) R.string.autoReturn else R.string.notAutoReturn),
+                style = MaterialTheme.typography.displaySmall.copy(
+                    fontWeight = FontWeight.W500,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                ),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
     }
 }
 
 @Composable
-private fun BottomButtonsEventEnd() {
+private fun BottomButtonsEventEnd(textButton: Int, onClick: () -> Unit) {
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CommonButton(text = stringResource(id = R.string.rateGame))
+        CommonButton(text = stringResource(id = textButton),
+            onClick = { onClick() })
         Text(
             text = stringResource(id = R.string.eventEnd),
             style = MaterialTheme.typography.displaySmall.copy(
@@ -305,5 +349,96 @@ private fun BottomButtonsEventEnd() {
             ),
             textAlign = TextAlign.Center
         )
+    }
+}
+
+@Composable
+private fun BottomButtonsCantManageGame() {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CommonButton(
+            text = stringResource(id = R.string.gameManagement),
+            containerColor = MaterialTheme.colorScheme.tertiary,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+        Text(
+            text = stringResource(id = R.string.youCantEditGame),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.W500,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            ),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun BottomButtonsCantEditGame() {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CommonButton(
+            text = stringResource(id = R.string.editGame),
+            containerColor = MaterialTheme.colorScheme.tertiary,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+        )
+        Text(
+            text = stringResource(id = R.string.youCantEditGame),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.W500,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            ),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun CommonBottomButtons(
+    textButton: Int,
+    authorized: Boolean,
+    deleted: Boolean,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CommonButton(
+            text = stringResource(id = textButton),
+            containerColor = if (deleted) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
+            contentColor = if (deleted) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.primary,
+            onClick = { if(!deleted) onClick() }
+        )
+        //если не авторизован
+        if (!authorized)
+            Text(
+                text = stringResource(id = R.string.signInForTakePart),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(bottom = 30.dp, top = 16.dp)
+                    .fillMaxWidth()
+            )
+        if (deleted)
+            Text(
+                text = stringResource(id = R.string.youWasDeleted),
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(bottom = 16.dp, top = 12.dp)
+                    .fillMaxWidth()
+            )
     }
 }

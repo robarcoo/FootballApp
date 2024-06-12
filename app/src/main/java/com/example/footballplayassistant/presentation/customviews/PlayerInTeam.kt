@@ -29,7 +29,8 @@ fun PlayerInTeam(
     position: String,
     foto: Int,
     isBorder: Boolean = false,
-    deleteIcon: Boolean = false
+    deleteIcon: Boolean = false,
+    onDelete: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.padding(bottom = 12.dp),
@@ -46,7 +47,7 @@ fun PlayerInTeam(
                         .align(Alignment.Center)
                 )
                 IconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onDelete() },
                     colors = IconButtonColors(containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary,
                         disabledContentColor = MaterialTheme.colorScheme.onPrimary,

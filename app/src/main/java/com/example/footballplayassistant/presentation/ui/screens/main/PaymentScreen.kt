@@ -47,7 +47,6 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.rows.BottomRowDateTimeMoney
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.ui.theme.GrayF1
 
 @Composable
 @Preview
@@ -55,19 +54,19 @@ fun PaymentScreen() {
     val navController = LocalNavController.current!!
     val showDialog = remember { mutableStateOf(false) }
 
-    if (showDialog.value)
-        DialogScreen(
-            header = stringResource(id = R.string.payOK),
-            description = stringResource(id = R.string.darkdontForget),
-            greenButton = stringResource(id = R.string.onGamePage),
-            whiteButton = stringResource(id = R.string.returnMain),
-            bottomButton = stringResource(id = R.string.inviteFriendsAlso),
-            image = R.drawable.ic_check_92,
-            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
-            onClickWhite = { navController.navigate(Route.MainScreen.path) },
-            onClickBottom = { navController.navigate(Route.InviteFriendsScreen.path) },
-            onDismissRequest = { showDialog.value = false }
-        )
+    DialogScreen(
+        header = stringResource(id = R.string.payOK),
+        description = stringResource(id = R.string.darkdontForget),
+        greenButton = stringResource(id = R.string.onGamePage),
+        whiteButton = stringResource(id = R.string.returnMain),
+        bottomButton = stringResource(id = R.string.inviteFriendsAlso),
+        image = R.drawable.ic_check_92,
+        onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+        onClickWhite = { navController.navigate(Route.MainScreen.path) },
+        onClickBottom = { navController.navigate(Route.InviteFriendsScreen.path) },
+        onDismissRequest = { showDialog.value = false },
+        showDialog = showDialog.value
+    )
 
     Scaffold(containerColor = MaterialTheme.colorScheme.primaryContainer,
         bottomBar = {
