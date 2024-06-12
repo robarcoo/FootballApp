@@ -549,6 +549,8 @@ fun NecessaryTextField(label : String,
                        shape : RoundedCornerShape = RoundedCornerShape(60.dp),
                        toCountWords : Int = 0,
                        removeLabelAbove : Boolean = false,
+                       containerColor : Color = MaterialTheme.colorScheme.onPrimary,
+                       placeholderColor : Color = MaterialTheme.colorScheme.onSecondaryContainer,
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
@@ -575,7 +577,7 @@ fun NecessaryTextField(label : String,
                 modifier = modifier
                     .fillMaxWidth()
                     .clip(shape)
-                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .background(containerColor)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 value = value,
                 onValueChange = { value = it },
@@ -606,7 +608,7 @@ fun NecessaryTextField(label : String,
                         if (!isFocused && value.text.isEmpty()) {
                             AddAsterisk(
                                 text = label, style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                color = placeholderColor,
                                 fontWeight = FontWeight.W400,
                                 isNecessary = isNecessary
                             )
