@@ -1,5 +1,9 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,9 +12,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -37,13 +46,19 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
-import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 @Composable
 @Preview
 fun SignUpStepOneScreen() {
     val context = LocalContext.current
     val navController = LocalNavController.current!!
+    val buttonEnable = remember { mutableStateOf(false) }
+    val nickname = remember { mutableStateOf("") }
+    val name = remember { mutableStateOf("") }
+    val surname = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("") }
+    val uniqueNick = remember { mutableStateOf(false) }
+    val uniqueEmail = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -55,41 +70,61 @@ fun SignUpStepOneScreen() {
                 onClick = { navController.navigate(Route.SignUpEnterPhoneScreen.path) })
         }
 
-        LazyColumn {
+        LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
             item {
                 Text(
                     text = stringResource(R.string.writeInfo), textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
                     modifier = Modifier
-                        .padding(horizontal = MaterialTheme.spacing.horizontal)
-                        .padding(top = 24.dp, bottom = MaterialTheme.spacing.medium)
+                        .padding(top = 24.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
                         .fillMaxWidth()
                 )
             }
 
             item {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 36.dp)
-                        .padding(horizontal = MaterialTheme.spacing.horizontal)
-                ) {
-                    Text(
-                        text = addStar(id = R.string.nick),
-                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                Text(
+                    text = addStar(id = R.string.nick),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
+                )
+
+                CommonTextField(
+                    placeholder = stringResource(id = R.string.enterNick),
+                    keyBoard = KeyboardType.Text,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    maxLength = 10,
+                    onClick = {
+                        nickname.value = it
+                        //проверка на уникальность
+                        uniqueNick.value = true
+                        },
+                    isError = !uniqueNick.value && nickname.value.isNotEmpty(),
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
+            item {
+                AnimatedVisibility(visible = !uniqueNick.value && nickname.value.isNotEmpty()) {
+                    Row(
                         modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
-                    )
-
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.enterNick),
-                        keyBoard = KeyboardType.Text,
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    )
-
+                            .fillMaxWidth()
+                            .padding(start = 10.dp, bottom = 10.dp)
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
+                            contentDescription = "Warning",
+                            tint = MaterialTheme.colorScheme.errorContainer,
+                            modifier = Modifier.padding(end = 2.dp)
+                        )
+                        Text(
+                            text = stringResource(id = R.string.nicknameIsOccupied),
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.W400),
+                            color = MaterialTheme.colorScheme.errorContainer
+                        )
+                    }
+                }
+                AnimatedVisibility(visible = nickname.value.isEmpty()){
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -102,67 +137,110 @@ fun SignUpStepOneScreen() {
                         )
                         Text(
                             text = stringResource(id = R.string.nickLength),
-                            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.W400),
-                            color = MaterialTheme.colorScheme.onBackground,
-                            modifier = Modifier
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.W400),
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     }
-
-                    Text(
-                        text = addStar(id = R.string.name),
-                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
-                    )
-
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.enterName),
-                        keyBoard = KeyboardType.Text,
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    )
-
-                    Text(
-                        text = addStar(id = R.string.surname),
-                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
-                    )
-
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.enterSurname),
-                        keyBoard = KeyboardType.Text,
-                        color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    )
-
-                    Text(
-                        text = addStar(id = R.string.email),
-                        style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .padding(bottom = MaterialTheme.spacing.small)
-                    )
-
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.enterEmail),
-                        keyBoard = KeyboardType.Email,
-                        color = MaterialTheme.colorScheme.primaryContainer
-                    )
                 }
             }
 
             item {
+                Text(
+                    text = addStar(id = R.string.name),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
+                )
+
+                CommonTextField(
+                    placeholder = stringResource(id = R.string.enterName),
+                    keyBoard = KeyboardType.Text,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    onClick = { name.value = it },
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
+
+            item {
+                Text(
+                    text = addStar(id = R.string.surname),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
+                )
+
+                CommonTextField(
+                    placeholder = stringResource(id = R.string.enterSurname),
+                    keyBoard = KeyboardType.Text,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    onClick = { surname.value = it },
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+            }
+
+            item {
+                Text(
+                    text = addStar(id = R.string.email),
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
+                    modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
+                )
+
+                CommonTextField(
+                    placeholder = stringResource(id = R.string.enterEmail),
+                    keyBoard = KeyboardType.Email,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    isError = !uniqueEmail.value && email.value.isNotEmpty(),
+                    onClick = {
+                            email.value = it
+                            //проверка на уникальность
+                            uniqueEmail.value = true
+                    }
+                )
+                AnimatedVisibility(visible = !uniqueEmail.value && email.value.isNotEmpty()) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp, bottom = 10.dp, top = 2.dp)
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
+                            contentDescription = "Warning",
+                            tint = MaterialTheme.colorScheme.errorContainer,
+                            modifier = Modifier.padding(end = 2.dp)
+                        )
+                        Text(
+                            text = stringResource(id = R.string.emailIsOccupied),
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.W400),
+                            color = MaterialTheme.colorScheme.errorContainer
+                        )
+                    }
+                }
+            }
+
+            item {
+                LaunchedEffect(nickname.value, name.value, surname.value, email.value) {
+                    buttonEnable.value = nickname.value.isNotEmpty() && name.value.isNotEmpty() &&
+                            surname.value.isNotEmpty() && email.value.isNotEmpty() &&
+                            uniqueNick.value && uniqueEmail.value
+                }
+                val animatedContainerColor: Color by animateColorAsState(
+                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                    else MaterialTheme.colorScheme.tertiary,
+                    animationSpec = tween(500, 0, LinearEasing)
+                )
+                val animatedContentColor: Color by animateColorAsState(
+                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSecondaryContainer,
+                    animationSpec = tween(500, 0, LinearEasing)
+                )
                 CommonButton(
                     text = context.getString(R.string.next),
-                    onClick = {
-                        navController.navigate(Route.SignUpStepTwoScreen.path)
-                    },
+                    containerColor = animatedContainerColor,
+                    contentColor = animatedContentColor,
+                    enable = buttonEnable.value,
+                    onClick = { navController.navigate(Route.SignUpStepTwoScreen.path) },
                     style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .padding(horizontal = MaterialTheme.spacing.horizontal)
+                    modifier = Modifier.padding(top = 36.dp)
                 )
             }
         }

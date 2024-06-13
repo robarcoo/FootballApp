@@ -40,7 +40,6 @@ fun ButtonDropDownMenu(
     containerColor: Color = MaterialTheme.colorScheme.onPrimary,
     textColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     onClick: (String) -> Unit = {},
-    onClickItem: () -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -51,7 +50,7 @@ fun ButtonDropDownMenu(
         onExpandedChange = { expanded = !expanded }
     ) {
         Button(
-            onClick = { onClick.invoke(selectedOptionText) },
+            onClick = { /*onClick.invoke(selectedOptionText)*/ },
             colors = ButtonDefaults.buttonColors(containerColor = containerColor),
             contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
             modifier = modifier
@@ -101,7 +100,7 @@ fun ButtonDropDownMenu(
                     onClick = {
                         selectedOptionText = selectionOption
                         expanded = false
-                        onClickItem()
+                        onClick(selectedOptionText)
                     }
                 )
             }

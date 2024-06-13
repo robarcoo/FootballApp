@@ -55,9 +55,12 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Sear
 import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
-
-
-
+import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.NotificationScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -225,7 +228,7 @@ fun MainNavigationController(
             composable(route = Route.SafetyScreen.path){
                 SafetyScreen()
             }
-            
+
             composable(route = Route.UserProfileScreen.path + "/{button}",
                 arguments = listOf(navArgument("button") {
                     type = NavType.BoolType
@@ -261,6 +264,26 @@ fun MainNavigationController(
 
             composable(route = Route.PlayerProfileScreen.path){
                 PlayerProfileScreen()
+            }
+
+            composable(route = Route.MarkParticipantsScreen.path) {
+                MarkParticipantsScreen()
+            }
+
+            composable(route = Route.EvaluateEventScreen.path) {
+                EvaluateEventScreen()
+            }
+
+            composable(route = Route.BestPlayerScreen.path) {
+                BestPlayerScreen()
+            }
+
+            composable(route = Route.NotificationScreen.path) {
+                NotificationScreen()
+            }
+
+            composable(route = Route.CalendarScreen.path){
+                CalendarScreen()
             }
 
             composable(route = Route.ChangeProfileScreen.path){

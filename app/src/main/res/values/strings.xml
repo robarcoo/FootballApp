@@ -21,7 +21,7 @@
     <string name="sendCode">Отправить код</string>
     <string name="phoneCode">Код отправлен на номер</string>
     <string name="emailCode">Код отправлен на почту</string>
-    <string name="repeatCode">Отправить код повторно через</string>
+    <string name="repeatCode">Отправить код повторно через %1$d секунд</string>
     <string name="writeInfo">Заполните информацию</string>
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
@@ -68,6 +68,17 @@
     <string name="doneWithPoint">Готово!</string>
     <string name="newPassIsRecovery">Новый пароль успешно восстановлен</string>
     <string name="onSignInScreen">На страницу входа</string>
+    <string name="invalidPassword">Неверный пароль</string>
+    <string name="userHasBeenRegistered">Пользователь с таким номером уже зарегистрирован</string>
+    <string name="nicknameIsOccupied">Данный ник уже занят</string>
+    <string name="emailIsOccupied">Данный адрес электронной почты уже зарегистристирован</string>
+    <string name="dataNotSaved">Данные не сохранены</string>
+    <string name="dataNotSavedDescription">Введенные вами данные не сохранены, необходимо будет ввести их в профиле пользователя</string>
+    <string name="enterInfoAboutYourselt">Ввести информацию о себе</string>
+    <string name="continueBtn">Продолжить</string>
+    <string name="yourCity">Ваш город</string>
+    <string name="playLevel">Уровень игры</string>
+    <string name="prefferedPosition">Предпочитаемая позиция</string>
 
     <string name="Phone">phone</string>
     <string name="Email">email</string>
@@ -328,6 +339,8 @@
     <string name="deleteQuestion">Вы действительно хотите удалить аккаунт?</string>
     <string name="lostDataAfterDelete">После удаления аккаунта все данные будут утеряны</string>
     <string name="delete">Удалить</string>
+    <string name="forPlayers">Игрокам</string>
+    <string name="forOrganizers">Организаторам</string>
 
     <string name="suggestionOrProblem">Предложение или проблема</string>
     <string name="describeYourProblems">Опишите ваши предложения или проблемы</string>
@@ -338,9 +351,6 @@
     <string name="youWillBeContacted">После рассмотрения вашего обращения с вами свяжутся</string>
     <string name="returnToMain">Вернуться на главную страницу</string>
 
-    <string name="question1">Могу ли я добавить поле самостоятельно?</string>
-    <string name="question2">Что такое матч?</string>
-    <string name="answer1">Если вы не сможете присутствовать на матче, вам следует заблаговременно отменить участие игры на странице события, чтобы не испортить впечатления от игры другим участникам. Если при этом вы являетесь хостом события, оно будет распущено, а все средства вернутся игрокам.</string>
 
     <string name="subscribers">Подписчики</string>
     <string name="blocked">Заблокированные</string>
@@ -522,7 +532,7 @@
     <string name="fieldChangingRoomValue">Закрытые</string>
     <string name="fieldTribuneValue">40 мест</string>
     <string name="gamePlayerAmountValue">До 20</string>
-    
+
     <string name="requestSentTitle">Заявка отправлена</string>
     <string name="requestSentDescription">После прохождения модерации вашей заявки, вам придет уведомление о результате рассмотрения</string>
     <string name="returnToMainPage">Вернуться на главную</string>
@@ -532,4 +542,218 @@
     <string name="geolocationIsTurnedOff">Геолокация отключена</string>
     <string name="geolocationIsTurnedOffDescription">Выдача ближайших к вам полей будет недоступна по причине отключенной геолокации, для продолжения поиска полей включите геолокацию в профиле</string>
     <string name="turnOnGeolocation">Включить геолокацию</string>
+
+
+    <string name="notificationsHeader">Уведомления</string>
+    <string name="newNotifications">Новые</string>
+    <string name="seenNotifications">Просмотренные</string>
+    <string name="noNotificationsTitle">Уведомлений нет</string>
+    <string name="noNotificationsDescription">На данный момент у вас нет\nуведомлений</string>
+    <string name="hostTitle">Хост</string>
+    <string name="hasInvitedYouNotification">Приглашает вас на матч</string>
+    <string name="sentYouNewMessageNotification">Прислал новое сообщение в игре</string>
+    <string name="hostChangedGameNotification">Внес изменения в игру</string>
+    <string name="participateInMatchAction">Участвовать в матче</string>
+    <string name="goToMessageAction">Перейти к сообщению</string>
+    <string name="seeChangesAction">Посмотреть изменения</string>
+    <string name="fieldCreationSuccessNotification">Ваше поле создано</string>
+    <string name="fieldWasRejectedNotification">Ваше поле отклонено</string>
+    <string name="rejectionReason">"Причина: "</string>
+    <string name="goToFieldScreenAction">Перейти на страницу поля</string>
+    <string name="createFieldAgainAction">Создать поле заново</string>
+    <string name="playersHaventJoinedMatch">Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию.</string>
+    <string name="hostRemovedYouNotification">Хост удалил вас из игры</string>
+    <string name="goToGameScreenAction">Перейти на страницу игры</string>
+    <string name="matchWasDisbandedNotification">Распустил матч</string>
+    <string name="hostMatchFinishedNotification">Матч в котором вы были хостом завершен</string>
+    <string name="participantMatchFinishedNotification">Матч в котором вы принимали участие завершен</string>
+    <string name="markParticipantsAction">Подведите итоги, отметьте участников</string>
+    <string name="evaluateEventAction">Оцените как прошло ваше событие</string>
+    <string name="subscribedToYourUpdatesNotification">Подписался на ваши\nобновления</string>
+    <string name="addUserToFriendsDescription">Добавить пользователя в друзья</string>
+    <string name="eventButtonIconDescription">Перейти на страницу</string>
+    <string name="deleteNotification">Удалить уведомление</string>
+    <string name="userAvatarInNotificationDescription">Аватар пользователя в уведомлении</string>
+    <string name="markParticipantsDateHeader">Участники %1$s</string>
+    <string name="markAllParticipantsDescription">Отметить всех участников</string>
+    <string name="markEveryoneCheckbox">Отметить всех</string>
+    <string name="finishMarkingButtonText">Отметить</string>
+    <string name="cancelMarkingButtonText">Отмена</string>
+    <string name="markPlayerAvatar">Аватар игрока</string>
+    <string name="evaluateEventHeader">Оцените событие</string>
+    <string name="evaluateEventDescription">Ваш отзыв поможет сервису улучшить качество услуг, а другим игрокам получить позитивные эмоции от событий</string>
+    <string name="rateHostTitle">Оцените хоста</string>
+    <string name="commentLabelField">Комментарий</string>
+    <string name="sendFeedbackButtonText">Отправить отзыв</string>
+    <string name="skipButtonText">Пропустить</string>
+    <string name="bestPlayerAvatarDescription">Аватар лучшего игрока</string>
+    <string name="bestPlayerTitle">Лучший игрок</string>
+    <string name="chooseBestPlayer">Выбрать лучшего игрока</string>
+    <string name="goodRating">Хорошо</string>
+    <string name="terribleRating">Ужасно</string>
+    <string name="BestPlayerScreenHeader">Лучший игрок</string>
+    <string name="confirmButtonText">Подтвердить</string>
+    <string name="excellentRating">Отлично</string>
+    <string name="okayRating">Удовлетворительно</string>
+    <string name="badRating">Плохо</string>
+    <string name="evaluateField">Оцените поле</string>
+    <string name="leaveCommentAboutField">Оставьте комментарий о поле</string>
+    <string name="extendedTextFieldIconDescription">Два штриха для текстового поля</string>
+    <string-array name="terribleHostTags">
+        <item>Сильное опоздание</item>
+        <item>Грубый</item>
+        <item>Отсутствие инвентаря</item>
+        <item>Недействительная информация</item>
+        <item>Внезапные изменения</item>
+    </string-array>
+    <string-array name="badHostTags">
+    <item>Опоздание</item>
+    <item>Невежливый</item>
+    <item>Плохой инвентарь</item>
+    <item>Недостаточная информация</item>
+    <item>Внезапные изменения</item>
+    </string-array>
+    <string-array name="okayHostTags">
+        <item>Задержка в игре</item>
+        <item>Изменения в игре</item>
+        <item>Некачественный инвентарь</item>
+        <item>Неполная информация</item>
+        <item>Долгие ответы</item>
+</string-array>
+    <string-array name="goodHostTags">
+        <item>Без задержек</item>
+        <item>Вежливый</item>
+        <item>Помощь игрокам</item>
+        <item>Хороший инвентарь</item>
+        <item>Оперативные ответы</item>
+    </string-array>
+    <string-array name="excellentHostTags">
+        <item>Без задержек</item>
+        <item>Превзошел ожидания</item>
+        <item>Безупречная организация</item>
+        <item>Отличный инвентарь</item>
+        <item>Быстрые ответы</item>
+    </string-array>
+    <string-array name="terribleFieldTags">
+        <item>Небезопасное покрытие</item>
+        <item>Отсутствие разметки</item>
+        <item>Нет инфраструктуры</item>
+        <item>Поврежденные ворота</item>
+        <item>Неактуальная информация</item>
+    </string-array>
+    <string-array name="badFieldTags">
+        <item>Повреждения поля</item>
+        <item>Частичные загрязнения</item>
+        <item>Плохая разметка</item>
+        <item>Поврежденные ворота</item>
+        <item>Недостаточная информация</item>
+    </string-array>
+    <string-array name="okayFieldTags">
+        <item>Базовое покрытие</item>
+        <item>Приемлемая чистота</item>
+        <item>Базовая инфраструктура</item>
+        <item>Некачественная разметка</item>
+        <item>Соответствующая информация</item>
+    </string-array>
+    <string-array name="goodFieldTags">
+        <item>Качественное покрытие</item>
+        <item>Четкая разметка</item>
+        <item>Вежливый персонал</item>
+        <item>Чистое и ухоженное</item>
+        <item>Хорошая инфраструктура</item>
+    </string-array>
+    <string-array name="excellentFieldTags">
+        <item>Высококачественное покрытие</item>
+        <item>Превосходное состояние поля</item>
+        <item>Идеальная разметка</item>
+        <item>Отличный персонал</item>
+        <item>Полная инфраструктура</item>
+    </string-array>
+    <string name="loginToCreateGame">Войдите, чтобы создать игру.</string>
+    <string name="calendarFilterNotFoundDescription">По заданным фильтрам не было найдено игр, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="noFiltersCalendarNotFoundDescription">По выбранной дате не было найдено\nигр или площадок, вы можете создать собственное событие</string>
+    <string name="calendarGameNotFoundTitle">Не найдено игр</string>
+    <string name="createGameButtonText">Создать игру</string>
+    <string name="addGameToCalendarIconDescription">Добавить событие в календаре</string>
+    <string name="calendarHeaderText">Календарь</string>
+    <string name="filterEventsCalendarIconDescription">Фильтр событий в календаре</string>
+
+
+    <!--FAQ-->
+    <string-array name="questionsForPlayer">
+        <item>Где найти игры?</item>
+        <item>Как записаться на игру?</item>
+        <item>Как отменить свое участие в игре?</item>
+        <item>Что делать если игра была отменена?</item>
+        <item>Пришёл на игру, но поле не забронировано и нет организатора?</item>
+        <item>Когда приезжать на игру?</item>
+        <item>Что такое “Лучший игрок матча”?</item>
+        <item>Не найдено игр при поиске, что делать?</item>
+        <item>Можно ли изменить команду после регистрации на игру?</item>
+        <item>Как я могу оценить игру?</item>
+        <item>Для чего нужно деление на команды заранее?</item>
+    </string-array>
+
+    <string-array name="questionsForOrganizer">
+        <item>Кто может создать игру?</item>
+        <item>Как добавить новое поле?</item>
+        <item>Что делать если не набралось достаточно игроков?</item>
+        <item>Какую цену выставить за игру?</item>
+        <item>Как вывести средства с баланса?</item>
+        <item>Можно ли удалить игрока из игры?</item>
+        <item>Как редактировать информацию о игре?</item>
+        <item>Что такое закрытая игра?</item>
+        <item>Обязательно ли нужно приносить свой инвентарь?</item>
+    </string-array>
+
+    <string-array name="answersForPlayers">
+        <item><![CDATA[ 1. В разделе <font color="black"><u>Календарь</u></font> Вы можете найти игры по дате и времени
+<br>2. В разделе <font color="black"><u>Поиск</u></font> Вы можете найти интересующее Вас поле и посмотреть предстоящие игры на нём.
+<br>3. Посмотреть игры, в которых Вы участвуете, можно в разделе <font color="black"><u>Главная</u></font> → Мои Игры или перейдя в <font color="black"><u>Профиль</u></font> → <font color="black"><u>Мои Игры</u></font> → <font color="black"><u>Текущие</u></font>
+]]></item>
+        <item><![CDATA[ 1. Перейдите на страницу игры, внизу экрана у Вас появится кнопка <font color="black"><u>Участвовать</u></font>. (Убедитесь, что в игре есть свободные места в разделе <font color="black"><u>Участники</u></font>)
+<br>2. Если Вы хотите пригласить друзей на игру нажмите кнопку <font color="black"><u>Позвать друзей</u></font>, если Вы будете играть один, нажмите <font color="black"><u>Участвовать самому</u></font>
+<br>3. Выберите команду за которую Вы хотите играть нажав кнопку “Присоединиться” внизу экрана. Если в Вашей предпочитаемой команде нет свободных мест, не переживайте, во время игры команды могут поменяться. Вы можете написать об этой в разделе <font color="black"><b>Сообщения</b></font> к игре.
+<br>4. Оплатите необходимую сумму участия с Вашего баланса, если не хватает средств на балансе, пополните его
+<br>5. Вы получите уведомление о том, что оплата прошла успешно и Вы автоматически присоединитесь к игре и увидите Ваш профиль в числе участников
+]]></item>
+        <item><![CDATA[1. Перейдите в раздел игры, где Вы хотели бы отменить Ваше участие
+<br>2. Внизу экрана будет кнопка <font color="black"><u>Отменить участие</u></font> с информацией о сумме, которую вы оплатили (Резерв)
+<br>Организаторы игр оплачивают аренду полей до начала игры, поэтому им важно планировать игру заранее. В связи с этим, если до игры остается менее 24 часов, при отмене участия, оплаченная сумма не возвращается на баланс.
+        ]]></item>
+        <item><![CDATA[Организаторы имеют право распустить игру в случае, если не набралось достаточное количество игроков, мы рекомендуем делать это заранее чтобы игроки могли перестроить свои планы. В данном случае, оплаченная сумма вернется на Ваш баланс и Вы сможете её использовать для оплаты будущих игр.]]> </item>
+        <item><![CDATA[Наше приложение выступает гарантом Вашей оплаты за игру, поэтому мы очень серьезно относимся к таким случаям. Средства удерживаются на балансе платформы, поэтому если у Вас произошёл такой инцидент, как можно скорее напишите Нам в разделе “<font color="black"><b>Обратная связь</b></font>” и мы зачислим Вам средства обратно на баланс. В Вашем обращении пожалуйста укажите как можно больше информации включая дату, время, место проведение, имя организатора… Если организатор опубликовал игру, но сам не явился на неё, то мы сразу ограничиваем ему доступ к нашему приложению.]]> </item>
+        <item><![CDATA[Мы рекомендуем приезжать как минимум за 10 минут до начала игры, чтобы игроки могли познакомится друг с другом и поделиться на команды. Обычно, в описании к игре организаторы указывают время и место встречи игроков. Пожалуйста внимательно планируйте свой маршрут до поля, в особенности если Вы будете играть на нём впервые, чтобы не вызывать задержки в игре.]]></item>
+        <item><![CDATA[1. Награда Лучшего игрока матча дает возможность каждому выбрать лучшего игрока с кем они играли.
+<br>2. В конце каждой игры в разделе “Оценить игру” находится раздел “Выбрать лучшего игрока”, где Вы можете выбрать одного игрока, кого считаете лучшим во время игры. Каждая номинация будет отображаться у игрока в профиле.]]></item>
+        <item><![CDATA[В данном случае причин может быть несколько:
+<br>1. По вашим запросам нет подходящих игр, попробуйте изменить фильтры или будьте первыми и <font color="black"><u>Создайте игру</u></font> .
+<br>2. DRAFT отображает игры относительно Вашей геопозиции. Если Ваша геопозиция отключена, то игры отображаются исходя от Вашего города указанного в “Профиле”. Чтобы настроить Вашу геопозицию или изменить город перейдите в <font color="black"><u>Профиль</u></font> → <font color="black"><u>Аккаунт</u></font> → <font color="black"><b>Город</b></font>]]></item>
+        <item><![CDATA[В приложении Вы не сможете поменять команду, но во время игры команды могут поменяться. Вы можете написать о Вашем желании сменить команду в разделе <font color="black"><b>Сообщения</b></font> к игре.]]></item>
+        <item><![CDATA[Каждая Ваша оценка помогает улучшить качество нашего сервиса и дает обратную связь организатором об их играх. В разделе <font color="black"><b>оценить игру</b></font> Вы можете выбрать лучшего игрока, оценить организатора и поле на котором играли с возможностью оставить письменный отзыв. Оценить игру можно несколькими способами:
+<br>1. Экран с оценкой события автоматически появляется при входе в приложение после окончания игры
+<br>2. В разделе <font color="black"><b>Уведомления</b></font> Вы получите оповещение о оценке игры
+<br>3. В разделе <font color="black"><u>Профиль</u></font> → <font color="black"><u>Мои Игры</u></font> → <font color="black"><u>Архив</u></font>]]></item>
+        <item><![CDATA[В приложении Вы не сможете поменять команду, но во время игры команды могут поменяться. Вы можете написать о Вашем желании сменить команду в разделе <font color="black"><b>Сообщения</b></font> к игре. ]]></item>
+    </string-array>
+
+    <string-array name="answersForOrganizer">
+        <item><![CDATA[Быть организатором игры может быть любой зарегистрированный пользователь приложения. Для этого нужно самому забронировать поле и заполнить всю необходимую информацию при <font color="black"><u>Создании игры</u></font>.  Для детального ознакомления с правилами и условиями перейдите в раздел <font color="black"><u>Пользовательское соглашение</u></font>]]></item>
+        <item><![CDATA[При создании игры, Вам нужно выбрать на каком поле она будет проходить. Если не нашли нужного поля, Вы можете добавить поле самостоятельно нажав <font color="black"><u>Добавить поле</u></font> при поиске. После отправления заявки на добавление, оно в кратчайшие сроки будет добавлена на платформу и Вы сможете создавать на нём игры.  ]]></item>
+        <item><![CDATA[В таком случае, Вы можете отменить игру и средства автоматически вернутся игрокам, но в будущем это может негативно повлиять на Ваш рейтинг. Если не хватает игроков, то мы рекомендуем сообщить об этом другим игрокам в разделе <font color="black"><b>Сообщения</b></font> к игре и попросить позвать своих друзей и знакомых. Дополнительно, пригласите своих друзей и подпишитесь на других игроков.]]></item>
+        <item><![CDATA[Мы понимаем, что на организацию игры Вы тратите своё время и ресурсы, поэтому каждый организатор может выставлять свою стоимость за участие в игре. Мы рекомендуем выставлять минимальную цену, чтобы покрыть Ваши расходы, исходя из стоимости аренды поля деленное на количество игроков, учитывая 10% комиссию. Чтобы увеличить шансы того, что игра состоится Вы можете выставить сумму немного выше, на случай если не будет хватать нескольких игроков. ]]></item>
+        <item><![CDATA[Платформа выступает гарантом того, что игра для участников состоится, поэтому в избежании мошеннических схем, мы удерживаем средства полученные с игры в течении x часов. Сразу после этого Вы можете вывести Ваши средства с баланса.
+<br>Чтобы вывести Ваши средства перейдите в раздел <font color="black"><u>Кошелёк</u></font> и нажмите <font color="black"><b>Вывести</b></font> в блоке <font color="black"><b>Сумма вывода</b></font>. Если Ваши средства находятся на удержании, то нужно дождаться пока пройдет х часов с момента завершения игры, а также отметить игроков, которые были на игре.
+<br>Вы можете отметить игроков следующими способами:
+<br>1. Нажав <font color="black"><b>На удержании</b></font> в разделе <font color="black"><u>Кошелёк</u></font>
+<br>2. Экран автоматически появляется при входе в приложение после окончания игры
+<br>3. В разделе <font color="black"><u>Уведомления</u></font> Вы получите оповещение о отметке играков
+<br>4. В разделе <font color="black"><u>Профиль</u></font> → <font color="black"><u>Мои Игры</u></font> → <font color="black"><u>Архив</u></font>
+<br><i>*Платформа работает со сторонней платёжной системой, которая может ,брать комиссию за вывод средств.</i>]]></item>
+        <item><![CDATA[Да, для этого перейдите в раздел Вашей игры и нажмите <font color="black"><b>Управлять игрой</b></font>. Мы не рекомендуем удалять игроков из Вашей игры, потому что это негативно скажется на Ваш рейтинг. ]]></item>
+        <item><![CDATA[Да, для этого перейдите в раздел Вашей игры и нажмите “Управлять игрой”. Обязательные поля при создании игры редактировать нельзя, поэтому будьте внимательны и оповещайте о всех изменениях игроков заранее в <font color="black"><b>Сообщениях</b></font> к игре.]]></item>
+        <item><![CDATA[Закрытая игра нужна в том случае, если организатор хочет выбрать конкретных игроков для игры. Закрытая игра видна в <font color="black"><u>Календаре</u></font> только тем, кто подписан на организатора и на кого он подписан в ответ. Для одобрения участия, организатор должен принять заявку или лично пригласить игрока через приложение/ссылку. ]]></item>
+        <item><![CDATA[Мы рекомендуем всем организаторам приносить свой инвентарь включая мяч и манишки, чтобы игроки получили максимальное удовольствие от игры - это поможет Вам повысить рейтинг. Если у Вас нет инвентаря, то укажите об этом при создании игры и обязательно сообщите игрокам заранее в <font color="black"><b>Сообщениях</b></font> к игре.]]></item>
+    </string-array>
+
 </resources>
