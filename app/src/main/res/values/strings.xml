@@ -562,6 +562,7 @@
     <string name="badRating">Плохо</string>
     <string name="evaluateField">Оцените поле</string>
     <string name="leaveCommentAboutField">Оставьте комментарий о поле</string>
+    <string name="extendedTextFieldIconDescription">Два штриха для текстового поля</string>
     <string-array name="terribleHostTags">
         <item>Сильное опоздание</item>
         <item>Грубый</item>

@@ -557,9 +557,8 @@ fun NecessaryTextField(label : String,
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
     Column {
-        if (!removeLabelAbove) {
             AnimatedVisibility(
-                visible = visible,
+                visible = visible && !removeLabelAbove,
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
@@ -571,7 +570,6 @@ fun NecessaryTextField(label : String,
                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                 )
             }
-        }
         Box(contentAlignment = Alignment.BottomEnd) {
             BasicTextField(
                 modifier = modifier
@@ -629,7 +627,7 @@ fun NecessaryTextField(label : String,
             if (toCountWords > 0) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_rezible_10),
-                    contentDescription = "",
+                    contentDescription = stringResource(R.string.extendedTextFieldIconDescription),
                     tint = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(
                         bottom = MaterialTheme.spacing.small,
