@@ -53,6 +53,8 @@ import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAp
 import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
 
+import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 
 
 import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
@@ -278,6 +280,10 @@ fun MainNavigationController(
 
             composable(route = Route.NotificationScreen.path) {
                 NotificationScreen()
+            }
+
+            composable(route = Route.CalendarScreen.path){
+                CalendarScreen()
             }
         }
     }

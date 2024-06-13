@@ -633,4 +633,12 @@
         <item>Отличный персонал</item>
         <item>Полная инфраструктура</item>
     </string-array>
+    <string name="loginToCreateGame">Войдите, чтобы создать игру.</string>
+    <string name="calendarFilterNotFoundDescription">По заданным фильтрам не было найдено игр, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="noFiltersCalendarNotFoundDescription">По выбранной дате не было найдено\nигр или площадок, вы можете создать собственное событие</string>
+    <string name="calendarGameNotFoundTitle">Не найдено игр</string>
+    <string name="createGameButtonText">Создать игру</string>
+    <string name="addGameToCalendarIconDescription">Добавить событие в календаре</string>
+    <string name="calendarHeaderText">Календарь</string>
+    <string name="filterEventsCalendarIconDescription">Фильтр событий в календаре</string>
 </resources>
