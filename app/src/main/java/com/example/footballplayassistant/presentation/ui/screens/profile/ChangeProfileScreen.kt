@@ -8,9 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.ButtonCalendar
@@ -59,7 +56,7 @@ import com.example.footballplayassistant.presentation.navigation.LocalNavControl
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.screens.authentication.addStar
 import com.example.footballplayassistant.presentation.ui.screens.authentication.openCalendar
-import com.example.footballplayassistant.presentation.ui.theme.spacing
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.NecessaryTextField
 
 @Composable
 fun ChangeProfileScreen() {
@@ -124,7 +121,8 @@ fun ChangeProfileScreen() {
                     .align(Alignment.CenterHorizontally)
                     .background(
                         shape = RoundedCornerShape(12.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant)
+                        color = MaterialTheme.colorScheme.outlineVariant
+                    )
             ) {
                 Image(
                     painter = painterResource(id = currentFoto.intValue),
@@ -244,7 +242,7 @@ fun ChangeProfileScreen() {
                         placeholder = stringResource(id = R.string.city),
                         values = listOf("moskva", "spb", "ekb"),
                         textColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        onClickItem = { buttonEnable.value = true },
+                        onClick = { if(it.isNotEmpty()) buttonEnable.value = true },
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
@@ -285,7 +283,7 @@ fun ChangeProfileScreen() {
                         placeholder = stringResource(id = R.string.sex),
                         values = getGenders(),
                         imStart = R.drawable.ic_sex_23,
-                        onClickItem = { buttonEnable.value = true },
+                        onClick = { if(it.isNotEmpty()) buttonEnable.value = true },
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
@@ -301,7 +299,7 @@ fun ChangeProfileScreen() {
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.levelPlay),
                         values = getLevels(),
-                        onClickItem = { buttonEnable.value = true },
+                        onClick = { if(it.isNotEmpty()) buttonEnable.value = true },
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
@@ -317,53 +315,28 @@ fun ChangeProfileScreen() {
                     ButtonDropDownMenu(
                         placeholder = stringResource(id = R.string.position),
                         values = getPositions(),
-                        onClickItem = { buttonEnable.value = true },
+                        onClick = { if(it.isNotEmpty()) buttonEnable.value = true },
                         modifier = Modifier
                             .padding(bottom = 10.dp)
                             .heightIn(min = 48.dp)
                     )
                 }
                 item {
-                    val textLength = remember { mutableStateOf(0) }
                     Text(
                         text = stringResource(id = R.string.infoYourself),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
                     )
-                    Box {
-                        CommonTextField(
-                            placeholder = stringResource(id = R.string.tellYourself),
-                            singleLine = false,
-                            cornerRadius = 20.dp,
-                            maxLength = 300,
-                            onClick = {
-                                textLength.value = it.length
-                                buttonEnable.value = true
-                            },
-                            modifier = Modifier.fillMaxHeight()
+                    NecessaryTextField(
+                        label = stringResource(id = R.string.tellYourself),
+                        isSingleLine = false,
+                        containerColor = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(20.dp),
+                        toCountWords = 300,
+                        removeLabelAbove = true,
+                        onClick = { buttonEnable.value = it.isNotEmpty() }
                         )
-                        Image(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-                            contentDescription = "Rezible",
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                                .padding(
-                                    end = 8.dp,
-                                    bottom = 8.dp
-                                )
-                        )
-                    }
-
-                    Text(
-                        text = "${textLength.value}/300",
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        textAlign = TextAlign.End,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = MaterialTheme.spacing.extraSmall)
-                    )
                 }
                 item {
                     val animatedContainerColor: Color by animateColorAsState(
