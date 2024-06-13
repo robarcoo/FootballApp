@@ -508,4 +508,12 @@
     <string name="geolocationIsTurnedOff">Геолокация отключена</string>
     <string name="geolocationIsTurnedOffDescription">Выдача ближайших к вам полей будет недоступна по причине отключенной геолокации, для продолжения поиска полей включите геолокацию в профиле</string>
     <string name="turnOnGeolocation">Включить геолокацию</string>
+    <string name="loginToCreateGame">Войдите, чтобы создать игру.</string>
+    <string name="calendarFilterNotFoundDescription">По заданным фильтрам не было найдено игр, попробуйте изменить параметры поиска или создать собственное событие</string>
+    <string name="noFiltersCalendarNotFoundDescription">По выбранной дате не было найдено\nигр или площадок, вы можете создать собственное событие</string>
+    <string name="calendarGameNotFoundTitle">Не найдено игр</string>
+    <string name="createGameButtonText">Создать игру</string>
+    <string name="addGameToCalendarIconDescription">Добавить событие в календаре</string>
+    <string name="calendarHeaderText">Календарь</string>
+    <string name="filterEventsCalendarIconDescription">Фильтр событий в календаре</string>
 </resources>
