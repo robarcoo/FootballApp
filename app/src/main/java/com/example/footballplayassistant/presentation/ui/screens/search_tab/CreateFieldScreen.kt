@@ -157,7 +157,7 @@ fun CreateFieldScreen() {
                 modifier = Modifier.defaultMinSize(minHeight = MaterialTheme.spacing.extraLarge),
                 isSingleLine = false,
                 shape = RoundedCornerShape(20.dp),
-                toCountWords = true
+                toCountWords = 255
             )
 
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
@@ -285,7 +285,7 @@ fun CreateFieldScreen() {
 
         }
     }
-    
+
     if (showFieldCreatedDialog) {
         DialogScreen(header = stringResource(R.string.requestSentTitle), description =
         stringResource(R.string.requestSentDescription),
@@ -420,7 +420,7 @@ fun FinishedLoadingPhoto(image : Int, fileName : String, size : String, onShowCh
 @Composable
 fun ImageDialog(image : Int, onDismissRequest : () -> Unit) {
     Dialog(onDismissRequest = onDismissRequest) {
-        (LocalView.current.parent as DialogWindowProvider)?.window?.setDimAmount(0f)
+        (LocalView.current.parent as DialogWindowProvider).window.setDimAmount(0f)
         Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {
             Row(modifier = Modifier
                 .fillMaxWidth()
@@ -547,30 +547,35 @@ fun NecessaryTextField(label : String,
                        leadingIcon : Int = 0,
                        isSingleLine : Boolean = true,
                        shape : RoundedCornerShape = RoundedCornerShape(60.dp),
-                       toCountWords : Boolean = false,
+                       toCountWords : Int = 0,
+                       removeLabelAbove : Boolean = false,
+                       containerColor : Color = MaterialTheme.colorScheme.onPrimary,
+                       placeholderColor : Color = MaterialTheme.colorScheme.onSecondaryContainer,
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
     Column {
-        AnimatedVisibility(
-            visible = visible,
-            enter = expandVertically(),
-            exit = shrinkVertically()
-        ) {
-            AddAsterisk(text = label, style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer,
-                fontWeight = FontWeight.W400,
-                isNecessary = isNecessary,
-                modifier = Modifier.padding(MaterialTheme.spacing.small))
-        }
+            AnimatedVisibility(
+                visible = visible && !removeLabelAbove,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                AddAsterisk(
+                    text = label, style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontWeight = FontWeight.W400,
+                    isNecessary = isNecessary,
+                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                )
+            }
         Box(contentAlignment = Alignment.BottomEnd) {
             BasicTextField(
                 modifier = modifier
                     .fillMaxWidth()
                     .clip(shape)
-                    .background(MaterialTheme.colorScheme.onPrimary)
+                    .background(containerColor)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 value = value,
                 onValueChange = { value = it },
@@ -601,7 +606,7 @@ fun NecessaryTextField(label : String,
                         if (!isFocused && value.text.isEmpty()) {
                             AddAsterisk(
                                 text = label, style = MaterialTheme.typography.labelLarge,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                color = placeholderColor,
                                 fontWeight = FontWeight.W400,
                                 isNecessary = isNecessary
                             )
@@ -619,10 +624,10 @@ fun NecessaryTextField(label : String,
                 }
 
             }
-            if (toCountWords) {
+            if (toCountWords > 0) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_rezible_10),
-                    contentDescription = "",
+                    contentDescription = stringResource(R.string.extendedTextFieldIconDescription),
                     tint = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(
                         bottom = MaterialTheme.spacing.small,
@@ -631,17 +636,21 @@ fun NecessaryTextField(label : String,
                 )
             }
         }
-        if (value.text.isNotEmpty() && toCountWords) {
+        AnimatedVisibility(
+            visible = value.text.isNotEmpty() && toCountWords > 0,
+            enter = expandVertically(),
+            exit = shrinkVertically()
+        ) {
             Text(
-                text = "${value.text.count()}/255",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = MaterialTheme.spacing.extraSmall),
-                textAlign = TextAlign.End,
-                style = MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    fontWeight = FontWeight.W400
-                )
+                    text = "${value.text.count()}/$toCountWords",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = MaterialTheme.spacing.extraSmall),
+                    textAlign = TextAlign.End,
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+                        fontWeight = FontWeight.W400
+                    )
             )
         }
     }
