@@ -551,6 +551,7 @@ fun NecessaryTextField(label : String,
                        removeLabelAbove : Boolean = false,
                        containerColor : Color = MaterialTheme.colorScheme.onPrimary,
                        placeholderColor : Color = MaterialTheme.colorScheme.onSecondaryContainer,
+                       isEmpty : (Boolean) -> Unit = {},
                        onClick: (String) -> Unit = {},
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
@@ -582,7 +583,8 @@ fun NecessaryTextField(label : String,
                 onValueChange = {
                     value = it
                     onClick(value.text)
-                },
+                    isEmpty(value.text.isEmpty())
+                                },
                 interactionSource = interactionSource,
                 singleLine = isSingleLine,
                 textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400, lineHeight = 24.sp),
