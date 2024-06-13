@@ -349,31 +349,35 @@ fun FeedbackList(feedbackCount : Int) {
         ) // Инфа заглушка
     }
     if (feedbackCount > 3) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            Button(
-                onClick = {},
-                modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.outlineVariant
-                )
-            ) {
-                Text(
-                    stringResource(R.string.showMoreFeedbackButton),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.W600,
-
-                        ), modifier = Modifier.padding(end = MaterialTheme.spacing.extraSmall)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_arrows_down_24),
-                    contentDescription = stringResource(R.string.expandIconDescription), tint = MaterialTheme.colorScheme.secondary
-                )
-            }
-        }
+        ShowMoreButton()
     }
 }
 
+@Composable
+fun ShowMoreButton() {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Button(
+            onClick = {},
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.outlineVariant
+            )
+        ) {
+            Text(
+                stringResource(R.string.showMoreFeedbackButton),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.W600,
+
+                    ), modifier = Modifier.padding(end = MaterialTheme.spacing.extraSmall)
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_arrows_down_24),
+                contentDescription = stringResource(R.string.expandIconDescription), tint = MaterialTheme.colorScheme.secondary
+            )
+        }
+    }
+}
 @Composable
 fun ImageCounter(currentCount: Int, maxCount : Int) {
     Row(
@@ -519,17 +523,7 @@ fun EventCard(event : Event) {
                 modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
             )
             Row(modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)) {
-                LazyVerticalGrid(
-                    modifier = Modifier.size(62.dp),
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(MaterialTheme.spacing.extraSmall),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    items(if (event.participants.size > 4) 4 else event.participants.size) { index ->
-                        PhotoGrid(event, index)
-                    }
-                }
+                PhotoGrid(event)
 
                 FlowRow(modifier = Modifier
                     .padding(horizontal = MaterialTheme.spacing.small)
@@ -568,7 +562,7 @@ fun EventCard(event : Event) {
 
 
 @Composable
-fun EventDetails(event : Event) {
+fun EventDetails(event : Event, isHost : Boolean = false, isSuccessful : Boolean = true) {
     Row(
         modifier = Modifier
             .padding(top = MaterialTheme.spacing.medium)
@@ -605,10 +599,20 @@ fun EventDetails(event : Event) {
         Text(
             buildAnnotatedString {
                 withStyle(style = SpanStyle(fontWeight = FontWeight.W700)) {
-                    append(event.price.toString())
+                    if (isHost) {
+                        append("Вывод: ${
+                            if (isSuccessful) {
+                                event.price * event.participants.size
+                            } else {
+                                0
+                        }}")
+                    } else {
+                        append(event.price.toString())
+                    }
                 }
-
-                append(stringResource(R.string.pricePerPerson))
+                if (!isHost) {
+                    append(stringResource(R.string.pricePerPerson))
+                }
             },
             style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
         )
@@ -616,37 +620,58 @@ fun EventDetails(event : Event) {
     }
 }
 @Composable
-fun PhotoGrid(event : Event, index : Int) {
-    if (event.participants.size > 4 && index == 3) {
-        Row(
-            modifier = Modifier
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .size(26.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "+${event.participants.size - 3}",
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontWeight = FontWeight.W400,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            )
-        }
-    } else {
-        Image(
-            painterResource(id = event.participants[index].photo),
-            contentDescription = stringResource(R.string.eventParticipantAvatarImageDescription),
-            modifier = Modifier
-                .size(26.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            contentScale = ContentScale.Crop
+fun PhotoGrid(event : Event, addBorder : Boolean = false) {
+    LazyVerticalGrid(
+        modifier = Modifier.size(62.dp),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(MaterialTheme.spacing.extraSmall),
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        items(if (event.participants.size > 4) 4 else event.participants.size) {
+            index ->
+            if (event.participants.size > 4 && index == 3 && !addBorder) {
+                Row(
+                    modifier = Modifier
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .size(26.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "+${event.participants.size - 3}",
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontWeight = FontWeight.W400,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    )
+                }
+            } else {
+                Image(
+                    painterResource(id = event.participants[index].photo),
+                    contentDescription = stringResource(R.string.eventParticipantAvatarImageDescription),
+                    modifier = Modifier
+                        .size(26.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                            .then(if
+                                    (addBorder) {
+                                Modifier.border(width = 1.dp,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    shape = RoundedCornerShape(8.dp))
+                            }
+                            else {
+                                Modifier
+                            }
+                            ),
+                    contentScale = ContentScale.Crop
 
-        )
+                )
+            }
+        }
     }
 }
 @Composable

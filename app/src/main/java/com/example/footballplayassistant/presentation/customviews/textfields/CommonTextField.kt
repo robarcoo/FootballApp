@@ -49,6 +49,7 @@ fun CommonTextField(
     readOnly: Boolean = false,
     isError: Boolean = false,
     tintIcon: Color = MaterialTheme.colorScheme.primary,
+    mask: VisualTransformation = VisualTransformation.None,
     onClick: (String) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -102,7 +103,7 @@ fun CommonTextField(
         readOnly = readOnly,
         keyboardOptions = KeyboardOptions(keyboardType = keyBoard),
         visualTransformation = if (isPass) PasswordVisualTransformation()
-        else VisualTransformation.None,
+        else mask,
     )
     {
         TextFieldDefaults.DecorationBox(

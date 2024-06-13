@@ -49,7 +49,7 @@ fun ButtonDropDownMenu(
         onExpandedChange = { expanded = !expanded }
     ) {
         Button(
-            onClick = { onClick.invoke(selectedOptionText) },
+            onClick = { /*onClick.invoke(selectedOptionText)*/ },
             colors = ButtonDefaults.buttonColors(containerColor = color),
             contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
             modifier = modifier
@@ -101,6 +101,7 @@ fun ButtonDropDownMenu(
                     onClick = {
                         selectedOptionText = selectionOption
                         expanded = false
+                        onClick(selectedOptionText)
                     }
                 )
             }

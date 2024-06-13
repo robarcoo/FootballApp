@@ -27,17 +27,13 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RangeSlider
-import androidx.compose.material3.RangeSliderState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.SliderPositions
-import androidx.compose.material3.SliderState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,15 +48,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonSwitch
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
@@ -88,10 +80,12 @@ fun FilterScreen() {
             Spacer(modifier = Modifier.size(MaterialTheme.spacing.large))
             FilterRangeSlider(stringResource(id = R.string.awayFromUser), activeRangeStart = 0f, activeRangeEnd = 50f, needTwoThumbs = true)
             FilterRangeSlider(stringResource(id = R.string.amountOfPlayers), activeRangeStart = 12f, activeRangeEnd = 48f, needTwoThumbs = true)
+
             ToggleButton(
                 stringResource(R.string.typesOfArena),
                 stringArrayResource(id = R.array.typesOfArenaArray)
             )
+            Spacer(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large))
             ToggleButton(
                 stringResource(id = R.string.coveringType),
                 stringArrayResource(id = R.array.coveringTypeArray)
@@ -142,13 +136,22 @@ fun FilterButton(text : String, horizontalPadding : Dp, containerColor : Color, 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ToggleButton(title: String, items: Array<String>) {
-    val selectedIndex = remember { items.indices.toList().toMutableStateList() }
-    Column(modifier = Modifier.padding(bottom = MaterialTheme.spacing.large)) {
-        Text(
-            title, style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
-        )
-        Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+fun ToggleButton(title: String = "", items: Array<String>, selectAll : Boolean = true) {
+    val selectedIndex = remember {
+        if (selectAll) {
+        items.indices.toList().toMutableStateList()
+    } else {
+        mutableStateListOf()
+    }
+    }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        if (title.isNotEmpty()) {
+            Text(
+                title,
+                style = MaterialTheme.typography.displayMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+            )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
+        }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             items.forEachIndexed { index, item ->
@@ -157,7 +160,7 @@ fun ToggleButton(title: String, items: Array<String>) {
                         vertical = MaterialTheme.spacing.small,
                         horizontal = MaterialTheme.spacing.small
                     ),
-                    onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index)) },
+                    onClick = { selectedIndex.swap(toggleLogic(selectedIndex, index, selectAll)) },
                     shape = RoundedCornerShape(8.dp),
                     border = if (index in selectedIndex) {
                         BorderStroke(1.dp, color =  MaterialTheme.colorScheme.secondary)
@@ -183,9 +186,9 @@ private fun <T> SnapshotStateList<T>.swap(list: List<T>) {
     this.addAll(list)
 }
 
-fun toggleLogic(list : List<Int>, element : Int) : List<Int> {
+fun toggleLogic(list : List<Int>, element : Int, selectAll: Boolean) : List<Int> {
     val newList = list.toMutableList()
-    if (newList.contains(element) && newList.size > 1) {
+    if (newList.contains(element) && (newList.size > 1 || !selectAll)) {
         newList.remove(element)
     } else if (!newList.contains(element)) {
         newList.add(element)
@@ -255,7 +258,7 @@ fun FilterRangeSlider(text: String, style : TextStyle = MaterialTheme.typography
                 endThumb = { ThumbKnob() },
                 track = { SliderDefaults.Track(
                     modifier = Modifier.height(2.dp),
-                    colors = SliderTrackColors(),
+                    colors = sliderTrackColors(),
                     rangeSliderState = it
                     )
                 }
@@ -270,7 +273,7 @@ fun FilterRangeSlider(text: String, style : TextStyle = MaterialTheme.typography
                 track = { SliderDefaults.Track(
                     sliderState = it,
                     modifier = Modifier.height(2.dp),
-                    colors = SliderTrackColors(),
+                    colors = sliderTrackColors(),
                     )
                 }
             )
@@ -289,7 +292,7 @@ fun ThumbKnob() {
 
 
 @Composable
-fun SliderTrackColors(): SliderColors {
+fun sliderTrackColors(): SliderColors {
     return SliderDefaults.colors(
         activeTrackColor = MaterialTheme.colorScheme.secondary,
         inactiveTrackColor = MaterialTheme.colorScheme.tertiaryContainer,
