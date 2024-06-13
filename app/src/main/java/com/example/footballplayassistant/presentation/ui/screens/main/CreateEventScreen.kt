@@ -136,7 +136,7 @@ fun CreateEventScreen() {
                         placeholder = stringResource(id = R.string.date),
                         values = dates,
                         imStart = R.drawable.ic_calendar_22,
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier
                             .padding(bottom = 10.dp, top = 12.dp)
                             .padding(horizontal = 16.dp)
@@ -164,7 +164,7 @@ fun CreateEventScreen() {
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
                                 .padding(end = 4.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             values = time
                         )
                         ButtonDropDownMenu(
@@ -172,7 +172,7 @@ fun CreateEventScreen() {
                             imTrail = R.drawable.ic_time_black_24,
                             modifier = Modifier
                                 .padding(start = 4.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             values = time
                         )
                     }
@@ -234,7 +234,7 @@ fun CreateEventScreen() {
                             placeholder = "",
                             imStart = R.drawable.ic_people_24,
                             values = countPlayers,
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             modifier = Modifier.padding(end = 16.dp)
                         )
                     }
