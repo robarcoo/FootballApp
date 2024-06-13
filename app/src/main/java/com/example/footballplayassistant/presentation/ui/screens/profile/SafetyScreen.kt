@@ -69,6 +69,7 @@ fun SafetyScreen() {
         Column {
             HeaderWithBackButton(
                 text = stringResource(id = R.string.safety),
+                onClickBack = {navController.navigate(Route.UserProfileScreen.withArgs("false"))},
                 modifier = Modifier.padding(top = 12.dp)
             )
 

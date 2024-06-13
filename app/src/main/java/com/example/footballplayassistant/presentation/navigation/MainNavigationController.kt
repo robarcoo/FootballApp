@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.constants.RulesPolitic
+import com.example.footballplayassistant.presentation.enums.CameraGallery
 import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.ui.screens.authentication.EnterInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.ForgotPasswordScreen
@@ -40,9 +41,11 @@ import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScr
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.BlockedUsersScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.PlayerProfileScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.ChangeProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SubscriptionsScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.ViewingPhotoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.AdditionalFieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.ComingEventsScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.CreateFieldScreen
@@ -52,11 +55,8 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Sear
 import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
-
 import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
-
-
 import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
@@ -284,6 +284,23 @@ fun MainNavigationController(
 
             composable(route = Route.CalendarScreen.path){
                 CalendarScreen()
+            }
+
+            composable(route = Route.ChangeProfileScreen.path){
+                ChangeProfileScreen()
+            }
+
+            composable(route = Route.ViewingPhotoScreen.path + "/{type}",
+                arguments = listOf(navArgument("type") {
+                    type = NavType.IntType
+                    defaultValue = CameraGallery.Gallery.ordinal
+                    nullable = false
+                })) { entry ->
+                entry.arguments?.getInt("type").let { type ->
+                    if (type != null) {
+                        ViewingPhotoScreen(type = type)
+                    }
+                }
             }
         }
     }

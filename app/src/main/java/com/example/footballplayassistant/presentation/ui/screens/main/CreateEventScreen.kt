@@ -143,7 +143,7 @@ fun CreateEventScreen() {
                         placeholder = stringResource(id = R.string.date),
                         values = dates,
                         imStart = R.drawable.ic_calendar_22,
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
                         onClick = { date.value = it },
                         modifier = Modifier.padding(bottom = 10.dp, top = 12.dp, start = 16.dp, end = 16.dp)
                     )
@@ -170,7 +170,7 @@ fun CreateEventScreen() {
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
                                 .padding(end = 4.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             values = time,
                             onClick = { timeStart.value = it },
                         )
@@ -178,7 +178,7 @@ fun CreateEventScreen() {
                             placeholder = stringResource(id = R.string.end),
                             imTrail = R.drawable.ic_time_black_24,
                             modifier = Modifier.padding(start = 4.dp),
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             values = time,
                             onClick = { timeEnd.value = it },
                         )
@@ -237,7 +237,7 @@ fun CreateEventScreen() {
                             placeholder = "",
                             imStart = R.drawable.ic_people_24,
                             values = countPlayers,
-                            color = MaterialTheme.colorScheme.primaryContainer,
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
                             onClick = { count.value = it },
                             modifier = Modifier.padding(end = 16.dp)
                         )
