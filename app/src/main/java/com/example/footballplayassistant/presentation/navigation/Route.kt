@@ -85,6 +85,8 @@ sealed class Route(val path: String) {
     data object EvaluateEventScreen : Route(path = "evaluate_event_screen")
     data object BestPlayerScreen : Route(path = "best_player_screen")
 
+    data object LeaveMessageScreen : Route(path = "leave_message_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

@@ -653,6 +653,9 @@
     <string name="addGameToCalendarIconDescription">Добавить событие в календаре</string>
     <string name="calendarHeaderText">Календарь</string>
     <string name="filterEventsCalendarIconDescription">Фильтр событий в календаре</string>
+    <string name="leaveMessageHeader">Оставить сообщение</string>
+    <string name="yourMessagePlaceholderText">Ваше сообщение</string>
+    <string name="sendButtonText">Отправить</string>
 
 
     <!--FAQ-->

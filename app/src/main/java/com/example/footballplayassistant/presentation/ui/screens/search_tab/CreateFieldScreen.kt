@@ -551,11 +551,13 @@ fun NecessaryTextField(label : String,
                        removeLabelAbove : Boolean = false,
                        containerColor : Color = MaterialTheme.colorScheme.onPrimary,
                        placeholderColor : Color = MaterialTheme.colorScheme.onSecondaryContainer,
+                       isEmpty : (Boolean) -> Unit = {},
                        @SuppressLint("ModifierParameter") modifier: Modifier = Modifier) {
     var value by remember { mutableStateOf(TextFieldValue(""))}
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
+    isEmpty(value.text.isEmpty())
     Column {
             AnimatedVisibility(
                 visible = visible && !removeLabelAbove,

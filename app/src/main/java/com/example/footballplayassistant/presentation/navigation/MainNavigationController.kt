@@ -54,6 +54,7 @@ import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScre
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
 
 import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
+import com.example.footballplayassistant.presentation.ui.screens.main.LeaveMessageScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 
 
@@ -284,6 +285,10 @@ fun MainNavigationController(
 
             composable(route = Route.CalendarScreen.path){
                 CalendarScreen()
+            }
+
+            composable(route = Route.LeaveMessageScreen.path){
+                LeaveMessageScreen()
             }
         }
     }
