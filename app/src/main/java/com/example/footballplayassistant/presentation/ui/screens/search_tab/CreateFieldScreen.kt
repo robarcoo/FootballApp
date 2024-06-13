@@ -557,7 +557,6 @@ fun NecessaryTextField(label : String,
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     val visible by remember { derivedStateOf { (isFocused || value.text.isNotEmpty()) } }
-    isEmpty(value.text.isEmpty())
     Column {
             AnimatedVisibility(
                 visible = visible && !removeLabelAbove,
@@ -580,7 +579,10 @@ fun NecessaryTextField(label : String,
                     .background(containerColor)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 value = value,
-                onValueChange = { value = it },
+                onValueChange = {
+                    value = it
+                    isEmpty(value.text.isEmpty())
+                                },
                 interactionSource = interactionSource,
                 singleLine = isSingleLine,
                 textStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400, lineHeight = 24.sp),
