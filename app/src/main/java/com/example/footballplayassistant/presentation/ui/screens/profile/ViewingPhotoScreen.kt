@@ -1,12 +1,8 @@
 package com.example.footballplayassistant.presentation.ui.screens.profile
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
@@ -21,8 +17,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
@@ -56,7 +50,6 @@ import com.example.footballplayassistant.presentation.enums.CameraGallery
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.skydoves.cloudy.Cloudy
-import java.io.File
 
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -155,7 +148,6 @@ private fun Library(enable: MutableState<Boolean>) {
                 contentDescription = "Arrow"
             )
         }
-        //сетка
     }
 }
 
@@ -347,140 +339,5 @@ private fun AvatarBox(glideState: MutableState<Boolean>) {
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(12.dp))
         )
-    }
-}
-
-//////////////////////////////////////////////////////////////////////////////
-
-
-@Composable
-private fun getImagePath(ctx: Context): MutableList<String> {
-//    val requestPermissionLauncher = rememberLauncherForActivityResult(
-//        ActivityResultContracts.RequestPermission()
-//    ) { isGranted ->
-//        if (isGranted) {
-//            Log.d("MyLog", "Permission granted")
-//        } else {
-//            Log.d("MyLog", "Permission denied")
-//        }
-//    }
-//    LaunchedEffect(true) {
-//        requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-//    }
-    var imgList: MutableList<String> = ArrayList()
-    val isSDPresent = Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-
-    if (isSDPresent) {
-        val columns = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA)
-        val orderBy = MediaStore.Images.Media._ID
-
-//        val cursor: Cursor? = ctx.contentResolver.query(
-//            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//            columns,
-//            null,
-//            null,
-//            orderBy
-//        )
-////////////////////////////////////////////////////////
-        //откуда берутся фото
-        //  /picker/0/com.android.providers.media.photopicker/media/1000005357
-
-        // /storage/emulated/0/Pictures/         contentUri.toUri()
-//        val contentUri = MediaStore.Images.Media.INTERNAL_CONTENT_URI
-//        Log.d("MyLog", "contentUri ${contentUri.path}")
-//        ctx.contentResolver.query(contentUri, columns, null, null, null)?.use { cursor ->
-//            if (cursor.moveToFirst()) {
-//                val imageIdIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID)
-//                val imageUriIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.DATA)
-//                do {
-//                    val id = cursor.getString(imageIdIndex)
-//                    val imageUri = Uri.parse(cursor.getString(imageUriIndex))
-//                    Log.d("MyLog", "id ${id}")
-//                    Log.d("MyLog", "imageUri ${imageUri.path}")
-//                } while (cursor.moveToNext())
-//                 cursor.close()
-//            }
-//        }
-/////////////////////////////////////////
-//        val count: Int = cursor!!.count
-//
-//        for (i in 0 until count) {
-//            if (imgList.size > 8) {
-//                break
-//            }
-//
-//            cursor.moveToPosition(i * 3)
-//
-//            val dataColumnIndex: Int = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
-//
-//            Log.d("MyLog", "dataColumnIndex ${cursor.getString(dataColumnIndex)}")
-//
-//            imgList.add(cursor.getString(dataColumnIndex))
-//        }
-//        cursor.close()
-    }
-    Log.d("MyLog", "count ${imgList.size}")
-    return imgList
-}
-
-@RequiresApi(Build.VERSION_CODES.R)
-@Composable
-fun getFotos() {
-    var gpath: String =
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
-    var spath = "Camera"//
-    var fullpath = File(gpath + File.separator + spath)
-    Log.d("MyLog", "" + fullpath)
-    imageReaderNew(fullpath)
-}
-
-fun imageReaderNew(root: File) {
-    val fileList: ArrayList<File> = ArrayList()
-    val listAllFiles = root.listFiles()
-
-    if (listAllFiles != null && listAllFiles.isNotEmpty()) {
-        for (currentFile in listAllFiles) {
-//            if (currentFile.name.endsWith(".jpg")) {
-            // File absolute path
-            Log.d("MyLog", "currentFile.getAbsolutePath() " + currentFile.getAbsolutePath())
-            // File Name
-            Log.d("MyLog", "currentFile.getName() " + currentFile.getName())
-            fileList.add(currentFile.absoluteFile)
-//            }
-        }
-        Log.d("MyLog", "listAllFiles " + listAllFiles.size)
-        Log.d("MyLog", "fileList " + fileList.size)
-    }
-}
-
-@Composable
-fun gridView(context: Context) {
-    var imgList: MutableList<String> = ArrayList()
-    imgList = getImagePath(context)
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        modifier = Modifier.padding(10.dp)
-
-    ) {
-        items(imgList.size) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .fillMaxHeight()
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                val imgFile = File(imgList[it])
-                Image(
-                    painter = rememberAsyncImagePainter(model = imgFile),
-                    contentDescription = "Javascript",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                )
-            }
-        }
     }
 }
