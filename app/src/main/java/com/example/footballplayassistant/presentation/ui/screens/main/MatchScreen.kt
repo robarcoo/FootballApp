@@ -1,11 +1,14 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
+import android.os.Build
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,13 +42,14 @@ import com.example.footballplayassistant.presentation.customviews.cards.CommonIc
 import com.example.footballplayassistant.presentation.customviews.cards.CommonIconTextInventoryCard
 import com.example.footballplayassistant.presentation.customviews.cards.CommonOtherInfoCard
 import com.example.footballplayassistant.presentation.customviews.cards.GreenBorderCard
-import com.example.footballplayassistant.presentation.customviews.cards.PlayersCard
+import com.example.footballplayassistant.presentation.customviews.cards.NoOneJoinedCard
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.CommonActionsMenu
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderWithBackButton
 import com.example.footballplayassistant.presentation.customviews.rows.FieldNameRow
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.skydoves.cloudy.Cloudy
 import kotlinx.coroutines.launch
 
 @Composable
@@ -53,6 +58,7 @@ fun MatchScreen() {
     val showDialogTakePart = remember { mutableStateOf(false) }
     val showDialogCancel = remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
+    val blur = remember { mutableStateOf(false) }
 
     val snackBarScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -125,15 +131,9 @@ fun MatchScreen() {
                     shape = RoundedCornerShape(12.dp)
                 )
             }
-        }) {
-        Column(
-            modifier = Modifier
-                .padding(top = 12.dp)
-                .padding(it)
-        ) {
-            val str = stringResource(
-                id = R.string.refCopied
-            )
+        },
+        topBar = {
+            val str = stringResource(id = R.string.refCopied)
             HeaderWithBackButton(
                 text = stringResource(id = R.string.match),//R.string.matchIsOver
                 imageButton = R.drawable.ic_arrow_share_25,
@@ -154,101 +154,146 @@ fun MatchScreen() {
                             })
                     )
                 },
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp)
             )
-
-            LazyColumn {
-                item {
-                    MatchFotoBox(
-                        currentPlayers = 5, maxPlayers = 10,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally)
-                            .padding(horizontal = 16.dp, vertical = 12.dp)
-                    )
-                }
-
-                item { FieldNameRow(fieldName = "Футбольный манеж 38х16 «Спорт Ангар» Теплый стан ") }
-
-                item {
+        }) {
+        if (blur.value)
+            if (Build.VERSION.RELEASE.toDouble() < 12.0)
+                Box(modifier = Modifier.padding(it)) {
+                    Cloudy(radius = 20) {
+                        Content()
+                    }
                     Text(
-                        text = "Москва, ул. Ленинский проспект, строение 2 корпус 3 ул. Ленинский проспект, строение 2",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.displaySmall.copy(
-                            fontWeight = FontWeight.W500,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        ),
+                        text = stringResource(id = R.string.matchIsOverBlur),
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.W400),
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .padding(top = 4.dp, bottom = 22.dp)
+                            .align(Alignment.Center)
                             .padding(horizontal = 16.dp)
-                            .fillMaxWidth(0.9f)
                     )
                 }
-
-                item {
-                    Row(
+            else
+                Box(modifier = Modifier.padding(it)) {
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            .fillMaxSize()
+                            .blur(radius = 20.dp)
+                            .align(Alignment.Center)
                     ) {
-                        GreenBorderCard(
-                            text = stringResource(id = R.string.cost), value = "1500₽",
-                            modifier = Modifier.weight(0.3f)
-                        )
-                        GreenBorderCard(
-                            text = stringResource(id = R.string.sexMatch), value = "M",
-                            modifier = Modifier.weight(0.3f)
-                        )
-                        GreenBorderCard(
-                            text = stringResource(id = R.string.type),
-                            value = "открытый",
-                            modifier = Modifier.weight(0.3f)
-                        )
+                        Content()
                     }
-                }
-
-                item {
-                    Row(
+                    Text(
+                        text = stringResource(id = R.string.matchIsOverBlur),
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            fontWeight = FontWeight.W400),
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .align(Alignment.Center)
                             .padding(horizontal = 16.dp)
-                            .padding(top = 32.dp, bottom = 11.dp),
-                        horizontalArrangement = Arrangement.spacedBy(11.dp)
-                    ) {
-                        CommonIconTextCard(
-                            icon = R.drawable.ic_time_black_24,
-                            text = "08:00 - 12:00",
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        CommonIconTextCard(
-                            icon = R.drawable.ic_calendar_22,
-                            text = "01.01.2021",
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
+                    )
                 }
+        else
+            Content(modifier = Modifier.padding(it))
+    }
+}
 
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .height(intrinsicSize = IntrinsicSize.Max),
-                        horizontalArrangement = Arrangement.spacedBy(11.dp)
-                    ) {
-                        CommonIconTextInventoryCard(modifier = Modifier.weight(1f))
+@Composable
+private fun Content(modifier: Modifier = Modifier) {
+    val navController = LocalNavController.current!!
 
-                        CommonOtherInfoCard(
-                            onClick = { navController.navigate(Route.MatchInfoScreen.path) },
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight()
-                                .align(Alignment.CenterVertically)
-                        )
-                        //для хоста
+    LazyColumn(modifier = modifier) {
+        item {
+            MatchFotoBox(
+                currentPlayers = 5, maxPlayers = 10,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            )
+        }
+
+        item { FieldNameRow(fieldName = "Футбольный манеж 38х16 «Спорт Ангар» Теплый стан ") }
+
+        item {
+            Text(
+                text = "Москва, ул. Ленинский проспект, строение 2 корпус 3 ул. Ленинский проспект, строение 2",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.displaySmall.copy(
+                    fontWeight = FontWeight.W500,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer),
+                modifier = Modifier
+                    .padding(top = 4.dp, bottom = 22.dp)
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(0.9f)
+            )
+        }
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                GreenBorderCard(
+                    text = stringResource(id = R.string.cost), value = "1500₽",
+                    modifier = Modifier.weight(0.3f)
+                )
+                GreenBorderCard(
+                    text = stringResource(id = R.string.sexMatch), value = "M",
+                    modifier = Modifier.weight(0.3f)
+                )
+                GreenBorderCard(
+                    text = stringResource(id = R.string.type),
+                    value = "открытый",
+                    modifier = Modifier.weight(0.3f)
+                )
+            }
+        }
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 32.dp, bottom = 11.dp),
+                horizontalArrangement = Arrangement.spacedBy(11.dp)
+            ) {
+                CommonIconTextCard(
+                    icon = R.drawable.ic_time_black_24,
+                    text = "08:00 - 12:00",
+                    modifier = Modifier.weight(1f)
+                )
+
+                CommonIconTextCard(
+                    icon = R.drawable.ic_calendar_22,
+                    text = "01.01.2021",
+                    modifier = Modifier.weight(1f)
+                )
+            }
+        }
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .height(intrinsicSize = IntrinsicSize.Max),
+                horizontalArrangement = Arrangement.spacedBy(11.dp)
+            ) {
+                CommonIconTextInventoryCard(modifier = Modifier.weight(1f))
+
+                CommonOtherInfoCard(
+                    onClick = { navController.navigate(Route.MatchInfoScreen.path) },
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .align(Alignment.CenterVertically)
+                )
+                //для хоста
 //                        CommonWithdrawalSumCard(
 //                            summa = 1000,
 //                            onClick = {},
@@ -257,18 +302,89 @@ fun MatchScreen() {
 //                                .fillMaxHeight()
 //                                .align(Alignment.CenterVertically)
 //                        )
-                    }
-                }
-
-                item {
-                    PlayersCard(
-                        name = "Name name",
-                        participants = listOf("first", "second", "third")
-                    )
-                }
-
-                item { CommentsCard(commentsList = listOf()) }
             }
+        }
+
+        item {
+            //никто не присоединился
+            NoOneJoinedCard(
+                maxPlayers = 10,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+
+            //присоединился только хост
+//                    OnlyHostJoinedCard(
+//                        maxPlayers = 10,
+//                        name = "Name name",
+//                        modifier = Modifier.padding(horizontal = 16.dp)
+//                    )
+
+            //игроки присоединились
+//                    PlayersHostCard(modifier = Modifier.padding(horizontal = 16.dp),
+//                        participants = listOf(
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов"
+//                        ),
+//                        nameHost = "Игорь Архипов")
+
+//                    PlayersCard(
+//                        modifier = Modifier.padding(horizontal = 16.dp),
+//                        participants = listOf(
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов",
+//                            "Игорь Архипов"
+//                        ),
+//                        maxPlayers = 10
+//                    )
+        }
+
+        item {
+            //если игрок не присоединился
+//            if (Build.VERSION.RELEASE.toDouble() < 12.0)
+//                Box {
+//                    Cloudy(radius = 20) {
+//                        CommentsCard(commentsList = listOf())
+//                    }
+//                    Text(
+//                        text = stringResource(id = R.string.joinToGameForSeeMsg),
+//                        style = MaterialTheme.typography.labelMedium.copy(
+//                            fontWeight = FontWeight.W400
+//                        ),
+//                        color = MaterialTheme.colorScheme.primary,
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .align(Alignment.Center)
+//                            .padding(horizontal = 16.dp)
+//                    )
+//                }
+//            else
+//                Box {
+//                    Box(
+//                        modifier = Modifier
+//                            .blur(radius = 20.dp)
+//                            .align(Alignment.Center)
+//                    ) {
+//                        CommentsCard(commentsList = listOf())
+//                    }
+//                    Text(
+//                        text = stringResource(id = R.string.joinToGameForSeeMsg),
+//                        style = MaterialTheme.typography.labelMedium.copy(
+//                            fontWeight = FontWeight.W400
+//                        ),
+//                        color = MaterialTheme.colorScheme.primary,
+//                        textAlign = TextAlign.Center,
+//                        modifier = Modifier
+//                            .align(Alignment.Center)
+//                            .padding(horizontal = 16.dp)
+//                    )
+//                }
+            //если присоединился
+            CommentsCard(commentsList = listOf())
         }
     }
 }
@@ -284,8 +400,7 @@ private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClic
                 onClick = {},
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary
-                ),
+                    containerColor = MaterialTheme.colorScheme.onPrimary),
                 modifier = Modifier.border(
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.tertiaryContainer,
@@ -297,8 +412,7 @@ private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClic
                         text = stringResource(id = R.string.deposit),
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontWeight = FontWeight.W500,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        ),
+                            color = MaterialTheme.colorScheme.onSecondaryContainer),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 2.dp)
                     )
@@ -306,8 +420,7 @@ private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClic
                         text = "1500p",
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.W600,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        ),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer),
                         textAlign = TextAlign.Center
                     )
                 }
@@ -316,7 +429,7 @@ private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClic
                 text = stringResource(id = R.string.cancelParticipate),
                 containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                onClick = {onClick()}
+                onClick = { onClick() }
             )
         }
         if (bottomText)
@@ -324,8 +437,7 @@ private fun BottomButtonsCancel(bottomText: Boolean, autoReturn: Boolean, onClic
                 text = stringResource(id = if (autoReturn) R.string.autoReturn else R.string.notAutoReturn),
                 style = MaterialTheme.typography.displaySmall.copy(
                     fontWeight = FontWeight.W500,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                ),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 12.dp)
             )
@@ -345,8 +457,7 @@ private fun BottomButtonsEventEnd(textButton: Int, onClick: () -> Unit) {
             text = stringResource(id = R.string.eventEnd),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontWeight = FontWeight.W500,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
+                color = MaterialTheme.colorScheme.onSecondaryContainer),
             textAlign = TextAlign.Center
         )
     }
@@ -368,8 +479,7 @@ private fun BottomButtonsCantManageGame() {
             text = stringResource(id = R.string.youCantEditGame),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontWeight = FontWeight.W500,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
+                color = MaterialTheme.colorScheme.onSecondaryContainer),
             textAlign = TextAlign.Center
         )
     }
@@ -391,8 +501,7 @@ private fun BottomButtonsCantEditGame() {
             text = stringResource(id = R.string.youCantEditGame),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontWeight = FontWeight.W500,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
+                color = MaterialTheme.colorScheme.onSecondaryContainer),
             textAlign = TextAlign.Center
         )
     }
@@ -413,7 +522,7 @@ private fun CommonBottomButtons(
             text = stringResource(id = textButton),
             containerColor = if (deleted) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.secondary,
             contentColor = if (deleted) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.primary,
-            onClick = { if(!deleted) onClick() }
+            onClick = { if (!deleted) onClick() }
         )
         //если не авторизован
         if (!authorized)

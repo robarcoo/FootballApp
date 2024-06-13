@@ -210,6 +210,12 @@
     <string name="negativeRate"> Это может негативно повлиять на ваш рейтинг. </string>
     <string name="cancelParticipation">Отменить участие</string>
     <string name="matchIsOver">Матч завершен!</string>
+    <string name="andOther">и %1$d других</string>
+    <string name="noOneJoin">Никто\nне присоединился</string>
+    <string name="noOneMoreJoin">Больше никто не\nприсоединился</string>
+    <string name="plus">+%1$d</string>
+    <string name="joinToGameForSeeMsg">Чтобы посмотреть сообщения игроков к этому матчу и оставлять свои сообщения, присоединитесь в игре</string>
+    <string name="matchIsOverBlur">Матч завершен, поэтому вы не можете просматривать информацию о матче.</string>
 
 
     <string name="matchInfo">Информация о матче</string>

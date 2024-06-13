@@ -26,6 +26,7 @@ import com.example.footballplayassistant.presentation.ui.screens.authentication.
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepOneScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.SignUpStepTwoScreen
 import com.example.footballplayassistant.presentation.ui.screens.authentication.StartScreen
+import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.ChooseTeamScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.CreateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.EditGameScreen
@@ -39,9 +40,16 @@ import com.example.footballplayassistant.presentation.ui.screens.main.MyGamesScr
 import com.example.footballplayassistant.presentation.ui.screens.main.NewsScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.PaymentScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.WalletScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
+import com.example.footballplayassistant.presentation.ui.screens.notifications.NotificationScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.BlockedUsersScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.PlayerProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.ChangeProfileScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
+import com.example.footballplayassistant.presentation.ui.screens.profile.PlayerProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SafetyScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.SubscriptionsScreen
 import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
@@ -52,15 +60,6 @@ import com.example.footballplayassistant.presentation.ui.screens.search_tab.Crea
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FieldInfoScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.FilterScreen
 import com.example.footballplayassistant.presentation.ui.screens.search_tab.SearchScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.AboutAppScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
-import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
-import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
-import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
-import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
-import com.example.footballplayassistant.presentation.ui.screens.notifications.NotificationScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
