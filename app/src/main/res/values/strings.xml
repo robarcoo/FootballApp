@@ -307,6 +307,7 @@
         <item quantity="two">%1$d события</item>
         <item quantity="few">%1$d события</item>
         <item quantity="many">%1$d событий</item>
+        <item quantity="other">%1$d событий</item>
     </plurals>
 
 
@@ -376,6 +377,31 @@
     <string name="toMain">На главную</string>
     <string name="toSubscriptions">В подписки</string>
     <string name="goodMentor">Хороший наставник</string>
+
+
+    <string name="myAccount">Мой Аккаунт</string>
+    <string name="chooseFromLibrary">Выбрать из библиотеки</string>
+    <string name="takeFoto">Сделать фото</string>
+    <string name="deleteCurrent">Удалить текущее</string>
+    <string name="bigEmail">Email</string>
+    <string name="enterBigEmail">Введите Email</string>
+    <string name="cityProfile">Город</string>
+    <string name="levelPlayProfile">Уровень игры</string>
+    <string name="preferredPosition">Предпочитаемая позиция</string>
+    <string name="infoYourself">Информация о себе</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="changesSavedSuccess">Изменения в ваших данных \nуспешно сохранены</string>
+    <string name="returnToProfile">Вернуться в профиль</string>
+    <string name="deleteQuestionPhoto">Вы действительно хотите удалить текущее фото?</string>
+    <string name="youWillNotHavePhoto">После удаления у вас не будет \nличной фотографии в профиле</string>
+    <string name="library">Библиотека</string>
+    <string name="recent">Недавние</string>
+    <string name="takePhoto">Сделать фото</string>
+    <string name="takeOneMorePhoto">Сделать еще снимок</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="emailNotConfirm">Адрес электронной почты не подтвержден</string>
+    <string name="confirmEmail">Подтвердить почту</string>
 
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>

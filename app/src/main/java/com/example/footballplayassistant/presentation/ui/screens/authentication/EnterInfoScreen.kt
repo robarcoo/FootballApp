@@ -333,7 +333,7 @@ fun EnterInfoScreen() {
     }
 }
 
-private fun openCalendar(context: Context, date: MutableState<String>) {
+fun openCalendar(context: Context, date: MutableState<String>) {
     val m_context = context
 
     val year: Int

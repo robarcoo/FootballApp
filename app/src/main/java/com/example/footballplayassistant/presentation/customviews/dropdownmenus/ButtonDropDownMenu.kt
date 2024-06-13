@@ -37,7 +37,8 @@ fun ButtonDropDownMenu(
     imStart: Int = 0,
     imTrail: Int = R.drawable.ic_arrow_menu_18_10,
     values: List<String>,
-    color: Color = MaterialTheme.colorScheme.onPrimary,
+    containerColor: Color = MaterialTheme.colorScheme.onPrimary,
+    textColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     onClick: (String) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ) {
@@ -50,7 +51,7 @@ fun ButtonDropDownMenu(
     ) {
         Button(
             onClick = { /*onClick.invoke(selectedOptionText)*/ },
-            colors = ButtonDefaults.buttonColors(containerColor = color),
+            colors = ButtonDefaults.buttonColors(containerColor = containerColor),
             contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
             modifier = modifier
                 .menuAnchor()
@@ -70,11 +71,10 @@ fun ButtonDropDownMenu(
                         )
                     Text(
                         text = if (selectedOptionText.isEmpty()) placeholder else selectedOptionText,
-                        color = if (selectedOptionText.isEmpty()) MaterialTheme.colorScheme.onSecondaryContainer
+                        color = if (selectedOptionText.isEmpty()) textColor
                         else MaterialTheme.colorScheme.onPrimaryContainer,
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
-
                         )
                 }
                 Image(
@@ -95,8 +95,7 @@ fun ButtonDropDownMenu(
                         Text(
                             text = selectionOption,
                             style = MaterialTheme.typography.labelLarge
-                                .copy(fontWeight = FontWeight.W400)
-                        )
+                                .copy(fontWeight = FontWeight.W400))
                     },
                     onClick = {
                         selectedOptionText = selectionOption
