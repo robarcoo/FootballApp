@@ -1,14 +1,19 @@
 package com.example.footballplayassistant.presentation.ui.screens.profile
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +21,8 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -38,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.ButtonCalendar
@@ -67,6 +75,7 @@ fun ChangeProfileScreen() {
     val showDialogDeleteFoto = remember { mutableStateOf(false) }
     val deleteCurrentFoto = remember { mutableStateOf(false) }
     val currentFoto = remember { mutableIntStateOf(R.drawable.user_foto) }
+    val emailConfirm = remember { mutableStateOf(false) }
 
     DialogScreen(
         header = stringResource(id = R.string.doneWithPoint),
@@ -227,15 +236,57 @@ fun ChangeProfileScreen() {
                         placeholder = stringResource(id = R.string.enterBigEmail),
                         keyBoard = KeyboardType.Text,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        onClick = { buttonEnable.value = true },
-                        modifier = Modifier.padding(bottom = 10.dp)
+                        onClick = { buttonEnable.value = true }
                     )
+                    AnimatedVisibility(visible = emailConfirm.value) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 10.dp, bottom = 12.dp, top = 2.dp)
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_warning_12),
+                                contentDescription = "Warning",
+                                tint = MaterialTheme.colorScheme.errorContainer,
+                                modifier = Modifier.padding(end = 2.dp)
+                            )
+                            Text(
+                                text = stringResource(id = R.string.emailNotConfirm),
+                                style = MaterialTheme.typography.headlineSmall.copy(
+                                    fontWeight = FontWeight.W400),
+                                color = MaterialTheme.colorScheme.errorContainer
+                            )
+                        }
+                    }
+                    AnimatedVisibility(visible = emailConfirm.value){
+                        Row(modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start) {
+                            Button(colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.outlineVariant),
+                                contentPadding = PaddingValues(0.dp),
+                                onClick = { /*TODO*/ }) {
+                                Text(
+                                    text = stringResource(id = R.string.confirmEmail),
+                                    style = MaterialTheme.typography.bodySmall.copy(
+                                        fontWeight = FontWeight.W600),
+                                    color = MaterialTheme.colorScheme.primary,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Image(
+                                    imageVector = ImageVector.vectorResource(R.drawable.ic_arrows_18_14),
+                                    contentDescription = "Arrows"
+                                )
+                            }
+                        }
+                    }
                 }
                 item {
                     Text(
                         text = addStar(id = R.string.cityProfile),
                         style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.W500),
-                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp)
+                        modifier = Modifier.padding(bottom = 8.dp, start = 10.dp, end = 10.dp, top = 10.dp)
                     )
 
                     ButtonDropDownMenu(

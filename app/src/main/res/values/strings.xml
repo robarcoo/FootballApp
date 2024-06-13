@@ -400,6 +400,8 @@
     <string name="takeOneMorePhoto">Сделать еще снимок</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="emailNotConfirm">Адрес электронной почты не подтвержден</string>
+    <string name="confirmEmail">Подтвердить почту</string>
 
 
     <string name="mapLinkIconDescription">Ссылка на геолокацию</string>
