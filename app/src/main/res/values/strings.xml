@@ -21,7 +21,7 @@
     <string name="sendCode">Отправить код</string>
     <string name="phoneCode">Код отправлен на номер</string>
     <string name="emailCode">Код отправлен на почту</string>
-    <string name="repeatCode">Отправить код повторно через</string>
+    <string name="repeatCode">Отправить код повторно через %1$d секунд</string>
     <string name="writeInfo">Заполните информацию</string>
     <string name="createRepeatPass">Придумайте и подтвердите пароль</string>
     <string name="createPass">Придумайте пароль</string>
@@ -68,6 +68,17 @@
     <string name="doneWithPoint">Готово!</string>
     <string name="newPassIsRecovery">Новый пароль успешно восстановлен</string>
     <string name="onSignInScreen">На страницу входа</string>
+    <string name="invalidPassword">Неверный пароль</string>
+    <string name="userHasBeenRegistered">Пользователь с таким номером уже зарегистрирован</string>
+    <string name="nicknameIsOccupied">Данный ник уже занят</string>
+    <string name="emailIsOccupied">Данный адрес электронной почты уже зарегистристирован</string>
+    <string name="dataNotSaved">Данные не сохранены</string>
+    <string name="dataNotSavedDescription">Введенные вами данные не сохранены, необходимо будет ввести их в профиле пользователя</string>
+    <string name="enterInfoAboutYourselt">Ввести информацию о себе</string>
+    <string name="continueBtn">Продолжить</string>
+    <string name="yourCity">Ваш город</string>
+    <string name="playLevel">Уровень игры</string>
+    <string name="prefferedPosition">Предпочитаемая позиция</string>
 
     <string name="Phone">phone</string>
     <string name="Email">email</string>
