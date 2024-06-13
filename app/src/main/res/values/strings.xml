@@ -498,7 +498,7 @@
     <string name="fieldChangingRoomValue">Закрытые</string>
     <string name="fieldTribuneValue">40 мест</string>
     <string name="gamePlayerAmountValue">До 20</string>
-    
+
     <string name="requestSentTitle">Заявка отправлена</string>
     <string name="requestSentDescription">После прохождения модерации вашей заявки, вам придет уведомление о результате рассмотрения</string>
     <string name="returnToMainPage">Вернуться на главную</string>
@@ -508,6 +508,131 @@
     <string name="geolocationIsTurnedOff">Геолокация отключена</string>
     <string name="geolocationIsTurnedOffDescription">Выдача ближайших к вам полей будет недоступна по причине отключенной геолокации, для продолжения поиска полей включите геолокацию в профиле</string>
     <string name="turnOnGeolocation">Включить геолокацию</string>
+    <string name="notificationsHeader">Уведомления</string>
+    <string name="newNotifications">Новые</string>
+    <string name="seenNotifications">Просмотренные</string>
+    <string name="noNotificationsTitle">Уведомлений нет</string>
+    <string name="noNotificationsDescription">На данный момент у вас нет\nуведомлений</string>
+    <string name="hostTitle">Хост</string>
+    <string name="hasInvitedYouNotification">Приглашает вас на матч</string>
+    <string name="sentYouNewMessageNotification">Прислал новое сообщение в игре</string>
+    <string name="hostChangedGameNotification">Внес изменения в игру</string>
+    <string name="participateInMatchAction">Участвовать в матче</string>
+    <string name="goToMessageAction">Перейти к сообщению</string>
+    <string name="seeChangesAction">Посмотреть изменения</string>
+    <string name="fieldCreationSuccessNotification">Ваше поле создано</string>
+    <string name="fieldWasRejectedNotification">Ваше поле отклонено</string>
+    <string name="rejectionReason">"Причина: "</string>
+    <string name="goToFieldScreenAction">Перейти на страницу поля</string>
+    <string name="createFieldAgainAction">Создать поле заново</string>
+    <string name="playersHaventJoinedMatch">Матч в котором вы были хостом, распущен. Игроки не присоединились к вашему событию.</string>
+    <string name="hostRemovedYouNotification">Хост удалил вас из игры</string>
+    <string name="goToGameScreenAction">Перейти на страницу игры</string>
+    <string name="matchWasDisbandedNotification">Распустил матч</string>
+    <string name="hostMatchFinishedNotification">Матч в котором вы были хостом завершен</string>
+    <string name="participantMatchFinishedNotification">Матч в котором вы принимали участие завершен</string>
+    <string name="markParticipantsAction">Подведите итоги, отметьте участников</string>
+    <string name="evaluateEventAction">Оцените как прошло ваше событие</string>
+    <string name="subscribedToYourUpdatesNotification">Подписался на ваши\nобновления</string>
+    <string name="addUserToFriendsDescription">Добавить пользователя в друзья</string>
+    <string name="eventButtonIconDescription">Перейти на страницу</string>
+    <string name="deleteNotification">Удалить уведомление</string>
+    <string name="userAvatarInNotificationDescription">Аватар пользователя в уведомлении</string>
+    <string name="markParticipantsDateHeader">Участники %1$s</string>
+    <string name="markAllParticipantsDescription">Отметить всех участников</string>
+    <string name="markEveryoneCheckbox">Отметить всех</string>
+    <string name="finishMarkingButtonText">Отметить</string>
+    <string name="cancelMarkingButtonText">Отмена</string>
+    <string name="markPlayerAvatar">Аватар игрока</string>
+    <string name="evaluateEventHeader">Оцените событие</string>
+    <string name="evaluateEventDescription">Ваш отзыв поможет сервису улучшить качество услуг, а другим игрокам получить позитивные эмоции от событий</string>
+    <string name="rateHostTitle">Оцените хоста</string>
+    <string name="commentLabelField">Комментарий</string>
+    <string name="sendFeedbackButtonText">Отправить отзыв</string>
+    <string name="skipButtonText">Пропустить</string>
+    <string name="bestPlayerAvatarDescription">Аватар лучшего игрока</string>
+    <string name="bestPlayerTitle">Лучший игрок</string>
+    <string name="chooseBestPlayer">Выбрать лучшего игрока</string>
+    <string name="goodRating">Хорошо</string>
+    <string name="terribleRating">Ужасно</string>
+    <string name="BestPlayerScreenHeader">Лучший игрок</string>
+    <string name="confirmButtonText">Подтвердить</string>
+    <string name="excellentRating">Отлично</string>
+    <string name="okayRating">Удовлетворительно</string>
+    <string name="badRating">Плохо</string>
+    <string name="evaluateField">Оцените поле</string>
+    <string name="leaveCommentAboutField">Оставьте комментарий о поле</string>
+    <string name="extendedTextFieldIconDescription">Два штриха для текстового поля</string>
+    <string-array name="terribleHostTags">
+        <item>Сильное опоздание</item>
+        <item>Грубый</item>
+        <item>Отсутствие инвентаря</item>
+        <item>Недействительная информация</item>
+        <item>Внезапные изменения</item>
+    </string-array>
+    <string-array name="badHostTags">
+    <item>Опоздание</item>
+    <item>Невежливый</item>
+    <item>Плохой инвентарь</item>
+    <item>Недостаточная информация</item>
+    <item>Внезапные изменения</item>
+    </string-array>
+    <string-array name="okayHostTags">
+        <item>Задержка в игре</item>
+        <item>Изменения в игре</item>
+        <item>Некачественный инвентарь</item>
+        <item>Неполная информация</item>
+        <item>Долгие ответы</item>
+</string-array>
+    <string-array name="goodHostTags">
+        <item>Без задержек</item>
+        <item>Вежливый</item>
+        <item>Помощь игрокам</item>
+        <item>Хороший инвентарь</item>
+        <item>Оперативные ответы</item>
+    </string-array>
+    <string-array name="excellentHostTags">
+        <item>Без задержек</item>
+        <item>Превзошел ожидания</item>
+        <item>Безупречная организация</item>
+        <item>Отличный инвентарь</item>
+        <item>Быстрые ответы</item>
+    </string-array>
+    <string-array name="terribleFieldTags">
+        <item>Небезопасное покрытие</item>
+        <item>Отсутствие разметки</item>
+        <item>Нет инфраструктуры</item>
+        <item>Поврежденные ворота</item>
+        <item>Неактуальная информация</item>
+    </string-array>
+    <string-array name="badFieldTags">
+        <item>Повреждения поля</item>
+        <item>Частичные загрязнения</item>
+        <item>Плохая разметка</item>
+        <item>Поврежденные ворота</item>
+        <item>Недостаточная информация</item>
+    </string-array>
+    <string-array name="okayFieldTags">
+        <item>Базовое покрытие</item>
+        <item>Приемлемая чистота</item>
+        <item>Базовая инфраструктура</item>
+        <item>Некачественная разметка</item>
+        <item>Соответствующая информация</item>
+    </string-array>
+    <string-array name="goodFieldTags">
+        <item>Качественное покрытие</item>
+        <item>Четкая разметка</item>
+        <item>Вежливый персонал</item>
+        <item>Чистое и ухоженное</item>
+        <item>Хорошая инфраструктура</item>
+    </string-array>
+    <string-array name="excellentFieldTags">
+        <item>Высококачественное покрытие</item>
+        <item>Превосходное состояние поля</item>
+        <item>Идеальная разметка</item>
+        <item>Отличный персонал</item>
+        <item>Полная инфраструктура</item>
+    </string-array>
     <string name="loginToCreateGame">Войдите, чтобы создать игру.</string>
     <string name="calendarFilterNotFoundDescription">По заданным фильтрам не было найдено игр, попробуйте изменить параметры поиска или создать собственное событие</string>
     <string name="noFiltersCalendarNotFoundDescription">По выбранной дате не было найдено\nигр или площадок, вы можете создать собственное событие</string>

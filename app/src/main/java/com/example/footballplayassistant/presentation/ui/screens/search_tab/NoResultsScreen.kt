@@ -19,13 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 
 
 @Composable
 fun NoResultsScreen(title : String, description : String, buttonText: String, isAuthorized : Boolean = true, onClick : () -> Unit) {
-    val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(MaterialTheme.spacing.medium),
