@@ -11,18 +11,16 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -31,16 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,12 +47,12 @@ import com.example.footballplayassistant.presentation.customviews.buttons.Common
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.ButtonDropDownMenu
 import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownMenu
-import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.enums.getGenders
 import com.example.footballplayassistant.presentation.enums.getLevels
 import com.example.footballplayassistant.presentation.enums.getPositions
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.presentation.ui.screens.search_tab.NecessaryTextField
 import com.example.footballplayassistant.presentation.ui.theme.spacing
 import java.util.Date
 
@@ -287,39 +282,14 @@ fun EnterInfoScreen() {
                         modifier = Modifier.padding(horizontal = 10.dp)
                     )
                 }
-                val textLength = remember { mutableIntStateOf(0) }
-                Box {
-                    CommonTextField(
-                        placeholder = stringResource(id = R.string.tellYourself),
-                        singleLine = false,
-                        cornerRadius = 20.dp,
-                        maxLength = 300,
-                        onClick = { value ->
-                            textLength.intValue = value.length
-                            tellAboutYourself.value = value
-                        },
-                        modifier = Modifier.fillMaxHeight()
-                    )
-                    Image(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_rezible_10),
-                        contentDescription = "Rezible",
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(
-                                end = MaterialTheme.spacing.small,
-                                bottom = MaterialTheme.spacing.small
-                            )
-                    )
-                }
-
-                Text(
-                    text = "${textLength.intValue}/300",
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = MaterialTheme.spacing.extraSmall)
+                NecessaryTextField(
+                    label = stringResource(id = R.string.tellYourself),
+                    isSingleLine = false,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
+                    shape = RoundedCornerShape(20.dp),
+                    toCountWords = 300,
+                    removeLabelAbove = true,
+                    onClick = { text -> tellAboutYourself.value = text }
                 )
             }
         }

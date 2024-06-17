@@ -27,12 +27,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.CommonBottomBar
-import com.example.footballplayassistant.presentation.customviews.buttons.AllButton
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
-import com.example.footballplayassistant.presentation.customviews.cards.GameCard
 import com.example.footballplayassistant.presentation.customviews.cards.MoneyCard
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderUser
-import com.example.footballplayassistant.presentation.enums.FilterCurrentArchive
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
@@ -51,7 +48,7 @@ fun MainScreen() {
                 HeaderUser(
                     name = "Alex",
                     onClickPlus = { navController.navigate(Route.CreateEventScreen.path) },
-                    onClickBell = {},
+                    onClickBell = {/*notifications*/},
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal)
                 )
             }
@@ -64,33 +61,32 @@ fun MainScreen() {
             }
 
             //если нет игр
-//            item {
-//                NoGames(
-//                    createEventClick = { navController.navigate(Route.CreateEventScreen.path) },
-//                    participateClick = {})
-//            }
-            //если есть игры
             item {
-                AllButton(
-                    text = stringResource(id = R.string.mygames),
-                    onClick = { navController.navigate(Route.MyGamesScreen.withArgs(
-                        FilterCurrentArchive.Current.ordinal.toString())) },
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                GameCard(
-                    place = "Арена Новый Футбол поле  Крылатское ",
-                    host = "Игорь Султанов",
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
+                NoGames(
+                    createEventClick = { navController.navigate(Route.CreateEventScreen.path) },
+                    participateClick = {/*calendar*/})
             }
+            //если есть игры
+//            item {
+//                AllButton(
+//                    text = stringResource(id = R.string.mygames),
+//                    onClick = { navController.navigate(Route.MyGamesScreen.withArgs(
+//                        FilterCurrentArchive.Current.ordinal.toString())) },
+//                    modifier = Modifier.padding(horizontal = 16.dp)
+//                )
+//                GameCard(
+//                    place = "Арена Новый Футбол поле  Крылатское ",
+//                    host = "Игорь Султанов",
+//                    modifier = Modifier.padding(horizontal = 16.dp)
+//                )
+//            }
 
             item {
                 Text(
                     text = stringResource(id = R.string.news),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 32.dp),
+                        .padding(start = 16.dp, end = 16.dp, top = 32.dp),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W600),
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -101,7 +97,7 @@ fun MainScreen() {
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 75.dp)
+                        .padding(top = 75.dp, bottom = 36.dp)
                 )
 
                 //если есть новости
@@ -161,8 +157,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .padding(top = 40.dp)
+                    .padding(start = 30.dp, end = 30.dp, top = 40.dp)
             )
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_ball_games_60),
@@ -181,8 +176,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
             text = stringResource(R.string.addGame),
             onClick = createEventClick,
             modifier = Modifier
-                .padding(top = 32.dp)
-                .padding(horizontal = 16.dp)
+                .padding(top = 32.dp, start = 16.dp, end = 16.dp)
         )
         CommonButton(
             text = stringResource(R.string.participate),
@@ -190,8 +184,7 @@ private fun NoGames(createEventClick: () -> Unit = {}, participateClick: () -> U
             contentColor = MaterialTheme.colorScheme.onPrimary,
             onClick = participateClick,
             modifier = Modifier
-                .padding(top = 8.dp, bottom = 32.dp)
-                .padding(horizontal = 16.dp)
+                .padding(top = 8.dp, bottom = 32.dp, start = 16.dp, end = 16.dp)
         )
     }
 }

@@ -18,12 +18,13 @@ import com.example.footballplayassistant.R
 
 
 @Composable
-fun CommonCheckBoxAgree(){
+fun CommonCheckBoxAgree(onClick: (Boolean) -> Unit = {}){
     val state = remember { mutableStateOf(false) }
     Row(modifier = Modifier.padding(horizontal = 16.dp)) {
         Checkbox(
             checked = state.value,
-            onCheckedChange = { state.value = it },
+            onCheckedChange = { state.value = it
+                              onClick(it)},
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colorScheme.secondary,
                 uncheckedColor = MaterialTheme.colorScheme.secondary

@@ -34,6 +34,7 @@ fun TeamsAndCountPlayers(
                 style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             CountOfPlayers(
@@ -51,6 +52,7 @@ fun TeamsAndCountPlayers(
                 style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             CountOfPlayers(

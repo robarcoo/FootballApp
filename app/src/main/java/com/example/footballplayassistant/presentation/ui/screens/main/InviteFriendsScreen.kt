@@ -1,6 +1,8 @@
 package com.example.footballplayassistant.presentation.ui.screens.main
 
-import android.util.Log
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +19,14 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,35 +52,53 @@ fun InviteFriendsScreen() {
     val expanded = remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val snackBarScope = rememberCoroutineScope()
+    val invitedFriends = remember { mutableIntStateOf(0) }
+    val buttonEnable = remember{ mutableStateOf(false) }
 
-    if (showDialog.value)
-        DialogScreen(
-            header = stringResource(id = R.string.done),
-            description = stringResource(id = R.string.youGetNotify2),
-            greenButton = stringResource(id = R.string.onGamePage),
-            whiteButton = stringResource(id = R.string.inviteFriendsAlso),
-            bottomButton = stringResource(id = R.string.copy),
-            image = R.drawable.ic_check_92,
-            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
-            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
-            onClickBottom = {
-                showDialog.value = false
-                navController.navigate(Route.MainScreen.path)
-            },
-            onDismissRequest = { showDialog.value = false }
-        )
+    DialogScreen(
+        header = stringResource(id = R.string.done),
+        description = stringResource(id = R.string.youGetNotify2),
+        greenButton = stringResource(id = R.string.onGamePage),
+        whiteButton = stringResource(id = R.string.inviteFriendsAlso),
+        bottomButton = stringResource(id = R.string.copy),
+        image = R.drawable.ic_check_92,
+        onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+        onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+        onClickBottom = {
+            showDialog.value = false
+            navController.navigate(Route.MainScreen.path)
+        },
+        onDismissRequest = { showDialog.value = false },
+        showDialog = showDialog.value
+    )
 
     Scaffold(containerColor = MaterialTheme.colorScheme.onPrimary,
         bottomBar = {
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                LaunchedEffect(invitedFriends.intValue){
+                    buttonEnable.value = invitedFriends.intValue>0
+                }
+
+                val animatedContainerColor: Color by animateColorAsState(
+                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                    else MaterialTheme.colorScheme.tertiary,
+                    animationSpec = tween(500, 0, LinearEasing)
+                )
+                val animatedContentColor: Color by animateColorAsState(
+                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSecondaryContainer,
+                    animationSpec = tween(500, 0, LinearEasing)
+                )
                 CommonButton(
                     text = stringResource(
                         id = if (isFriends) R.string.invite
                         else R.string.copyInvitation
                     ),
+                    containerColor = animatedContainerColor,
+                    contentColor = animatedContentColor,
+                    enable = buttonEnable.value,
                     style = MaterialTheme.typography.bodyLarge,
-                    onClick = { showDialog.value = true },
-                    modifier = Modifier
+                    onClick = { showDialog.value = true }
                 )
                 TextButton(modifier = Modifier.fillMaxWidth(),
                     onClick = { navController.navigate(Route.MainScreen.path) }) {
@@ -134,44 +158,14 @@ fun InviteFriendsScreen() {
             if (isFriends) {
                 //есть друзья
                 LazyColumn {
-                    item {
+                    items(5){
                         CheckBoxFriend(
                             text = "text",
                             name = "name name",
-                            foto = R.drawable.user_foto
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            thickness = 1.dp, color = MaterialTheme.colorScheme.background
-                        )
-                    }
-                    item {
-                        CheckBoxFriend(
-                            text = "text",
-                            name = "name name",
-                            foto = R.drawable.user_foto
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            thickness = 1.dp, color = MaterialTheme.colorScheme.background
-                        )
-                    }
-                    item {
-                        CheckBoxFriend(
-                            text = "text",
-                            name = "name name",
-                            foto = R.drawable.user_foto
-                        )
-                        HorizontalDivider(
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                            thickness = 1.dp, color = MaterialTheme.colorScheme.background
-                        )
-                    }
-                    item {
-                        CheckBoxFriend(
-                            text = "text",
-                            name = "name name",
-                            foto = R.drawable.user_foto
+                            foto = R.drawable.user_foto,
+                            onClick = {choose ->
+                                if(choose) invitedFriends.intValue++
+                            else invitedFriends.intValue--}
                         )
                         HorizontalDivider(
                             modifier = Modifier.padding(horizontal = 16.dp),

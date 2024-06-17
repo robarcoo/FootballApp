@@ -3,6 +3,9 @@ package com.example.footballplayassistant.presentation.ui.screens.main
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +20,13 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -57,22 +63,31 @@ import java.time.OffsetDateTime
 fun CreateEventScreen() {
     val navController = LocalNavController.current!!
 
-    val flag = remember { mutableStateOf(true) }
+    val buttonEnable = remember { mutableStateOf(false) }
     val showDialog = remember { mutableStateOf(false) }
 
-    if (showDialog.value)
-        DialogScreen(
-            header = stringResource(id = R.string.gameCreated),
-            description = stringResource(id = R.string.youGetNotify),
-            greenButton = stringResource(id = R.string.onGamePage),
-            whiteButton = stringResource(id = R.string.inviteFriends),
-            bottomButton = stringResource(id = R.string.copy),
-            image = R.drawable.ic_check_92,
-            onClickGreen = { navController.navigate(Route.MatchScreen.path) },
-            onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
-            onClickBottom = {/*copy invitation*/ navController.navigate(Route.MatchScreen.path) },
-            onDismissRequest = { showDialog.value = false }
-        )
+    val field = remember { mutableStateOf("") }
+    val date = remember { mutableStateOf("") }
+    val timeStart = remember { mutableStateOf("") }
+    val timeEnd = remember { mutableStateOf("") }
+    val count = remember { mutableStateOf("") }
+    val inventory = remember { mutableStateOf(true) }
+    val cost = remember { mutableStateOf("") }
+    val agree = remember { mutableStateOf(false) }
+
+    DialogScreen(
+        header = stringResource(id = R.string.gameCreated),
+        description = stringResource(id = R.string.youGetNotify),
+        greenButton = stringResource(id = R.string.onGamePage),
+        whiteButton = stringResource(id = R.string.inviteFriends),
+        bottomButton = stringResource(id = R.string.copy),
+        image = R.drawable.ic_check_92,
+        onClickGreen = { navController.navigate(Route.MatchScreen.path) },
+        onClickWhite = { navController.navigate(Route.InviteFriendsScreen.path) },
+        onClickBottom = {/*copy invitation*/ navController.navigate(Route.MatchScreen.path) },
+        onDismissRequest = { showDialog.value = false },
+        showDialog = showDialog.value
+    )
 
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.onPrimary)) {
         HeaderWithBackButton(
@@ -92,6 +107,7 @@ fun CreateEventScreen() {
                         placeholder = "field",
                         values = listOf("Поле 1", "Поле 2"),
                         color = MaterialTheme.colorScheme.primaryContainer,
+                        onClick = { field.value = it },
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
@@ -99,18 +115,14 @@ fun CreateEventScreen() {
                     CommonSwitch(
                         text = stringResource(id = R.string.closeGame), icon = true,
                         textIcon = stringResource(id = R.string.tooltipClose),
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 24.dp)
+                        modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)
                     )
                 }
                 item {
                     CommonSwitch(
                         text = stringResource(id = R.string.iWill), icon = true,
                         textIcon = stringResource(id = R.string.tooltipPlay),
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(top = 24.dp)
+                        modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)
                     )
                 }
                 item {
@@ -121,15 +133,10 @@ fun CreateEventScreen() {
                         val nextDay = now.plusDays(day.toLong())
                         dates.add(
                             index = day,
-                            element = "${
-                                if (nextDay.dayOfMonth > 9) nextDay.dayOfMonth
-                                else "0${nextDay.dayOfMonth}"
-                            }." +
-                                    "${
-                                        if (nextDay.monthValue > 9) nextDay.monthValue
-                                        else "0${nextDay.monthValue}"
-                                    }." +
-                                    "${nextDay.year}"
+                            element = "${if (nextDay.dayOfMonth > 9) nextDay.dayOfMonth
+                                else "0${nextDay.dayOfMonth}"}." +
+                                    "${if (nextDay.monthValue > 9) nextDay.monthValue
+                                        else "0${nextDay.monthValue}"}." + "${nextDay.year}"
                         )
                     }
                     ButtonDropDownMenu(
@@ -137,9 +144,8 @@ fun CreateEventScreen() {
                         values = dates,
                         imStart = R.drawable.ic_calendar_22,
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier
-                            .padding(bottom = 10.dp, top = 12.dp)
-                            .padding(horizontal = 16.dp)
+                        onClick = { date.value = it },
+                        modifier = Modifier.padding(bottom = 10.dp, top = 12.dp, start = 16.dp, end = 16.dp)
                     )
                 }
                 item {
@@ -165,15 +171,16 @@ fun CreateEventScreen() {
                                 .fillMaxWidth(0.5f)
                                 .padding(end = 4.dp),
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            values = time
+                            values = time,
+                            onClick = { timeStart.value = it },
                         )
                         ButtonDropDownMenu(
                             placeholder = stringResource(id = R.string.end),
                             imTrail = R.drawable.ic_time_black_24,
-                            modifier = Modifier
-                                .padding(start = 4.dp),
+                            modifier = Modifier.padding(start = 4.dp),
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            values = time
+                            values = time,
+                            onClick = { timeEnd.value = it },
                         )
                     }
                 }
@@ -186,14 +193,10 @@ fun CreateEventScreen() {
                     CommonTextField(
                         placeholder = stringResource(id = R.string.title),
                         color = MaterialTheme.colorScheme.primaryContainer,
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(bottom = 12.dp)
+                        modifier = Modifier.padding(bottom = 12.dp, start = 16.dp, end = 16.dp)
                     )
                     Box(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(bottom = 24.dp)
+                        modifier = Modifier.padding(bottom = 24.dp, start = 16.dp, end = 16.dp)
                     ) {
                         CommonTextField(
                             placeholder = stringResource(id = R.string.otherInfo),
@@ -235,47 +238,18 @@ fun CreateEventScreen() {
                             imStart = R.drawable.ic_people_24,
                             values = countPlayers,
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            onClick = { count.value = it },
                             modifier = Modifier.padding(end = 16.dp)
                         )
                     }
                 }
-                //убрано из фигмы
-//            item {
-//                Row {
-//                    BoldText(
-//                        id = R.string.minCountPlayers,
-//                        modifier = Modifier
-//                            .fillMaxWidth(0.6f)
-//                            .align(Alignment.CenterVertically)
-//                    )
-//                    ButtonDropDownMenu(
-//                        placeholder = "",
-//                        imStart = R.drawable.ic_people_24,
-//                        values = listOf(
-//                            "2",
-//                            "4",
-//                            "6",
-//                            "8",
-//                            "10",
-//                            "12",
-//                            "14",
-//                            "16",
-//                            "18",
-//                            "20",
-//                            "22"
-//                        ),
-//                        color = MaterialTheme.colorScheme.primaryContainer,
-//                        modifier = Modifier.padding(end = 16.dp)
-//                    )
-//                }
-//            }
                 item {
                     BoldText(addStar = false, id = R.string.sexPlayers)
                     RadioButtonGroup()
                 }
                 item {
                     BoldText(id = R.string.inventory, modifier = Modifier.padding(top = 24.dp))
-                    CheckBoxInventory()
+                    CheckBoxInventory(onClick = {if(it.contains(true)) inventory.value = true})
                 }
                 item {
                     BoldText(
@@ -285,15 +259,13 @@ fun CreateEventScreen() {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = MaterialTheme.spacing.horizontal)
-                            .padding(bottom = MaterialTheme.spacing.small),
+                            .padding(bottom = 8.dp, start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(7.dp)
                     ) {
                         Text(
                             text = stringResource(id = R.string.cost),
                             style = MaterialTheme.typography.displaySmall.copy(
-                                fontWeight = FontWeight.W500
-                            ),
+                                fontWeight = FontWeight.W500),
                             color = MaterialTheme.colorScheme.onSecondaryContainer,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -305,38 +277,34 @@ fun CreateEventScreen() {
                         Text(
                             text = stringResource(id = R.string.commission),
                             style = MaterialTheme.typography.displaySmall.copy(
-                                fontWeight = FontWeight.W500
-                            ),
+                                fontWeight = FontWeight.W500),
                             color = MaterialTheme.colorScheme.onBackground,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier
-                                .fillMaxWidth(0.5f)
+                            modifier = Modifier.fillMaxWidth(0.5f)
                         )
                     }
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = MaterialTheme.spacing.horizontal)
-                            .padding(bottom = 24.dp),
+                            .padding(bottom = 24.dp, start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(7.dp)
                     ) {
-                        val price = remember {
-                            mutableStateOf("0")
-                        }
+                        val price = remember { mutableStateOf("0") }
                         CommonTextField(
                             placeholder = price.value,
                             imageTrail = R.drawable.ic_ruble_15,
                             keyBoard = KeyboardType.Number,
                             color = MaterialTheme.colorScheme.primaryContainer,
-                            onClick = { price.value = it },
+                            onClick = { price.value = it
+                                      cost.value = it},
                             modifier = Modifier.weight(0.5f),
                         )
                         CommonTextField(
                             placeholder = if (price.value.isNotEmpty()) "${(price.value).toInt() / 10}"
                             else "0",
                             imageTrail = R.drawable.ic_ruble_15,
-                            color = MaterialTheme.colorScheme.background,
+                            color = MaterialTheme.colorScheme.tertiaryContainer,
                             tintIcon = MaterialTheme.colorScheme.onSecondaryContainer,
                             readOnly = true,
                             modifier = Modifier.weight(0.5f),
@@ -344,29 +312,39 @@ fun CreateEventScreen() {
                     }
                 }
                 item {
-                    CommonCheckBoxAgree()
+                    CommonCheckBoxAgree(onClick = { agree.value = it })
                 }
                 item {
-                    if (flag.value) {
-                        CommonButton(
-                            text = stringResource(id = R.string.addEvent),
-                            onClick = { showDialog.value = true },
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier
-                                .padding(horizontal = MaterialTheme.spacing.horizontal)
-                                .padding(top = MaterialTheme.spacing.medium, bottom = 20.dp)
-                        )
-                    } else {
-                        CommonButton(
-                            text = stringResource(id = R.string.addEvent),
-                            style = MaterialTheme.typography.bodyLarge,
-                            containerColor = MaterialTheme.colorScheme.tertiary,
-                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                            modifier = Modifier
-                                .padding(horizontal = MaterialTheme.spacing.horizontal)
-                                .padding(top = MaterialTheme.spacing.medium, bottom = 20.dp)
-                        )
+                    LaunchedEffect(field.value, date.value, timeStart.value, timeEnd.value,
+                        count.value, inventory.value, cost.value, agree.value){
+                        buttonEnable.value = field.value.isNotEmpty() && date.value.isNotEmpty() &&
+                                timeStart.value.isNotEmpty() && timeEnd.value.isNotEmpty() &&
+                                count.value.isNotEmpty() && inventory.value &&
+                                cost.value.isNotEmpty() && agree.value
                     }
+                    val animatedContainerColor: Color by animateColorAsState(
+                        targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                        else MaterialTheme.colorScheme.tertiary,
+                        animationSpec = tween(500, 0, LinearEasing)
+                    )
+                    val animatedContentColor: Color by animateColorAsState(
+                        targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.onSecondaryContainer,
+                        animationSpec = tween(500, 0, LinearEasing)
+                    )
+                    CommonButton(
+                        text = stringResource(id = R.string.addEvent),
+                        style = MaterialTheme.typography.bodyLarge,
+                        containerColor = animatedContainerColor,
+                        contentColor = animatedContentColor,
+                        enable = buttonEnable.value,
+                        onClick = { showDialog.value = true },
+                        modifier = Modifier.padding(
+                            top = 16.dp,
+                            bottom = 20.dp,
+                            start = 16.dp,
+                            end = 16.dp)
+                    )
                     ClickableText(
                         onClick = { navController.navigate(Route.MainScreen.path) },
                         text = AnnotatedString(stringResource(id = R.string.cancel)),

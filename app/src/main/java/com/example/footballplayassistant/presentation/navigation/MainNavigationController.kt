@@ -57,7 +57,6 @@ import com.example.footballplayassistant.presentation.ui.screens.profile.FAQScre
 import com.example.footballplayassistant.presentation.ui.screens.profile.FeedbackScreen
 import com.example.footballplayassistant.presentation.ui.screens.calendar_tab.CalendarScreen
 import com.example.footballplayassistant.presentation.ui.screens.main.LeaveMessageScreen
-import com.example.footballplayassistant.presentation.ui.screens.profile.UserProfileScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.BestPlayerScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.EvaluateEventScreen
 import com.example.footballplayassistant.presentation.ui.screens.notifications.MarkParticipantsScreen
