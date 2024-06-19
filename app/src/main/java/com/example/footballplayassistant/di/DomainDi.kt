@@ -1,41 +1,50 @@
 package com.example.footballplayassistant.di
 
-import com.example.domain.usecases.CheckCodeUseCase
-import com.example.domain.usecases.CheckUniqueNicknameUseCase
-import com.example.domain.usecases.CheckUserForAuthorizationUseCase
-import com.example.domain.usecases.SaveUserToDBUseCase
-import com.example.domain.usecases.SendCodeToEmailUseCase
-import com.example.domain.usecases.SendCodeToPhoneUseCase
-import com.example.domain.usecases.SendEmailAfterRegistrationUseCase
+import com.example.domain.usecases.auth.impl.CheckRecoveryCodeUseCaseImpl
+import com.example.domain.usecases.auth.impl.CheckRegistrationCodeUseCaseImpl
+import com.example.domain.usecases.auth.impl.CheckUserForAuthorizationUseCaseImpl
+import com.example.domain.usecases.auth.impl.CheckUserRegistrationStepOneUseCaseImpl
+import com.example.domain.usecases.auth.impl.SaveUserToDBUseCaseImpl
+import com.example.domain.usecases.auth.impl.SendCodeToEmailUseCaseImpl
+import com.example.domain.usecases.auth.impl.SendCodeToPhoneUseCaseImpl
+import com.example.domain.usecases.auth.interfaces.CheckRecoveryCodeUseCase
+import com.example.domain.usecases.auth.interfaces.CheckRegistrationCodeUseCase
+import com.example.domain.usecases.auth.interfaces.CheckUserForAuthorizationUseCase
+import com.example.domain.usecases.auth.interfaces.CheckUserRegistrationStepOneUseCase
+import com.example.domain.usecases.auth.interfaces.SaveUserToDBUseCase
+import com.example.domain.usecases.auth.interfaces.SendCodeToEmailUseCase
+import com.example.domain.usecases.auth.interfaces.SendCodeToPhoneUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
 
-    factory<CheckCodeUseCase>{
-        CheckCodeUseCase(authenticationRepository = get())
+    factory<CheckRegistrationCodeUseCase>{
+        CheckRegistrationCodeUseCaseImpl(authenticationRepository = get())
     }
 
-    factory<CheckUniqueNicknameUseCase>{
-        CheckUniqueNicknameUseCase(authenticationRepository = get())
+    factory<CheckRecoveryCodeUseCase>{
+        CheckRecoveryCodeUseCaseImpl(authenticationRepository = get())
     }
 
     factory<CheckUserForAuthorizationUseCase>{
-        CheckUserForAuthorizationUseCase(authenticationRepository = get())
+        CheckUserForAuthorizationUseCaseImpl(authenticationRepository = get())
+    }
+
+    factory<CheckUserRegistrationStepOneUseCase>{
+        CheckUserRegistrationStepOneUseCaseImpl(authenticationRepository = get())
     }
 
     factory<SaveUserToDBUseCase>{
-        SaveUserToDBUseCase(authenticationRepository = get())
+        SaveUserToDBUseCaseImpl(authenticationRepository = get())
     }
 
     factory<SendCodeToEmailUseCase>{
-        SendCodeToEmailUseCase(authenticationRepository = get())
+        SendCodeToEmailUseCaseImpl(authenticationRepository = get())
     }
 
     factory<SendCodeToPhoneUseCase>{
-        SendCodeToPhoneUseCase(authenticationRepository = get())
+        SendCodeToPhoneUseCaseImpl(authenticationRepository = get())
     }
 
-    factory<SendEmailAfterRegistrationUseCase>{
-        SendEmailAfterRegistrationUseCase(authenticationRepository = get())
-    }
+
 }

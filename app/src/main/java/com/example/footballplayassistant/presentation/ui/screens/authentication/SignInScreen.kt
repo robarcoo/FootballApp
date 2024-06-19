@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -16,21 +17,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -46,19 +45,29 @@ import com.example.footballplayassistant.presentation.enums.getFilters
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import com.example.footballplayassistant.viewmodels.AuthenticationViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.domain.models.auth.UserAuthorization
 
+@SuppressLint("StateFlowValueCalledInComposition", "CoroutineCreationDuringComposition")
 @Composable
-@Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
+    val viewModel: AuthenticationViewModel = getViewModel()
+    val coroutineScope = rememberCoroutineScope()
+//viewModel.isError.subscribe {  }
 
-    val filtersList = FilterPhoneEmail.entries.toList()
-    val filterPhoneEmail = remember { mutableIntStateOf(filtersList[0].ordinal) }
-    val error = remember{ mutableStateOf(false) }
-    val phone = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-    val buttonEnable = remember { mutableStateOf(false) }
+//    val filtersList = FilterPhoneEmail.entries.toList()
+//    val filterPhoneEmail = remember { mutableIntStateOf(filtersList[0].ordinal) }
+//    val error = remember{ mutableStateOf(false) }
+//    val phone = remember { mutableStateOf("") }
+//    val email = remember { mutableStateOf("") }
+//    val password = remember { mutableStateOf("") }
+//    val buttonEnable = remember { mutableStateOf(false) }
+
 
     val phoneMask = MaskVisualTransformation("+7 (###) ### ## ##")
 
@@ -69,9 +78,14 @@ fun SignInScreen() {
             item {
                 SelectionButtons(
                     valueList = getFilters(),
-                    selectedItemIndex = filterPhoneEmail.intValue,
-                    onSelected = { filterPhoneEmail.intValue = it },
-                    modifier = Modifier.padding(top = 24.dp, bottom = 20.dp, start = 16.dp, end = 16.dp)
+                    selectedItemIndex = viewModel.filterButtonState.value,//filterPhoneEmail.intValue,
+                    onSelected = { viewModel.updateFilterButtonState(it) /*filterPhoneEmail.intValue = it*/ },
+                    modifier = Modifier.padding(
+                        top = 24.dp,
+                        bottom = 20.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    )
                 )
             }
 
@@ -79,9 +93,10 @@ fun SignInScreen() {
                 Card(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
                 ) {
-                    if (filterPhoneEmail.intValue == FilterPhoneEmail.Phone.ordinal) {
+                    if (/*filterPhoneEmail.intValue*/viewModel.filterButtonState.value == FilterPhoneEmail.Phone.ordinal) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge
@@ -97,7 +112,7 @@ fun SignInScreen() {
                             keyBoard = KeyboardType.Phone,
                             mask = phoneMask,
                             maxLength = 10,
-                            onClick = { if (it.length == 10) phone.value = it },
+                            onClick = { if (it.length == 10) viewModel.updatePhone(it)},
                             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp)
                         )
                     } else {
@@ -113,7 +128,7 @@ fun SignInScreen() {
                         )
                         CommonTextField(
                             placeholder = stringResource(R.string.enterEmail),
-                            onClick = { email.value = it },
+                            onClick = { viewModel.updateEmail(it) },
                             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp)
                         )
                     }
@@ -121,11 +136,11 @@ fun SignInScreen() {
                         placeholder = stringResource(R.string.enterPass),
                         imageTrail = R.drawable.ic_eye_slash_24,
                         isPassword = true,
-                        isError = error.value,
-                        onClick = { password.value = it },
+                        isError = viewModel.isError.value,//error.value,
+                        onClick = { viewModel.updatePassword(it) },
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
                     )
-                    AnimatedVisibility(visible = error.value) {
+                    AnimatedVisibility(visible = viewModel.isError.value/*error.value*/) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -159,17 +174,45 @@ fun SignInScreen() {
             }
 
             item {
-                LaunchedEffect(phone.value, email.value, password.value) {
-                    buttonEnable.value = ((phone.value.isNotEmpty() || email.value.isNotEmpty())
-                            && password.value.isNotEmpty())
-                }
+//                val localLifecycle = LocalLifecycleOwner.current
+//                localLifecycle.lifecycleScope.launch {
+//                    localLifecycle.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                        var email = ""
+//                        var phone = ""
+//                        var pass = ""
+//                        launch {
+//                            viewModel.email.collect {
+//                                email = it
+//                            }
+//                        }
+//                        launch {
+//                            viewModel.phone.collect {
+//                                phone = it
+//                            }
+//                        }
+//                        launch {
+//                            viewModel.password.collect {
+//                                pass = it
+//                            }
+//                        }
+//                        if((email.isNotEmpty() || phone.isNotEmpty()) && pass.isNotEmpty()){
+//                            val user = UserAuthorization(login = phone.ifEmpty { email }, password = pass)
+//                            viewModel.signIn(user = user)
+//                        }
+//
+//                    }
+//                }
+//                LaunchedEffect(phone.value, email.value, password.value) {
+//                    buttonEnable.value = ((phone.value.isNotEmpty() || email.value.isNotEmpty())
+//                            && password.value.isNotEmpty())
+//                }
                 val animatedContainerColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                    targetValue = if (viewModel.isButtonEnable.value) MaterialTheme.colorScheme.secondary
                     else MaterialTheme.colorScheme.tertiary,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
                 val animatedContentColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                    targetValue = if (viewModel.isButtonEnable.value) MaterialTheme.colorScheme.primary
                     else MaterialTheme.colorScheme.onSecondaryContainer,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
@@ -177,7 +220,7 @@ fun SignInScreen() {
                     text = stringResource(R.string.signin),
                     containerColor = animatedContainerColor,
                     contentColor = animatedContentColor,
-                    enable = buttonEnable.value,
+                    enable = viewModel.isButtonEnable.value,
                     onClick = { navController.navigate(Route.MainScreen.path) },
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
