@@ -5,6 +5,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
@@ -20,15 +21,12 @@ val httpClientAndroid = HttpClient(Android) {
     install(ContentNegotiation) {
         register(ContentType.Text.Html, KotlinxSerializationConverter(
         Json {
+            ignoreUnknownKeys = true
             prettyPrint = true
             isLenient = true
-            ignoreUnknownKeys = true
         }
         ))
-
-
     }
-
     install(HttpTimeout) {
         requestTimeoutMillis = NETWORK_TIME_OUT
         connectTimeoutMillis = NETWORK_TIME_OUT
@@ -36,11 +34,7 @@ val httpClientAndroid = HttpClient(Android) {
     }
 
     install(Logging) {
-        logger = object : Logger {
-            override fun log(message: String) {
-                Log.v("Logger Ktor =>", message)
-            }
-        }
+        logger = Logger.DEFAULT
         level = LogLevel.ALL
     }
 

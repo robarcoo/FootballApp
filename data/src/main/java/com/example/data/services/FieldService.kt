@@ -1,5 +1,6 @@
 package com.example.data.services
 
+import com.example.data.dto.ApiResponse
 import com.example.data.dto.FieldDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -13,25 +14,26 @@ import kotlinx.serialization.json.Json
 
 interface RemoteDataSource<T> {
     suspend fun fetch(url: String): T
-    suspend fun fetchAll() : T
+    suspend fun fetchAll() : ApiResponse
     suspend fun put(url: String, data: T): T
     suspend fun post(url: String, data: T): T
     suspend fun delete(url: String): Boolean
 }
 
 
+
 class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> {
 
     companion object {
         private const val END_POINT = "https://requestdesign.github.io/Footbool/"
-    }
+    } // перенести в клиент
 
     override suspend fun fetch(url: String): FieldDto {
         return client.get("$END_POINT$url").body()
     }
 
-    override suspend fun fetchAll(): FieldDto {
-        return Json.decodeFromString<FieldDto>(client.get("https://football.requestbitrix.ru/api/v1/fields/getFields/").body())
+    override suspend fun fetchAll(): ApiResponse {
+        return Json.decodeFromString<ApiResponse>(client.get("https://football.requestbitrix.ru/api/v1/fields/getFields/").body())
     }
 
     override suspend fun put(url: String, data: FieldDto): FieldDto {

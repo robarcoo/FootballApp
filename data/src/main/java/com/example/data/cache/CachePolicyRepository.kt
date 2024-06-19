@@ -1,5 +1,6 @@
 package com.example.data.cache
 
+import com.example.data.dto.ApiResponse
 import com.example.data.local.LocalDataSource
 import com.example.data.services.RemoteDataSource
 
@@ -111,7 +112,7 @@ abstract class CachePolicyRepository<T>(
         }
     }
 
-    suspend fun getAll() : T {
+    suspend fun getAll() : ApiResponse {
         return remoteDataSource.fetchAll()
     }
 }
