@@ -1,11 +1,8 @@
 package com.example.footballplayassistant.viewmodels
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.models.CommonAnswer
-import com.example.domain.models.CommonAnswerUi
 import com.example.domain.models.Result
 import com.example.domain.models.auth.UserAuthorization
 import com.example.domain.usecases.auth.interfaces.CheckRecoveryCodeUseCase
@@ -21,8 +18,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
 
 
 class AuthenticationViewModel(
@@ -74,6 +69,10 @@ class AuthenticationViewModel(
 
 
     private var _isAuthorization = MutableStateFlow(false)
+    val isAuthorization: StateFlow<Boolean> = _isAuthorization.asStateFlow()
+
+    private var _isServerError = MutableStateFlow(false)
+    val isServerError: StateFlow<Boolean> = _isServerError.asStateFlow()
 
     fun signIn(user: UserAuthorization) {
         val res = checkUserForAuthorizationUseCase.execute(user = user)
@@ -83,10 +82,21 @@ class AuthenticationViewModel(
                     is Result.Success<*> -> {
                         _isAuthorization.update { true }
                         _isError.update { false }
+                        _isServerError.update { false }
                         Log.d("MyLog", "Answer in VM: ${it.value}")
                     }
-                    is Result.ErrorNetwork -> {Log.d("MyLog", "Error network in VM: $it")}
-                    else -> {Log.d("MyLog", "unknown error in VM: $it")}
+
+                    is Result.ErrorNetwork -> {
+                        _isAuthorization.update { false }
+                        _isError.update { true }
+                        _isServerError.update { false }
+                        Log.d("MyLog", "Error network in VM: $it")
+                    }
+
+                    else -> {
+                        Log.d("MyLog", "unknown error in VM: $it")
+                        _isServerError.update { true }
+                    }
                 }
             }
         }

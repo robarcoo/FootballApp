@@ -1,15 +1,17 @@
 package com.example.data.services
 
+import android.util.Log
 import com.example.domain.models.auth.UserAuthorization
 import com.example.domain.models.auth.UserRecoveryPassword
 import com.example.domain.models.auth.UserRegistration
 import com.example.domain.models.auth.UserRegistrationStepOne
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 
 interface ApiServiceAuthentication {
@@ -35,7 +37,10 @@ class ApiServiceAuthenticationImpl(private val client: HttpClient) : ApiServiceA
     private val UPDATE_PASSWORD = "auth/updatePassword/"
 
     override suspend fun authorization(userData: UserAuthorization): HttpResponse {
-        return client.post(AUTHORIZATION) { setBody(userData) }.body()
+        Log.d("MyLog", "auth")
+        return client.post("https://football.requestbitrix.ru/api/v1/auth/login/"/*AUTHORIZATION*/) {
+            contentType(ContentType.Application.Json)
+            setBody(userData) }.body()
     }
 
 //    override suspend fun authorization(userData: UserAuthorization): HttpResponse {

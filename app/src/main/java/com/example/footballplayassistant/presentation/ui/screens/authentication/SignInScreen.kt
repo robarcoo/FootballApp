@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -22,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +52,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun SignInScreen() {
     val navController = LocalNavController.current!!
+    val context = LocalContext.current
     val viewModel: AuthenticationViewModel = getViewModel()
 
     val filterButton by viewModel.filterButtonState.collectAsState()
@@ -58,6 +61,8 @@ fun SignInScreen() {
     val phone by viewModel.phone.collectAsState()
     val email by viewModel.email.collectAsState()
     val password by viewModel.password.collectAsState()
+    val isAuthorization by viewModel.isAuthorization.collectAsState()
+    val isServerError by viewModel.isServerError.collectAsState()
 
 
     val phoneMask = MaskVisualTransformation("+7 (###) ### ## ##")
@@ -186,7 +191,6 @@ fun SignInScreen() {
                     contentColor = animatedContentColor,
                     enable = buttonEnable,
                     onClick = {
-//                        navController.navigate(Route.MainScreen.path)
                         val user = UserAuthorization(
                             login = phone.ifEmpty { email },
                             password = password
@@ -198,6 +202,14 @@ fun SignInScreen() {
                         .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
                         .fillMaxWidth()
                 )
+                LaunchedEffect(isAuthorization) {
+                    if (isAuthorization)
+                        navController.navigate(Route.MainScreen.path)
+                }
+                LaunchedEffect(isServerError) {
+                    if (isServerError)
+                        Toast.makeText(context, "Что-то пошло не так...", Toast.LENGTH_SHORT).show()
+                }
             }
 
             item {
