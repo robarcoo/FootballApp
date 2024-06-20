@@ -9,7 +9,9 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
 import kotlinx.serialization.json.Json
 
 interface RemoteDataSource<T> {
@@ -43,8 +45,9 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> 
     }
 
     override suspend fun post(url: String, data: FieldDto): FieldDto {
-        return client.post("$END_POINT$url") {
+        return client.post(url) {
             setBody(data)
+            contentType(ContentType.Application.Json)
         }.body()
     }
 
