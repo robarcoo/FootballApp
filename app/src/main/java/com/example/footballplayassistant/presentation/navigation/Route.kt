@@ -91,6 +91,8 @@ sealed class Route(val path: String) {
     data object ViewingPhotoScreen : Route(path = "viewing_photo_screen")
 
 
+    data object LeaveMessageScreen : Route(path = "leave_message_screen")
+
 
     fun withArgs(vararg args: String): String {
         return buildString {

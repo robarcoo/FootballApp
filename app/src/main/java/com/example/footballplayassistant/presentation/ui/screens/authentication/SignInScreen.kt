@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -17,20 +18,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.models.auth.UserAuthorization
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.customviews.buttons.BottomQuestion
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
@@ -46,19 +46,24 @@ import com.example.footballplayassistant.presentation.enums.getFilters
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import com.example.footballplayassistant.viewmodels.AuthenticationViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-@Preview
 fun SignInScreen() {
     val navController = LocalNavController.current!!
+    val context = LocalContext.current
+    val viewModel: AuthenticationViewModel = getViewModel()
 
-    val filtersList = FilterPhoneEmail.entries.toList()
-    val filterPhoneEmail = remember { mutableIntStateOf(filtersList[0].ordinal) }
-    val error = remember{ mutableStateOf(false) }
-    val phone = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-    val buttonEnable = remember { mutableStateOf(false) }
+    val filterButton by viewModel.filterButtonState.collectAsState()
+    val error by viewModel.isError.collectAsState()
+    val buttonEnable by viewModel.isButtonEnable.collectAsState()
+    val phone by viewModel.phone.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val isAuthorization by viewModel.isAuthorization.collectAsState()
+    val isServerError by viewModel.isServerError.collectAsState()
+
 
     val phoneMask = MaskVisualTransformation("+7 (###) ### ## ##")
 
@@ -69,9 +74,14 @@ fun SignInScreen() {
             item {
                 SelectionButtons(
                     valueList = getFilters(),
-                    selectedItemIndex = filterPhoneEmail.intValue,
-                    onSelected = { filterPhoneEmail.intValue = it },
-                    modifier = Modifier.padding(top = 24.dp, bottom = 20.dp, start = 16.dp, end = 16.dp)
+                    selectedItemIndex = filterButton,
+                    onSelected = { viewModel.updateFilterButtonState(it) },
+                    modifier = Modifier.padding(
+                        top = 24.dp,
+                        bottom = 20.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    )
                 )
             }
 
@@ -79,9 +89,10 @@ fun SignInScreen() {
                 Card(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.horizontal),
                     colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer)
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
                 ) {
-                    if (filterPhoneEmail.intValue == FilterPhoneEmail.Phone.ordinal) {
+                    if (filterButton == FilterPhoneEmail.Phone.ordinal) {
                         Text(
                             text = stringResource(R.string.enterPhoneText),
                             style = MaterialTheme.typography.labelLarge
@@ -97,7 +108,7 @@ fun SignInScreen() {
                             keyBoard = KeyboardType.Phone,
                             mask = phoneMask,
                             maxLength = 10,
-                            onClick = { if (it.length == 10) phone.value = it },
+                            onClick = { if (it.length == 10) viewModel.updatePhone(it) },
                             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp)
                         )
                     } else {
@@ -113,7 +124,7 @@ fun SignInScreen() {
                         )
                         CommonTextField(
                             placeholder = stringResource(R.string.enterEmail),
-                            onClick = { email.value = it },
+                            onClick = { viewModel.updateEmail(it) },
                             modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 10.dp)
                         )
                     }
@@ -121,11 +132,11 @@ fun SignInScreen() {
                         placeholder = stringResource(R.string.enterPass),
                         imageTrail = R.drawable.ic_eye_slash_24,
                         isPassword = true,
-                        isError = error.value,
-                        onClick = { password.value = it },
+                        isError = error,
+                        onClick = { viewModel.updatePassword(it) },
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp)
                     )
-                    AnimatedVisibility(visible = error.value) {
+                    AnimatedVisibility(visible = error) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -140,7 +151,8 @@ fun SignInScreen() {
                             Text(
                                 text = stringResource(id = R.string.invalidPassword),
                                 style = MaterialTheme.typography.headlineSmall.copy(
-                                    fontWeight = FontWeight.W400),
+                                    fontWeight = FontWeight.W400
+                                ),
                                 color = MaterialTheme.colorScheme.error,
                                 modifier = Modifier
                             )
@@ -159,17 +171,17 @@ fun SignInScreen() {
             }
 
             item {
-                LaunchedEffect(phone.value, email.value, password.value) {
-                    buttonEnable.value = ((phone.value.isNotEmpty() || email.value.isNotEmpty())
-                            && password.value.isNotEmpty())
+                LaunchedEffect(phone, email, password) {
+                    if ((phone.isNotEmpty() || email.isNotEmpty()) && password.isNotEmpty())
+                        viewModel.updateButtonEnable(true)
                 }
                 val animatedContainerColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                    targetValue = if (buttonEnable) MaterialTheme.colorScheme.secondary
                     else MaterialTheme.colorScheme.tertiary,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
                 val animatedContentColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                    targetValue = if (buttonEnable) MaterialTheme.colorScheme.primary
                     else MaterialTheme.colorScheme.onSecondaryContainer,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
@@ -177,13 +189,27 @@ fun SignInScreen() {
                     text = stringResource(R.string.signin),
                     containerColor = animatedContainerColor,
                     contentColor = animatedContentColor,
-                    enable = buttonEnable.value,
-                    onClick = { navController.navigate(Route.MainScreen.path) },
+                    enable = buttonEnable,
+                    onClick = {
+                        val user = UserAuthorization(
+                            login = phone.ifEmpty { email },
+                            password = password
+                        )
+                        viewModel.signIn(user)
+                    },
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp, bottom = 20.dp)
                         .fillMaxWidth()
                 )
+                LaunchedEffect(isAuthorization) {
+                    if (isAuthorization)
+                        navController.navigate(Route.MainScreen.path)
+                }
+                LaunchedEffect(isServerError) {
+                    if (isServerError)
+                        Toast.makeText(context, "Что-то пошло не так...", Toast.LENGTH_SHORT).show()
+                }
             }
 
             item {

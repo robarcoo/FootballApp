@@ -193,6 +193,7 @@
     <string name="sendMessage">Оставить сообщение</string>
     <string name="cancelParticipate">Отменить участие</string>
     <string name="autoReturn">До начала события более 12 часов, при отмене участия средства автоматически вернутся на Ваш баланс</string>
+    <string name="notAutoReturn">До начала события меньше 12 часов, поэтому при отмене участия, средства не вернутся на Ваш баланс</string>
     <string name="eventEnd">Событие завершено</string>
     <string name="rateGame">Оценить игру</string>
     <string name="markParticipants">Отметить участников</string>
@@ -201,6 +202,21 @@
     <string name="copyInvitation">Скопировать приглашение</string>
     <string name="host">Хост</string>
     <string name="deposit">Депозит</string>
+    <string name="signInForTakePart">Войдите, чтобы участвовать в матче.</string>
+    <string name="gameManagement">Управление игрой</string>
+    <string name="youCantEditGame">До начала события меньше 12 часов, поэтому вы не можете редактировать игру</string>
+    <string name="youWasDeleted">Вы не можете принять участие в матче, поскольку хост удалил вас из игры.</string>
+    <string name="cancelParticipationQuestion">Вы точно хотите отменить участие в игре?</string>
+    <string name="negativeRate"> Это может негативно повлиять на ваш рейтинг. </string>
+    <string name="cancelParticipation">Отменить участие</string>
+    <string name="matchIsOver">Матч завершен!</string>
+    <string name="andOther">и %1$d других</string>
+    <string name="noOneJoin">Никто\nне присоединился</string>
+    <string name="noOneMoreJoin">Больше никто не\nприсоединился</string>
+    <string name="plus">+%1$d</string>
+    <string name="joinToGameForSeeMsg">Чтобы посмотреть сообщения игроков к этому матчу и оставлять свои сообщения, присоединитесь в игре</string>
+    <string name="matchIsOverBlur">Матч завершен, поэтому вы не можете просматривать информацию о матче.</string>
+
 
     <string name="matchInfo">Информация о матче</string>
     <string name="matchPlace">Место проведения матча</string>
@@ -232,6 +248,8 @@
     <string name="inviteParticipants">Пригласить участников</string>
     <string name="noPlayers">Игроков не найдено</string>
     <string name="youCanInvite">На данный момент никто не присоединился к игре. Вы можете пригласить новых участников. </string>
+    <string name="deletePlayerQuestion">Удалить игрока?</string>
+
 
     <string name="goalkeeper">Вратарь</string>
     <string name="fullback">Защитник</string>
@@ -679,6 +697,9 @@
     <string name="addGameToCalendarIconDescription">Добавить событие в календаре</string>
     <string name="calendarHeaderText">Календарь</string>
     <string name="filterEventsCalendarIconDescription">Фильтр событий в календаре</string>
+    <string name="leaveMessageHeader">Оставить сообщение</string>
+    <string name="yourMessagePlaceholderText">Ваше сообщение</string>
+    <string name="sendButtonText">Отправить</string>
 
 
     <!--FAQ-->

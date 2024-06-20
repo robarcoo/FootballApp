@@ -1,21 +1,27 @@
 package com.example.domain.repositories
 
-import com.example.domain.models.UserDataAuthorization
-import com.example.domain.models.UserDataRegistration
+import com.example.domain.models.auth.UserAuthorization
+import com.example.domain.models.auth.UserRecoveryPassword
+import com.example.domain.models.auth.UserRegistration
+import com.example.domain.models.auth.UserRegistrationStepOne
+import kotlinx.coroutines.flow.Flow
+import com.example.domain.models.Result
 
 interface AuthenticationRepository {
+     fun checkUserForAuthorization(user: UserAuthorization): Flow<Result>
 
-    fun checkUniqueNickname(nickname: String): Boolean
+    fun checkUserForRegistrationStepOne(user: UserRegistrationStepOne): Flow<Result>
 
-    fun checkCode(code: Int): Boolean
+    fun saveUserToDB(user: UserRegistration): Flow<Result>
 
-    fun checkUserForAuthorization(user: UserDataAuthorization): Boolean
+    fun sendCodeToPhone(phone: String): Flow<Result>
 
-    fun saveUserToDB(user: UserDataRegistration)
+    fun sendCodeToEmail(email: String): Flow<Result>
 
-    fun sendCodeToEmail(email: String)
+    fun checkRegistrationCode(code: String): Flow<Result>
 
-    fun sendCodeToPhone(phone: String)
+    fun checkRecoveryCode(code: String): Flow<Result>
 
-    fun sendEmailAfterRegistration(email: String)
+    fun recoveryPassword(user: UserRecoveryPassword): Flow<Result>
+
 }

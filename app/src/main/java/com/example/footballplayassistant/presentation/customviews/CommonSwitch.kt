@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.zIndex
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.customviews.dropdownmenus.DropDownHint
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +65,7 @@ fun CommonSwitch(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val tooltipState = remember { mutableStateOf(false) }
+        val expand = remember { mutableStateOf(false) }
         Row(modifier = Modifier.align(Alignment.CenterVertically)) {
             Text(
                 text = text,
@@ -72,30 +73,18 @@ fun CommonSwitch(
                 color = MaterialTheme.colorScheme.primary
             )
 
-            if (icon)
+            if (icon) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_question_14),
                     contentDescription = "Question",
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
                         .padding(start = 4.dp)
-                        .clickable {
-                            tooltipState.value = !tooltipState.value
-                        }
+                        .clickable { expand.value=true }
                 )
+                DropDownHint(expand = expand, text = textIcon)
+            }
         }
-
-        if (tooltipState.value)
-            RichTooltip(
-                modifier = Modifier,
-                colors = RichTooltipColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimary,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                    actionContentColor = MaterialTheme.colorScheme.primary
-                ),
-                shape = RoundedCornerShape(12.dp),
-                text = { Text(text = textIcon) })
 
         CustomSwitchButton(
             switchPadding = 0.dp,
