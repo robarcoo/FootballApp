@@ -1,5 +1,6 @@
 package com.example.data.cache
 
+import com.example.data.dto.ApiResponse
 import com.example.data.local.LocalDataSource
 import com.example.data.services.RemoteDataSource
 
@@ -71,12 +72,12 @@ abstract class CachePolicyRepository<T>(
         }
     }
 
-    suspend fun post(url: String, data: T, cachePolicy: CachePolicy): T {
+    suspend fun post(url: String, data: T, cachePolicy: CachePolicy): ApiResponse {
         return when (cachePolicy.type) {
             CachePolicy.Type.NEVER -> remoteDataSource.post(url, data)
             CachePolicy.Type.ALWAYS -> {
                 val createdData = remoteDataSource.post(url, data)
-                localDataSource.set(url, CacheEntry(key = url, value = createdData))
+                localDataSource.set(url, CacheEntry(key = url, value = data))
                 createdData
             }
             CachePolicy.Type.CLEAR -> {
@@ -85,19 +86,8 @@ abstract class CachePolicyRepository<T>(
             }
             CachePolicy.Type.REFRESH -> {
                 val createdData = remoteDataSource.post(url, data)
-                localDataSource.set(url, CacheEntry(key = url, value = createdData))
+                localDataSource.set(url, CacheEntry(key = url, value = data))
                 createdData
-            }
-            CachePolicy.Type.EXPIRES -> {
-                localDataSource.get(url)?.let {
-                    if ((it.createdAt + cachePolicy.expires) > System.currentTimeMillis()) {
-                        it.value
-                    } else {
-                        val createdData = remoteDataSource.post(url, data)
-                        localDataSource.set(url, CacheEntry(key = url, value = createdData))
-                        createdData
-                    }
-                } ?: remoteDataSource.post(url, data)
             }
             else -> remoteDataSource.post(url, data)
         }
@@ -111,7 +101,7 @@ abstract class CachePolicyRepository<T>(
         }
     }
 
-    suspend fun getAll() : T {
+    suspend fun getAll() : ApiResponse {
         return remoteDataSource.fetchAll()
     }
 }

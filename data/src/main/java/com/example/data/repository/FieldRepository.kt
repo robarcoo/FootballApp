@@ -3,6 +3,7 @@ package com.example.data.repository
 import com.example.data.cache.CacheEntry
 import com.example.data.cache.CachePolicy
 import com.example.data.cache.CachePolicyRepository
+import com.example.data.dto.ApiResponse
 import com.example.data.dto.FieldDto
 import com.example.data.local.LocalDataSource
 import com.example.data.services.RemoteDataSource
@@ -21,7 +22,7 @@ class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String
 
     }
 
-    suspend fun getAllFields() : FieldDto {
+    suspend fun getAllFields() : ApiResponse {
         return getAll()
     }
 
@@ -29,7 +30,7 @@ class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String
         return put(url, data, cachePolicy)
     }
 
-    suspend fun postField(key: String, data : FieldDto, cachePolicy: CachePolicy) : FieldDto {
+    suspend fun postField(key: String, data : FieldDto, cachePolicy: CachePolicy) : ApiResponse {
         return post(key, data, cachePolicy)
     }
 
