@@ -4,5 +4,5 @@ import com.example.domain.models.Result
 import kotlinx.coroutines.flow.Flow
 
 interface CheckRecoveryCodeUseCase {
-    fun execute(code: Int): Flow<Result>
+    fun execute(code: String): Flow<Result>
 }

@@ -1,6 +1,7 @@
 package com.example.footballplayassistant.viewmodels
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.CommonAnswer
@@ -17,6 +18,7 @@ import com.example.domain.usecases.auth.interfaces.SendCodeToPhoneUseCase
 import com.example.footballplayassistant.presentation.enums.FilterPhoneEmail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -35,37 +37,37 @@ class AuthenticationViewModel(
 
     //sign in
     private var _filterButtonState = MutableStateFlow(FilterPhoneEmail.Phone.ordinal)
-    val filterButtonState: StateFlow<Int> = _filterButtonState
+    val filterButtonState: StateFlow<Int> = _filterButtonState.asStateFlow()
     fun updateFilterButtonState(value: Int) {
         _filterButtonState.update { value }
     }
 
     private var _isError = MutableStateFlow(false)
-    val isError: StateFlow<Boolean> = _isError
+    val isError: StateFlow<Boolean> = _isError.asStateFlow()
     fun updateError(value: Boolean) {
         _isError.update { value }
     }
 
     private var _phone = MutableStateFlow("")
-    val phone: StateFlow<String> = _phone
+    val phone: StateFlow<String> = _phone.asStateFlow()
     fun updatePhone(value: String) {
         _phone.update { value }
     }
 
     private var _email = MutableStateFlow("")
-    val email: StateFlow<String> = _email
+    val email: StateFlow<String> = _email.asStateFlow()
     fun updateEmail(value: String) {
         _email.update { value }
     }
 
     private var _password = MutableStateFlow("")
-    val password: StateFlow<String> = _password
+    val password: StateFlow<String> = _password.asStateFlow()
     fun updatePassword(value: String) {
         _password.update { value }
     }
 
     private var _isButtonEnable = MutableStateFlow(false)
-    val isButtonEnable: StateFlow<Boolean> = _isButtonEnable
+    val isButtonEnable: StateFlow<Boolean> = _isButtonEnable.asStateFlow()
     fun updateButtonEnable(value: Boolean) {
         _isButtonEnable.update { value }
     }
@@ -78,14 +80,13 @@ class AuthenticationViewModel(
         viewModelScope.launch {
             res.collect {
                 when (it) {
-                    Result.Success(CommonAnswer) -> {
+                    is Result.Success<*> -> {
                         _isAuthorization.update { true }
                         _isError.update { false }
+                        Log.d("MyLog", "Answer in VM: ${it.value}")
                     }
-                    else -> {
-                        _isAuthorization.update { false }
-                        _isError.update { true }
-                    }
+                    is Result.ErrorNetwork -> {Log.d("MyLog", "Error network in VM: $it")}
+                    else -> {Log.d("MyLog", "unknown error in VM: $it")}
                 }
             }
         }

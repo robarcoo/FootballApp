@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import android.util.Log
 import com.example.data.services.ApiServiceAuthentication
 import com.example.domain.models.CommonAnswer
 import com.example.domain.models.auth.UserAuthorization
@@ -47,33 +48,33 @@ class AuthenticationRepositoryImpl(private val apiService: ApiServiceAuthenticat
 
     override fun checkUserForRegistrationStepOne(user: UserRegistrationStepOne): Flow<Result> {
         return flow {
-            apiService.registrationStepOne()
+            apiService.registrationStepOne(userData = user)
         }
 
     }
 
     override fun saveUserToDB(user: UserRegistration): Flow<Result> {
-        return flow {apiService.registration()}
+        return flow {apiService.registration(userData = user)}
     }
 
     override fun sendCodeToPhone(phone: String): Flow<Result> {
-        return flow {apiService.sendRegistrationCode()}
+        return flow {apiService.sendRegistrationCode(phone = phone)}
     }
 
     override fun sendCodeToEmail(email: String): Flow<Result> {
-        return flow {apiService.sendRecoveryCode()}
+        return flow {apiService.sendRecoveryCode(email = email)}
     }
 
-    override fun checkRegistrationCode(code: Int): Flow<Result> {
-        return flow {apiService.checkRegistrationCode()}
+    override fun checkRegistrationCode(code: String): Flow<Result> {
+        return flow {apiService.checkRegistrationCode(code = code)}
     }
 
-    override fun checkRecoveryCode(code: Int): Flow<Result> {
-        return flow {apiService.checkRecoveryCode()}
+    override fun checkRecoveryCode(code: String): Flow<Result> {
+        return flow {apiService.checkRecoveryCode(code = code)}
     }
 
     override fun recoveryPassword(user: UserRecoveryPassword): Flow<Result> {
-        return flow {apiService.updatePassword()}
+        return flow {apiService.updatePassword(userData = user)}
     }
 
 

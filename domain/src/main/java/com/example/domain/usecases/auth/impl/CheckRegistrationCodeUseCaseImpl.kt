@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class CheckRegistrationCodeUseCaseImpl(private val authenticationRepository: AuthenticationRepository):
     CheckRegistrationCodeUseCase {
 
-    override fun execute(code: Int): Flow<Result> {
+    override fun execute(code: String): Flow<Result> {
         return authenticationRepository.checkRegistrationCode(code = code)
     }
 }

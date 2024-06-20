@@ -18,9 +18,9 @@ interface AuthenticationRepository {
 
     fun sendCodeToEmail(email: String): Flow<Result>
 
-    fun checkRegistrationCode(code: Int): Flow<Result>
+    fun checkRegistrationCode(code: String): Flow<Result>
 
-    fun checkRecoveryCode(code: Int): Flow<Result>
+    fun checkRecoveryCode(code: String): Flow<Result>
 
     fun recoveryPassword(user: UserRecoveryPassword): Flow<Result>
 
