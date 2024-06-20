@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "2.0.0"
+    id("kotlinx-serialization")
 }
 
 android {
@@ -41,11 +42,16 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
     implementation("io.ktor:ktor-client-core:2.3.11")
-    implementation("io.ktor:ktor-client-cio:2.3.11")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("io.ktor:ktor-client-android:2.3.11")
+    implementation("io.ktor:ktor-client-serialization:2.3.11")
+    implementation("io.ktor:ktor-client-logging:2.3.11")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+
+    implementation("io.ktor:ktor-client-cio:2.3.11")
+//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     //module
     implementation(project(":domain"))
