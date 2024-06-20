@@ -30,7 +30,7 @@ class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String
         return put(url, data, cachePolicy)
     }
 
-    suspend fun postField(key: String, data : FieldDto, cachePolicy: CachePolicy) : FieldDto {
+    suspend fun postField(key: String, data : FieldDto, cachePolicy: CachePolicy) : ApiResponse {
         return post(key, data, cachePolicy)
     }
 

@@ -18,7 +18,7 @@ interface RemoteDataSource<T> {
     suspend fun fetch(url: String): T
     suspend fun fetchAll() : ApiResponse
     suspend fun put(url: String, data: T): T
-    suspend fun post(url: String, data: T): T
+    suspend fun post(url: String, data: T): ApiResponse
     suspend fun delete(url: String): Boolean
 }
 
@@ -35,7 +35,8 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> 
     }
 
     override suspend fun fetchAll(): ApiResponse {
-        return Json.decodeFromString<ApiResponse>(client.get("https://football.requestbitrix.ru/api/v1/fields/getFields/").body())
+        return Json.decodeFromString<ApiResponse>(client.
+        get("https://football.requestbitrix.ru/api/v1/fields/getFields/").body())
     }
 
     override suspend fun put(url: String, data: FieldDto): FieldDto {
@@ -44,11 +45,11 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> 
         }.body()
     }
 
-    override suspend fun post(url: String, data: FieldDto): FieldDto {
-        return client.post(url) {
-            setBody(data)
+    override suspend fun post(url: String, data: FieldDto): ApiResponse {
+        return Json.decodeFromString<ApiResponse>(client.post(url) {
             contentType(ContentType.Application.Json)
-        }.body()
+            setBody(data)
+        }.body())
     }
 
     override suspend fun delete(url: String): Boolean {
