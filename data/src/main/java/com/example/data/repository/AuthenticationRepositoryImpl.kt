@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import android.util.Log
 import com.example.data.services.ApiServiceAuthentication
 import com.example.domain.models.CommonAnswer
 import com.example.domain.models.Result
@@ -23,68 +24,166 @@ class AuthenticationRepositoryImpl(private val apiService: ApiServiceAuthenticat
                 when (response.status) {
                     HttpStatusCode.OK -> {
                         try {
-                            emit(
-                                Result.Success(
-                                    value = response.body<CommonAnswer>()
-                                )
-                            )
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
                         } catch (e: SerializationException) {
-                            emit(
-                                Result.ErrorNetwork(
-                                    value = response.body<CommonAnswer>().toCommonAnswerUi()
-                                )
-                            )/*class error*/
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
                         }
-
                     }
-                    else -> {
-                        emit(
-                            Result.Error(
-                                value = Exception("error")
-                            )
-                        )
-                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
                 }
             } catch (e: Exception) {
-                emit(
-                    Result.Error(
-                        value = e
-                    )
-                )
+                emit(Result.Error(value = e))
             }
         }
     }
 
     override fun checkUserForRegistrationStepOne(user: UserRegistrationStepOne): Flow<Result> {
         return flow {
-            apiService.registrationStepOne(userData = user)
+            val response = apiService.registrationStepOne(userData = user)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
         }
-
     }
 
     override fun saveUserToDB(user: UserRegistration): Flow<Result> {
-        return flow { apiService.registration(userData = user) }
+        return flow {
+            val response = apiService.registration(userData = user)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
 
     override fun sendCodeToPhone(phone: String): Flow<Result> {
-        return flow { apiService.sendRegistrationCode(phone = phone) }
+        return flow {
+            val response = apiService.sendRegistrationCode(phone = phone)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> {
+                        Log.d("MyLog", "_isServerError reppp: ${response.status}")
+                        emit(Result.Error(value = Exception("errorrrr"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
 
     override fun sendCodeToEmail(email: String): Flow<Result> {
-        return flow { apiService.sendRecoveryCode(email = email) }
+        return flow {
+            val response = apiService.sendRecoveryCode(email = email)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
 
     override fun checkRegistrationCode(code: String): Flow<Result> {
-        return flow { apiService.checkRegistrationCode(code = code) }
+        return flow {
+            val response = apiService.checkRegistrationCode(code = code)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
 
     override fun checkRecoveryCode(code: String): Flow<Result> {
-        return flow { apiService.checkRecoveryCode(code = code) }
+        return flow {
+            val response = apiService.checkRecoveryCode(code = code)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
 
     override fun recoveryPassword(user: UserRecoveryPassword): Flow<Result> {
-        return flow { apiService.updatePassword(userData = user) }
+        return flow {
+            val response = apiService.updatePassword(userData = user)
+            try {
+                when (response.status) {
+                    HttpStatusCode.OK -> {
+                        try {
+                            emit(Result.Success(value = response.body<CommonAnswer>()))
+                        } catch (e: SerializationException) {
+                            emit(Result.ErrorNetwork(value = response.body<CommonAnswer>()
+                                .toCommonAnswerUi()))
+                        }
+                    }
+                    else -> { emit(Result.Error(value = Exception("error"))) }
+                }
+            } catch (e: Exception) {
+                emit(Result.Error(value = e))
+            }
+        }
     }
-
-
 }

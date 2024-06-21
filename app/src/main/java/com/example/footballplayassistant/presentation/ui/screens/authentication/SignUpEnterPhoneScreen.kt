@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -20,18 +21,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.footballplayassistant.R
 import com.example.footballplayassistant.presentation.constants.PhoneEmail
@@ -43,14 +43,20 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.viewmodels.AuthenticationViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-@Preview
 fun SignUpEnterPhoneScreen() {
     val navController = LocalNavController.current!!
-    val buttonEnable = remember { mutableStateOf(false) }
-    val unique = remember { mutableStateOf(false) }
-    val phone = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val viewModel: AuthenticationViewModel = getViewModel()
+    val buttonEnable by viewModel.isButtonEnable.collectAsState(initial = false)
+    val unique by viewModel.isUnique.collectAsState()
+    val phone by viewModel.phone.collectAsState(initial = "")
+    val isServerError by viewModel.isServerError.collectAsState(initial = false)
+    val isSendRequest by viewModel.isSendRequest.collectAsState(initial = false)
+
     val phoneMask = MaskVisualTransformation("+7 (###) ### ## ##")
 
     Column(
@@ -81,16 +87,19 @@ fun SignUpEnterPhoneScreen() {
                 onClick = {
                     if (it.length == 10){
                         //проверка не зарегистрирован ли на этот номер аккаунт
-                        phone.value=it
-                        unique.value=true
+                        viewModel.updatePhone("+7$it")
+//                        phone.value=it
+//                        unique.value=true
+                    }else{
+                        viewModel.updatePhone("")
                     }
-                    else
-                        unique.value=false
+//                    else
+//                        unique.value=false
                 },
                 modifier = Modifier.padding(bottom = 10.dp, start = 16.dp, end = 16.dp)
             )
 
-            AnimatedVisibility(visible = !unique.value && phone.value.isNotEmpty()) {
+            AnimatedVisibility(visible = !unique && phone.isNotEmpty() && isSendRequest) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -111,18 +120,31 @@ fun SignUpEnterPhoneScreen() {
                 }
             }
 
-            LaunchedEffect(unique.value, phone.value) {
-                if(unique.value && phone.value.isNotEmpty())
-                    buttonEnable.value=true
+            //пока так, чтобы перейти на следующий экран, т.к. от сервера всегда приходит ответ 500Internal Server Error
+            LaunchedEffect(phone) {
+                if(phone.isNotEmpty()) {
+                    viewModel.updateButtonEnable(true)
+                }
+                else
+                    viewModel.updateButtonEnable(false)
+            }
+            LaunchedEffect(unique) {
+                if(unique)
+                    navController.navigate(Route.SignUpCodeScreen.withArgs(PhoneEmail.PHONE))
+            }
+            val str = stringResource(id = R.string.smthGoWrong)
+            LaunchedEffect(isServerError) {
+                if (isServerError)
+                    Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
             }
 
             val animatedContainerColor: Color by animateColorAsState(
-                targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                targetValue = if (buttonEnable) MaterialTheme.colorScheme.secondary
                 else MaterialTheme.colorScheme.tertiary,
                 animationSpec = tween(500, 0, LinearEasing)
             )
             val animatedContentColor: Color by animateColorAsState(
-                targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                targetValue = if (buttonEnable) MaterialTheme.colorScheme.primary
                 else MaterialTheme.colorScheme.onSecondaryContainer,
                 animationSpec = tween(500, 0, LinearEasing)
             )
@@ -130,8 +152,8 @@ fun SignUpEnterPhoneScreen() {
                 text = stringResource(R.string.sendCode),
                 containerColor = animatedContainerColor,
                 contentColor = animatedContentColor,
-                enable = buttonEnable.value,
-                onClick = { navController.navigate(Route.SignUpCodeScreen.withArgs(PhoneEmail.PHONE)) },
+                enable = buttonEnable,
+                onClick = { viewModel.sendCodeToPhone(phone = phone) },
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )

@@ -56,13 +56,13 @@ fun SignInScreen() {
     val viewModel: AuthenticationViewModel = getViewModel()
 
     val filterButton by viewModel.filterButtonState.collectAsState()
-    val error by viewModel.isError.collectAsState()
-    val buttonEnable by viewModel.isButtonEnable.collectAsState()
-    val phone by viewModel.phone.collectAsState()
-    val email by viewModel.email.collectAsState()
-    val password by viewModel.password.collectAsState()
-    val isAuthorization by viewModel.isAuthorization.collectAsState()
-    val isServerError by viewModel.isServerError.collectAsState()
+    val error by viewModel.isError.collectAsState(initial = false)
+    val buttonEnable by viewModel.isButtonEnable.collectAsState(initial = false)
+    val phone by viewModel.phone.collectAsState(initial = "")
+    val email by viewModel.email.collectAsState(initial = "")
+    val password by viewModel.password.collectAsState(initial = "")
+    val isAuthorization by viewModel.isAuthorization.collectAsState(initial = false)
+    val isServerError by viewModel.isServerError.collectAsState(initial = false)
 
 
     val phoneMask = MaskVisualTransformation("+7 (###) ### ## ##")
@@ -206,9 +206,10 @@ fun SignInScreen() {
                     if (isAuthorization)
                         navController.navigate(Route.MainScreen.path)
                 }
+                val str = stringResource(id = R.string.smthGoWrong)
                 LaunchedEffect(isServerError) {
                     if (isServerError)
-                        Toast.makeText(context, "Что-то пошло не так...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
                 }
             }
 

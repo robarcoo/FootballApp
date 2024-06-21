@@ -25,7 +25,7 @@ interface ApiServiceAuthentication {
 }
 
 class ApiServiceAuthenticationImpl(private val client: HttpClient) : ApiServiceAuthentication {
-
+    private val START = "https://football.requestbitrix.ru/api/v1/"
     private val AUTHORIZATION = "auth/login/"
     private val REGISTRATION_STEP_ONE = "auth/registerUserStep1/"
     private val REGISTRATION = "auth/register/"
@@ -35,43 +35,59 @@ class ApiServiceAuthenticationImpl(private val client: HttpClient) : ApiServiceA
     private val CHECK_RECOVERY_CODE = "auth/checkRecoveryCode/"
     private val UPDATE_PASSWORD = "auth/updatePassword/"
 
-    //Json.decodeFromString<ApiResponse>
-    override suspend fun authorization(userData: UserAuthorization): HttpResponse/*HttpResponse*/ {
-        return client.post("https://football.requestbitrix.ru/api/v1/auth/login/") {
+    override suspend fun authorization(userData: UserAuthorization): HttpResponse {
+        return client.post("$START$AUTHORIZATION") {
             contentType(ContentType.Application.Json)
             setBody(userData)
         }.body()
     }
 
-//    override suspend fun authorization(userData: UserAuthorization): HttpResponse {
-//        return client.get("https://football.requestbitrix.ru/api/v1/cities/getCities").body()
-//    }
-
     override suspend fun registrationStepOne(userData: UserRegistrationStepOne): HttpResponse {
-        return client.post(REGISTRATION_STEP_ONE) { setBody(userData) }.body()
+        return client.post("$START$REGISTRATION_STEP_ONE") {
+            contentType(ContentType.Application.Json)
+            setBody(userData)
+        }.body()
     }
 
     override suspend fun registration(userData: UserRegistration): HttpResponse {
-        return client.post(REGISTRATION) { setBody(userData) }.body()
+        return client.post("$START$REGISTRATION") {
+            contentType(ContentType.Application.Json)
+            setBody(userData)
+        }.body()
     }
 
     override suspend fun sendRegistrationCode(phone: String): HttpResponse {
-        return client.post(SEND_REGISTRATION_CODE) { setBody(phone) }.body()
+        return client.post("$START$SEND_REGISTRATION_CODE") {
+            contentType(ContentType.Application.Json)
+            setBody(phone)
+        }.body()
     }
 
     override suspend fun sendRecoveryCode(email: String): HttpResponse {
-        return client.post(SEND_RECOVERY_CODE) { setBody(email) }.body()
+        return client.post("$START$SEND_RECOVERY_CODE") {
+            contentType(ContentType.Application.Json)
+            setBody(email)
+        }.body()
     }
 
     override suspend fun checkRegistrationCode(code: String): HttpResponse {
-        return client.post(CHECK_REGISTRATION_CODE) { setBody(code) }.body()
+        return client.post("$START$CHECK_REGISTRATION_CODE") {
+            contentType(ContentType.Application.Json)
+            setBody(code)
+        }.body()
     }
 
     override suspend fun checkRecoveryCode(code: String): HttpResponse {
-        return client.post(CHECK_RECOVERY_CODE) { setBody(code) }.body()
+        return client.post("$START$CHECK_RECOVERY_CODE") {
+            contentType(ContentType.Application.Json)
+            setBody(code)
+        }.body()
     }
 
     override suspend fun updatePassword(userData: UserRecoveryPassword): HttpResponse {
-        return client.post(UPDATE_PASSWORD) { setBody(userData) }.body()
+        return client.post("$START$UPDATE_PASSWORD") {
+            contentType(ContentType.Application.Json)
+            setBody(userData)
+        }.body()
     }
 }
