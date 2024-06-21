@@ -1,8 +1,8 @@
 package com.example.data.repository
 
-import android.util.Log
 import com.example.data.services.ApiServiceAuthentication
 import com.example.domain.models.CommonAnswer
+import com.example.domain.models.Result
 import com.example.domain.models.auth.UserAuthorization
 import com.example.domain.models.auth.UserRecoveryPassword
 import com.example.domain.models.auth.UserRegistration
@@ -13,24 +13,19 @@ import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.SerializationException
-import com.example.domain.models.Result
 
 class AuthenticationRepositoryImpl(private val apiService: ApiServiceAuthentication) :
     AuthenticationRepository {
     override fun checkUserForAuthorization(user: UserAuthorization): Flow<Result> {
         return flow {
-            Log.d("MyLog", "Answer in REP")
             val response = apiService.authorization(userData = user)
-            Log.d("MyLog", "Answer in REP: ${response.status}")
-//           emit (
             try {
                 when (response.status) {
                     HttpStatusCode.OK -> {
-                        Log.d("MyLog", "Answer in REP: ${response.status}")
                         try {
                             emit(
                                 Result.Success(
-                                    value = response.body<CommonAnswer>().toCommonAnswerUi()
+                                    value = response.body<CommonAnswer>()
                                 )
                             )
                         } catch (e: SerializationException) {
@@ -42,25 +37,21 @@ class AuthenticationRepositoryImpl(private val apiService: ApiServiceAuthenticat
                         }
 
                     }
-
                     else -> {
-                        Log.d("MyLog", "Answer in REP: ${response.status}")
                         emit(
                             Result.Error(
-                                value = Exception("error")//response.body<Throwable>()/*class error*/
+                                value = Exception("error")
                             )
                         )
                     }
                 }
             } catch (e: Exception) {
-                Log.d("MyLog", "Answer in REP: ${response.status}")
                 emit(
                     Result.Error(
                         value = e
                     )
                 )
             }
-//           )
         }
     }
 

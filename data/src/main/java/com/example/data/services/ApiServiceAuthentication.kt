@@ -1,6 +1,5 @@
 package com.example.data.services
 
-import android.util.Log
 import com.example.domain.models.auth.UserAuthorization
 import com.example.domain.models.auth.UserRecoveryPassword
 import com.example.domain.models.auth.UserRegistration
@@ -36,11 +35,12 @@ class ApiServiceAuthenticationImpl(private val client: HttpClient) : ApiServiceA
     private val CHECK_RECOVERY_CODE = "auth/checkRecoveryCode/"
     private val UPDATE_PASSWORD = "auth/updatePassword/"
 
-    override suspend fun authorization(userData: UserAuthorization): HttpResponse {
-        Log.d("MyLog", "auth")
-        return client.post("https://football.requestbitrix.ru/api/v1/auth/login/"/*AUTHORIZATION*/) {
+    //Json.decodeFromString<ApiResponse>
+    override suspend fun authorization(userData: UserAuthorization): HttpResponse/*HttpResponse*/ {
+        return client.post("https://football.requestbitrix.ru/api/v1/auth/login/") {
             contentType(ContentType.Application.Json)
-            setBody(userData) }.body()
+            setBody(userData)
+        }.body()
     }
 
 //    override suspend fun authorization(userData: UserAuthorization): HttpResponse {

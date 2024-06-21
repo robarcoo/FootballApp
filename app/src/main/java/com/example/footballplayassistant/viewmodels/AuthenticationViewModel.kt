@@ -3,6 +3,7 @@ package com.example.footballplayassistant.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.models.CommonAnswer
 import com.example.domain.models.Result
 import com.example.domain.models.auth.UserAuthorization
 import com.example.domain.usecases.auth.interfaces.CheckRecoveryCodeUseCase
@@ -80,17 +81,23 @@ class AuthenticationViewModel(
             res.collect {
                 when (it) {
                     is Result.Success<*> -> {
-                        _isAuthorization.update { true }
-                        _isError.update { false }
-                        _isServerError.update { false }
-                        Log.d("MyLog", "Answer in VM: ${it.value}")
+                        val saveIt = it.copy()
+                        val answer = saveIt.value as CommonAnswer
+                        if(answer.status){
+                            _isAuthorization.update { true }
+                            _isError.update { false }
+                            _isServerError.update { false }
+                        }else{
+                            _isAuthorization.update { false }
+                            _isError.update { true }
+                            _isServerError.update { false }
+                        }
                     }
 
                     is Result.ErrorNetwork -> {
                         _isAuthorization.update { false }
                         _isError.update { true }
                         _isServerError.update { false }
-                        Log.d("MyLog", "Error network in VM: $it")
                     }
 
                     else -> {
