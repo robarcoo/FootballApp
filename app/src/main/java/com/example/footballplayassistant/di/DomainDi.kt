@@ -4,6 +4,7 @@ import com.example.domain.usecases.auth.impl.CheckRecoveryCodeUseCaseImpl
 import com.example.domain.usecases.auth.impl.CheckRegistrationCodeUseCaseImpl
 import com.example.domain.usecases.auth.impl.CheckUserForAuthorizationUseCaseImpl
 import com.example.domain.usecases.auth.impl.CheckUserRegistrationStepOneUseCaseImpl
+import com.example.domain.usecases.auth.impl.RecoveryPasswordUseCaseImpl
 import com.example.domain.usecases.auth.impl.SaveUserToDBUseCaseImpl
 import com.example.domain.usecases.auth.impl.SendCodeToEmailUseCaseImpl
 import com.example.domain.usecases.auth.impl.SendCodeToPhoneUseCaseImpl
@@ -11,6 +12,7 @@ import com.example.domain.usecases.auth.interfaces.CheckRecoveryCodeUseCase
 import com.example.domain.usecases.auth.interfaces.CheckRegistrationCodeUseCase
 import com.example.domain.usecases.auth.interfaces.CheckUserForAuthorizationUseCase
 import com.example.domain.usecases.auth.interfaces.CheckUserRegistrationStepOneUseCase
+import com.example.domain.usecases.auth.interfaces.RecoveryPasswordUseCase
 import com.example.domain.usecases.auth.interfaces.SaveUserToDBUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToEmailUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToPhoneUseCase
@@ -46,5 +48,8 @@ val domainModule = module {
         SendCodeToPhoneUseCaseImpl(authenticationRepository = get())
     }
 
+    factory<RecoveryPasswordUseCase> {
+        RecoveryPasswordUseCaseImpl(authenticationRepository = get())
+    }
 
 }

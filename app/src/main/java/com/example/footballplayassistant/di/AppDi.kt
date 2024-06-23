@@ -14,7 +14,8 @@ val appModule = module {
             checkUserRegistrationStepOneUseCase = get(),
             saveUserToDBUseCase = get(),
             sendCodeToEmailUseCase = get(),
-            sendCodeToPhoneUseCase = get())
+            sendCodeToPhoneUseCase = get(),
+            recoveryPasswordUseCase = get())
     }
 //    viewModelOf(::AuthenticationViewModel)
 }
