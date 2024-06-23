@@ -80,6 +80,8 @@
     <string name="playLevel">Уровень игры</string>
     <string name="prefferedPosition">Предпочитаемая позиция</string>
 
+    <string name="smthGoWrong">Что-то пошло не так...</string>
+
     <string name="Phone">phone</string>
     <string name="Email">email</string>
 

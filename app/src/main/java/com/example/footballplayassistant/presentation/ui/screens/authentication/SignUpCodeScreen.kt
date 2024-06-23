@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +32,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,31 +45,47 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import com.example.footballplayassistant.viewmodels.AuthenticationViewModel
 import kotlinx.coroutines.delay
+import org.koin.androidx.compose.getViewModel
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpCodeScreen(sendCode: String) {
     val navController = LocalNavController.current!!
+    val context = LocalContext.current
+    val viewModel: AuthenticationViewModel = getViewModel()
     val (item1, item2, item3, item4) =
         remember { FocusRequester.createRefs() }
     val focusManager = LocalFocusManager.current
-    val OK = remember { mutableStateOf(false) }
+    val isCodeCorrect by viewModel.isCodeCorrect.collectAsState()
+    val isServerError by viewModel.isServerError.collectAsState(initial = false)
+    var resultCode = ""
+    val strRes = stringResource(id = R.string.Phone)
 
     var ticks by remember { mutableIntStateOf(60) }
     LaunchedEffect(Unit) {
-        while(ticks!=0) {
+        while (ticks != 0) {
             delay(1.seconds)
             ticks--
         }
+        if (ticks == 0)
+            navController.navigate(Route.SignUpEnterPhoneScreen.path)
     }
 
-    if (OK.value)
-        if (sendCode == stringResource(id = R.string.Phone))
-            navController.navigate(Route.SignUpStepOneScreen.path)
-        else
-            navController.navigate(Route.RecoveryPasswordScreen.path)
+    LaunchedEffect(isCodeCorrect) {
+        if (!isCodeCorrect)//change
+            if (sendCode == strRes)
+                navController.navigate(Route.SignUpStepOneScreen.path)
+            else
+                navController.navigate(Route.RecoveryPasswordScreen.path)
+    }
+    val str = stringResource(id = R.string.smthGoWrong)
+    LaunchedEffect(isServerError) {
+        if (isServerError)
+            Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
+    }
 
 
     Column(
@@ -84,7 +103,8 @@ fun SignUpCodeScreen(sendCode: String) {
         Text(
             text = stringResource(
                 if (sendCode == stringResource(id = R.string.Phone)) R.string.phoneCode
-                else R.string.emailCode),
+                else R.string.emailCode
+            ),
             style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.W400),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -99,11 +119,10 @@ fun SignUpCodeScreen(sendCode: String) {
                 .padding(horizontal = MaterialTheme.spacing.horizontal),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-            squareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
-            squareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
-            squareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
-            OK.value =
-                squareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
+            resultCode += squareTextField(itemStart = item1, itemNext = item2, focusManager = focusManager)
+            resultCode += squareTextField(itemStart = item2, itemNext = item3, focusManager = focusManager)
+            resultCode += squareTextField(itemStart = item3, itemNext = item4, focusManager = focusManager)
+            resultCode += squareTextField(itemStart = item4, itemNext = item1, focusManager = focusManager)
         }
 
         Text(
@@ -115,6 +134,11 @@ fun SignUpCodeScreen(sendCode: String) {
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
         )
+
+        LaunchedEffect(resultCode.length) {
+            if (resultCode.length == 4)
+                viewModel.checkRegistrationCode(resultCode)//тут тоже приходит ошибка сервера
+        }
     }
 }
 
@@ -123,7 +147,7 @@ fun squareTextField(
     itemStart: FocusRequester,
     itemNext: FocusRequester,
     focusManager: FocusManager
-): Boolean {
+): String {
     val textValue = remember { mutableStateOf("") }
     val maxChar = 1
 
@@ -163,5 +187,5 @@ fun squareTextField(
                 right = itemNext
             }
     )
-    return textValue.value != ""
+    return textValue.value
 }
