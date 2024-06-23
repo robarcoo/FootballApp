@@ -137,7 +137,10 @@ fun SignUpCodeScreen(sendCode: String) {
 
         LaunchedEffect(resultCode.length) {
             if (resultCode.length == 4)
-                viewModel.checkRegistrationCode(resultCode)//тут тоже приходит ошибка сервера
+                if (sendCode == strRes)
+                    viewModel.checkRegistrationCode(resultCode)//тут тоже приходит ошибка сервера
+                else
+                    viewModel.checkRecoveryCode(resultCode)
         }
     }
 }

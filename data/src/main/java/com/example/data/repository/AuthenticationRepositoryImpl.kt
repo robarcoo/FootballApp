@@ -1,6 +1,5 @@
 package com.example.data.repository
 
-import android.util.Log
 import com.example.data.services.ApiServiceAuthentication
 import com.example.domain.models.CommonAnswer
 import com.example.domain.models.Result
@@ -93,10 +92,7 @@ class AuthenticationRepositoryImpl(private val apiService: ApiServiceAuthenticat
                                 .toCommonAnswerUi()))
                         }
                     }
-                    else -> {
-                        Log.d("MyLog", "_isServerError reppp: ${response.status}")
-                        emit(Result.Error(value = Exception("errorrrr"))) }
-                }
+                    else -> { emit(Result.Error(value = Exception("error"))) } }
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }
