@@ -1,6 +1,5 @@
 package com.example.data.services
 
-import com.example.data.dto.ApiResponse
 import com.example.data.dto.FieldDto
 import com.example.domain.models.datasource.RemoteDataSource
 import io.ktor.client.HttpClient

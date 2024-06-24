@@ -4,13 +4,14 @@ import com.example.domain.repositories.CacheEntry
 import com.example.domain.repositories.CachePolicy
 import com.example.domain.repositories.CachePolicyRepository
 import com.example.data.dto.FieldDto
-import com.example.data.local.LocalDataSource
-import com.example.data.services.RemoteDataSource
 import com.example.domain.models.Result
+import com.example.domain.models.datasource.LocalDataSource
+import com.example.domain.models.datasource.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
 
 class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String, CacheEntry<FieldDto>>,
-                       private val fieldRemoteDataSource : RemoteDataSource<FieldDto>) :
+                       private val fieldRemoteDataSource : RemoteDataSource<FieldDto>
+) :
         CachePolicyRepository<FieldDto>(
             localDataSource = fieldLocalDataSource,
             remoteDataSource = fieldRemoteDataSource
