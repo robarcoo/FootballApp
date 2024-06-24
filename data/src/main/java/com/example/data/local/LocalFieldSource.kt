@@ -1,33 +1,36 @@
 package com.example.data.local
 
-import com.example.data.cache.CacheEntry
+import com.example.domain.repositories.CacheEntry
 import com.example.data.dto.FieldDto
+import com.example.domain.models.datasource.LocalDataSource
+import com.example.domain.models.field.FieldClass
+import io.ktor.client.call.body
 
 
-interface LocalDataSource<Key : Any, T> {
-    fun getAll() : MutableMap<String, T>
-    fun get(url : String) : T?
-    fun set(url : String, value: T)
-    fun remove(url : String)
-    fun clear()
-}
 
-class LocalFieldSource : LocalDataSource<String, CacheEntry<FieldDto>> {
-    private val fields = mutableMapOf<String, CacheEntry<FieldDto>>()
+class LocalFieldSource : LocalDataSource<Int, CacheEntry<FieldDto>> {
+    private val fields = mutableMapOf<Int, CacheEntry<FieldDto>>()
 
-    override fun getAll(): MutableMap<String, CacheEntry<FieldDto>> {
-        return fields
+    override fun getAll(): List<CacheEntry<FieldDto>> {
+        return fields.values.toList()
     }
-    override fun get(url : String): CacheEntry<FieldDto>? {
-        return fields[url]
+    override fun get(id : Int): CacheEntry<FieldDto>? {
+        return fields[id]
     }
 
-    override fun set(url : String, value: CacheEntry<FieldDto>) {
-        fields[url] = value
+    override fun set(id : Int, value: CacheEntry<FieldDto>) {
+        fields[id] = value
     }
 
-    override fun remove(url : String) {
-        fields.remove(url)
+    override suspend fun setAll(cacheList : List<CacheEntry<FieldDto>>) {
+        for (i in cacheList) {
+            val id = i.value.body<FieldClass>().id.toInt()
+            set(id, CacheEntry(id, i.value))
+        }
+    }
+
+    override fun remove(id : Int) {
+        fields.remove(id)
     }
 
     override fun clear() {

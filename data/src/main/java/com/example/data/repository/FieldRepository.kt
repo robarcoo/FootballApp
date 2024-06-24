@@ -1,13 +1,13 @@
 package com.example.data.repository
 
-import com.example.data.cache.CacheEntry
-import com.example.data.cache.CachePolicy
-import com.example.data.cache.CachePolicyRepository
-import com.example.data.dto.ApiResponse
+import com.example.domain.repositories.CacheEntry
+import com.example.domain.repositories.CachePolicy
+import com.example.domain.repositories.CachePolicyRepository
 import com.example.data.dto.FieldDto
 import com.example.data.local.LocalDataSource
 import com.example.data.services.RemoteDataSource
-import java.lang.reflect.Field
+import com.example.domain.models.Result
+import kotlinx.coroutines.flow.Flow
 
 class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String, CacheEntry<FieldDto>>,
                        private val fieldRemoteDataSource : RemoteDataSource<FieldDto>) :
@@ -17,28 +17,24 @@ class FieldRepository (private val fieldLocalDataSource : LocalDataSource<String
         ) {
 
 
-    suspend fun getField(url : String, cachePolicy: CachePolicy): FieldDto? {
-        return fetch(url, cachePolicy)
+    suspend fun getField(id : Int, cachePolicy: CachePolicy): Flow<Result> {
+        return fetch(id, cachePolicy)
 
     }
 
-    suspend fun getAllFields() : ApiResponse {
-        return getAll()
+    suspend fun getAllFields(cachePolicy: CachePolicy) : Flow<Result> {
+        return getAll(cachePolicy)
     }
 
-    suspend fun putField(url: String, data : FieldDto, cachePolicy: CachePolicy) : FieldDto {
-        return put(url, data, cachePolicy)
+    suspend fun putField(id : Int, data : FieldDto, cachePolicy: CachePolicy) : Flow<Result> {
+        return put(id, data, cachePolicy)
     }
 
-    suspend fun postField(key: String, data : FieldDto, cachePolicy: CachePolicy) : ApiResponse {
-        return post(key, data, cachePolicy)
+    suspend fun postField(id : Int, data : FieldDto, cachePolicy: CachePolicy) : Flow<Result> {
+        return post(id, data, cachePolicy)
     }
 
-    suspend fun deleteField(key: String) : Boolean {
-        return delete(key)
+    suspend fun deleteField(id : Int) : Flow<Result> {
+        return delete(id)
     }
-
-
-
-
         }

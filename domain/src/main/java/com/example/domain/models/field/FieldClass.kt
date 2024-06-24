@@ -1,10 +1,19 @@
-package com.example.data.dto
+package com.example.domain.models.field
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FieldDto (
+data class FieldClass(
+    @SerialName("ID")
+    val id: String,
+
+    @SerialName("UF_CREATED")
+    val ufCreated: String,
+
+    @SerialName("UF_STATUS")
+    val ufStatus: AreaTypeClass,
+
     @SerialName("UF_NAME")
     val ufName: String,
 
@@ -24,7 +33,7 @@ data class FieldDto (
     val ufPhone: String,
 
     @SerialName("UF_NEAR_METRO")
-    val ufNearMetro: Int?,
+    val ufNearMetro: MetroClass?,
 
     @SerialName("UF_SITE")
     val ufSite: String,
@@ -42,23 +51,42 @@ data class FieldDto (
     val ufWidth: Int?,
 
     @SerialName("UF_AREA_TYPE")
-    val ufAreaType: Int,
+    val ufAreaType: AreaTypeClass,
 
     @SerialName("UF_LIGHTING")
-    val ufLighting: Int,
+    val ufLighting: AreaTypeClass,
 
     @SerialName("UF_SHOWER")
     val ufShower: Boolean?,
 
     @SerialName("UF_IMAGES")
-    val ufImages: List<String>,
+    val ufImages: List<UfImage>,
 
     @SerialName("UF_COVER")
-    val ufCover: Int,
+    val ufCover: AreaTypeClass,
 
     @SerialName("UF_DRESSING_ROOMS")
-    val ufDressingRooms: Int,
+    val ufDressingRooms: AreaTypeClass,
 
     @SerialName("UF_STANDS")
     val ufStands: Int?,
+
+    @SerialName("UF_USER")
+    val ufUser: Long,
+
+    @SerialName("UF_RATING")
+    val ufRating: Float,
+
+    @SerialName("UF_TAGS")
+    val ufTags: List<UfTag>,
+
+    @SerialName("FAVORITE")
+    val favorite: Boolean
 )
+
+
+
+
+
+
+

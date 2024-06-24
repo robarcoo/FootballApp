@@ -1,6 +1,7 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
+    id("kotlinx-serialization")
     kotlin("plugin.serialization") version "1.8.21"
 }
 

@@ -32,6 +32,7 @@ val httpClientAndroid = HttpClient(Android) {
         ))
     }
     install(DefaultRequest) {
+        url("https://requestdesign.github.io/Footbool/")
         header(HttpHeaders.ContentType, ContentType.Application.Json)
     }
     install(HttpTimeout) {
