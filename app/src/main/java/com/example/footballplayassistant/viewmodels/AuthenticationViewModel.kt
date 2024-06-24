@@ -1,17 +1,18 @@
 package com.example.footballplayassistant.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.CommonAnswer
 import com.example.domain.models.Result
 import com.example.domain.models.auth.UserAuthorization
+import com.example.domain.models.auth.UserRecoveryPassword
 import com.example.domain.models.auth.UserRegistration
 import com.example.domain.models.auth.UserRegistrationStepOne
 import com.example.domain.usecases.auth.interfaces.CheckRecoveryCodeUseCase
 import com.example.domain.usecases.auth.interfaces.CheckRegistrationCodeUseCase
 import com.example.domain.usecases.auth.interfaces.CheckUserForAuthorizationUseCase
 import com.example.domain.usecases.auth.interfaces.CheckUserRegistrationStepOneUseCase
+import com.example.domain.usecases.auth.interfaces.RecoveryPasswordUseCase
 import com.example.domain.usecases.auth.interfaces.SaveUserToDBUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToEmailUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToPhoneUseCase
@@ -30,7 +31,8 @@ class AuthenticationViewModel(
     private val checkUserRegistrationStepOneUseCase: CheckUserRegistrationStepOneUseCase,
     private val saveUserToDBUseCase: SaveUserToDBUseCase,
     private val sendCodeToEmailUseCase: SendCodeToEmailUseCase,
-    private val sendCodeToPhoneUseCase: SendCodeToPhoneUseCase
+    private val sendCodeToPhoneUseCase: SendCodeToPhoneUseCase,
+    private val recoveryPasswordUseCase: RecoveryPasswordUseCase
 ) : ViewModel() {
 
     //signIn
@@ -116,8 +118,16 @@ class AuthenticationViewModel(
     fun updateConfirmPassword(value: String) {
         _confirmPassword.update { value }
     }
+
     private var _isAllCorrect = MutableStateFlow(false)
     val isAllCorrect: StateFlow<Boolean> = _isAllCorrect.asStateFlow()
+
+    //recovery password
+    private var _showDialog = MutableStateFlow(false)
+    val showDialog: StateFlow<Boolean> = _showDialog.asStateFlow()
+    fun updateShowDialog(value: Boolean){
+        _showDialog.update { value }
+    }
 
 
     fun signIn(user: UserAuthorization) {
@@ -138,16 +148,12 @@ class AuthenticationViewModel(
                             _isServerError.update { false }
                         }
                     }
-
                     is Result.ErrorNetwork -> {
                         _isAuthorization.update { false }
                         _isError.update { true }
                         _isServerError.update { false }
                     }
-
-                    else -> {
-                        _isServerError.update { true }
-                    }
+                    else -> { _isServerError.update { true } }
                 }
             }
         }
@@ -162,28 +168,18 @@ class AuthenticationViewModel(
                         val saveIt = it.copy()
                         val answer = saveIt.value as CommonAnswer
                         if (answer.status) {
-                            Log.d("MyLog", "isAllUnique success!")
                             _isAllUnique.update { true }
                             _isSendRequest.update { true }
                             _isServerError.update { false }
                         } else {
-                            Log.d("MyLog", "isAllUnique fail!")
                             _isAllUnique.update { false }
                             _isServerError.update { false }
                         }
                     }
 
-                    is Result.ErrorNetwork -> {
-                        Log.d("MyLog", "ErrorNetwork!")
-                        _isServerError.update { false }
-                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
 
-                    is Result.Error -> {
-                        val saveIt = it.copy()
-                        val answer = saveIt.value
-                        Log.d("MyLog", "_isServerError: ${answer.localizedMessage}")
-                        _isServerError.update { true }
-                    }
+                    is Result.Error -> { _isServerError.update { true } }
                 }
             }
         }
@@ -205,27 +201,35 @@ class AuthenticationViewModel(
                             _isServerError.update { false }
                         }
                     }
-
-                    is Result.ErrorNetwork -> {
-                        Log.d("MyLog", "ErrorNetwork!")
-                        _isServerError.update { false }
-                    }
-
-                    is Result.Error -> {
-                        val saveIt = it.copy()
-                        val answer = saveIt.value
-                        Log.d("MyLog", "_isServerError: ${answer.localizedMessage}")
-                        _isServerError.update { true }
-                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
                 }
             }
         }
     }
 
-    //    fun sendCodeToEmail(email: String) {
-//        viewModelScope.launch { sendCodeToEmailUseCase.execute(email = email)}
-//    }
-//
+    fun sendCodeToEmail(email: String) {
+        val res = sendCodeToEmailUseCase.execute(email = email)
+        viewModelScope.launch {
+            res.collect {
+                when (it) {
+                    is Result.Success<*> -> {
+                        val saveIt = it.copy()
+                        val answer = saveIt.value as CommonAnswer
+                        if (answer.status) {
+                            _isSendRequest.update { true }
+                            _isServerError.update { false }
+                        } else {
+                            _isServerError.update { false }
+                        }
+                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
+                }
+            }
+        }
+    }
+
     fun sendCodeToPhone(phone: String) {
         val res = sendCodeToPhoneUseCase.execute(phone = phone)
         viewModelScope.launch {
@@ -235,28 +239,16 @@ class AuthenticationViewModel(
                         val saveIt = it.copy()
                         val answer = saveIt.value as CommonAnswer
                         if (answer.status) {
-                            Log.d("MyLog", "phone number is unique!")
                             _isUnique.update { true }
                             _isSendRequest.update { true }
                             _isServerError.update { false }
                         } else {
-                            Log.d("MyLog", "phone number is NOT unique!")
                             _isUnique.update { false }
                             _isServerError.update { false }
                         }
                     }
-
-                    is Result.ErrorNetwork -> {
-                        Log.d("MyLog", "ErrorNetwork!")
-                        _isServerError.update { false }
-                    }
-
-                    is Result.Error -> {
-                        val saveIt = it.copy()
-                        val answer = saveIt.value
-                        Log.d("MyLog", "_isServerError: ${answer.message}")
-                        _isServerError.update { true }
-                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
                 }
             }
         }
@@ -271,35 +263,63 @@ class AuthenticationViewModel(
                         val saveIt = it.copy()
                         val answer = saveIt.value as CommonAnswer
                         if (answer.status) {
-                            Log.d("MyLog", "_isCodeCorrect success!")
                             _isCodeCorrect.update { true }
                             _isServerError.update { false }
                         } else {
-                            Log.d("MyLog", "_isCodeCorrect fail!")
                             _isCodeCorrect.update { false }
                             _isServerError.update { false }
                         }
                     }
-
-                    is Result.ErrorNetwork -> {
-                        Log.d("MyLog", "ErrorNetwork!")
-                        _isServerError.update { false }
-                    }
-
-                    is Result.Error -> {
-                        val saveIt = it.copy()
-                        val answer = saveIt.value
-                        Log.d("MyLog", "_isServerError: ${answer.localizedMessage}")
-                        _isServerError.update { true }
-                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
                 }
             }
         }
     }
-//
-//    fun checkRecoveryCode(code: Int) {
-//        viewModelScope.launch { checkRecoveryCodeUseCase.execute(code = code)}
-//    }
+
+    fun checkRecoveryCode(code: String) {
+        val res = checkRecoveryCodeUseCase.execute(code = code)
+        viewModelScope.launch {
+            res.collect {
+                when (it) {
+                    is Result.Success<*> -> {
+                        val saveIt = it.copy()
+                        val answer = saveIt.value as CommonAnswer
+                        if (answer.status) {
+                            _isSendRequest.update { true }
+                            _isServerError.update { false }
+                        } else {
+                            _isServerError.update { false }
+                        }
+                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
+                }
+            }
+        }
+    }
+
+    fun recoveryPassword(user: UserRecoveryPassword){
+        val res = recoveryPasswordUseCase.execute(user = user)
+        viewModelScope.launch {
+            res.collect {
+                when (it) {
+                    is Result.Success<*> -> {
+                        val saveIt = it.copy()
+                        val answer = saveIt.value as CommonAnswer
+                        if (answer.status) {
+                            _isSendRequest.update { true }
+                            _isServerError.update { false }
+                        } else {
+                            _isServerError.update { false }
+                        }
+                    }
+                    is Result.ErrorNetwork -> { _isServerError.update { false } }
+                    is Result.Error -> { _isServerError.update { true } }
+                }
+            }
+        }
+    }
 
 
 }

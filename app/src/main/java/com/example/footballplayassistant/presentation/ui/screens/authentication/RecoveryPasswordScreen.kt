@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.presentation.ui.screens.authentication
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -16,19 +17,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.domain.models.auth.UserRecoveryPassword
 import com.example.footballplayassistant.R
+import com.example.footballplayassistant.presentation.constants.PhoneEmail
 import com.example.footballplayassistant.presentation.customviews.buttons.CommonButton
 import com.example.footballplayassistant.presentation.customviews.dialogwindows.DialogScreen
 import com.example.footballplayassistant.presentation.customviews.headers.HeaderAuthentication
@@ -36,14 +41,20 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.customviews.textfields.CommonTextField
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
+import com.example.footballplayassistant.viewmodels.AuthenticationViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun RecoveryPasswordScreen() {
     val navController = LocalNavController.current!!
-    val showDialog = remember { mutableStateOf(false) }
-    val buttonEnable = remember { mutableStateOf(false) }
-    val newPasswordFirst = remember { mutableStateOf("") }
-    val newPasswordSecond = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val viewModel: AuthenticationViewModel = getViewModel()
+    val buttonEnable by viewModel.isButtonEnable.collectAsState(initial = false)
+    val isServerError by viewModel.isServerError.collectAsState(initial = false)
+    val isSendRequest by viewModel.isSendRequest.collectAsState(initial = false)
+    val showDialog by viewModel.showDialog.collectAsState(initial = false)
+    val newPasswordFirst by viewModel.password.collectAsState(initial = "")
+    val newPasswordSecond by viewModel.confirmPassword.collectAsState(initial = "")
 
     DialogScreen(
         header = stringResource(id = R.string.doneWithPoint),
@@ -51,8 +62,8 @@ fun RecoveryPasswordScreen() {
         greenButton = stringResource(id = R.string.onSignInScreen),
         image = R.drawable.ic_check_92,
         onClickGreen = { navController.navigate(Route.SignInScreen.path) },
-        onDismissRequest = { showDialog.value = false },
-        showDialog = showDialog.value
+        onDismissRequest = { viewModel.updateShowDialog(false) },
+        showDialog = showDialog
     )
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -87,18 +98,18 @@ fun RecoveryPasswordScreen() {
                     imageTrail = R.drawable.ic_eye_slash_24,
                     tintIcon = MaterialTheme.colorScheme.secondary,
                     isPassword = true,
-                    onClick = { newPasswordFirst.value = it },
+                    onClick = { viewModel.updatePassword(it) },
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
             }
 
             item {
                 AnimatedVisibility(
-                    visible = newPasswordFirst.value.isNotEmpty()
-                            && (newPasswordFirst.value.length < 8
-                            || !newPasswordFirst.value.contains("[A-Z]".toRegex())
-                            || !newPasswordFirst.value.contains("[a-z]".toRegex())
-                            || !newPasswordFirst.value.contains("[0-9]".toRegex()))
+                    visible = newPasswordFirst.isNotEmpty()
+                            && (newPasswordFirst.length < 8
+                            || !newPasswordFirst.contains("[A-Z]".toRegex())
+                            || !newPasswordFirst.contains("[a-z]".toRegex())
+                            || !newPasswordFirst.contains("[0-9]".toRegex()))
                 ) {
                     Row(
                         modifier = Modifier
@@ -119,7 +130,7 @@ fun RecoveryPasswordScreen() {
                         )
                     }
                 }
-                AnimatedVisibility(visible = newPasswordFirst.value.isEmpty()) {
+                AnimatedVisibility(visible = newPasswordFirst.isEmpty()) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -154,10 +165,10 @@ fun RecoveryPasswordScreen() {
                     imageTrail = R.drawable.ic_eye_slash_24,
                     tintIcon = MaterialTheme.colorScheme.secondary,
                     isPassword = true,
-                    onClick = { newPasswordSecond.value = it }
+                    onClick = { viewModel.updateConfirmPassword(it) }
                 )
-                AnimatedVisibility(visible = newPasswordFirst.value != newPasswordSecond.value
-                            && newPasswordSecond.value.isNotEmpty()) {
+                AnimatedVisibility(visible = newPasswordFirst != newPasswordSecond
+                            && newPasswordSecond.isNotEmpty()) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -180,17 +191,17 @@ fun RecoveryPasswordScreen() {
             }
 
             item {
-                LaunchedEffect(key1 = newPasswordFirst.value, key2 = newPasswordSecond.value){
-                    buttonEnable.value = (newPasswordFirst.value == newPasswordSecond.value
-                            && newPasswordFirst.value.isNotEmpty())
+                LaunchedEffect(key1 = newPasswordFirst, key2 = newPasswordSecond){
+                    viewModel.updateButtonEnable(newPasswordFirst == newPasswordSecond
+                            && newPasswordFirst.isNotEmpty())
                 }
                 val animatedContainerColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.secondary
+                    targetValue = if (buttonEnable) MaterialTheme.colorScheme.secondary
                     else MaterialTheme.colorScheme.tertiary,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
                 val animatedContentColor: Color by animateColorAsState(
-                    targetValue = if (buttonEnable.value) MaterialTheme.colorScheme.primary
+                    targetValue = if (buttonEnable) MaterialTheme.colorScheme.primary
                     else MaterialTheme.colorScheme.onSecondaryContainer,
                     animationSpec = tween(500, 0, LinearEasing)
                 )
@@ -198,11 +209,27 @@ fun RecoveryPasswordScreen() {
                     text = stringResource(R.string.save),
                     containerColor = animatedContainerColor,
                     contentColor = animatedContentColor,
-                    enable = buttonEnable.value,
-                    onClick = { showDialog.value = true },
+                    enable = buttonEnable,
+                    onClick = {
+                        viewModel.recoveryPassword(
+                            UserRecoveryPassword(
+                                userId = 0,//потом заменить
+                                password = newPasswordFirst
+                            )
+                        )
+                    },
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(top = 36.dp)
                 )
+                LaunchedEffect(isSendRequest) {
+                    if (isSendRequest)
+                        viewModel.updateShowDialog(true)
+                }
+                val str = stringResource(id = R.string.smthGoWrong)
+                LaunchedEffect(isServerError) {
+                    if (isServerError)
+                        Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
