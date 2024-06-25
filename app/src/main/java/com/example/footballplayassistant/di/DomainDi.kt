@@ -16,6 +16,16 @@ import com.example.domain.usecases.auth.interfaces.RecoveryPasswordUseCase
 import com.example.domain.usecases.auth.interfaces.SaveUserToDBUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToEmailUseCase
 import com.example.domain.usecases.auth.interfaces.SendCodeToPhoneUseCase
+import com.example.domain.usecases.field.impl.DeleteFieldUseCaseImpl
+import com.example.domain.usecases.field.impl.GetAllFieldsUseCaseImpl
+import com.example.domain.usecases.field.impl.GetFieldUseCaseImpl
+import com.example.domain.usecases.field.impl.PostFieldUseCaseImpl
+import com.example.domain.usecases.field.impl.PutFieldUseCaseImpl
+import com.example.domain.usecases.field.interfaces.DeleteFieldUseCase
+import com.example.domain.usecases.field.interfaces.GetAllFieldsUseCase
+import com.example.domain.usecases.field.interfaces.GetFieldUseCase
+import com.example.domain.usecases.field.interfaces.PostFieldUseCase
+import com.example.domain.usecases.field.interfaces.PutFieldUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -50,6 +60,26 @@ val domainModule = module {
 
     factory<RecoveryPasswordUseCase> {
         RecoveryPasswordUseCaseImpl(authenticationRepository = get())
+    }
+
+    factory<DeleteFieldUseCase> {
+        DeleteFieldUseCaseImpl(repository = get())
+    }
+
+    factory<GetFieldUseCase> {
+        GetFieldUseCaseImpl(repository = get())
+    }
+
+    factory<GetAllFieldsUseCase> {
+        GetAllFieldsUseCaseImpl(repository = get())
+    }
+
+    factory<PostFieldUseCase> {
+        PostFieldUseCaseImpl(repository = get())
+    }
+
+    factory<PutFieldUseCase> {
+        PutFieldUseCaseImpl(repository = get())
     }
 
 }

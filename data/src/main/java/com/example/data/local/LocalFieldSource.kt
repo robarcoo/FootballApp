@@ -8,21 +8,21 @@ import io.ktor.client.call.body
 
 
 
-class LocalFieldSource : LocalDataSource<Int, CacheEntry<FieldDto>> {
-    private val fields = mutableMapOf<Int, CacheEntry<FieldDto>>()
+class LocalFieldSource : LocalDataSource<Int, CacheEntry<FieldClass>> {
+    private val fields = mutableMapOf<Int, CacheEntry<FieldClass>>()
 
-    override fun getAll(): List<CacheEntry<FieldDto>> {
+    override fun getAll(): List<CacheEntry<FieldClass>> {
         return fields.values.toList()
     }
-    override fun get(id : Int): CacheEntry<FieldDto>? {
+    override fun get(id : Int): CacheEntry<FieldClass>? {
         return fields[id]
     }
 
-    override fun set(id : Int, value: CacheEntry<FieldDto>) {
+    override fun set(id : Int, value: CacheEntry<FieldClass>) {
         fields[id] = value
     }
 
-    override suspend fun setAll(cacheList : List<CacheEntry<FieldDto>>) {
+    override suspend fun setAll(cacheList : List<CacheEntry<FieldClass>>) {
         for (i in cacheList) {
             val id = i.value.body<FieldClass>().id.toInt()
             set(id, CacheEntry(id, i.value))

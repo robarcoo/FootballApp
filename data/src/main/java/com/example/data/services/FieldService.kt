@@ -2,6 +2,7 @@ package com.example.data.services
 
 import com.example.data.dto.FieldDto
 import com.example.domain.models.datasource.RemoteDataSource
+import com.example.domain.models.field.FieldClass
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.delete
@@ -17,7 +18,7 @@ import kotlinx.serialization.json.Json
 
 
 
-class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> {
+class FieldService(private val client: HttpClient) : RemoteDataSource<FieldClass> {
 
     private val ALL_FIELDS = "fields/getFields/"
     private val GET_FIELD = "fields/getField/"
@@ -33,7 +34,7 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> 
         return client.get(ALL_FIELDS).body()
     }
 
-    override suspend fun put(id: Int, data: FieldDto): HttpResponse {
+    override suspend fun put(id: Int, data: FieldClass): HttpResponse {
         return client.put("$UPDATE_FIELD$id")
         {
             contentType(ContentType.Application.Json)
@@ -41,7 +42,7 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldDto> 
         }.body()
     }
 
-    override suspend fun post(id : Int, data: FieldDto): HttpResponse {
+    override suspend fun post(id : Int, data: FieldClass): HttpResponse {
         return client.post("$CREATE_FIELD$id") {
             contentType(ContentType.Application.Json)
             setBody(data)
