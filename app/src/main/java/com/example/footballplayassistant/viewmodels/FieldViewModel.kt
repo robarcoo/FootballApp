@@ -62,8 +62,10 @@ class FieldViewModel(
                 when (it) {
                     is Result.Success<*> -> {
                         val saveIt = it.copy()
+
                         val answer = saveIt.value as DataAnswer<*>
-                        _state.update {field ->
+                        println("SUCCESS ${answer.data.toMutableList()}")
+                        _state.update { field ->
                             field.copy(fieldList = answer.data.toMutableList())
                         }
                         if (answer.status) {
@@ -72,8 +74,15 @@ class FieldViewModel(
                             _isServerError.update { false }
                         }
                     }
-                    is Result.ErrorNetwork -> { _isServerError.update { false } }
-                    is Result.Error -> { _isServerError.update { true } }
+                    is Result.ErrorNetwork -> {
+                        println("ERROR NETWORK")
+                        _isServerError.update { false }
+                    }
+                    is Result.Error -> {
+                        println("ERROR")
+                        _isServerError.update { true }
+                    }
+                    else -> println("RESULT $it")
                 }
             }
         }

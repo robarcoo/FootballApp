@@ -27,11 +27,11 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldClass
     private val DELETE_FIELD = "fields/deleteField/"
     
     override suspend fun fetch(id : Int): HttpResponse {
-        return client.get("$GET_FIELD$id").body()
+        return client.get("$GET_FIELD$id")
     }
 
     override suspend fun fetchAll(): HttpResponse {
-        return client.get(ALL_FIELDS).body()
+        return client.get(ALL_FIELDS)
     }
 
     override suspend fun put(id: Int, data: FieldClass): HttpResponse {
@@ -39,17 +39,17 @@ class FieldService(private val client: HttpClient) : RemoteDataSource<FieldClass
         {
             contentType(ContentType.Application.Json)
             setBody(data)
-        }.body()
+        }
     }
 
     override suspend fun post(id : Int, data: FieldClass): HttpResponse {
         return client.post("$CREATE_FIELD$id") {
             contentType(ContentType.Application.Json)
             setBody(data)
-        }.body()
+        }
     }
 
     override suspend fun delete(id : Int): HttpResponse {
-        return client.delete("$DELETE_FIELD$id").body()
+        return client.delete("$DELETE_FIELD$id")
     }
 }
