@@ -72,7 +72,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("io.ktor:ktor-client-core:2.3.11")
-    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+    implementation("androidx.lifecycle:lifecycle-common:2.8.2")
 
     //modules
     implementation(project(":domain"))

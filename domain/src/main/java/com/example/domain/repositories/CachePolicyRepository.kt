@@ -13,19 +13,11 @@ import kotlinx.serialization.SerializationException
 
 interface CachePolicyRepository<T> {
 
-
-
     fun fetch(id : Int, cachePolicy: CachePolicy = CachePolicy()): Flow<Result>
-
-
-
 
     fun put(id: Int, data: T, cachePolicy: CachePolicy): Flow<Result>
 
     fun post(id : Int, data: T, cachePolicy: CachePolicy): Flow<Result>
-
-
-
 
     fun delete(id : Int) : Flow<Result>
 

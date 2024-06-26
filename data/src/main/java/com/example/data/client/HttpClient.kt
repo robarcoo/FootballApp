@@ -18,7 +18,7 @@ import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-private const val NETWORK_TIME_OUT = 6_000L
+private const val NETWORK_TIME_OUT = 6_0000000L
 
 val httpClientAndroid = HttpClient(Android) {
     install(ContentNegotiation) {

@@ -18,7 +18,7 @@ data class FieldClass(
     val ufName: String,
 
     @SerialName("UF_TOWN")
-    val ufTown: Int,
+    val ufTown: MetroClass,
 
     @SerialName("UF_ADDRESS")
     val ufAddress: String,

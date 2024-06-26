@@ -1,5 +1,6 @@
 package com.example.domain.models
 
+import com.example.domain.models.field.FieldClass
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,5 +15,5 @@ data class DataAnswer<T>(
     @SerialName("time")
     val time: String,
     @SerialName("data")
-    val data : List<T>
+    val data : List<FieldClass>
 )

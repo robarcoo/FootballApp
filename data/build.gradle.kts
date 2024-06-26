@@ -50,6 +50,7 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
     implementation("androidx.compose.runtime:runtime-android:1.6.2")
     implementation("io.ktor:ktor-client-cio:2.3.11")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
 //    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     //module

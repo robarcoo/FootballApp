@@ -1,10 +1,12 @@
 package com.example.data.repository
 
+import android.util.Log
 import com.example.domain.repositories.CacheEntry
 import com.example.domain.repositories.CachePolicy
 import com.example.domain.repositories.CachePolicyRepository
 import com.example.data.dto.FieldDto
 import com.example.domain.models.CommonAnswer
+import com.example.domain.models.DataAnswer
 import com.example.domain.models.Result
 import com.example.domain.models.datasource.LocalDataSource
 import com.example.domain.models.datasource.RemoteDataSource
@@ -13,7 +15,10 @@ import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.yield
 import kotlinx.serialization.SerializationException
 
 class FieldRepository (private val localDataSource : LocalDataSource<String, CacheEntry<FieldClass>>,
@@ -21,13 +26,13 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
 ) :
         CachePolicyRepository<FieldClass> {
 
-    private suspend fun remoteCall(response: HttpResponse): Boolean {
+    private fun remoteCall(response: HttpResponse): Boolean {
         var isSuccessful = false
         flow {
             when (response.status) {
                 HttpStatusCode.OK -> {
                     try {
-                        emit(Result.Success(value = response.body<CommonAnswer>()))
+                        emit(Result.Success(value = response.body<DataAnswer<FieldClass>>()))
                         isSuccessful = true
                     } catch (e: SerializationException) {
                         emit(
@@ -38,7 +43,6 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                         )
                     }
                 }
-
                 else -> {
                     emit(Result.Error(value = Exception("error")))
                 }
@@ -61,7 +65,6 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                 CachePolicy.Type.ALWAYS -> {
                     localDataSource.get(id)?.value ?: fetchAndCache(id)
                 }
-
                 CachePolicy.Type.CLEAR -> {
                     localDataSource.get(id)?.value.also {
                         localDataSource.remove(id)
@@ -69,7 +72,6 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                 }
                 CachePolicy.Type.REFRESH ->
                     fetchAndCache(id)
-
                 CachePolicy.Type.EXPIRES -> {
                     localDataSource.get(id)?.let {
                         if ((it.createdAt + cachePolicy.expires) > System.currentTimeMillis()) {
@@ -85,7 +87,7 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
 
     }
 
-    private suspend fun fetchAndCache(id : Int): Flow<Result> {
+    private fun fetchAndCache(id : Int): Flow<Result> {
         return flow {
             val response = remoteDataSource.fetch(id = id)
             try {
@@ -98,7 +100,7 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
         }
     }
 
-    private suspend fun putAndCache(id : Int, data : FieldClass) : Flow<Result> {
+    private fun putAndCache(id : Int, data : FieldClass) : Flow<Result> {
         return flow {
             val response = remoteDataSource.put(id = id, data = data)
             try {
@@ -159,7 +161,7 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
             try {
                 if (remoteCall(response = response)) {
                     localDataSource.setAll(response.body<List<FieldClass>>().map { CacheEntry(
-                        it.hashCode(),
+                        it.id.toInt(),
                         value = response)
                     },
                     )

@@ -1,5 +1,6 @@
 package com.example.footballplayassistant.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.dto.FieldState
@@ -18,6 +19,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import com.example.domain.models.Result
 import com.example.domain.models.field.FieldClass
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class FieldViewModel(
@@ -27,20 +36,36 @@ class FieldViewModel(
     private val postFieldUseCase: PostFieldUseCase,
     private val putFieldUseCase: PutFieldUseCase) : ViewModel() {
 
-    var _state = MutableStateFlow(FieldState())
+    private var _state = MutableStateFlow(FieldState())
+    val state = _state.asStateFlow()
+
+    private var fields = MutableStateFlow<MutableList<FieldClass>>(mutableListOf())
+    fun setField(fieldList : MutableList<FieldClass>) {
+        fields.value = fieldList
+    }
+
 
     private var _isServerError = MutableStateFlow(false)
     val isServerError: StateFlow<Boolean> = _isServerError.asStateFlow()
+
+
+
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        getAllFields()
+    }
+
+    fun getAllFields() {
+        viewModelScope.launch {
             getAllFieldsUseCase.execute(
-                cachePolicy = CachePolicy(CachePolicy.Type.ALWAYS)
-            ).collect {
+                cachePolicy = CachePolicy(CachePolicy.Type.NEVER))
+                .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), Result).collect {
                 when (it) {
                     is Result.Success<*> -> {
                         val saveIt = it.copy()
                         val answer = saveIt.value as DataAnswer<*>
-                        _state.value.fieldList = answer.data.map { field -> field as FieldClass }.toMutableList()
+                        _state.update {field ->
+                            field.copy(fieldList = answer.data.toMutableList())
+                        }
                         if (answer.status) {
                             _isServerError.update { false }
                         } else {
@@ -52,7 +77,5 @@ class FieldViewModel(
                 }
             }
         }
-
-
     }
 }
