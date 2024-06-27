@@ -1,10 +1,8 @@
 package com.example.data.repository
 
-import android.util.Log
 import com.example.domain.repositories.CacheEntry
 import com.example.domain.repositories.CachePolicy
 import com.example.domain.repositories.CachePolicyRepository
-import com.example.data.dto.FieldDto
 import com.example.domain.models.CommonAnswer
 import com.example.domain.models.DataAnswer
 import com.example.domain.models.Result
@@ -15,16 +13,8 @@ import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.yield
 import kotlinx.serialization.SerializationException
-import java.lang.reflect.Field
 
 class FieldRepository (private val localDataSource : LocalDataSource<String, CacheEntry<FieldClass>>,
                        private val remoteDataSource : RemoteDataSource<FieldClass>
@@ -107,11 +97,17 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
         return flow {
             val response = remoteDataSource.fetch(id = id)
             try {
-                remoteCall(response = response)
-                localDataSource.set(response.body<DataAnswer<FieldClass>>().data.map {
-                    CacheEntry(key = it.id.toInt(), value = it)
-                }.first()
-                )
+                remoteCall(response = response).collect {result ->
+                    when (result) {
+                        is Result.Success<*> -> {
+                            val field = response.body<DataAnswer<FieldClass>>().data
+                            localDataSource.set(CacheEntry(field.first().id.toInt(), field.first()))
+                        }
+                        else -> {
+                            emit(Result.Error(value = Exception("error")))
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }
@@ -221,7 +217,9 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                 CachePolicy.Type.NEVER -> {
                     val response = remoteDataSource.put(id = id, data = data)
                     try {
-                        remoteCall(response)
+                        remoteCall(response).collect {result ->
+                            emit(result)
+                        }
                     } catch (e: Exception) {
                         emit(Result.Error(value = e))
                     }
@@ -229,20 +227,19 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                 CachePolicy.Type.ALWAYS -> {
                     putAndCache(id, data)
                 }
-
                 CachePolicy.Type.CLEAR -> {
                     val response = remoteDataSource.put(id = id, data = data)
                     try {
-                        remoteCall(response)
+                        remoteCall(response).collect {result ->
+                            emit(result)
+                        }
                         localDataSource.remove(id)
                     } catch (e: Exception) {
                         emit(Result.Error(value = e))
                     }
                 }
-
                 CachePolicy.Type.REFRESH ->
                     putAndCache(id, data)
-
 
                 null -> emit(Result.Error(value = Exception("error")))
             }
@@ -253,8 +250,17 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
         return flow {
             val response = remoteDataSource.post(id = id, data = data)
             try {
-                remoteCall(response = response)
-                //localDataSource.set(id, CacheEntry(key = id, value = response))
+                remoteCall(response = response).collect {result ->
+                    when (result) {
+                        is Result.Success<*> -> {
+                            val field = response.body<DataAnswer<FieldClass>>().data
+                            localDataSource.set(CacheEntry(field.first().id.toInt(), field.first()))
+                        }
+                        else -> {
+                            emit(Result.Error(value = Exception("error")))
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }
@@ -287,5 +293,4 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
             }
         }
     }
-
         }

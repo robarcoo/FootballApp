@@ -11,3 +11,4 @@ data class AreaTypeClass (
     @SerialName("VALUE")
     val value: String
 )
+

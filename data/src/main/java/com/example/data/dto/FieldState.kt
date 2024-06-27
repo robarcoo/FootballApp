@@ -12,7 +12,7 @@ data class FieldState(
     val ufCreated: String = "",
     val ufStatus: AreaTypeClass = AreaTypeClass(0, ""),
     val ufName: String = "",
-    val ufTown: Int = 0,
+    val ufTown: MetroClass? = null,
     val ufAddress: String = "",
     val ufOpening: String = "",
     val ufClosing: String = "",
