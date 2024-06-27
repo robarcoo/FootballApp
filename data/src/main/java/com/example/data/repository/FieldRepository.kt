@@ -24,12 +24,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.yield
 import kotlinx.serialization.SerializationException
+import java.lang.reflect.Field
 
 class FieldRepository (private val localDataSource : LocalDataSource<String, CacheEntry<FieldClass>>,
                        private val remoteDataSource : RemoteDataSource<FieldClass>
 ) :
         CachePolicyRepository<FieldClass> {
-
     private fun remoteCall(response: HttpResponse) = flow {
             when (response.status) {
                 HttpStatusCode.OK -> {
@@ -50,36 +50,53 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
             }
     }
 
+    private val REFRESH_TIME : Long = 300_000
+
+    private fun isExpired() : Boolean {
+        return System.currentTimeMillis() - localDataSource.getLastTimeRefreshed() > REFRESH_TIME
+    }
+
     override fun fetch(id : Int, cachePolicy: CachePolicy): Flow<Result> {
         return flow {
             when (cachePolicy.type) {
                 CachePolicy.Type.NEVER -> {
                     val response = remoteDataSource.fetch(id = id)
                     try {
-                        remoteCall(response)
+                        remoteCall(response).collect {
+                            result -> emit(result)
+                        }
                     } catch (e: Exception) {
                         emit(Result.Error(value = e))
                     }
                 }
                 CachePolicy.Type.ALWAYS -> {
-                    localDataSource.get(id)?.value ?: fetchAndCache(id)
+                    if (localDataSource.get(id)?.value == null || isExpired()) {
+                        fetchAndCache(id).collect { result ->
+                            emit(result)
+                        }
+                    } else {
+                        emit(Result.Success(DataAnswer(
+                            data = listOf(localDataSource.get(id)))))
+                    }
                 }
                 CachePolicy.Type.CLEAR -> {
-                    localDataSource.get(id)?.value.also {
+                    if (localDataSource.get(id)?.value == null) {
+                        val response = remoteDataSource.fetch(id = id)
+                        try {
+                            remoteCall(response).collect {
+                                    result -> emit(result)
+                            }
+                        } catch (e: Exception) {
+                            emit(Result.Error(value = e))
+                        }
+                    } else {
+                        emit(Result.Success(DataAnswer(
+                            data = listOf(localDataSource.get(id)))))
                         localDataSource.remove(id)
-                    }
+                        }
                 }
                 CachePolicy.Type.REFRESH ->
                     fetchAndCache(id)
-                CachePolicy.Type.EXPIRES -> {
-                    localDataSource.get(id)?.let {
-                        if ((it.createdAt + cachePolicy.expires) > System.currentTimeMillis()) {
-                            it.value
-                        } else {
-                            fetchAndCache(id)
-                        }
-                    } ?: fetchAndCache(id)
-                }
                 null -> emit(Result.Error(value = Exception("error")))
             }
         }
@@ -91,7 +108,10 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
             val response = remoteDataSource.fetch(id = id)
             try {
                 remoteCall(response = response)
-                localDataSource.set(id, CacheEntry(key = id, value = response))
+                localDataSource.set(response.body<DataAnswer<FieldClass>>().data.map {
+                    CacheEntry(key = it.id.toInt(), value = it)
+                }.first()
+                )
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }
@@ -102,8 +122,18 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
         return flow {
             val response = remoteDataSource.put(id = id, data = data)
             try {
-                remoteCall(response = response)
-                localDataSource.set(id, CacheEntry(key = id, value = response))
+                remoteCall(response = response).collect { result ->
+                    when (result) {
+                        is Result.Success<*> -> {
+                            emit(result)
+                            val field = response.body<DataAnswer<FieldClass>>().data
+                            localDataSource.set(CacheEntry(field.first().id.toInt(), field.first()))
+                        }
+                        else -> {
+                            emit(Result.Error(value = Exception("error")))
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }
@@ -124,57 +154,62 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                     }
                 }
                 CachePolicy.Type.ALWAYS -> {
-                    if (localDataSource.getAll().isEmpty()) {
-                        fetchAllAndCache()
+                    if (localDataSource.getAll().isEmpty() ||
+                        (System.currentTimeMillis() - localDataSource.getLastTimeRefreshed() > REFRESH_TIME)) {
+                        fetchAllAndCache().collect { result ->
+                            emit(result)
+                        }
+                    } else {
+                        emit(Result.Success(DataAnswer(
+                            data = localDataSource.getAll().map {
+                                it.value
+                            })))
                     }
                 }
-
                 CachePolicy.Type.CLEAR -> {
-                    localDataSource.getAll().also {
+                    if (localDataSource.getAll().isEmpty() ||
+                        (System.currentTimeMillis() - localDataSource.getLastTimeRefreshed() > REFRESH_TIME)) {
+                        val response = remoteDataSource.fetchAll()
+                        try {
+                            remoteCall(response).collect { result ->
+                                emit(result)
+                            }
+                        } catch (e: Exception) {
+                            emit(Result.Error(value = e))
+                        }
+                    } else {
+                        emit(Result.Success(DataAnswer(
+                            data = localDataSource.getAll().map {
+                                it.value
+                            })))
                         localDataSource.clear()
                     }
                 }
-
                 CachePolicy.Type.REFRESH ->
                     fetchAllAndCache()
-
-                CachePolicy.Type.EXPIRES -> {
-                    localDataSource.getAll().let {fields ->
-                        for (it in fields) {
-                            if ((it.createdAt + cachePolicy.expires) > System.currentTimeMillis()) {
-                                it.value
-                            } else {
-                                fetchAllAndCache()
-                            }
-                        }
-                    }
-                }
-                null -> emit(Result.Error(value = Exception("error")))
+                else -> emit(Result.Error(value = Exception("error")))
             }
         }
     }
 
-    private suspend fun fetchAllAndCache(): Flow<Result> {
-        println("INSIDE sadsadsadsd")
+    private fun fetchAllAndCache(): Flow<Result> {
         return flow {
             val response = remoteDataSource.fetchAll()
-            println("INSIDE flow")
             try {
                 remoteCall(response = response).collect { result ->
                     when (result) {
                         is Result.Success<*> -> {
-                            localDataSource.setAll(response.body<List<FieldClass>>().map {
-                                CacheEntry(
-                                    it.id.toInt(),
-                                    value = response
-                                )
+                            emit(result)
+                            localDataSource.setAll(response.body<DataAnswer<FieldClass>>().data.map {
+                                     CacheEntry(it.id.toInt(), it)
                             })
                         }
-                        else -> emit(Result.Error(value = Exception("error")))
+                        else -> {
+                            emit(Result.Error(value = Exception("error")))
+                        }
                     }
                 }
             } catch (e: Exception) {
-                println("INSIDE flowerror")
                 emit(Result.Error(value = e))
             }
         }
@@ -208,20 +243,7 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
                 CachePolicy.Type.REFRESH ->
                     putAndCache(id, data)
 
-                CachePolicy.Type.EXPIRES -> {
-                    localDataSource.get(id)?.let {
-                        if ((it.createdAt + cachePolicy.expires) > System.currentTimeMillis()) {
-                            val response = remoteDataSource.put(id = id, data = data)
-                            try {
-                                remoteCall(response)
-                            } catch (e: Exception) {
-                                emit(Result.Error(value = e))
-                            }
-                        } else {
-                            putAndCache(id, data)
-                        }
-                    } ?: putAndCache(id, data)
-                }
+
                 null -> emit(Result.Error(value = Exception("error")))
             }
         }
@@ -232,7 +254,7 @@ class FieldRepository (private val localDataSource : LocalDataSource<String, Cac
             val response = remoteDataSource.post(id = id, data = data)
             try {
                 remoteCall(response = response)
-                localDataSource.set(id, CacheEntry(key = id, value = response))
+                //localDataSource.set(id, CacheEntry(key = id, value = response))
             } catch (e: Exception) {
                 emit(Result.Error(value = e))
             }

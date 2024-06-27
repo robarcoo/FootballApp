@@ -7,13 +7,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class DataAnswer<T>(
     @SerialName("status")
-    val status: Boolean,
+    val status: Boolean = true,
     @SerialName("code")
-    val code: String,
+    val code: String = "200",
     @SerialName("message")
-    val message: String,
+    val message: String = "OK",
     @SerialName("time")
-    val time: String,
+    val time: String = "",
     @SerialName("data")
-    val data : List<FieldClass>
+    val data : List<T>
 )

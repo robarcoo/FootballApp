@@ -9,6 +9,5 @@ data class CachePolicy(
         ALWAYS,
         REFRESH,
         CLEAR,
-        EXPIRES
     }
 }

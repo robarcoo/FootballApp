@@ -4,13 +4,20 @@ import com.example.domain.repositories.CacheEntry
 import com.example.data.dto.FieldDto
 import com.example.domain.models.datasource.LocalDataSource
 import com.example.domain.models.field.FieldClass
+import com.example.domain.repositories.CachePolicy
 import io.ktor.client.call.body
 
 
 
 class LocalFieldSource : LocalDataSource<Int, CacheEntry<FieldClass>> {
     private val fields = mutableMapOf<Int, CacheEntry<FieldClass>>()
-
+    private var lastTimeRefreshed : Long = System.currentTimeMillis()
+    override fun getLastTimeRefreshed() : Long {
+        return lastTimeRefreshed
+    }
+    override fun setLastTimeRefreshed(currentTime : Long) {
+        lastTimeRefreshed = currentTime
+    }
     override fun getAll(): List<CacheEntry<FieldClass>> {
         return fields.values.toList()
     }
@@ -18,22 +25,24 @@ class LocalFieldSource : LocalDataSource<Int, CacheEntry<FieldClass>> {
         return fields[id]
     }
 
-    override fun set(id : Int, value: CacheEntry<FieldClass>) {
-        fields[id] = value
+    override fun set(value: CacheEntry<FieldClass>) {
+        setLastTimeRefreshed(System.currentTimeMillis())
+        fields[value.key] = value
     }
 
-    override suspend fun setAll(cacheList : List<CacheEntry<FieldClass>>) {
-        for (i in cacheList) {
-            val id = i.value.body<FieldClass>().id.toInt()
-            set(id, CacheEntry(id, i.value))
+    override fun setAll(list : List<CacheEntry<FieldClass>>) {
+        for (i in list) {
+            set(i)
         }
     }
 
     override fun remove(id : Int) {
+        setLastTimeRefreshed(System.currentTimeMillis())
         fields.remove(id)
     }
 
     override fun clear() {
+        setLastTimeRefreshed(System.currentTimeMillis())
         fields.clear()
     }
 }

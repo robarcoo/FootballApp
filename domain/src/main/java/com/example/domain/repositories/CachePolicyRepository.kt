@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.flow
 import com.example.domain.models.Result
 import com.example.domain.models.datasource.LocalDataSource
 import com.example.domain.models.datasource.RemoteDataSource
+import com.example.domain.models.field.FieldClass
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
@@ -28,7 +29,7 @@ interface CachePolicyRepository<T> {
 
 data class CacheEntry<T>(
     val key: Int,
-    val value: HttpResponse,
+    val value: T,
     val createdAt: Long = System.currentTimeMillis()
 )
 

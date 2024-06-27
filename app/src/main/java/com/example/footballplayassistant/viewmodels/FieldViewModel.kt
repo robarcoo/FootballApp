@@ -57,16 +57,15 @@ class FieldViewModel(
     fun getAllFields() {
         viewModelScope.launch {
             getAllFieldsUseCase.execute(
-                cachePolicy = CachePolicy(CachePolicy.Type.NEVER))
+                cachePolicy = CachePolicy(CachePolicy.Type.ALWAYS))
                 .stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000), Result).collect {
                 when (it) {
                     is Result.Success<*> -> {
                         val saveIt = it.copy()
 
                         val answer = saveIt.value as DataAnswer<*>
-                        println("SUCCESS ${answer.data.toMutableList()}")
                         _state.update { field ->
-                            field.copy(fieldList = answer.data.toMutableList())
+                            field.copy(fieldList = answer.data.toMutableList() as MutableList<FieldClass>)
                         }
                         if (answer.status) {
                             _isServerError.update { false }
