@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.models.field.FieldDto
 import com.example.data.dto.FieldState
 import com.example.domain.models.DataAnswer
+import com.example.domain.models.PostDataAnswer
 import com.example.domain.repositories.CachePolicy
 import com.example.domain.usecases.field.interfaces.DeleteFieldUseCase
 import com.example.domain.usecases.field.interfaces.GetAllFieldsUseCase
@@ -21,6 +22,7 @@ import com.example.domain.models.field.FieldClass
 import com.example.domain.models.field.MetroClass
 import com.example.domain.models.field.UfImage
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -107,7 +109,7 @@ class FieldViewModel(
     }
 
 
-    fun postField(data: FieldDto, cachePolicy: CachePolicy = CachePolicy(CachePolicy.Type.NEVER)) {
+    fun postField(data: FieldDto, ufUser: Long, cachePolicy: CachePolicy = CachePolicy(CachePolicy.Type.NEVER)) {
         viewModelScope.launch {
             postFieldUseCase.execute(data, cachePolicy).
                     stateIn(viewModelScope,
@@ -116,8 +118,11 @@ class FieldViewModel(
                             when (it) {
                                 is Result.Success<*> -> {
                                     val saveIt = it.copy()
-                                    val answer = saveIt.value as DataAnswer<*>
-                                    updateField(answer.data.map { result -> result as FieldClass }.first())
+                                    val answer = saveIt.value as PostDataAnswer
+                                    val saveField = mapFieldDtoToFieldClass(data, answer.data.id,
+                                        answer.time, ufUser)
+                                    _state.value.fieldList.add(saveField)
+
                                     if (answer.status) {
                                         _isServerError.update { false }
                                     } else {
@@ -136,6 +141,34 @@ class FieldViewModel(
         }
 
     }
+
+    fun deleteField(id : Int) {
+        viewModelScope.launch {
+            deleteFieldUseCase.execute(id).stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5_000),
+                Result.Loading(Unit)).collect {
+                when (it) {
+                    is Result.Success<*> -> {
+                        val saveIt = it.copy()
+                        val answer = saveIt.value as DataAnswer<*>
+                        updateField(answer.data.map { result -> result as FieldClass }.first())
+                        if (answer.status) {
+                            _isServerError.update { false }
+                        } else {
+                            _isServerError.update { false }
+                        }
+                    }
+                    is Result.ErrorNetwork -> {
+                        _isServerError.update { false }
+                    }
+                    is Result.Error -> {
+                        _isServerError.update { true }
+                    }
+                    else -> println("RESULT $it")
+                }
+            }
+            }
+        }
+
     fun getField(id : Int, cachePolicy: CachePolicy = CachePolicy(CachePolicy.Type.NEVER)) {
         viewModelScope.launch {
             getFieldUseCase.execute(id, cachePolicy = cachePolicy)

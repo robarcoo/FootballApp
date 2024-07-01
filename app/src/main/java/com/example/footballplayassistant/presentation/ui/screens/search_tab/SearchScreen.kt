@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -58,19 +59,68 @@ import com.example.footballplayassistant.presentation.customviews.headers.Header
 import com.example.footballplayassistant.presentation.navigation.LocalNavController
 import com.example.footballplayassistant.presentation.navigation.Route
 import com.example.footballplayassistant.presentation.ui.theme.spacing
+import com.example.footballplayassistant.viewmodels.FieldViewModel
+import androidx.activity.viewModels
+import androidx.compose.material3.Button
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.domain.models.field.FieldClass
+import org.koin.androidx.compose.getViewModel
 
 
 @Composable
 @Preview
 fun SearchScreen() {
+//    val field = FieldDto(
+//        ufName = "Test Field",
+//        ufTown = 1,
+//        ufAddress = "123 Test Street",
+//        ufOpening = "08:00",
+//        ufClosing = "22:00",
+//        ufPhone = "123-456-7890",
+//        ufNearMetro = 2,
+//        ufSite = "http://testsite.com",
+//        ufDescription = "This is a test field for sports.",
+//        ufPlayerCapacity = 100,
+//        ufLength = 50,
+//        ufWidth = 30,
+//        ufAreaType = 3,
+//        ufLighting = 4,
+//        ufShower = true,
+//        ufImages = listOf(
+//            "http://testsite.com/image1.jpg",
+//            "http://testsite.com/image2.jpg"
+//        ),
+//        ufCover = 4,
+//        ufDressingRooms = 5,
+//        ufStands = 5
+//    )
+    val viewModel : FieldViewModel = getViewModel()
+    val state by viewModel.state.collectAsState()
     val navController = LocalNavController.current!!
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(MaterialTheme.spacing.medium)) {
         HeaderWithBackButton(text = stringResource(id = R.string.search),
             onClickBack = { TODO() })
-        SearchBar (enabled = false) {
+        SearchBar (enabled = true) {
             navController.navigate(Route.FilterScreen.path)
+        }
+        LazyColumn (userScrollEnabled = true){
+            item(key = state.fieldList.size) {
+                var text by remember { mutableStateOf("TEXT") }
+                println(state.fieldList)
+                Button(onClick = {
+                    viewModel.getAllFields()
+                }) {
+                    Text("Нажми меня")
+                }
+                LaunchedEffect(Unit) {
+                    text = "${state.fieldList.toList()}"
+                }
+                Text(text)
+            }
         }
 //        LazyColumn (userScrollEnabled = true){
 //            item {
@@ -88,11 +138,11 @@ fun SearchScreen() {
 //            navController.navigate(Route.CreateFieldScreen.path)
 //        }
         // Если отключена геолокация
-        NoResultsScreen(title = stringResource(R.string.geolocationIsTurnedOff), 
-            description = stringResource(id = R.string.geolocationIsTurnedOffDescription), 
-            buttonText = stringResource(id = R.string.turnOnGeolocation)) {
-
-        }
+//        NoResultsScreen(title = stringResource(R.string.geolocationIsTurnedOff),
+//            description = stringResource(id = R.string.geolocationIsTurnedOffDescription),
+//            buttonText = stringResource(id = R.string.turnOnGeolocation)) {
+//
+//        }
 
     }
 }
