@@ -1,0 +1,50 @@
+package com.example.data.services
+
+import com.example.domain.models.datasource.RemoteDataSource
+import com.example.domain.models.field.FieldClass
+import io.ktor.client.HttpClient
+import io.ktor.client.request.delete
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.put
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+
+
+class FieldService(private val client: HttpClient) : RemoteDataSource<FieldClass> {
+
+    private val ALL_FIELDS = "fields/getFields/"
+    private val GET_FIELD = "fields/getField/"
+    private val UPDATE_FIELD = "fields/updateField/"
+    private val CREATE_FIELD = "fields/createField/"
+    private val DELETE_FIELD = "fields/deleteField/"
+    
+    override suspend fun fetch(id : Int): HttpResponse {
+        return client.get("$GET_FIELD$id")
+    }
+
+    override suspend fun fetchAll(): HttpResponse {
+        return client.get(ALL_FIELDS)
+    }
+
+    override suspend fun put(id: Int, data: FieldClass): HttpResponse {
+        return client.put("$UPDATE_FIELD$id")
+        {
+            contentType(ContentType.Application.Json)
+            setBody(data)
+        }
+    }
+
+    override suspend fun post(id : Int, data: FieldClass): HttpResponse {
+        return client.post("$CREATE_FIELD$id") {
+            contentType(ContentType.Application.Json)
+            setBody(data)
+        }
+    }
+
+    override suspend fun delete(id : Int): HttpResponse {
+        return client.delete("$DELETE_FIELD$id")
+    }
+}
