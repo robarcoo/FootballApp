@@ -125,26 +125,29 @@ https://github.com/robarcoo/FootballApp/assets/111498279/6a07738c-dd26-43db-a973
 
 ##  Modules
 <details open><summary>App</summary>
-Main module of the app, contains:
- - all configuration data 
- - dependenct injection using Koin 
- - UI using Jetpack Compose 
- - Navigation using Jetpack Navigation
- - ViewModels
+</br>
+<p>Main module of the app, contains:</p>
+<p>- all configuration data</p>
+<p>- dependenct injection using Koin</p> 
+<p>- UI using Jetpack Compose</p>
+<p>- Navigation using Jetpack Navigation</p>
+<p>- ViewModels</p>
 </details>
 
 <details open><summary>Data</summary>
-Module that works with data, contains:
- - Repositories implementation
- - Client using Ktor
- - Local cache storing that includes different cache policies, after 5 minutes cache is automatically renewed when sending a server request. 
+</br>
+<p>Module that works with data, contains:</p>
+<p>- Repositories implementation</p>
+<p>- Client using Ktor</p>
+<p>- Local cache storing that includes different cache policies, after 5 minutes cache is automatically renewed when sending a server request.</p>
 </details>
 
 <details open><summary>Domain</summary>
-Module that implements business logic, contains:
- - Repositories interfaces
- - Data classes 
- - Usecases
+</br>
+<p>Module that implements business logic, contains:</p>
+<p>- Repositories interfaces</p>
+<p>- Data classes</p>
+<p>- Usecases</p>
 </details>
 
 ##  Getting Started
