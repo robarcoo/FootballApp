@@ -39,7 +39,7 @@ Project I was working on during my internship, however all our team was laid off
 
 ##  Features
 
-- Fully implemented UI using Jetpack Compose that adapatable to different font and display sizes
+- Fully implemented UI using Jetpack Compose that adapts to different font and display sizes
 - Almost finished work with API using Ktor
 - Local caching (with different policies and expire time)
 - MVVM implemented with repository pattern, corouintes, flow and usecases
