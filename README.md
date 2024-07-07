@@ -33,7 +33,7 @@
 
 ##  Overview
 
-Project I was working on during my internship, however my employer scammed me, laying off almost all our team without paying, so I'll at least post it here. I'm not going to finish it.
+Project I was working on during my internship, however all our team was laid off, so I'll at least post it here. I'm not going to finish it.
 
 ---
 
